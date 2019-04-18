@@ -1,5 +1,5 @@
 {
-  "name": "@promaster/api-server",
+  "name": "@promaster-sdk/api-server",
   "version": "1.0.0",
   "main": "lib/index.js",
   "description": "Promaster API server reference implementation",
