@@ -1,6 +1,6 @@
 {
   "name": "@promaster/api-server",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "main": "lib/index.js",
   "description": "Promaster API server reference implementation",
   "repository": "https://gitlab.divid.se/promaster/promaster-edit/tree/master/packages/api-server",
