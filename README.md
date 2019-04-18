@@ -21,13 +21,13 @@ The Client API serves the data from the files recieved via the Publish API to a 
 
 ## How to install
 
-```
+```bash
 yarn add @promaster-sdk/api-server
 ```
 
 ## How to use the stand-alone server
 
-```
+```bash
 node lib/server.js
 ```
 
@@ -38,8 +38,6 @@ The server can be configured with environment variables as, see the [config sche
 The implementations in this package are exported as Koa middlewares. If you are using Koa, you can install and use these middlewares in your own server to make it become a Promaster Publish API target and also a Promater Client API server.
 
 ### Publish API
-
-The Koa middleware for the Publish API can be embedded into your existing Koa application.
 
 The example below will mount the Publish API middleware on the `/publish` endpoint and store published files in the `/files` folder. The middleware will create the folder if it does not exist:
 
@@ -55,9 +53,9 @@ app.use(mount("/publish", publishApi));
 
 ### Client REST API
 
-This repo has a reference implementation of a REST API that can serve the files recieved by the Publish API to front-end clients. How the clients call the API is [documented in full at the promaster documentation site](https://docs.promaster.se/client-rest-api).
+This repo has a reference implementation of a REST API that can serve the files recieved by the Publish API to front-end clients. How the clients call the API is [documented at the promaster documentation site](https://docs.promaster.se/client-rest-api).
 
-> NOTE: This is only a reference implementation, you can write your own REST API that suits the need of your application. For example you may need an authentication solution, or want to only serve parts of the data.
+> NOTE: This is only a reference implementation, you can write your own Client API that suits the need of your application. For example you may need an authentication solution, or want to only serve parts of the data.
 
 The Koa middleware for the Client REST API can be embedded into your existing Koa application like this:
 
@@ -86,7 +84,7 @@ In promaster-edit, register a new server on port 4500 with an authorization head
 
 ## How to publish new version
 
-```
+```bash
 yarn publish
 ```
 
