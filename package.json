@@ -48,7 +48,9 @@
     "build": "tsc",
     "clean": "rm -rf lib",
     "lint": "tslint './src/**/*.ts{,x}'",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "prepublishOnly": "yarn clean && yarn build",
+    "postversion": "git push --follow-tags"
   },
   "lint-staged": {
     "*.{ts,tsx}": "tslint",
