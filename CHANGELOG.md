@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v1.0.1] - 2019-04-18
+
+- Add missing types entry to package.json.
+
 ## [v1.0.0] - 2019-04-18
 
 - Initial release!

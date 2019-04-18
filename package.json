@@ -2,6 +2,7 @@
   "name": "@promaster-sdk/api-server",
   "version": "1.0.0",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "description": "Promaster API server reference implementation",
   "repository": "https://github.com/promaster-sdk/api-server",
   "author": "Divid Promaster AB <info@divid.se>",
