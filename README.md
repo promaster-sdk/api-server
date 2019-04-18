@@ -9,7 +9,7 @@ Promaster API server reference implementation
 
 ## Overview
 
-A Promaster API server has two end-points, one that recieves files from promaster-edit (Publish API), and one that serves data to front-end applications (Client API). This repo both contain a stand-alone server that implements both end-points, and middlewares that can be embedded as part of your own server.
+A Promaster API server has two end-points, one that recieves files from promaster-edit (Publish API), and one that serves data to front-end applications (Client API). This repo contain a stand-alone server that implements both end-points, and middlewares that can be embedded as part of your own server.
 
 ### Publish API
 
