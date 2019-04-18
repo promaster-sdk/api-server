@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "lib/index.js",
   "description": "Promaster API server reference implementation",
-  "repository": "https://gitlab.divid.se/promaster/promaster-edit/tree/master/packages/api-server",
-  "author": "Divid AB <info@divid.se>",
-  "license": "UNLICENSED",
+  "repository": "https://github.com/promaster-sdk/api-server",
+  "author": "Divid Promaster AB <info@divid.se>",
+  "license": "MIT",
   "devDependencies": {
     "@types/convict": "^4.2.0",
     "@types/koa": "^2.0.46",

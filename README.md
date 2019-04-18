@@ -22,7 +22,7 @@ The Client API serves the data from the files recieved via the Publish API to a 
 ## How to install
 
 ```
-yarn add @promaster/api-server
+yarn add @promaster-sdk/api-server
 ```
 
 ## How to use the stand-alone server
@@ -46,7 +46,7 @@ The example below will mount the Publish API middleware on the `/publish` endpoi
 ```typescript
 import * as Koa from "koa";
 import * as mount from "koa-mount";
-import { createPublishApiMiddleware } from "@promaster/api-server";
+import { createPublishApiMiddleware } from "@promaster-sdk/api-server";
 
 const app = new Koa();
 const publishApi = createPublishApiMiddleware(() => "/files");
@@ -64,7 +64,7 @@ The Koa middleware for the Client REST API can be embedded into your existing Ko
 ```js
 import * as Koa from "koa";
 import * as mount from "koa-mount";
-import { createClientRestMiddleware } from "@promaster/api-server";
+import { createClientRestMiddleware } from "@promaster-sdk/api-server";
 
 const app = new Koa();
 const clientRestApi = createClientRestMiddleware(() => "/files", () => "http://myserver/");
