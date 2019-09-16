@@ -6,6 +6,7 @@ import compress from "koa-compress";
 import * as Config from "./config";
 import { createPublishApiMiddleware } from "../publish";
 import { createClientRestMiddleware } from "../client-rest";
+import { createClientGraphQLMiddleware } from "../client-graphql";
 
 // tslint:disable-next-line:no-var-requires no-require-imports
 require("source-map-support").install();
@@ -30,6 +31,10 @@ async function startServer(config: Config.Config): Promise<void> {
   const baseUrl = `http://${config.ip}:${config.port}`;
   const clientApiRestApp = createClientRestMiddleware(() => config.filesPath, () => baseUrl);
   app.use(mount("/rest/v3", clientApiRestApp));
+
+  // GraphQL API
+  const clientApiGraphQLApp = createClientGraphQLMiddleware(() => config.filesPath, () => baseUrl);
+  app.use(mount("/graphql", clientApiGraphQLApp));
 
   // Start server
   app.listen(config.port, config.ip);
