@@ -9,7 +9,7 @@ import { RootValue } from "./resolvers";
 
 export function createClientGraphQLMiddleware(
   getFilesDir: GetFilesDir,
-  _getBaseUrl: GetBaseUrl,
+  getBaseUrl: GetBaseUrl,
   prefix?: string
 ): Koa.Middleware {
   const router = new Router({ prefix });
@@ -20,7 +20,7 @@ export function createClientGraphQLMiddleware(
       schema: schema,
       graphiql: true,
       rootValue: {} as RootValue,
-      context: createContext(ctx, getFilesDir),
+      context: createContext(ctx, getFilesDir, getBaseUrl),
       formatError: (error: GraphQLError) => {
         console.log("Error occured in GraphQL:");
         console.log(error);

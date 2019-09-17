@@ -11,11 +11,13 @@ export interface GetBaseUrl {
 export interface Context {
   readonly koaCtx: Koa.Context;
   readonly getFilesDir: GetFilesDir;
+  readonly getBaseUrl: GetBaseUrl;
 }
 
-export function createContext(koaCtx: Koa.Context, getFilesDir: GetFilesDir): Context {
+export function createContext(koaCtx: Koa.Context, getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Context {
   return {
     koaCtx,
     getFilesDir,
+    getBaseUrl,
   };
 }
