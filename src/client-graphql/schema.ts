@@ -9,13 +9,25 @@ import {
 } from "graphql";
 import { queryResolvers } from "./resolvers";
 
+const treeRelation = new GraphQLObjectType({
+  name: "TreeRelation",
+  fields: {
+    parentId: { type: GraphQLID },
+    childId: { type: new GraphQLNonNull(GraphQLID) },
+    sortNo: { type: new GraphQLNonNull(GraphQLInt) },
+  },
+});
+
 const treeType = new GraphQLObjectType({
   name: "Tree",
   fields: {
     name: { type: new GraphQLNonNull(GraphQLString) },
-    parent: { type: new GraphQLNonNull(GraphQLID) },
-    child: { type: new GraphQLNonNull(GraphQLID) },
-    sort_no: { type: new GraphQLNonNull(GraphQLInt) },
+    relations: {
+      type: new GraphQLNonNull(GraphQLList(treeRelation)),
+      resolve: (parent) => {
+        return parent.relations;
+      },
+    },
   },
 });
 
