@@ -1,23 +1,21 @@
-import { GraphQLObjectType, GraphQLString, GraphQLSchema } from "graphql";
+import {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLSchema,
+  GraphQLID,
+  GraphQLInt,
+  GraphQLNonNull,
+  GraphQLList,
+} from "graphql";
+import { queryResolvers } from "./resolvers";
 
-// Maps id to User object
-const fakeDatabase: { readonly [key: string]: { readonly id: string; readonly name: string } } = {
-  a: {
-    id: "a",
-    name: "alice",
-  },
-  b: {
-    id: "b",
-    name: "bob",
-  },
-};
-
-// Define the User type
-const userType = new GraphQLObjectType({
-  name: "User",
+const treeType = new GraphQLObjectType({
+  name: "Tree",
   fields: {
-    id: { type: GraphQLString },
-    name: { type: GraphQLString },
+    name: { type: new GraphQLNonNull(GraphQLString) },
+    parent: { type: new GraphQLNonNull(GraphQLID) },
+    child: { type: new GraphQLNonNull(GraphQLID) },
+    sort_no: { type: new GraphQLNonNull(GraphQLInt) },
   },
 });
 
@@ -25,15 +23,9 @@ const userType = new GraphQLObjectType({
 const queryType = new GraphQLObjectType({
   name: "Query",
   fields: {
-    user: {
-      type: userType,
-      // `args` describes the arguments that the `user` query accepts
-      args: {
-        id: { type: GraphQLString },
-      },
-      resolve: (_, { id }) => {
-        return fakeDatabase[id];
-      },
+    trees: {
+      type: new GraphQLList(treeType),
+      resolve: queryResolvers.trees,
     },
   },
 });

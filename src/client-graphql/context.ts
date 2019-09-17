@@ -1,8 +1,21 @@
-export interface Context {}
+import Koa from "koa";
 
-export function createContext(): Context {
+export interface GetFilesDir {
+  (ctx: Koa.Context): string;
+}
+
+export interface GetBaseUrl {
+  (ctx: Koa.Context): string;
+}
+
+export interface Context {
+  readonly koaCtx: Koa.Context;
+  readonly getFilesDir: GetFilesDir;
+}
+
+export function createContext(koaCtx: Koa.Context, getFilesDir: GetFilesDir): Context {
   return {
-    // pool,
-    // loaders: createLoaders(pool),
+    koaCtx,
+    getFilesDir,
   };
 }
