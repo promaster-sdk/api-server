@@ -65,8 +65,18 @@ export const markerResolvers = {
       const apiProducts = await getApiProductsForFileNames(koaCtx, getFilesDir, productFileNames);
       return apiProducts;
     } else {
+      // This should never happen
       return [];
     }
+  },
+};
+
+export const productResolvers = {
+  tables: async (_parent: Marker, _args: {}, _ctx: Context) => {
+    return {
+      table1: "olle",
+      table2: "kalle",
+    };
   },
 };
 
