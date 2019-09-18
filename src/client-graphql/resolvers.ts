@@ -8,12 +8,19 @@ import {
   TreeFile,
   getTypeAndIdentifierFromFileName,
   ReleaseFile,
+  buildReleaseFileName,
+  ProductFile,
+  parseProductFileName,
   parseTransactionFileName,
+  TransactionFile,
+  buildTransactionFileName,
 } from "../file-types";
-import { Context, GetFilesDir, GetBaseUrl } from "./context";
-import { Marker } from "./schema-types";
+import { Context, GetFilesDir } from "./context";
+import { Marker, Product } from "./schema-types";
 
 export type RootValue = {};
+
+type Mutable<T> = { -readonly [P in keyof T]: T[P] };
 
 const readFileAsync = promisify(fs.readFile);
 
@@ -29,20 +36,40 @@ export const queryResolvers = {
     return trees;
   },
   markers: async (_parent: RootValue, _args: {}, ctx: Context) => {
-    const { getFilesDir, getBaseUrl, koaCtx } = ctx;
+    const { getFilesDir, koaCtx } = ctx;
     const rootFileContent = await readJsonFile<RootFile>(getFilesDir(koaCtx), buildRootFileName());
     const apiMarkers: Array<Marker> = [];
     for (const m of Object.keys(rootFileContent.data.markers)) {
       const fileName = rootFileContent.refs[rootFileContent.data.markers[m]];
-      apiMarkers.push(await markerFileNameToApiMarker(koaCtx, getFilesDir, getBaseUrl, m, fileName));
+      apiMarkers.push(await markerFileNameToApiMarker(koaCtx, getFilesDir, m, fileName));
     }
     return apiMarkers;
   },
 };
 
 export const markerResolvers = {
-  products: async (_parent: RootValue, _args: {}, _ctx: Context) => {
-    return [];
+  products: async (parent: Marker, _args: {}, ctx: Context) => {
+    const { getFilesDir, koaCtx } = ctx;
+    // Check if this marker points to a release or a transaction
+    if (parent.releaseId) {
+      const releaseId: string = parent.releaseId;
+      // Read the release file
+      const releaseFile = await readJsonFile<ReleaseFile>(getFilesDir(koaCtx), buildReleaseFileName(releaseId));
+      // Fetch all product file names for the release
+      const productFileNames = Object.values(releaseFile.data.products).map((ref) => releaseFile.refs[ref]);
+      const apiProducts = await getApiProductsForFileNames(koaCtx, getFilesDir, productFileNames);
+      return apiProducts;
+    } else if (parent.transactionId) {
+      const tx: string = parent.transactionId;
+      // Read the transaction file
+      const transactionFile = await readJsonFile<TransactionFile>(getFilesDir(koaCtx), buildTransactionFileName(tx));
+      // Fetch all product file names for the release
+      const productFileNames = Object.values(transactionFile.data.products).map((ref) => transactionFile.refs[ref]);
+      const apiProducts = await getApiProductsForFileNames(koaCtx, getFilesDir, productFileNames);
+      return apiProducts;
+    } else {
+      return [];
+    }
   },
 };
 
@@ -65,30 +92,27 @@ async function treeFileNameToTreeFile(ctx: Koa.Context, getFilesDir: GetFilesDir
 async function markerFileNameToApiMarker(
   ctx: Koa.Context,
   getFilesDir: GetFilesDir,
-  getBaseUrl: GetBaseUrl,
   markerName: string,
   fileName: string
 ): Promise<Marker> {
   const typeAndId = getTypeAndIdentifierFromFileName(fileName);
-  let urlToProducts = "";
   let apiMarker: Marker;
   if (typeAndId.type === "release") {
     const releaseContent = await readJsonFile<ReleaseFile>(getFilesDir(ctx), fileName);
-    urlToProducts = `${getBaseUrl(ctx)}/releases/${typeAndId.identifier}`;
     apiMarker = {
       markerName: markerName,
       releaseName: releaseContent.data.name,
       releaseId: releaseContent.data.id.toUpperCase(),
-      products: urlToProducts,
+      // products: urlToProducts,
     };
   } else if (typeAndId.type === "transaction") {
     const parsed = parseTransactionFileName(fileName);
     const tx = parsed.tx;
-    urlToProducts = `${getBaseUrl(ctx)}/transactions/${tx}`;
+    // urlToProducts = `${getBaseUrl(ctx)}/transactions/${tx}`;
     apiMarker = {
       markerName: markerName,
       transactionId: tx.toString(),
-      products: urlToProducts,
+      // products: urlToProducts,
     };
   } else {
     throw new Error("Invalid file type.");
@@ -100,4 +124,47 @@ async function readJsonFile<T>(filesDir: string, fileName: string): Promise<T> {
   const fullPath = path.join(filesDir, fileName);
   const content = JSON.parse(await readFileAsync(fullPath, "utf8"));
   return content;
+}
+
+async function getApiProductsForFileNames(
+  ctx: Koa.Context,
+  getFilesDir: GetFilesDir,
+  productFileNames: ReadonlyArray<string>
+): Promise<ReadonlyArray<Product>> {
+  // Create all products in parallell
+  const apiProductPromises = productFileNames.map((f) => getApiProductWithOptionalTables(ctx, getFilesDir, f));
+  const apiProducts = await Promise.all(apiProductPromises);
+  return apiProducts;
+}
+
+async function getApiProductWithOptionalTables(
+  ctx: Koa.Context,
+  getFilesDir: GetFilesDir,
+  // getBaseUrl: GetBaseUrl,
+  productFileName: string
+  // legacyTableList: ReadonlyArray<string> | undefined
+): Promise<Product> {
+  // Read the product file
+  const productFile: ProductFile = await readJsonFile<ProductFile>(getFilesDir(ctx), productFileName);
+
+  // Build the ApiProduct object
+  const parsed = parseProductFileName(productFileName);
+  // const filesDir = getFilesDir(ctx);
+  // const baseUrl = getBaseUrl(ctx);
+  const p: Mutable<Product> = {
+    id: productFile.data.id.toUpperCase(),
+    key: productFile.data.key,
+    name: productFile.data.name,
+    retired: productFile.data.retired,
+    transactionId: parsed.tx,
+    // tables: `${baseUrl}/transactions/${parsed.tx}/products/${parsed.productId}/tables`,
+    // all_tables: `${baseUrl}/transactions/${parsed.tx}/products/${parsed.productId}`,
+  };
+  // If query-string parameter "tables" is specified, then we should return an extra
+  // key called "data" for every product that contains the table data.
+  // if (legacyTableList) {
+  //   const apiTables = await getApiProductTables(filesDir, baseUrl, productFile, legacyTableList);
+  //   p.data = apiTables;
+  // }
+  return p;
 }

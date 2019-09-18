@@ -6,6 +6,7 @@ import {
   GraphQLInt,
   GraphQLNonNull,
   GraphQLList,
+  GraphQLBoolean,
 } from "graphql";
 import { queryResolvers, markerResolvers } from "./resolvers";
 
@@ -32,7 +33,10 @@ const productType = new GraphQLObjectType({
   name: "Product",
   fields: {
     id: { type: new GraphQLNonNull(GraphQLID) },
+    key: { type: new GraphQLNonNull(GraphQLString) },
     name: { type: new GraphQLNonNull(GraphQLString) },
+    retired: { type: new GraphQLNonNull(GraphQLBoolean) },
+    transactionId: { type: new GraphQLNonNull(GraphQLString) },
   },
 });
 
@@ -40,8 +44,8 @@ const markerType = new GraphQLObjectType({
   name: "Marker",
   fields: {
     markerName: { type: new GraphQLNonNull(GraphQLString) },
-    releaseName: { type: GraphQLString },
     releaseId: { type: GraphQLString },
+    releaseName: { type: GraphQLString },
     transactionId: { type: GraphQLString },
     products: { type: new GraphQLNonNull(GraphQLList(productType)), resolve: markerResolvers.products },
   },
