@@ -16,8 +16,8 @@ export function createClientGraphQLMiddleware(
 
   router.all(
     "/",
-    graphqlHTTP((_request, _repsonse, ctx) => ({
-      schema: createSchema(),
+    graphqlHTTP(async (_request, _repsonse, ctx) => ({
+      schema: await createSchema(ctx, getFilesDir),
       graphiql: true,
       rootValue: {} as RootValue,
       context: createContext(ctx, getFilesDir, getBaseUrl),
