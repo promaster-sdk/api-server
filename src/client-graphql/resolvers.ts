@@ -20,8 +20,6 @@ import { Marker, Product } from "./schema-types";
 
 export type RootValue = {};
 
-type Mutable<T> = { -readonly [P in keyof T]: T[P] };
-
 const readFileAsync = promisify(fs.readFile);
 
 export const queryResolvers = {
