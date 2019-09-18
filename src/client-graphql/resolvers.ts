@@ -53,7 +53,6 @@ export const markerResolvers = {
     // Check if this marker points to a release or a transaction
     if (parent.releaseId) {
       const releaseId: string = parent.releaseId;
-      // Read the release file
       const releaseFile = await readJsonFile<ReleaseFile>(getFilesDir(koaCtx), buildReleaseFileName(releaseId));
       // Fetch all product file names for the release
       const productFileNames = Object.values(releaseFile.data.products).map((ref) => releaseFile.refs[ref]);
@@ -96,28 +95,23 @@ async function markerFileNameToApiMarker(
   fileName: string
 ): Promise<Marker> {
   const typeAndId = getTypeAndIdentifierFromFileName(fileName);
-  let apiMarker: Marker;
   if (typeAndId.type === "release") {
     const releaseContent = await readJsonFile<ReleaseFile>(getFilesDir(ctx), fileName);
-    apiMarker = {
+    return {
       markerName: markerName,
       releaseName: releaseContent.data.name,
       releaseId: releaseContent.data.id.toUpperCase(),
-      // products: urlToProducts,
     };
   } else if (typeAndId.type === "transaction") {
     const parsed = parseTransactionFileName(fileName);
     const tx = parsed.tx;
-    // urlToProducts = `${getBaseUrl(ctx)}/transactions/${tx}`;
-    apiMarker = {
+    return {
       markerName: markerName,
       transactionId: tx.toString(),
-      // products: urlToProducts,
     };
   } else {
     throw new Error("Invalid file type.");
   }
-  return apiMarker;
 }
 
 async function readJsonFile<T>(filesDir: string, fileName: string): Promise<T> {
@@ -132,39 +126,23 @@ async function getApiProductsForFileNames(
   productFileNames: ReadonlyArray<string>
 ): Promise<ReadonlyArray<Product>> {
   // Create all products in parallell
-  const apiProductPromises = productFileNames.map((f) => getApiProductWithOptionalTables(ctx, getFilesDir, f));
+  const apiProductPromises = productFileNames.map((f) => getProduct(ctx, getFilesDir, f));
   const apiProducts = await Promise.all(apiProductPromises);
   return apiProducts;
 }
 
-async function getApiProductWithOptionalTables(
-  ctx: Koa.Context,
-  getFilesDir: GetFilesDir,
-  // getBaseUrl: GetBaseUrl,
-  productFileName: string
-  // legacyTableList: ReadonlyArray<string> | undefined
-): Promise<Product> {
+async function getProduct(ctx: Koa.Context, getFilesDir: GetFilesDir, productFileName: string): Promise<Product> {
   // Read the product file
   const productFile: ProductFile = await readJsonFile<ProductFile>(getFilesDir(ctx), productFileName);
 
   // Build the ApiProduct object
   const parsed = parseProductFileName(productFileName);
-  // const filesDir = getFilesDir(ctx);
-  // const baseUrl = getBaseUrl(ctx);
-  const p: Mutable<Product> = {
-    id: productFile.data.id.toUpperCase(),
+  const p: Product = {
+    id: productFile.data.id.toLowerCase(),
     key: productFile.data.key,
     name: productFile.data.name,
     retired: productFile.data.retired,
     transactionId: parsed.tx,
-    // tables: `${baseUrl}/transactions/${parsed.tx}/products/${parsed.productId}/tables`,
-    // all_tables: `${baseUrl}/transactions/${parsed.tx}/products/${parsed.productId}`,
   };
-  // If query-string parameter "tables" is specified, then we should return an extra
-  // key called "data" for every product that contains the table data.
-  // if (legacyTableList) {
-  //   const apiTables = await getApiProductTables(filesDir, baseUrl, productFile, legacyTableList);
-  //   p.data = apiTables;
-  // }
   return p;
 }
