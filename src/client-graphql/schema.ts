@@ -122,12 +122,11 @@ async function buildTablesType(
 }
 
 function getUniqueTypeName(requestedName: string, usedTypeNames: Set<string>): string {
-  let nameToUse = requestedName;
   if (usedTypeNames.has(requestedName)) {
-    nameToUse = requestedName + "_MAKEUNIQUE";
+    return getUniqueTypeName(requestedName + "A", usedTypeNames);
   }
-  usedTypeNames.add(nameToUse);
-  return nameToUse;
+  usedTypeNames.add(requestedName);
+  return requestedName;
 }
 
 async function buildTableType(
