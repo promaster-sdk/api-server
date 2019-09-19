@@ -7,9 +7,7 @@ import {
   parseTransactionFileName,
   ProductFile,
   ProductTableFile,
-  buildReleaseFileName,
   TransactionFile,
-  buildTransactionFileName,
 } from "../file-types";
 import { Context, ReadJsonFile } from "./context";
 import { Marker, Product, Modules } from "./schema-types";
@@ -37,6 +35,7 @@ export const queryResolvers = {
         markerName: markerName,
         releaseName: releaseContent.data.name,
         releaseId: releaseContent.data.id.toUpperCase(),
+        _fileName: markerFileName,
       };
     } else if (typeAndId.type === "transaction") {
       const parsed = parseTransactionFileName(markerFileName);
@@ -44,6 +43,7 @@ export const queryResolvers = {
       return {
         markerName: markerName,
         tx: tx.toString(),
+        _fileName: markerFileName,
       };
     } else {
       throw new Error("Invalid file type.");
@@ -54,10 +54,8 @@ export const queryResolvers = {
 export const markerResolvers = {
   products: async (parent: Marker, _args: {}, ctx: Context) => {
     const { readJsonFile } = ctx;
-    // Check if this marker points to a release or a transaction
-    const { releaseId, tx } = parent;
-    const productFileNames = await getMarkerProductFileNames(readJsonFile, releaseId, tx);
-    // Create all products in parallell
+    const releaseFile = await readJsonFile<ReleaseFile | TransactionFile>(parent._fileName);
+    const productFileNames = Object.values(releaseFile.data.products).map((ref) => releaseFile.refs[ref]);
     const apiProductPromises = productFileNames.map((f) => getProduct(readJsonFile, f));
     const apiProducts = await Promise.all(apiProductPromises);
     return apiProducts;
@@ -91,21 +89,4 @@ export const productResolvers = {
 async function getProduct(readJsonFile: ReadJsonFile, productFileName: string): Promise<Product> {
   const productFile: ProductFile = await readJsonFile<ProductFile>(productFileName);
   return { ...productFile.data, _fileName: productFileName };
-}
-
-async function getMarkerProductFileNames(
-  readJsonFile: ReadJsonFile,
-  releaseId?: string,
-  transactionId?: string
-): Promise<ReadonlyArray<string>> {
-  if (releaseId) {
-    const releaseFile = await readJsonFile<ReleaseFile>(buildReleaseFileName(releaseId));
-    return Object.values(releaseFile.data.products).map((ref) => releaseFile.refs[ref]);
-  } else if (transactionId) {
-    const transactionFile = await readJsonFile<TransactionFile>(buildTransactionFileName(transactionId));
-    return Object.values(transactionFile.data.products).map((ref) => transactionFile.refs[ref]);
-  } else {
-    // This should never happen
-    return [];
-  }
 }
