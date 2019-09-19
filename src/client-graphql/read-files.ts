@@ -1,13 +1,11 @@
 import { Product } from "./schema-types";
 import {
-  getTypeAndIdentifierFromFileName,
   ReleaseFile,
   buildReleaseFileName,
   TransactionFile,
   buildTransactionFileName,
   ProductFile,
   ProductTableFile,
-  TreeFile,
 } from "../file-types";
 import { ReadJsonFile } from "./context";
 
@@ -56,20 +54,4 @@ export async function getProductTables(
   const promises = tableFileNames.map((f) => readJsonFile<ProductTableFile>(f));
   const tableFilesContent: ReadonlyArray<ProductTableFile> = await Promise.all(promises);
   return tableFilesContent;
-}
-
-export async function treeFileNameToTreeFile(readJsonFile: ReadJsonFile, fileName: string): Promise<TreeFile> {
-  const typeAndId = getTypeAndIdentifierFromFileName(fileName);
-  let apiTree: TreeFile;
-  if (typeAndId.type === "tree") {
-    const treeContent = await readJsonFile<TreeFile>(fileName);
-    apiTree = {
-      id: treeContent.id,
-      name: treeContent.name,
-      relations: treeContent.relations,
-    };
-  } else {
-    throw new Error("Invalid file type.");
-  }
-  return apiTree;
 }

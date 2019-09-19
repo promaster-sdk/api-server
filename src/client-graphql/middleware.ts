@@ -7,7 +7,7 @@ import compose from "koa-compose";
 import graphqlHTTP from "koa-graphql";
 import { GraphQLError } from "graphql";
 import { createSchema } from "./schema";
-import { GetFilesDir, GetBaseUrl, createContext } from "./context";
+import { GetBaseUrl, createContext } from "./context";
 import { RootValue } from "./resolvers";
 import { buildRootFileName, RootFile } from "../file-types";
 
@@ -18,6 +18,10 @@ export const readJsonFile = <T>(filesDir: string) => async (fileName: string): P
   const content = JSON.parse(await readFileAsync(fullPath, "utf8"));
   return content;
 };
+
+export interface GetFilesDir {
+  (ctx: Koa.Context): string;
+}
 
 export function createClientMultiMarkerGraphQLMiddleware(
   getFilesDir: GetFilesDir,
@@ -65,7 +69,7 @@ function createGraphQLMiddleware(
     schema: await createSchema(readJsonFile(getFilesDir(ctx)), markerFileName),
     graphiql: true,
     rootValue: {} as RootValue,
-    context: createContext(ctx, getFilesDir, getBaseUrl, markerFileName, marker, readJsonFile(getFilesDir(ctx))),
+    context: createContext(getBaseUrl, markerFileName, marker, readJsonFile(getFilesDir(ctx))),
     formatError: (error: GraphQLError) => {
       console.log("Error occured in GraphQL:");
       console.log(error);

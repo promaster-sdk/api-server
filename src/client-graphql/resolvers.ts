@@ -10,7 +10,7 @@ import {
 } from "../file-types";
 import { Context } from "./context";
 import { Marker, Product, Modules } from "./schema-types";
-import { getProducts, getMarkerProductFileNames, treeFileNameToTreeFile } from "./read-files";
+import { getProducts, getMarkerProductFileNames } from "./read-files";
 
 export type RootValue = {};
 
@@ -21,7 +21,8 @@ export const queryResolvers = {
     const trees: Array<TreeFile> = [];
     for (const t of Object.keys(rootFileContent.data.trees)) {
       const fileName = rootFileContent.refs[rootFileContent.data.trees[t]];
-      trees.push(await treeFileNameToTreeFile(readJsonFile, fileName));
+      const treeContent = await readJsonFile<TreeFile>(fileName);
+      trees.push(treeContent);
     }
     return trees;
   },
