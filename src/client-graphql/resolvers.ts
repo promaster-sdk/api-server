@@ -78,28 +78,8 @@ export const productResolvers = {
         tablesByModule[t.data.module] = moduleWithTables;
       }
       const test1 = t.data.rows.map((values) => Object.fromEntries(t.data.columns.map((c, i) => [c.name, values[i]])));
-      console.log("test1", test1);
-      // moduleWithTables[t.data.name] = [{ sort_no: "11", name: "sdafdsf" }];
       moduleWithTables[t.data.name] = test1;
-      // let tableRows = moduleWithTables[t.data.name];
-      // if (!tableRows) {
-      //   tableRows = [];
-      //   moduleWithTables[t.data.name] = tableRows;
-      // }
-      //tableRows.push();
     }
-
-    // const tablesPerModule = await getUniqueTableDefinitionsPerModule(productFileNames, koaCtx, getFilesDir);
-    // const fields: GraphQLFieldConfigMap<unknown, unknown, unknown> = {};
-    // for (const [n, v] of Object.entries(tablesPerModule)) {
-    //   const moduleFieldName = toSafeName(n);
-    //   fields[moduleFieldName] = { type: await buildModuleType(moduleFieldName, v, usedTypeNames) };
-    // }
-    // const tablesType = new GraphQLObjectType({ name: getUniqueTypeName("Modules", usedTypeNames), fields });
-    // return tablesType;
-
-    // console.log("tablesByModule", tablesByModule);
-
     return tablesByModule;
   },
 };
