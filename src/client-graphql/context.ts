@@ -12,12 +12,22 @@ export interface Context {
   readonly koaCtx: Koa.Context;
   readonly getFilesDir: GetFilesDir;
   readonly getBaseUrl: GetBaseUrl;
+  readonly markerFileName: string;
+  readonly markerName: string;
 }
 
-export function createContext(koaCtx: Koa.Context, getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Context {
+export function createContext(
+  koaCtx: Koa.Context,
+  getFilesDir: GetFilesDir,
+  getBaseUrl: GetBaseUrl,
+  markerFileName: string,
+  markerName: string
+): Context {
   return {
     koaCtx,
     getFilesDir,
     getBaseUrl,
+    markerFileName,
+    markerName,
   };
 }

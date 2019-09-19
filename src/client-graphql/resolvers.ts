@@ -1,14 +1,15 @@
 import Koa from "koa";
-import { RootFile, buildRootFileName, TreeFile, getTypeAndIdentifierFromFileName } from "../file-types";
+import {
+  RootFile,
+  buildRootFileName,
+  TreeFile,
+  getTypeAndIdentifierFromFileName,
+  ReleaseFile,
+  parseTransactionFileName,
+} from "../file-types";
 import { Context, GetFilesDir } from "./context";
 import { Marker } from "./schema-types";
-import {
-  readJsonFile,
-  getMarkerForReleaseOrTransactionFileName,
-  toSafeName,
-  getProducts,
-  getMarkerProductFileNames,
-} from "./read-files";
+import { readJsonFile, getProducts, getMarkerProductFileNames } from "./read-files";
 
 export type RootValue = {};
 
@@ -23,41 +24,35 @@ export const queryResolvers = {
     }
     return trees;
   },
-  // markers: async (_parent: RootValue, _args: {}, ctx: Context) => {
-  //   const { getFilesDir, koaCtx } = ctx;
-  //   const rootFileContent = await readJsonFile<RootFile>(getFilesDir(koaCtx), buildRootFileName());
-  //   const apiMarkers: Array<Marker> = [];
-  //   for (const m of Object.keys(rootFileContent.data.markers)) {
-  //     const fileName = rootFileContent.refs[rootFileContent.data.markers[m]];
-  //     apiMarkers.push(await markerFileNameToApiMarker(koaCtx, getFilesDir, m, fileName));
-  //   }
-  //   return apiMarkers;
-  // },
+  marker: async (_parent: RootValue, _args: {}, ctx: Context): Promise<Marker> => {
+    const { getFilesDir, koaCtx, markerFileName, markerName } = ctx;
+    const typeAndId = getTypeAndIdentifierFromFileName(markerFileName);
+    if (typeAndId.type === "release") {
+      const releaseContent = await readJsonFile<ReleaseFile>(getFilesDir(koaCtx), markerFileName);
+      return {
+        markerName: markerName,
+        releaseName: releaseContent.data.name,
+        releaseId: releaseContent.data.id.toUpperCase(),
+      };
+    } else if (typeAndId.type === "transaction") {
+      const parsed = parseTransactionFileName(markerFileName);
+      const tx = parsed.tx;
+      return {
+        markerName: markerName,
+        tx: tx.toString(),
+      };
+    } else {
+      throw new Error("Invalid file type.");
+    }
+  },
 };
-
-export async function markersResolver(
-  _parent: RootValue,
-  _args: {},
-  ctx: Context
-): Promise<{ readonly [markerName: string]: unknown }> {
-  const { getFilesDir, koaCtx } = ctx;
-  const rootFileContent = await readJsonFile<RootFile>(getFilesDir(koaCtx), buildRootFileName());
-  const markers: { [markerName: string]: unknown } = {};
-  for (const m of Object.keys(rootFileContent.data.markers)) {
-    const fileName = rootFileContent.refs[rootFileContent.data.markers[m]];
-    const marker = await getMarkerForReleaseOrTransactionFileName(koaCtx, getFilesDir, m, fileName);
-    const safeMarkerName = toSafeName(marker.markerName);
-    markers[safeMarkerName] = marker;
-  }
-  return markers;
-}
 
 export const markerResolvers = {
   products: async (parent: Marker, _args: {}, ctx: Context) => {
     const { getFilesDir, koaCtx } = ctx;
     // Check if this marker points to a release or a transaction
-    const { releaseId, transactionId } = parent;
-    const productFileNames = await getMarkerProductFileNames(koaCtx, getFilesDir, releaseId, transactionId);
+    const { releaseId, tx } = parent;
+    const productFileNames = await getMarkerProductFileNames(koaCtx, getFilesDir, releaseId, tx);
     return getProducts(koaCtx, getFilesDir, productFileNames);
   },
 };

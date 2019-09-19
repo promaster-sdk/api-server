@@ -9,20 +9,26 @@ import {
   GraphQLBoolean,
   GraphQLFieldConfigMap,
 } from "graphql";
-import { queryResolvers, markerResolvers, productResolvers, markersResolver } from "./resolvers";
-import { RootFile, buildRootFileName, ProductFile, ProductTableFile, ProductTableFileColumn } from "../file-types";
+import { queryResolvers, markerResolvers, productResolvers } from "./resolvers";
+import { ProductFile, ProductTableFile, ProductTableFileColumn, ReleaseFile, TransactionFile } from "../file-types";
 import { GetFilesDir } from "./context";
 import Koa from "koa";
-import {
-  getMarkerForReleaseOrTransactionFileName,
-  readJsonFile,
-  toSafeName,
-  getMarkerProductFileNames,
-  getProductTables,
-} from "./read-files";
-import { Marker } from "./schema-types";
+import { readJsonFile, toSafeName, getProductTables } from "./read-files";
 
-export async function createSchema(koaCtx: Koa.Context, getFilesDir: GetFilesDir): Promise<GraphQLSchema> {
+export async function createSchema(
+  koaCtx: Koa.Context,
+  getFilesDir: GetFilesDir,
+  releaseOrTransactionFileName: string
+): Promise<GraphQLSchema> {
+  // Read the file that the marker points to, it is either a Release or Transaction file
+  const releaseOrTransaction = await readJsonFile<ReleaseFile | TransactionFile>(
+    getFilesDir(koaCtx),
+    releaseOrTransactionFileName
+  );
+  const productFileNames = Object.values(releaseOrTransaction.data.products).map(
+    (ref) => releaseOrTransaction.refs[ref]
+  );
+
   const treeRelation = new GraphQLObjectType({
     name: "TreeRelation",
     fields: {
@@ -49,9 +55,9 @@ export async function createSchema(koaCtx: Koa.Context, getFilesDir: GetFilesDir
         type: new GraphQLList(treeType),
         resolve: queryResolvers.trees,
       },
-      markers: {
-        type: await buildMarkersType(koaCtx, getFilesDir),
-        resolve: markersResolver,
+      marker: {
+        type: await buildMarkerType(koaCtx, getFilesDir, productFileNames),
+        resolve: queryResolvers.marker,
       },
     },
   });
@@ -59,43 +65,15 @@ export async function createSchema(koaCtx: Koa.Context, getFilesDir: GetFilesDir
   return new GraphQLSchema({ query: queryType });
 }
 
-// Every marker has a different schema since the products in the marker have different tables etc.
-export async function buildMarkersType(koaCtx: Koa.Context, getFilesDir: GetFilesDir): Promise<GraphQLObjectType> {
-  // Read all markers
-  const rootFileContent = await readJsonFile<RootFile>(getFilesDir(koaCtx), buildRootFileName());
-  const fields: GraphQLFieldConfigMap<unknown, unknown, unknown> = {};
-
-  for (const m of Object.keys(rootFileContent.data.markers)) {
-    const fileName = rootFileContent.refs[rootFileContent.data.markers[m]];
-    const marker = await getMarkerForReleaseOrTransactionFileName(koaCtx, getFilesDir, m, fileName);
-    const safeMarkerName = toSafeName(marker.markerName);
-    const markerType = await buildMarkerType(koaCtx, getFilesDir, safeMarkerName, marker);
-    fields[safeMarkerName] = { type: markerType };
-  }
-
-  // const m = "ken";
-  // const fileName = rootFileContent.refs[rootFileContent.data.markers[m]];
-  // const marker = await getMarkerForReleaseOrTransactionFileName(koaCtx, getFilesDir, m, fileName);
-  // const safeMarkerName = toSafeName(marker.markerName);
-  // const markerType = await buildMarkerType(koaCtx, getFilesDir, safeMarkerName, marker);
-  // fields[safeMarkerName] = { type: markerType };
-
-  return new GraphQLObjectType({
-    name: "Markers",
-    fields,
-  });
-}
-
 async function buildMarkerType(
   koaCtx: Koa.Context,
   getFilesDir: GetFilesDir,
-  safeMarkerName: string,
-  marker: Marker
+  productFileNames: ReadonlyArray<string>
 ): Promise<GraphQLObjectType> {
-  const tablesType = await buildTablesType(marker, koaCtx, getFilesDir);
-  const productType = await buildProductType(marker.markerName, tablesType);
+  const tablesType = await buildTablesType(productFileNames, koaCtx, getFilesDir);
+  const productType = await buildProductType(tablesType);
   return new GraphQLObjectType({
-    name: `Marker_${safeMarkerName}`,
+    name: `Marker`,
     fields: {
       markerName: { type: new GraphQLNonNull(GraphQLString) },
       releaseId: { type: GraphQLString },
@@ -109,9 +87,9 @@ async function buildMarkerType(
   });
 }
 
-async function buildProductType(markerName: string, tablesType: GraphQLObjectType): Promise<GraphQLObjectType> {
+async function buildProductType(tablesType: GraphQLObjectType): Promise<GraphQLObjectType> {
   const productType = new GraphQLObjectType({
-    name: `Product_${toSafeName(markerName)}`,
+    name: `Product`,
     fields: {
       id: { type: new GraphQLNonNull(GraphQLID) },
       key: { type: new GraphQLNonNull(GraphQLString) },
@@ -125,27 +103,26 @@ async function buildProductType(markerName: string, tablesType: GraphQLObjectTyp
 }
 
 async function buildTablesType(
-  marker: Marker,
+  productFileNames: ReadonlyArray<string>,
   koaCtx: Koa.Context,
   getFilesDir: GetFilesDir
 ): Promise<GraphQLObjectType> {
-  const tableDefs = await getUniqueTableDefinitions(marker, koaCtx, getFilesDir);
+  const tableDefs = await getUniqueTableDefinitions(productFileNames, koaCtx, getFilesDir);
   const fields: GraphQLFieldConfigMap<unknown, unknown, unknown> = {};
   for (const [n, v] of Object.entries(tableDefs)) {
     const tableSafeName = toSafeName(n);
-    fields[tableSafeName] = { type: await buildTableType(marker.markerName, tableSafeName, v) };
+    fields[tableSafeName] = { type: await buildTableType(tableSafeName, v) };
   }
-  const tablesType = new GraphQLObjectType({ name: `Tables_${toSafeName(marker.markerName)}`, fields });
+  const tablesType = new GraphQLObjectType({ name: `Tables`, fields });
   return tablesType;
 }
 
 async function buildTableType(
-  markerName: string,
   tableSafeName: string,
   columns: ReadonlyArray<ProductTableFileColumn>
 ): Promise<GraphQLObjectType> {
   const tableType = new GraphQLObjectType({
-    name: `Table_${toSafeName(markerName)}_${tableSafeName}`,
+    name: `Table_${tableSafeName}`,
     fields: Object.fromEntries(columns.map((c) => [toSafeName(c.name), { type: GraphQLString }])),
   });
   return tableType;
@@ -157,11 +134,11 @@ interface ColumnsPerTable {
 
 // All tables that have the same structure can be merged...
 async function getUniqueTableDefinitions(
-  marker: Marker,
+  productFileNames: ReadonlyArray<string>,
   koaCtx: Koa.Context,
   getFilesDir: GetFilesDir
 ): Promise<ColumnsPerTable> {
-  const productFileNames = await getMarkerProductFileNames(koaCtx, getFilesDir, marker.releaseId, marker.transactionId);
+  // const productFileNames = await getMarkerProductFileNames(koaCtx, getFilesDir, marker.releaseId, marker.transactionId);
   const productFilePromises = productFileNames.map((f) => readJsonFile<ProductFile>(getFilesDir(koaCtx), f));
   const productFiles = await Promise.all(productFilePromises);
   const tableFilePromises = productFiles.map((f) => getProductTables(getFilesDir(koaCtx), f));

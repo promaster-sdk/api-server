@@ -42,7 +42,7 @@ export async function getMarkerForReleaseOrTransactionFileName(
     const tx = parsed.tx;
     return {
       markerName: markerName,
-      transactionId: tx.toString(),
+      tx: tx.toString(),
     };
   } else {
     throw new Error("Invalid file type.");
