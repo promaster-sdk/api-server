@@ -119,20 +119,23 @@ async function buildModulesType(
   const fields: GraphQLFieldConfigMap<unknown, unknown, unknown> = {};
   for (const [n, v] of Object.entries(tablesPerModule)) {
     const moduleFieldName = toSafeName(n);
-    fields[moduleFieldName] = { type: await buildTablesType(v, usedTypeNames) };
+    fields[moduleFieldName] = { type: await buildTablesTypeForModule(moduleFieldName, v, usedTypeNames) };
   }
   const tablesType = new GraphQLObjectType({ name: getUniqueTypeName("Modules", usedTypeNames), fields });
   return tablesType;
 }
 
-async function buildTablesType(tableDefs: ColumnsPerTable, usedTypeNames: Set<string>): Promise<GraphQLObjectType> {
-  // const tableDefs = await getUniqueTableDefinitions(productFileNames, koaCtx, getFilesDir);
+async function buildTablesTypeForModule(
+  moduleName: string,
+  tableDefs: ColumnsPerTable,
+  usedTypeNames: Set<string>
+): Promise<GraphQLObjectType> {
   const fields: GraphQLFieldConfigMap<unknown, unknown, unknown> = {};
   for (const [n, v] of Object.entries(tableDefs)) {
     const tableFieldName = toSafeName(n);
     fields[tableFieldName] = { type: await buildTableType(tableFieldName, v, usedTypeNames) };
   }
-  const tablesType = new GraphQLObjectType({ name: getUniqueTypeName("Tables", usedTypeNames), fields });
+  const tablesType = new GraphQLObjectType({ name: getUniqueTypeName(`Module_${moduleName}`, usedTypeNames), fields });
   return tablesType;
 }
 
@@ -163,34 +166,6 @@ interface TablesPerModule {
 interface ColumnsPerTable {
   readonly [tableName: string]: ReadonlyArray<ProductTableFileColumn>;
 }
-
-// // All tables that have the same structure can be merged...
-// async function getUniqueTableDefinitions(
-//   productFileNames: ReadonlyArray<string>,
-//   koaCtx: Koa.Context,
-//   getFilesDir: GetFilesDir
-// ): Promise<ColumnsPerTable> {
-//   // const productFileNames = await getMarkerProductFileNames(koaCtx, getFilesDir, marker.releaseId, marker.transactionId);
-//   const productFilePromises = productFileNames.map((f) => readJsonFile<ProductFile>(getFilesDir(koaCtx), f));
-//   const productFiles = await Promise.all(productFilePromises);
-//   const tableFilePromises = productFiles.map((f) => getProductTables(getFilesDir(koaCtx), f));
-//   const tableFiles = await Promise.all(tableFilePromises);
-//   const allTableFiles: ReadonlyArray<ProductTableFile> = tableFiles.flat();
-
-//   // Group by module
-//   const tablesPerModule: { [module: string]: { [tableName: string]: ReadonlyArray<ProductTableFileColumn> } } = {};
-//   for (const t of allTableFiles) {
-//     let moduleColumnsPerTable = tablesPerModule[t.data.module];
-//     if (!moduleColumnsPerTable) {
-//       moduleColumnsPerTable = {};
-//       tablesPerModule[t.data.module] = moduleColumnsPerTable;
-//     }
-//     moduleColumnsPerTable[t.data.name] = t.data.columns;
-//   }
-
-//   // TODO: For tables that have the same name but not the same columns, create a generated unique name
-//   return Object.fromEntries(allTableFiles.map((t) => [toSafeName(t.data.name), t.data.columns]));
-// }
 
 // All tables that have the same structure can be merged...
 async function getUniqueTableDefinitionsPerModule(
