@@ -83,7 +83,7 @@ export async function getProducts(
 
 async function getProduct(ctx: Koa.Context, getFilesDir: GetFilesDir, productFileName: string): Promise<Product> {
   const productFile: ProductFile = await readJsonFile<ProductFile>(getFilesDir(ctx), productFileName);
-  return productFile.data;
+  return { ...productFile.data, _fileName: productFileName };
 }
 
 export function toSafeName(name: string): string {

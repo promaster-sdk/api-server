@@ -6,9 +6,11 @@ import {
   getTypeAndIdentifierFromFileName,
   ReleaseFile,
   parseTransactionFileName,
+  ProductFile,
+  ProductTableFile,
 } from "../file-types";
 import { Context, GetFilesDir } from "./context";
-import { Marker } from "./schema-types";
+import { Marker, Product, Modules } from "./schema-types";
 import { readJsonFile, getProducts, getMarkerProductFileNames } from "./read-files";
 
 export type RootValue = {};
@@ -58,17 +60,47 @@ export const markerResolvers = {
 };
 
 export const productResolvers = {
-  module: async (_parent: Marker, _args: {}, _ctx: Context) => {
-    return {
-      sound: "olle",
-      table2: "kalle",
-    };
-  },
-  modules: async (_parent: Marker, _args: {}, _ctx: Context) => {
-    return {
-      sound: "olle",
-      table2: "kalle",
-    };
+  modules: async (parent: Product, _args: {}, ctx: Context): Promise<Modules> => {
+    const { getFilesDir, koaCtx } = ctx;
+    const filesDir = getFilesDir(koaCtx);
+    const product = await readJsonFile<ProductFile>(filesDir, parent._fileName);
+    const tableFileNames = Object.values(product.data.tables).map((v) => product.refs[v]);
+    const tablePromises = tableFileNames.map((f) => readJsonFile<ProductTableFile>(filesDir, f));
+    const tables = await Promise.all(tablePromises);
+    // Group tables by module
+    const tablesByModule: {
+      [module: string]: { [table: string]: Array<{ [column: string]: string | number | null }> };
+    } = {};
+    for (const t of tables) {
+      let moduleWithTables = tablesByModule[t.data.module];
+      if (!moduleWithTables) {
+        moduleWithTables = {};
+        tablesByModule[t.data.module] = moduleWithTables;
+      }
+      const test1 = t.data.rows.map((values) => Object.fromEntries(t.data.columns.map((c, i) => [c.name, values[i]])));
+      console.log("test1", test1);
+      // moduleWithTables[t.data.name] = [{ sort_no: "11", name: "sdafdsf" }];
+      moduleWithTables[t.data.name] = test1;
+      // let tableRows = moduleWithTables[t.data.name];
+      // if (!tableRows) {
+      //   tableRows = [];
+      //   moduleWithTables[t.data.name] = tableRows;
+      // }
+      //tableRows.push();
+    }
+
+    // const tablesPerModule = await getUniqueTableDefinitionsPerModule(productFileNames, koaCtx, getFilesDir);
+    // const fields: GraphQLFieldConfigMap<unknown, unknown, unknown> = {};
+    // for (const [n, v] of Object.entries(tablesPerModule)) {
+    //   const moduleFieldName = toSafeName(n);
+    //   fields[moduleFieldName] = { type: await buildModuleType(moduleFieldName, v, usedTypeNames) };
+    // }
+    // const tablesType = new GraphQLObjectType({ name: getUniqueTypeName("Modules", usedTypeNames), fields });
+    // return tablesType;
+
+    // console.log("tablesByModule", tablesByModule);
+
+    return tablesByModule;
   },
 };
 

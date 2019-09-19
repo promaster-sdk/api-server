@@ -14,6 +14,7 @@ import { ProductFile, ProductTableFile, ProductTableFileColumn, ReleaseFile, Tra
 import { GetFilesDir } from "./context";
 import Koa from "koa";
 import { readJsonFile, toSafeName, getProductTables } from "./read-files";
+import { Module } from "./schema-types";
 
 export async function createSchema(
   koaCtx: Koa.Context,
@@ -134,10 +135,13 @@ async function buildModuleType(
   const fields: GraphQLFieldConfigMap<unknown, unknown, unknown> = {};
   for (const [n, v] of Object.entries(tableDefs)) {
     const tableFieldName = toSafeName(n);
-    fields[tableFieldName] = { type: await buildTableType(tableFieldName, v, usedTypeNames) };
+    fields[tableFieldName] = {
+      type: new GraphQLList(await buildTableRowType(tableFieldName, v, usedTypeNames)),
+      resolve: (parent: Module) => parent[tableFieldName],
+    };
   }
-  const tablesType = new GraphQLObjectType({ name: getUniqueTypeName(`Module_${moduleName}`, usedTypeNames), fields });
-  return tablesType;
+  const moduleType = new GraphQLObjectType({ name: getUniqueTypeName(`Module_${moduleName}`, usedTypeNames), fields });
+  return moduleType;
 }
 
 function getUniqueTypeName(requestedName: string, usedTypeNames: Set<string>): string {
@@ -148,7 +152,7 @@ function getUniqueTypeName(requestedName: string, usedTypeNames: Set<string>): s
   return requestedName;
 }
 
-async function buildTableType(
+async function buildTableRowType(
   tableSafeName: string,
   columns: ReadonlyArray<ProductTableFileColumn>,
   usedTypeNames: Set<string>
