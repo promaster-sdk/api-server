@@ -73,9 +73,7 @@ async function buildMarkerType(
   productFileNames: ReadonlyArray<string>,
   usedTypeNames: Set<string>
 ): Promise<GraphQLObjectType> {
-  // const tablesType = await buildTablesType(productFileNames, koaCtx, getFilesDir, usedTypeNames);
-  const modulesType = await buildModulesType(productFileNames, koaCtx, getFilesDir, usedTypeNames);
-  const productType = await buildProductType(modulesType, usedTypeNames);
+  const productType = await buildProductType(koaCtx, getFilesDir, productFileNames, usedTypeNames);
   return new GraphQLObjectType({
     name: getUniqueTypeName("Marker", usedTypeNames),
     fields: {
@@ -92,9 +90,12 @@ async function buildMarkerType(
 }
 
 async function buildProductType(
-  modulesType: GraphQLObjectType,
+  koaCtx: Koa.Context,
+  getFilesDir: GetFilesDir,
+  productFileNames: ReadonlyArray<string>,
   usedTypeNames: Set<string>
 ): Promise<GraphQLObjectType> {
+  const modulesType = await buildModulesType(productFileNames, koaCtx, getFilesDir, usedTypeNames);
   const productType = new GraphQLObjectType({
     name: getUniqueTypeName("Product", usedTypeNames),
     fields: {
@@ -119,13 +120,13 @@ async function buildModulesType(
   const fields: GraphQLFieldConfigMap<unknown, unknown, unknown> = {};
   for (const [n, v] of Object.entries(tablesPerModule)) {
     const moduleFieldName = toSafeName(n);
-    fields[moduleFieldName] = { type: await buildTablesTypeForModule(moduleFieldName, v, usedTypeNames) };
+    fields[moduleFieldName] = { type: await buildModuleType(moduleFieldName, v, usedTypeNames) };
   }
   const tablesType = new GraphQLObjectType({ name: getUniqueTypeName("Modules", usedTypeNames), fields });
   return tablesType;
 }
 
-async function buildTablesTypeForModule(
+async function buildModuleType(
   moduleName: string,
   tableDefs: ColumnsPerTable,
   usedTypeNames: Set<string>
