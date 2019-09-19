@@ -20,6 +20,8 @@ export async function createSchema(
   getFilesDir: GetFilesDir,
   releaseOrTransactionFileName: string
 ): Promise<GraphQLSchema> {
+  const usedTypeNames = new Set<string>();
+
   // Read the file that the marker points to, it is either a Release or Transaction file
   const releaseOrTransaction = await readJsonFile<ReleaseFile | TransactionFile>(
     getFilesDir(koaCtx),
@@ -30,7 +32,7 @@ export async function createSchema(
   );
 
   const treeRelation = new GraphQLObjectType({
-    name: "TreeRelation",
+    name: getUniqueTypeName("TreeRelation", usedTypeNames),
     fields: {
       parentId: { type: GraphQLID },
       childId: { type: new GraphQLNonNull(GraphQLID) },
@@ -39,7 +41,7 @@ export async function createSchema(
   });
 
   const treeType = new GraphQLObjectType({
-    name: "Tree",
+    name: getUniqueTypeName("Tree", usedTypeNames),
     fields: {
       name: { type: new GraphQLNonNull(GraphQLString) },
       relations: {
@@ -49,14 +51,14 @@ export async function createSchema(
   });
 
   const queryType = new GraphQLObjectType({
-    name: "Query",
+    name: getUniqueTypeName("Query", usedTypeNames),
     fields: {
       trees: {
         type: new GraphQLList(treeType),
         resolve: queryResolvers.trees,
       },
       marker: {
-        type: await buildMarkerType(koaCtx, getFilesDir, productFileNames),
+        type: await buildMarkerType(koaCtx, getFilesDir, productFileNames, usedTypeNames),
         resolve: queryResolvers.marker,
       },
     },
@@ -68,12 +70,13 @@ export async function createSchema(
 async function buildMarkerType(
   koaCtx: Koa.Context,
   getFilesDir: GetFilesDir,
-  productFileNames: ReadonlyArray<string>
+  productFileNames: ReadonlyArray<string>,
+  usedTypeNames: Set<string>
 ): Promise<GraphQLObjectType> {
-  const tablesType = await buildTablesType(productFileNames, koaCtx, getFilesDir);
-  const productType = await buildProductType(tablesType);
+  const tablesType = await buildTablesType(productFileNames, koaCtx, getFilesDir, usedTypeNames);
+  const productType = await buildProductType(tablesType, usedTypeNames);
   return new GraphQLObjectType({
-    name: `Marker`,
+    name: getUniqueTypeName("Marker", usedTypeNames),
     fields: {
       markerName: { type: new GraphQLNonNull(GraphQLString) },
       releaseId: { type: GraphQLString },
@@ -87,9 +90,9 @@ async function buildMarkerType(
   });
 }
 
-async function buildProductType(tablesType: GraphQLObjectType): Promise<GraphQLObjectType> {
+async function buildProductType(tablesType: GraphQLObjectType, usedTypeNames: Set<string>): Promise<GraphQLObjectType> {
   const productType = new GraphQLObjectType({
-    name: `Product`,
+    name: getUniqueTypeName("Product", usedTypeNames),
     fields: {
       id: { type: new GraphQLNonNull(GraphQLID) },
       key: { type: new GraphQLNonNull(GraphQLString) },
@@ -105,24 +108,35 @@ async function buildProductType(tablesType: GraphQLObjectType): Promise<GraphQLO
 async function buildTablesType(
   productFileNames: ReadonlyArray<string>,
   koaCtx: Koa.Context,
-  getFilesDir: GetFilesDir
+  getFilesDir: GetFilesDir,
+  usedTypeNames: Set<string>
 ): Promise<GraphQLObjectType> {
   const tableDefs = await getUniqueTableDefinitions(productFileNames, koaCtx, getFilesDir);
   const fields: GraphQLFieldConfigMap<unknown, unknown, unknown> = {};
   for (const [n, v] of Object.entries(tableDefs)) {
-    const tableSafeName = toSafeName(n);
-    fields[tableSafeName] = { type: await buildTableType(tableSafeName, v) };
+    const tableFieldName = toSafeName(n);
+    fields[tableFieldName] = { type: await buildTableType(tableFieldName, v, usedTypeNames) };
   }
-  const tablesType = new GraphQLObjectType({ name: `Tables`, fields });
+  const tablesType = new GraphQLObjectType({ name: getUniqueTypeName("Tables", usedTypeNames), fields });
   return tablesType;
+}
+
+function getUniqueTypeName(requestedName: string, usedTypeNames: Set<string>): string {
+  let nameToUse = requestedName;
+  if (usedTypeNames.has(requestedName)) {
+    nameToUse = requestedName + "_MAKEUNIQUE";
+  }
+  usedTypeNames.add(nameToUse);
+  return nameToUse;
 }
 
 async function buildTableType(
   tableSafeName: string,
-  columns: ReadonlyArray<ProductTableFileColumn>
+  columns: ReadonlyArray<ProductTableFileColumn>,
+  usedTypeNames: Set<string>
 ): Promise<GraphQLObjectType> {
   const tableType = new GraphQLObjectType({
-    name: `Table_${tableSafeName}`,
+    name: getUniqueTypeName(tableSafeName, usedTypeNames),
     fields: Object.fromEntries(columns.map((c) => [toSafeName(c.name), { type: GraphQLString }])),
   });
   return tableType;
