@@ -58,7 +58,7 @@ export const markerResolvers = {
 };
 
 export const productResolvers = {
-  tables: async (_parent: Marker, _args: {}, _ctx: Context) => {
+  modules: async (_parent: Marker, _args: {}, _ctx: Context) => {
     return {
       table1: "olle",
       table2: "kalle",
