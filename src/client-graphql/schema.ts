@@ -11,7 +11,6 @@ import {
 } from "graphql";
 import { queryResolvers, markerResolvers, productResolvers } from "./resolvers";
 import { ProductFile, ProductTableFile, ProductTableFileColumn, ReleaseFile, TransactionFile } from "../file-types";
-import { toSafeName, getProductTables } from "./read-files";
 import { Module } from "./schema-types";
 import { ReadJsonFile } from "./context";
 
@@ -188,4 +187,19 @@ async function getUniqueTableDefinitionsPerModule(
   }
 
   return tablesPerModule;
+}
+
+function toSafeName(name: string): string {
+  return name.replace(/[^a-z0-9]/gi, "_").toLowerCase();
+}
+
+async function getProductTables(
+  readJsonFile: ReadJsonFile,
+  productFile: ProductFile
+): Promise<ReadonlyArray<ProductTableFile>> {
+  const tableKeys = Object.keys(productFile.data.tables);
+  const tableFileNames = tableKeys.map((tableName) => productFile.refs[productFile.data.tables[tableName]]);
+  const promises = tableFileNames.map((f) => readJsonFile<ProductTableFile>(f));
+  const tableFilesContent: ReadonlyArray<ProductTableFile> = await Promise.all(promises);
+  return tableFilesContent;
 }

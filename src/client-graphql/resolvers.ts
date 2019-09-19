@@ -7,10 +7,12 @@ import {
   parseTransactionFileName,
   ProductFile,
   ProductTableFile,
+  buildReleaseFileName,
+  TransactionFile,
+  buildTransactionFileName,
 } from "../file-types";
-import { Context } from "./context";
+import { Context, ReadJsonFile } from "./context";
 import { Marker, Product, Modules } from "./schema-types";
-import { getProducts, getMarkerProductFileNames } from "./read-files";
 
 export type RootValue = {};
 
@@ -55,7 +57,10 @@ export const markerResolvers = {
     // Check if this marker points to a release or a transaction
     const { releaseId, tx } = parent;
     const productFileNames = await getMarkerProductFileNames(readJsonFile, releaseId, tx);
-    return getProducts(readJsonFile, productFileNames);
+    // Create all products in parallell
+    const apiProductPromises = productFileNames.map((f) => getProduct(readJsonFile, f));
+    const apiProducts = await Promise.all(apiProductPromises);
+    return apiProducts;
   },
 };
 
@@ -82,3 +87,25 @@ export const productResolvers = {
     return tablesByModule;
   },
 };
+
+async function getProduct(readJsonFile: ReadJsonFile, productFileName: string): Promise<Product> {
+  const productFile: ProductFile = await readJsonFile<ProductFile>(productFileName);
+  return { ...productFile.data, _fileName: productFileName };
+}
+
+async function getMarkerProductFileNames(
+  readJsonFile: ReadJsonFile,
+  releaseId?: string,
+  transactionId?: string
+): Promise<ReadonlyArray<string>> {
+  if (releaseId) {
+    const releaseFile = await readJsonFile<ReleaseFile>(buildReleaseFileName(releaseId));
+    return Object.values(releaseFile.data.products).map((ref) => releaseFile.refs[ref]);
+  } else if (transactionId) {
+    const transactionFile = await readJsonFile<TransactionFile>(buildTransactionFileName(transactionId));
+    return Object.values(transactionFile.data.products).map((ref) => transactionFile.refs[ref]);
+  } else {
+    // This should never happen
+    return [];
+  }
+}
