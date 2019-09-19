@@ -9,7 +9,7 @@ import { RootValue } from "./resolvers";
 import { readJsonFile } from "./read-files";
 import { buildRootFileName, RootFile } from "../file-types";
 
-export function createClientGraphQLMiddleware(
+export function createClientMultiMarkerGraphQLMiddleware(
   getFilesDir: GetFilesDir,
   getBaseUrl: GetBaseUrl,
   prefix?: string
@@ -36,23 +36,32 @@ export function createClientGraphQLMiddleware(
     let markerMiddleware = middlewarePerMarker[marker];
     if (!markerMiddleware) {
       console.log("Creating middleware");
-      markerMiddleware = graphqlHTTP(async (_request, _repsonse, ctx) => ({
-        schema: await createSchema(ctx, getFilesDir, markerFileName),
-        graphiql: true,
-        rootValue: {} as RootValue,
-        context: createContext(ctx, getFilesDir, getBaseUrl, markerFileName, marker),
-        formatError: (error: GraphQLError) => {
-          console.log("Error occured in GraphQL:");
-          console.log(error);
-          console.log("The original error was:");
-          console.log(error.originalError);
-          return error;
-        },
-      }));
+      markerMiddleware = createGraphQLMiddleware(getFilesDir, getBaseUrl, markerFileName, marker);
       middlewarePerMarker[marker] = markerMiddleware;
     }
     return markerMiddleware(ctx, next);
   });
 
   return compose([router.routes(), router.allowedMethods()]);
+}
+
+function createGraphQLMiddleware(
+  getFilesDir: GetFilesDir,
+  getBaseUrl: GetBaseUrl,
+  markerFileName: string,
+  marker: string
+): Koa.Middleware {
+  return graphqlHTTP(async (_request, _repsonse, ctx) => ({
+    schema: await createSchema(ctx, getFilesDir, markerFileName),
+    graphiql: true,
+    rootValue: {} as RootValue,
+    context: createContext(ctx, getFilesDir, getBaseUrl, markerFileName, marker),
+    formatError: (error: GraphQLError) => {
+      console.log("Error occured in GraphQL:");
+      console.log(error);
+      console.log("The original error was:");
+      console.log(error.originalError);
+      return error;
+    },
+  }));
 }
