@@ -32,8 +32,10 @@ export function createClientMultiMarkerGraphQLMiddleware(
   const router = new Router({ prefix });
 
   router.all("/", async (ctx, next) => {
-    ctx.body = "No marker specified.";
-    ctx.status = 404;
+    const rootFileContent = await readJsonFile<RootFile>(getFilesDir(ctx))(buildRootFileName());
+    const markers = Object.keys(rootFileContent.data.markers);
+    const urlsToMarkers = markers.map((m) => `${getBaseUrl(ctx)}/graphql/${m}`);
+    ctx.body = urlsToMarkers;
     return next();
   });
 
@@ -49,7 +51,6 @@ export function createClientMultiMarkerGraphQLMiddleware(
     }
     let markerMiddleware = middlewarePerMarker[marker];
     if (!markerMiddleware) {
-      console.log("Creating middleware");
       markerMiddleware = createGraphQLMiddleware(getFilesDir, getBaseUrl, markerFileName, marker);
       middlewarePerMarker[marker] = markerMiddleware;
     }

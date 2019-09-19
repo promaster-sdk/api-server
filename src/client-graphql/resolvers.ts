@@ -79,8 +79,8 @@ export const productResolvers = {
         moduleWithTables = {};
         tablesByModule[t.data.module] = moduleWithTables;
       }
-      const test1 = t.data.rows.map((values) => Object.fromEntries(t.data.columns.map((c, i) => [c.name, values[i]])));
-      moduleWithTables[t.data.name] = test1;
+      const rows = t.data.rows.map((values) => Object.fromEntries(t.data.columns.map((c, i) => [c.name, values[i]])));
+      moduleWithTables[t.data.name] = rows;
     }
     return tablesByModule;
   },
