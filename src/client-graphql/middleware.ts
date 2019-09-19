@@ -28,7 +28,10 @@ export function createClientMultiMarkerGraphQLMiddleware(
   getBaseUrl: GetBaseUrl,
   prefix?: string
 ): Koa.Middleware {
-  const middlewarePerMarker: { [marker: string]: Koa.Middleware } = {};
+  interface MiddlewarePerMarker {
+    [marker: string]: { markerFileName: string; middleware: Koa.Middleware } | undefined;
+  }
+  const middlewarePerMarker: MiddlewarePerMarker = {};
   const router = new Router({ prefix });
 
   router.all("/", async (ctx, next) => {
@@ -50,11 +53,21 @@ export function createClientMultiMarkerGraphQLMiddleware(
       return next();
     }
     let markerMiddleware = middlewarePerMarker[marker];
+    if (markerMiddleware) {
+      // If marker is pointing to new file, then delete old middleware from memory
+      if (markerMiddleware.markerFileName !== markerFileName) {
+        delete middlewarePerMarker[marker];
+        markerMiddleware = undefined;
+      }
+    }
     if (!markerMiddleware) {
-      markerMiddleware = createGraphQLMiddleware(getFilesDir, getBaseUrl, markerFileName, marker);
+      markerMiddleware = {
+        markerFileName,
+        middleware: createGraphQLMiddleware(getFilesDir, getBaseUrl, markerFileName, marker),
+      };
       middlewarePerMarker[marker] = markerMiddleware;
     }
-    return markerMiddleware(ctx, next);
+    return markerMiddleware.middleware(ctx, next);
   });
 
   return compose([router.routes(), router.allowedMethods()]);
