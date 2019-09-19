@@ -129,15 +129,15 @@ async function buildModulesType(
 
 async function buildModuleType(
   moduleName: string,
-  tableDefs: ColumnsPerTable,
+  tableDefs: TableByName,
   usedTypeNames: Set<string>
 ): Promise<GraphQLObjectType> {
   const fields: GraphQLFieldConfigMap<unknown, unknown, unknown> = {};
   for (const [n, v] of Object.entries(tableDefs)) {
     const tableFieldName = toSafeName(n);
     fields[tableFieldName] = {
-      type: new GraphQLList(await buildTableRowType(tableFieldName, v, usedTypeNames)),
-      description: n,
+      type: new GraphQLList(await buildTableRowType(tableFieldName, v.columns, usedTypeNames)),
+      description: v.description,
       resolve: (parent: Module) => parent[tableFieldName],
     };
   }
@@ -191,13 +191,26 @@ function columnTypeToGraphQLType(c: ProductTableFileColumn): GraphQLScalarType {
   }
 }
 
+// interface TablesPerModule {
+//   readonly [module: string]: ColumnsPerTable;
+// }
+
 interface TablesPerModule {
-  readonly [module: string]: ColumnsPerTable;
+  readonly [module: string]: TableByName;
 }
 
-interface ColumnsPerTable {
-  readonly [tableName: string]: ReadonlyArray<ProductTableFileColumn>;
+interface Table {
+  readonly description: string;
+  readonly columns: ReadonlyArray<ProductTableFileColumn>;
 }
+
+interface TableByName {
+  readonly [tableName: string]: Table;
+}
+
+// interface ColumnsPerTable {
+//   readonly [tableName: string]: ReadonlyArray<ProductTableFileColumn>;
+// }
 
 // All tables that have the same structure can be merged...
 async function getUniqueTableDefinitionsPerModule(
@@ -211,7 +224,9 @@ async function getUniqueTableDefinitionsPerModule(
   const allTableFiles: ReadonlyArray<ProductTableFile> = tableFiles.flat();
 
   // Group by module
-  const tablesPerModule: { [module: string]: { [tableName: string]: ReadonlyArray<ProductTableFileColumn> } } = {};
+  const tablesPerModule: {
+    [module: string]: { [tableName: string]: { description: string; columns: ReadonlyArray<ProductTableFileColumn> } };
+  } = {};
   for (const t of allTableFiles) {
     let moduleColumnsPerTable = tablesPerModule[t.data.module];
     if (!moduleColumnsPerTable) {
@@ -219,9 +234,8 @@ async function getUniqueTableDefinitionsPerModule(
       tablesPerModule[t.data.module] = moduleColumnsPerTable;
     }
     // TODO: For tables that have the same name but not the same columns, create a generated unique name
-    moduleColumnsPerTable[t.data.name] = t.data.columns;
+    moduleColumnsPerTable[t.data.name] = { description: t.data.description, columns: t.data.columns };
   }
-
   return tablesPerModule;
 }
 
