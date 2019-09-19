@@ -3,6 +3,6 @@
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src",
-    "lib": ["dom", "es2015", "es2017.object", "esnext.asynciterable"]
+    "lib": ["dom", "es2015", "es2017.object", "esnext.asynciterable", "esnext"]
   }
 }

@@ -30,7 +30,7 @@
     "tsc-watch": "^2.1.2",
     "tslint": "^5.16.0",
     "tslint-immutable": "^5.5.2",
-    "typescript": "^3.4.3"
+    "typescript": "^3.6.3"
   },
   "dependencies": {
     "@koa/cors": "^2.2.2",

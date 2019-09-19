@@ -13,5 +13,5 @@ export interface Product {
   readonly key: string;
   readonly name: string;
   readonly retired: boolean;
-  readonly transactionId: string;
+  // readonly tx: string;
 }
