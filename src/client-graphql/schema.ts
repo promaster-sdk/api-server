@@ -8,9 +8,18 @@ import {
   GraphQLList,
   GraphQLBoolean,
   GraphQLFieldConfigMap,
+  GraphQLScalarType,
+  GraphQLFloat,
 } from "graphql";
 import { queryResolvers, markerResolvers, productResolvers } from "./resolvers";
-import { ProductFile, ProductTableFile, ProductTableFileColumn, ReleaseFile, TransactionFile } from "../file-types";
+import {
+  ProductFile,
+  ProductTableFile,
+  ProductTableFileColumn,
+  ReleaseFile,
+  TransactionFile,
+  ProductTableFileColumnType,
+} from "../file-types";
 import { Module } from "./schema-types";
 import { ReadJsonFile } from "./context";
 
@@ -128,6 +137,7 @@ async function buildModuleType(
     const tableFieldName = toSafeName(n);
     fields[tableFieldName] = {
       type: new GraphQLList(await buildTableRowType(tableFieldName, v, usedTypeNames)),
+      description: n,
       resolve: (parent: Module) => parent[tableFieldName],
     };
   }
@@ -150,9 +160,35 @@ async function buildTableRowType(
 ): Promise<GraphQLObjectType> {
   const tableType = new GraphQLObjectType({
     name: getUniqueTypeName(tableSafeName, usedTypeNames),
-    fields: Object.fromEntries(columns.map((c) => [toSafeName(c.name), { type: GraphQLString }])),
+    fields: Object.fromEntries(
+      columns.map((c) => [toSafeName(c.name), { type: columnTypeToGraphQLType(c), description: c.description }])
+    ),
   });
   return tableType;
+}
+
+function columnTypeToGraphQLType(c: ProductTableFileColumn): GraphQLScalarType {
+  switch (c.type) {
+    case ProductTableFileColumnType.Number:
+      return GraphQLFloat;
+    case ProductTableFileColumnType.Blob:
+    case ProductTableFileColumnType.DynamicDiscrete:
+    case ProductTableFileColumnType.FixedDiscrete:
+    case ProductTableFileColumnType.ForeignKey:
+    case ProductTableFileColumnType.LongText:
+    case ProductTableFileColumnType.PrimaryKey:
+    case ProductTableFileColumnType.Product:
+    case ProductTableFileColumnType.Property:
+    case ProductTableFileColumnType.PropertyFilter:
+    case ProductTableFileColumnType.PropertyValues:
+    case ProductTableFileColumnType.Quantity:
+    case ProductTableFileColumnType.Text:
+    case ProductTableFileColumnType.TextId:
+    case ProductTableFileColumnType.Unit:
+      return GraphQLString;
+    default:
+      return GraphQLString;
+  }
 }
 
 interface TablesPerModule {
