@@ -11,23 +11,18 @@ import {
 } from "graphql";
 import { queryResolvers, markerResolvers, productResolvers } from "./resolvers";
 import { ProductFile, ProductTableFile, ProductTableFileColumn, ReleaseFile, TransactionFile } from "../file-types";
-import { GetFilesDir } from "./context";
-import Koa from "koa";
-import { readJsonFile, toSafeName, getProductTables } from "./read-files";
+import { toSafeName, getProductTables } from "./read-files";
 import { Module } from "./schema-types";
+import { ReadJsonFile } from "./context";
 
 export async function createSchema(
-  koaCtx: Koa.Context,
-  getFilesDir: GetFilesDir,
+  readJsonFile: ReadJsonFile,
   releaseOrTransactionFileName: string
 ): Promise<GraphQLSchema> {
   const usedTypeNames = new Set<string>();
 
   // Read the file that the marker points to, it is either a Release or Transaction file
-  const releaseOrTransaction = await readJsonFile<ReleaseFile | TransactionFile>(
-    getFilesDir(koaCtx),
-    releaseOrTransactionFileName
-  );
+  const releaseOrTransaction = await readJsonFile<ReleaseFile | TransactionFile>(releaseOrTransactionFileName);
   const productFileNames = Object.values(releaseOrTransaction.data.products).map(
     (ref) => releaseOrTransaction.refs[ref]
   );
@@ -59,7 +54,7 @@ export async function createSchema(
         resolve: queryResolvers.trees,
       },
       marker: {
-        type: await buildMarkerType(koaCtx, getFilesDir, productFileNames, usedTypeNames),
+        type: await buildMarkerType(readJsonFile, productFileNames, usedTypeNames),
         resolve: queryResolvers.marker,
       },
     },
@@ -69,12 +64,11 @@ export async function createSchema(
 }
 
 async function buildMarkerType(
-  koaCtx: Koa.Context,
-  getFilesDir: GetFilesDir,
+  readJsonFile: ReadJsonFile,
   productFileNames: ReadonlyArray<string>,
   usedTypeNames: Set<string>
 ): Promise<GraphQLObjectType> {
-  const productType = await buildProductType(koaCtx, getFilesDir, productFileNames, usedTypeNames);
+  const productType = await buildProductType(readJsonFile, productFileNames, usedTypeNames);
   return new GraphQLObjectType({
     name: getUniqueTypeName("Marker", usedTypeNames),
     fields: {
@@ -91,12 +85,11 @@ async function buildMarkerType(
 }
 
 async function buildProductType(
-  koaCtx: Koa.Context,
-  getFilesDir: GetFilesDir,
+  readJsonFile: ReadJsonFile,
   productFileNames: ReadonlyArray<string>,
   usedTypeNames: Set<string>
 ): Promise<GraphQLObjectType> {
-  const modulesType = await buildModulesType(productFileNames, koaCtx, getFilesDir, usedTypeNames);
+  const modulesType = await buildModulesType(productFileNames, readJsonFile, usedTypeNames);
   const productType = new GraphQLObjectType({
     name: getUniqueTypeName("Product", usedTypeNames),
     fields: {
@@ -113,11 +106,10 @@ async function buildProductType(
 
 async function buildModulesType(
   productFileNames: ReadonlyArray<string>,
-  koaCtx: Koa.Context,
-  getFilesDir: GetFilesDir,
+  readJsonFile: ReadJsonFile,
   usedTypeNames: Set<string>
 ): Promise<GraphQLObjectType> {
-  const tablesPerModule = await getUniqueTableDefinitionsPerModule(productFileNames, koaCtx, getFilesDir);
+  const tablesPerModule = await getUniqueTableDefinitionsPerModule(productFileNames, readJsonFile);
   const fields: GraphQLFieldConfigMap<unknown, unknown, unknown> = {};
   for (const [n, v] of Object.entries(tablesPerModule)) {
     const moduleFieldName = toSafeName(n);
@@ -175,13 +167,11 @@ interface ColumnsPerTable {
 // All tables that have the same structure can be merged...
 async function getUniqueTableDefinitionsPerModule(
   productFileNames: ReadonlyArray<string>,
-  koaCtx: Koa.Context,
-  getFilesDir: GetFilesDir
+  readJsonFile: ReadJsonFile
 ): Promise<TablesPerModule> {
-  // const productFileNames = await getMarkerProductFileNames(koaCtx, getFilesDir, marker.releaseId, marker.transactionId);
-  const productFilePromises = productFileNames.map((f) => readJsonFile<ProductFile>(getFilesDir(koaCtx), f));
+  const productFilePromises = productFileNames.map((f) => readJsonFile<ProductFile>(f));
   const productFiles = await Promise.all(productFilePromises);
-  const tableFilePromises = productFiles.map((f) => getProductTables(getFilesDir(koaCtx), f));
+  const tableFilePromises = productFiles.map((f) => getProductTables(readJsonFile, f));
   const tableFiles = await Promise.all(tableFilePromises);
   const allTableFiles: ReadonlyArray<ProductTableFile> = tableFiles.flat();
 

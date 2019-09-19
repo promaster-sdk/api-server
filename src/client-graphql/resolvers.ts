@@ -1,4 +1,3 @@
-import Koa from "koa";
 import {
   RootFile,
   buildRootFileName,
@@ -9,28 +8,28 @@ import {
   ProductFile,
   ProductTableFile,
 } from "../file-types";
-import { Context, GetFilesDir } from "./context";
+import { Context } from "./context";
 import { Marker, Product, Modules } from "./schema-types";
-import { readJsonFile, getProducts, getMarkerProductFileNames } from "./read-files";
+import { getProducts, getMarkerProductFileNames, treeFileNameToTreeFile } from "./read-files";
 
 export type RootValue = {};
 
 export const queryResolvers = {
   trees: async (_parent: RootValue, _args: {}, ctx: Context) => {
-    const { getFilesDir, koaCtx } = ctx;
-    const rootFileContent = await readJsonFile<RootFile>(getFilesDir(koaCtx), buildRootFileName());
+    const { readJsonFile } = ctx;
+    const rootFileContent = await readJsonFile<RootFile>(buildRootFileName());
     const trees: Array<TreeFile> = [];
     for (const t of Object.keys(rootFileContent.data.trees)) {
       const fileName = rootFileContent.refs[rootFileContent.data.trees[t]];
-      trees.push(await treeFileNameToTreeFile(koaCtx, getFilesDir, fileName));
+      trees.push(await treeFileNameToTreeFile(readJsonFile, fileName));
     }
     return trees;
   },
   marker: async (_parent: RootValue, _args: {}, ctx: Context): Promise<Marker> => {
-    const { getFilesDir, koaCtx, markerFileName, markerName } = ctx;
+    const { markerFileName, markerName, readJsonFile } = ctx;
     const typeAndId = getTypeAndIdentifierFromFileName(markerFileName);
     if (typeAndId.type === "release") {
-      const releaseContent = await readJsonFile<ReleaseFile>(getFilesDir(koaCtx), markerFileName);
+      const releaseContent = await readJsonFile<ReleaseFile>(markerFileName);
       return {
         markerName: markerName,
         releaseName: releaseContent.data.name,
@@ -51,21 +50,20 @@ export const queryResolvers = {
 
 export const markerResolvers = {
   products: async (parent: Marker, _args: {}, ctx: Context) => {
-    const { getFilesDir, koaCtx } = ctx;
+    const { readJsonFile } = ctx;
     // Check if this marker points to a release or a transaction
     const { releaseId, tx } = parent;
-    const productFileNames = await getMarkerProductFileNames(koaCtx, getFilesDir, releaseId, tx);
-    return getProducts(koaCtx, getFilesDir, productFileNames);
+    const productFileNames = await getMarkerProductFileNames(readJsonFile, releaseId, tx);
+    return getProducts(readJsonFile, productFileNames);
   },
 };
 
 export const productResolvers = {
   modules: async (parent: Product, _args: {}, ctx: Context): Promise<Modules> => {
-    const { getFilesDir, koaCtx } = ctx;
-    const filesDir = getFilesDir(koaCtx);
-    const product = await readJsonFile<ProductFile>(filesDir, parent._fileName);
+    const { readJsonFile } = ctx;
+    const product = await readJsonFile<ProductFile>(parent._fileName);
     const tableFileNames = Object.values(product.data.tables).map((v) => product.refs[v]);
-    const tablePromises = tableFileNames.map((f) => readJsonFile<ProductTableFile>(filesDir, f));
+    const tablePromises = tableFileNames.map((f) => readJsonFile<ProductTableFile>(f));
     const tables = await Promise.all(tablePromises);
     // Group tables by module
     const tablesByModule: {
@@ -83,19 +81,3 @@ export const productResolvers = {
     return tablesByModule;
   },
 };
-
-async function treeFileNameToTreeFile(ctx: Koa.Context, getFilesDir: GetFilesDir, fileName: string): Promise<TreeFile> {
-  const typeAndId = getTypeAndIdentifierFromFileName(fileName);
-  let apiTree: TreeFile;
-  if (typeAndId.type === "tree") {
-    const treeContent = await readJsonFile<TreeFile>(getFilesDir(ctx), fileName);
-    apiTree = {
-      id: treeContent.id,
-      name: treeContent.name,
-      relations: treeContent.relations,
-    };
-  } else {
-    throw new Error("Invalid file type.");
-  }
-  return apiTree;
-}

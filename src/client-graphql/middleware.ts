@@ -1,3 +1,6 @@
+import path from "path";
+import fs from "fs";
+import { promisify } from "util";
 import Koa from "koa";
 import Router from "koa-router";
 import compose from "koa-compose";
@@ -6,8 +9,15 @@ import { GraphQLError } from "graphql";
 import { createSchema } from "./schema";
 import { GetFilesDir, GetBaseUrl, createContext } from "./context";
 import { RootValue } from "./resolvers";
-import { readJsonFile } from "./read-files";
 import { buildRootFileName, RootFile } from "../file-types";
+
+const readFileAsync = promisify(fs.readFile);
+
+export const readJsonFile = <T>(filesDir: string) => async (fileName: string): Promise<T> => {
+  const fullPath = path.join(filesDir, fileName);
+  const content = JSON.parse(await readFileAsync(fullPath, "utf8"));
+  return content;
+};
 
 export function createClientMultiMarkerGraphQLMiddleware(
   getFilesDir: GetFilesDir,
@@ -25,7 +35,7 @@ export function createClientMultiMarkerGraphQLMiddleware(
 
   router.all("/:marker", async (ctx, next) => {
     const { marker } = ctx.params;
-    const rootFileContent = await readJsonFile<RootFile>(getFilesDir(ctx), buildRootFileName());
+    const rootFileContent = await readJsonFile<RootFile>(getFilesDir(ctx))(buildRootFileName());
     const markerRef = rootFileContent.data.markers[marker];
     const markerFileName = rootFileContent.refs[markerRef];
     if (!markerFileName) {
@@ -52,10 +62,10 @@ function createGraphQLMiddleware(
   marker: string
 ): Koa.Middleware {
   return graphqlHTTP(async (_request, _repsonse, ctx) => ({
-    schema: await createSchema(ctx, getFilesDir, markerFileName),
+    schema: await createSchema(readJsonFile(getFilesDir(ctx)), markerFileName),
     graphiql: true,
     rootValue: {} as RootValue,
-    context: createContext(ctx, getFilesDir, getBaseUrl, markerFileName, marker),
+    context: createContext(ctx, getFilesDir, getBaseUrl, markerFileName, marker, readJsonFile(getFilesDir(ctx))),
     formatError: (error: GraphQLError) => {
       console.log("Error occured in GraphQL:");
       console.log(error);
