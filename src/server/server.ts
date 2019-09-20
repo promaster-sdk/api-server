@@ -28,12 +28,13 @@ async function startServer(config: Config.Config): Promise<void> {
   app.use(mount("/publish", publishApiWithToken));
 
   // Client REST API v3
-  const baseUrl = `http://${config.ip}:${config.port}`;
-  const clientApiRestApp = createClientRestMiddleware(() => config.filesPath, () => baseUrl);
+  const baseUrlRest = `http://${config.ip}:${config.port}/rest/v3`;
+  const clientApiRestApp = createClientRestMiddleware(() => config.filesPath, () => baseUrlRest);
   app.use(mount("/rest/v3", clientApiRestApp));
 
   // GraphQL API
-  const clientApiGraphQLApp = createClientGraphQLMiddleware(() => config.filesPath, () => baseUrl);
+  const baseUrlGraphQL = `http://${config.ip}:${config.port}/graphql`;
+  const clientApiGraphQLApp = createClientGraphQLMiddleware(() => config.filesPath, () => baseUrlGraphQL);
   app.use(mount("/graphql", clientApiGraphQLApp));
 
   // Start server

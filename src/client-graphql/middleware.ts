@@ -37,7 +37,7 @@ export function createClientGraphQLMiddleware(
   router.all("/", async (ctx, next) => {
     const rootFileContent = await readJsonFile<RootFile>(getFilesDir(ctx))(buildRootFileName());
     const markers = Object.keys(rootFileContent.data.markers);
-    const urlsToMarkers = markers.map((m) => `${getBaseUrl(ctx)}/graphql/${m}`);
+    const urlsToMarkers = markers.map((m) => `${getBaseUrl(ctx)}/${m}`);
     ctx.body = urlsToMarkers;
     return next();
   });
