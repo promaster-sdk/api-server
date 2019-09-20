@@ -6,7 +6,7 @@ import compress from "koa-compress";
 import * as Config from "./config";
 import { createPublishApiMiddleware } from "../publish";
 import { createClientRestMiddleware } from "../client-rest";
-import { createClientMultiMarkerGraphQLMiddleware } from "../client-graphql";
+import { createClientMultiMarkerGraphQLMiddleware as createClientGraphQLMiddleware } from "../client-graphql";
 
 // tslint:disable-next-line:no-var-requires no-require-imports
 require("source-map-support").install();
@@ -33,7 +33,7 @@ async function startServer(config: Config.Config): Promise<void> {
   app.use(mount("/rest/v3", clientApiRestApp));
 
   // GraphQL API
-  const clientApiGraphQLApp = createClientMultiMarkerGraphQLMiddleware(() => config.filesPath, () => baseUrl);
+  const clientApiGraphQLApp = createClientGraphQLMiddleware(() => config.filesPath, () => baseUrl);
   app.use(mount("/graphql", clientApiGraphQLApp));
 
   // Start server
