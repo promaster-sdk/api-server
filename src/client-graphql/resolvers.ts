@@ -55,6 +55,20 @@ export const queryResolvers = {
     const products = await Promise.all(productPromises);
     return products;
   },
+  product: async (_parent: RootValue, { id }: { readonly id: string }, ctx: Context) => {
+    const { readJsonFile, markerFileName } = ctx;
+    const releaseFile = await readJsonFile<ReleaseFile | TransactionFile>(markerFileName);
+    const productFileRef = releaseFile.data.products[id];
+    if (productFileRef === undefined) {
+      return null;
+    }
+    const productFile = releaseFile.refs[productFileRef];
+    if (productFile === undefined) {
+      return null;
+    }
+    const product = await getProduct(readJsonFile, productFile);
+    return product;
+  },
 };
 
 export const productResolvers = {

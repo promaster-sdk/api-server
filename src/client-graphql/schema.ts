@@ -71,15 +71,24 @@ export async function createSchema(
     fields: {
       trees: {
         type: new GraphQLList(treeType),
+        description: "Trees describes relations between products.",
         resolve: queryResolvers.trees,
       },
       marker: {
         type: new GraphQLNonNull(markerType),
+        description: "Information about the marker for this enpoint.",
         resolve: queryResolvers.marker,
       },
       products: {
-        type: new GraphQLNonNull(GraphQLList(productType)),
+        type: new GraphQLNonNull(GraphQLList(new GraphQLNonNull(productType))),
+        description: "Gets all products",
         resolve: queryResolvers.products,
+      },
+      product: {
+        type: productType,
+        args: { id: { type: new GraphQLNonNull(GraphQLID), description: "The Id of the product to get" } },
+        description: "Get a specific product.",
+        resolve: queryResolvers.product,
       },
     },
   });
@@ -101,8 +110,8 @@ async function buildProductType(
       name: { type: new GraphQLNonNull(GraphQLString) },
       retired: { type: new GraphQLNonNull(GraphQLBoolean) },
       modules: modulesType
-        ? { type: modulesType, resolve: productResolvers.modules }
-        : { type: GraphQLString, resolve: () => "No tables found." },
+        ? { type: new GraphQLNonNull(modulesType), resolve: productResolvers.modules }
+        : { type: new GraphQLNonNull(GraphQLString), resolve: () => "No tables found." },
     },
   });
   return productType;
