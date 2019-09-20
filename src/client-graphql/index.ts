@@ -1,1 +1,1 @@
-export { createClientMultiMarkerGraphQLMiddleware } from "./middleware";
+export { createClientGraphQLMiddleware } from "./middleware";

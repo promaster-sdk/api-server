@@ -23,7 +23,7 @@ export interface GetFilesDir {
   (ctx: Koa.Context): string;
 }
 
-export function createClientMultiMarkerGraphQLMiddleware(
+export function createClientGraphQLMiddleware(
   getFilesDir: GetFilesDir,
   getBaseUrl: GetBaseUrl,
   prefix?: string

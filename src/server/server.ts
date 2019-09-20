@@ -6,7 +6,7 @@ import compress from "koa-compress";
 import * as Config from "./config";
 import { createPublishApiMiddleware } from "../publish";
 import { createClientRestMiddleware } from "../client-rest";
-import { createClientMultiMarkerGraphQLMiddleware as createClientGraphQLMiddleware } from "../client-graphql";
+import { createClientGraphQLMiddleware } from "../client-graphql";
 
 // tslint:disable-next-line:no-var-requires no-require-imports
 require("source-map-support").install();
