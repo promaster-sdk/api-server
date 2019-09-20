@@ -11,7 +11,7 @@ import {
   GraphQLScalarType,
   GraphQLFloat,
 } from "graphql";
-import { queryResolvers, markerResolvers, productResolvers } from "./resolvers";
+import { queryResolvers, productResolvers } from "./resolvers";
 import {
   ProductFile,
   ProductTableFile,
@@ -54,6 +54,18 @@ export async function createSchema(
     },
   });
 
+  const markerType = new GraphQLObjectType({
+    name: getUniqueTypeName("Marker", usedTypeNames),
+    fields: {
+      markerName: { type: new GraphQLNonNull(GraphQLString) },
+      releaseId: { type: GraphQLString },
+      releaseName: { type: GraphQLString },
+      transactionId: { type: GraphQLString },
+    },
+  });
+
+  const productType = await buildProductType(readJsonFile, productFileNames, usedTypeNames);
+
   const queryType = new GraphQLObjectType({
     name: getUniqueTypeName("Query", usedTypeNames),
     fields: {
@@ -62,34 +74,17 @@ export async function createSchema(
         resolve: queryResolvers.trees,
       },
       marker: {
-        type: await buildMarkerType(readJsonFile, productFileNames, usedTypeNames),
+        type: new GraphQLNonNull(markerType),
         resolve: queryResolvers.marker,
+      },
+      products: {
+        type: new GraphQLNonNull(GraphQLList(productType)),
+        resolve: queryResolvers.products,
       },
     },
   });
 
   return new GraphQLSchema({ query: queryType });
-}
-
-async function buildMarkerType(
-  readJsonFile: ReadJsonFile,
-  productFileNames: ReadonlyArray<string>,
-  usedTypeNames: Set<string>
-): Promise<GraphQLObjectType> {
-  const productType = await buildProductType(readJsonFile, productFileNames, usedTypeNames);
-  return new GraphQLObjectType({
-    name: getUniqueTypeName("Marker", usedTypeNames),
-    fields: {
-      markerName: { type: new GraphQLNonNull(GraphQLString) },
-      releaseId: { type: GraphQLString },
-      releaseName: { type: GraphQLString },
-      transactionId: { type: GraphQLString },
-      products: {
-        type: new GraphQLNonNull(GraphQLList(productType)),
-        resolve: markerResolvers.products,
-      },
-    },
-  });
 }
 
 async function buildProductType(
@@ -105,8 +100,9 @@ async function buildProductType(
       key: { type: new GraphQLNonNull(GraphQLString) },
       name: { type: new GraphQLNonNull(GraphQLString) },
       retired: { type: new GraphQLNonNull(GraphQLBoolean) },
-      transactionId: { type: new GraphQLNonNull(GraphQLString) },
-      modules: { type: modulesType, resolve: productResolvers.modules },
+      modules: modulesType
+        ? { type: modulesType, resolve: productResolvers.modules }
+        : { type: GraphQLString, resolve: () => "No tables found." },
     },
   });
   return productType;
@@ -116,12 +112,15 @@ async function buildModulesType(
   productFileNames: ReadonlyArray<string>,
   readJsonFile: ReadJsonFile,
   usedTypeNames: Set<string>
-): Promise<GraphQLObjectType> {
+): Promise<GraphQLObjectType | undefined> {
   const tablesPerModule = await getUniqueTableDefinitionsPerModule(productFileNames, readJsonFile);
   const fields: GraphQLFieldConfigMap<unknown, unknown, unknown> = {};
   for (const [n, v] of Object.entries(tablesPerModule)) {
     const moduleFieldName = toSafeName(n);
     fields[moduleFieldName] = { type: await buildModuleType(moduleFieldName, v, usedTypeNames) };
+  }
+  if (Object.keys(fields).length === 0) {
+    return undefined;
   }
   const tablesType = new GraphQLObjectType({ name: getUniqueTypeName("Modules", usedTypeNames), fields });
   return tablesType;

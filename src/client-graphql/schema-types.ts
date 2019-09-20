@@ -7,8 +7,6 @@ export interface Marker {
   readonly releaseName?: string;
   // If this marker is a latest marker then it will point to a transactionId
   readonly tx?: string;
-  readonly products?: ReadonlyArray<Product>;
-  readonly _fileName: string;
 }
 
 export interface Product {
@@ -16,7 +14,6 @@ export interface Product {
   readonly key: string;
   readonly name: string;
   readonly retired: boolean;
-  // readonly tx: string;
   readonly _fileName: string;
 }
 

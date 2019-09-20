@@ -35,7 +35,6 @@ export const queryResolvers = {
         markerName: markerName,
         releaseName: releaseContent.data.name,
         releaseId: releaseContent.data.id.toUpperCase(),
-        _fileName: markerFileName,
       };
     } else if (typeAndId.type === "transaction") {
       const parsed = parseTransactionFileName(markerFileName);
@@ -43,22 +42,18 @@ export const queryResolvers = {
       return {
         markerName: markerName,
         tx: tx.toString(),
-        _fileName: markerFileName,
       };
     } else {
       throw new Error("Invalid file type.");
     }
   },
-};
-
-export const markerResolvers = {
-  products: async (parent: Marker, _args: {}, ctx: Context) => {
-    const { readJsonFile } = ctx;
-    const releaseFile = await readJsonFile<ReleaseFile | TransactionFile>(parent._fileName);
+  products: async (_parent: RootValue, _args: {}, ctx: Context) => {
+    const { readJsonFile, markerFileName } = ctx;
+    const releaseFile = await readJsonFile<ReleaseFile | TransactionFile>(markerFileName);
     const productFileNames = Object.values(releaseFile.data.products).map((ref) => releaseFile.refs[ref]);
-    const apiProductPromises = productFileNames.map((f) => getProduct(readJsonFile, f));
-    const apiProducts = await Promise.all(apiProductPromises);
-    return apiProducts;
+    const productPromises = productFileNames.map((f) => getProduct(readJsonFile, f));
+    const products = await Promise.all(productPromises);
+    return products;
   },
 };
 

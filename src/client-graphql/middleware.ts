@@ -14,6 +14,8 @@ import { buildRootFileName, RootFile } from "../file-types";
 const readFileAsync = promisify(fs.readFile);
 
 export const readJsonFile = <T>(filesDir: string) => async (fileName: string): Promise<T> => {
+  console.log("filesDir", filesDir);
+  console.log("fileName", fileName);
   const fullPath = path.join(filesDir, fileName);
   const content = JSON.parse(await readFileAsync(fullPath, "utf8"));
   return content;
