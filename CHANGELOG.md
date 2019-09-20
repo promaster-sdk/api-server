@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v1.0.1...master)
 
+## [v1.1.0](https://github.com/promaster-sdk/api-server/compare/v1.0.1...v1.1.0) - 2019-09-20
+
 ### Added
 
 - Initial version of Client GraphQL API. See PR [#2](https://github.com/promaster-sdk/api-server/pull/2).
