@@ -69,6 +69,24 @@ const clientRestApi = createClientRestMiddleware(() => "/files", () => "http://m
 app.use(mount("/rest", clientRestApi));
 ```
 
+### Client GraphQL API
+
+This repo has an implementation of a GraphQL API that can serve the files recieved by the Publish API to front-end clients. The schema is determined dynamically from the tables available in hte published files which makes it possible to generate types from the schema that corresponds to the tables.
+
+> NOTE: This is only a reference implementation, you can write your own Client API that suits the need of your application. For example you may need an authentication solution, or want to only serve parts of the data.
+
+The Koa middleware for the Client GraphQL API can be embedded into your existing Koa application like this:
+
+```js
+import * as Koa from "koa";
+import * as mount from "koa-mount";
+import { createClientRestMiddleware } from "@promaster-sdk/api-server";
+
+const app = new Koa();
+const clientGraphQLApi = createClientGraphQLMiddleware(() => "/files", () => "http://myserver/");
+app.use(mount("/graphql", clientGraphQLApi));
+```
+
 ## How to develop
 
 Clone the repo and run:

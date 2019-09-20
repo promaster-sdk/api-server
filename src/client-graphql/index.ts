@@ -1,0 +1,1 @@
+export { createClientMultiMarkerGraphQLMiddleware } from "./middleware";

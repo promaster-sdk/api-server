@@ -15,7 +15,7 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "strictNullChecks": true,
-    "keyofStringsOnly": true
+    "strictNullChecks": true
+    // "keyofStringsOnly": false
   }
 }
