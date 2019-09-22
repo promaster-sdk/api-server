@@ -49,16 +49,17 @@ export function createClientGraphQLMiddleware(
  * It will only create the schema once, and recreate it if the marker is pointing to a new file.
  */
 function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware {
-  // interface SchemaPerMarker {
-  //   [marker: string]: GraphQLSchema;
-  // }
   interface SchemaPerMarker {
-    [marker: string]: { markerFileName: string; schema: GraphQLSchema } | undefined;
+    [marker: string]: { readonly markerFileName: string; readonly schema: GraphQLSchema } | undefined;
   }
   const schemaPerMarker: SchemaPerMarker = {};
   return async (ctx, next) => {
     const { marker } = ctx.params;
-    const markerFileName = await getMarkerFileName(getFilesDir, ctx, marker);
+    const rootFileContent = await readJsonFile<RootFile>(getFilesDir(ctx))(buildRootFileName());
+    const markerLowerCase = marker.toLowerCase();
+    const markerKey = Object.keys(rootFileContent.data.markers).find((m) => m.toLowerCase() === markerLowerCase);
+    const markerRef = rootFileContent.data.markers[markerKey || ""];
+    const markerFileName = rootFileContent.refs[markerRef];
     if (!markerFileName) {
       ctx.body = `Marker ${marker} not found.`;
       ctx.status = 404;
@@ -73,28 +74,25 @@ function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware {
       }
     }
     if (!markerSchema) {
-      markerSchema = {
-        markerFileName,
-        schema: await createSchema(readJsonFile(getFilesDir(ctx)), markerFileName),
-      };
+      markerSchema = { markerFileName, schema: await createSchema(readJsonFile(getFilesDir(ctx)), markerFileName) };
       schemaPerMarker[marker] = markerSchema;
     }
+    ctx.params.markerFileName = markerSchema.markerFileName;
     ctx.params.graphqlSchema = markerSchema.schema;
     return next();
   };
 }
 
+/**
+ * This middleware expects ctx.params.marker, ctx.params.markerFileName,
+ * ctx.params.graphqlSchema to be set by a previous middleware
+ */
 function createGraphQLMiddleware(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
   return graphqlHTTP(async (_request, _repsonse, ctx) => ({
     schema: ctx.params.graphqlSchema,
     graphiql: true,
     rootValue: {} as RootValue,
-    context: createContext(
-      getBaseUrl,
-      (await getMarkerFileName(getFilesDir, ctx, ctx.params.marker)) || "",
-      ctx.params.marker,
-      readJsonFile(getFilesDir(ctx))
-    ),
+    context: createContext(getBaseUrl, ctx.params.markerFileName, ctx.params.marker, readJsonFile(getFilesDir(ctx))),
     formatError: (error: GraphQLError) => {
       console.log("Error occured in GraphQL:");
       console.log(error);
@@ -103,17 +101,4 @@ function createGraphQLMiddleware(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUr
       return error;
     },
   }));
-}
-
-async function getMarkerFileName(
-  getFilesDir: GetFilesDir,
-  ctx: Koa.Context,
-  marker: string
-): Promise<string | undefined> {
-  const rootFileContent = await readJsonFile<RootFile>(getFilesDir(ctx))(buildRootFileName());
-  const markerLowerCase = marker.toLowerCase();
-  const markerKey = Object.keys(rootFileContent.data.markers).find((m) => m.toLowerCase() === markerLowerCase);
-  const markerRef = rootFileContent.data.markers[markerKey || ""];
-  const markerFileName = rootFileContent.refs[markerRef];
-  return markerFileName;
 }
