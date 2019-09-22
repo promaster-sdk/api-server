@@ -15,7 +15,6 @@ export interface Product {
   readonly name: string;
   readonly retired: boolean;
   readonly modules: Modules;
-  readonly _fileName: string;
 }
 
 export interface Modules {

@@ -64,7 +64,6 @@ export const productResolvers: {
   key: async (parent, _args, ctx) => (await ctx.loaders.productFiles.load(parent)).data.key,
   name: async (parent, _args: {}, ctx) => (await ctx.loaders.productFiles.load(parent)).data.name,
   retired: async (parent, _args: {}, ctx) => (await ctx.loaders.productFiles.load(parent)).data.retired,
-  _fileName: async (parent, _args: {}, _ctx) => parent,
   modules: async (parent, _args, ctx) => {
     const { readJsonFile } = ctx;
     const productFile = await ctx.loaders.productFiles.load(parent);
@@ -90,5 +89,5 @@ export const productResolvers: {
 
 async function getProduct(readJsonFile: ReadJsonFile, productFileName: string): Promise<Product> {
   const productFile: ProductFile = await readJsonFile<ProductFile>(productFileName);
-  return { ...productFile.data, _fileName: productFileName, modules: {} };
+  return { ...productFile.data, modules: {} };
 }
