@@ -200,10 +200,6 @@ function columnTypeToGraphQLType(c: ProductTableFileColumn): GraphQLScalarType {
   }
 }
 
-// interface TablesPerModule {
-//   readonly [module: string]: ColumnsPerTable;
-// }
-
 interface TablesPerModule {
   readonly [module: string]: TableByName;
 }
@@ -216,10 +212,6 @@ interface Table {
 interface TableByName {
   readonly [tableName: string]: Table;
 }
-
-// interface ColumnsPerTable {
-//   readonly [tableName: string]: ReadonlyArray<ProductTableFileColumn>;
-// }
 
 // All tables that have the same structure can be merged...
 async function getUniqueTableDefinitionsPerModule(
