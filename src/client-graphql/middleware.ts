@@ -58,7 +58,7 @@ interface ContextState {
  * It will cache the created schema until the marker is pointing to a new file.
  */
 function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware<ContextState> {
-  interface SchemaPerMarker {
+  const schemaPerMarker: {
     [marker: string]:
       | {
           readonly markerFileName: string;
@@ -66,8 +66,7 @@ function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware<Contex
           readonly schema: GraphQLSchema;
         }
       | undefined;
-  }
-  const schemaPerMarker: SchemaPerMarker = {};
+  } = {};
   return async (ctx, next) => {
     const { marker } = ctx.params;
     const rootFile = await readJsonFile<RootFile>(getFilesDir(ctx))(buildRootFileName());
