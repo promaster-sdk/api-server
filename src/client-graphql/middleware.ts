@@ -29,10 +29,6 @@ export function createClientGraphQLMiddleware(
   getBaseUrl: GetBaseUrl,
   prefix?: string
 ): Koa.Middleware {
-  // interface MiddlewarePerMarker {
-  //   [marker: string]: { markerFileName: string; middleware: Koa.Middleware } | undefined;
-  // }
-  // const middlewarePerMarker: MiddlewarePerMarker = {};
   const router = new Router({ prefix });
 
   router.all("/", async (ctx, next) => {
@@ -43,52 +39,21 @@ export function createClientGraphQLMiddleware(
     return next();
   });
 
-  router.all(
-    "/:marker",
-    createSchemaMiddleware(getFilesDir),
-    createGraphQLMiddleware2(getFilesDir, getBaseUrl)
-    // async (ctx, next) => {
-    //   const { marker, graphqlSchema } = ctx.params;
-    //   console.log("HEJEHEJEHJEHJHE", graphqlSchema);
-    //   const rootFileContent = await readJsonFile<RootFile>(getFilesDir(ctx))(buildRootFileName());
-    //   const markerLowerCase = marker.toLowerCase();
-    //   const markerKey = Object.keys(rootFileContent.data.markers).find((m) => m.toLowerCase() === markerLowerCase);
-    //   const markerRef = rootFileContent.data.markers[markerKey || ""];
-    //   const markerFileName = rootFileContent.refs[markerRef];
-    //   if (!markerFileName) {
-    //     ctx.body = `Marker ${marker} not found.`;
-    //     ctx.status = 404;
-    //     return next();
-    //   }
-    //   let markerMiddleware = middlewarePerMarker[marker];
-    //   console.log("markerMiddleware1", markerMiddleware);
-    //   if (markerMiddleware) {
-    //     // If marker is pointing to new file, then delete old middleware from memory
-    //     if (markerMiddleware.markerFileName !== markerFileName) {
-    //       delete middlewarePerMarker[marker];
-    //       markerMiddleware = undefined;
-    //     }
-    //   }
-    //   console.log("markerMiddleware2", markerMiddleware);
-    //   if (!markerMiddleware) {
-    //     markerMiddleware = {
-    //       markerFileName,
-    //       middleware: createGraphQLMiddleware(getFilesDir, getBaseUrl, markerFileName, marker),
-    //     };
-    //     middlewarePerMarker[marker] = markerMiddleware;
-    //   }
-    //   console.log("markerMiddleware3", markerMiddleware);
-    //   return markerMiddleware.middleware(ctx, next);
-    // }
-  );
+  router.all("/:marker", createSchemaMiddleware(getFilesDir), createGraphQLMiddleware(getFilesDir, getBaseUrl));
 
   return compose([router.routes(), router.allowedMethods()]);
 }
 
-// This middleware expects ctx.params.marker, and adds a schema for that marker to the context
+/**
+ * This middleware expects ctx.params.marker, and adds a schema for that marker to the context.
+ * It will only create the schema once, and recreate it if the marker is pointing to a new file.
+ */
 function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware {
+  // interface SchemaPerMarker {
+  //   [marker: string]: GraphQLSchema;
+  // }
   interface SchemaPerMarker {
-    [marker: string]: GraphQLSchema;
+    [marker: string]: { markerFileName: string; schema: GraphQLSchema } | undefined;
   }
   const schemaPerMarker: SchemaPerMarker = {};
   return async (ctx, next) => {
@@ -99,37 +64,27 @@ function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware {
       ctx.status = 404;
       return next();
     }
-    if (schemaPerMarker[marker] === undefined) {
-      console.log("Creating new schema!!!!!");
-      schemaPerMarker[marker] = await createSchema(readJsonFile(getFilesDir(ctx)), markerFileName);
+    let markerSchema = schemaPerMarker[marker];
+    if (markerSchema) {
+      // If marker is pointing to new file, then delete old schema from memory
+      if (markerSchema.markerFileName !== markerFileName) {
+        delete schemaPerMarker[marker];
+        markerSchema = undefined;
+      }
     }
-    ctx.params.graphqlSchema = schemaPerMarker[marker];
+    if (!markerSchema) {
+      markerSchema = {
+        markerFileName,
+        schema: await createSchema(readJsonFile(getFilesDir(ctx)), markerFileName),
+      };
+      schemaPerMarker[marker] = markerSchema;
+    }
+    ctx.params.graphqlSchema = markerSchema.schema;
     return next();
   };
 }
 
-// function createGraphQLMiddleware(
-//   getFilesDir: GetFilesDir,
-//   getBaseUrl: GetBaseUrl,
-//   markerFileName: string,
-//   marker: string
-// ): Koa.Middleware {
-//   return graphqlHTTP(async (_request, _repsonse, ctx) => ({
-//     schema: await createSchema(readJsonFile(getFilesDir(ctx)), markerFileName),
-//     graphiql: true,
-//     rootValue: {} as RootValue,
-//     context: createContext(getBaseUrl, markerFileName, marker, readJsonFile(getFilesDir(ctx))),
-//     formatError: (error: GraphQLError) => {
-//       console.log("Error occured in GraphQL:");
-//       console.log(error);
-//       console.log("The original error was:");
-//       console.log(error.originalError);
-//       return error;
-//     },
-//   }));
-// }
-
-function createGraphQLMiddleware2(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
+function createGraphQLMiddleware(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
   return graphqlHTTP(async (_request, _repsonse, ctx) => ({
     schema: ctx.params.graphqlSchema,
     graphiql: true,
