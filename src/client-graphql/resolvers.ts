@@ -75,20 +75,6 @@ export const queryResolvers = {
   },
 };
 
-// async function getOrLoadProduct(ctx: Context, filename: string): Promise<Product> {
-//   console.log("ctx.resolverCache.loadedProducts0", ctx.resolverCache.loadedProducts);
-//   const { readJsonFile } = ctx;
-//   let product = ctx.resolverCache.loadedProducts[filename];
-//   if (!product) {
-//     console.log("ctx.resolverCache.loadedProducts1", ctx.resolverCache.loadedProducts);
-//     product = await getProduct(readJsonFile, filename);
-//     console.log("ctx.resolverCache.loadedProducts2", ctx.resolverCache.loadedProducts);
-//     ctx.resolverCache.loadedProducts[filename] = product;
-//   }
-//   // console.log(product);
-//   return product;
-// }
-
 // tslint:disable-next-line:no-any
 export const productResolvers: { [P in keyof Product]?: any } = {
   id: async (parent: ProductFileName, _args: {}, ctx: Context): Promise<string> => {
@@ -99,14 +85,16 @@ export const productResolvers: { [P in keyof Product]?: any } = {
     const productFile = await ctx.loaders.productFiles.load(parent);
     return productFile.data.key;
   },
-  name: async (_parent: Product, _args: {}, _ctx: Context): Promise<string> => {
-    return "hehe";
+  name: async (parent: ProductFileName, _args: {}, ctx: Context): Promise<string> => {
+    const productFile = await ctx.loaders.productFiles.load(parent);
+    return productFile.data.name;
   },
-  retired: async (_parent: Product, _args: {}, _ctx: Context): Promise<string> => {
-    return "hehe";
+  retired: async (parent: ProductFileName, _args: {}, ctx: Context): Promise<boolean> => {
+    const productFile = await ctx.loaders.productFiles.load(parent);
+    return productFile.data.retired;
   },
-  _fileName: async (_parent: Product, _args: {}, _ctx: Context): Promise<string> => {
-    return "hehe";
+  _fileName: async (parent: ProductFileName, _args: {}, _ctx: Context): Promise<string> => {
+    return parent;
   },
   modules: async (parent: Product, _args: {}, ctx: Context): Promise<Modules> => {
     const { readJsonFile } = ctx;
