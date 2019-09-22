@@ -1,4 +1,4 @@
-import { TreeFile, ReleaseFile, TransactionFile, ProductTableFile } from "../file-types";
+import { TreeFile, ReleaseFile, TransactionFile } from "../file-types";
 import { Context } from "./context";
 import { Query, Marker, Product, TableRow } from "./schema-types";
 import { GraphQLResolveInfo } from "graphql";
@@ -78,28 +78,7 @@ export const productResolvers: {
   key: async (parent, _args, ctx) => (await ctx.loaders.productFiles.load(parent)).data.key,
   name: async (parent, _args: {}, ctx) => (await ctx.loaders.productFiles.load(parent)).data.name,
   retired: async (parent, _args: {}, ctx) => (await ctx.loaders.productFiles.load(parent)).data.retired,
-  modules: async (parent, _args, _ctx) => {
-    // const { readJsonFile } = ctx;
-    // const productFile = await ctx.loaders.productFiles.load(parent);
-    // const tableFileNames = Object.values(productFile.data.tables).map((v) => productFile.refs[v]);
-    // const tablePromises = tableFileNames.map((f) => readJsonFile<ProductTableFile>(f));
-    // const tables = await Promise.all(tablePromises);
-    // // Group tables by module
-    // const tablesByModule: {
-    //   [module: string]: { [table: string]: Array<{ [column: string]: string | number | null }> };
-    // } = {};
-    // for (const t of tables) {
-    //   let moduleWithTables = tablesByModule[t.data.module];
-    //   if (!moduleWithTables) {
-    //     moduleWithTables = {};
-    //     tablesByModule[t.data.module] = moduleWithTables;
-    //   }
-    //   const rows = t.data.rows.map((values) => Object.fromEntries(t.data.columns.map((c, i) => [c.name, values[i]])));
-    //   moduleWithTables[t.data.name] = rows;
-    // }
-    // return tablesByModule;
-    return parent;
-  },
+  modules: async (parent, _args, _ctx) => parent,
 };
 
 export function modulesFieldResolver(
@@ -126,28 +105,9 @@ export async function moduleFieldResolver(
   const productFile = await ctx.loaders.productFiles.load(parent.productFileName);
   const tableRef = productFile.data.tables[fullTableName];
   const tableFileName = productFile.refs[tableRef];
-  console.log("tableFileName", tableFileName);
   const tableFile = await ctx.loaders.tableFiles.load(tableFileName);
-  console.log("tableFile", tableFile);
-
-  // ---
-  const { readJsonFile } = ctx;
-  const tableFileNames = Object.values(productFile.data.tables).map((v) => productFile.refs[v]);
-  const tablePromises = tableFileNames.map((f) => readJsonFile<ProductTableFile>(f));
-  const tables = await Promise.all(tablePromises);
-  // Group tables by module
-  const tablesByModule: {
-    [module: string]: { [table: string]: Array<{ [column: string]: string | number | null }> };
-  } = {};
-  for (const t of tables) {
-    let moduleWithTables = tablesByModule[t.data.module];
-    if (!moduleWithTables) {
-      moduleWithTables = {};
-      tablesByModule[t.data.module] = moduleWithTables;
-    }
-    const rows = t.data.rows.map((values) => Object.fromEntries(t.data.columns.map((c, i) => [c.name, values[i]])));
-    moduleWithTables[t.data.name] = rows;
-  }
-
-  return tablesByModule[parent.module][info.fieldName];
+  const rows = tableFile.data.rows.map((values) =>
+    Object.fromEntries(tableFile.data.columns.map((c, i) => [c.name, values[i]]))
+  );
+  return rows;
 }
