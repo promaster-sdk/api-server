@@ -7,7 +7,7 @@ import compose from "koa-compose";
 import graphqlHTTP from "koa-graphql";
 import { GraphQLError, GraphQLSchema } from "graphql";
 import { createSchema } from "./schema";
-import { GetBaseUrl, createContext } from "./context";
+import { GetBaseUrl, createContext, Context } from "./context";
 import { RootValue } from "./resolvers";
 import { buildRootFileName, RootFile, ReleaseFile, TransactionFile } from "../file-types";
 
@@ -31,7 +31,7 @@ export function createClientGraphQLMiddleware(
 ): Koa.Middleware {
   const router = new Router({ prefix });
   router.all("/", createGetMarkersMiddleware(getFilesDir, getBaseUrl));
-  router.all("/:marker", createSchemaMiddleware(getFilesDir), createGraphQLMiddleware(getFilesDir, getBaseUrl));
+  router.all("/:marker", createSchemaMiddleware(getFilesDir), createGraphQLMiddleware());
   return compose([router.routes(), router.allowedMethods()]);
 }
 
@@ -49,15 +49,13 @@ function createGetMarkersMiddleware(getFilesDir: GetFilesDir, getBaseUrl: GetBas
 }
 
 interface ContextState {
-  readonly rootFile: RootFile;
-  // readonly markerFileName: string;
-  readonly markerFile: ReleaseFile | TransactionFile;
   readonly graphqlSchema: GraphQLSchema;
+  readonly graphqlContext: Context;
 }
 
 /**
- * This middleware expects ctx.params.marker, and adds a schema for that marker to ctx.state.
- * It will only create the schema once, and recreate it if the marker is pointing to a new file.
+ * This middleware expects ctx.params.marker, and adds a schema and context for that marker to ctx.state.
+ * It will cache the created schema until the marker is pointing to a new file.
  */
 function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware<ContextState> {
   interface SchemaPerMarker {
@@ -102,8 +100,12 @@ function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware<Contex
     ctx.state = {
       ...ctx.state,
       graphqlSchema: markerSchema.schema,
-      rootFile,
-      markerFile: markerSchema.markerFile,
+      graphqlContext: createContext(
+        readJsonFile(getFilesDir(ctx)),
+        ctx.params.marker,
+        markerSchema.markerFile,
+        rootFile
+      ),
     };
     return next();
   };
@@ -114,18 +116,12 @@ function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware<Contex
  * ctx.params.graphqlSchema to be set by a previous middleware
  * and presents an GraphQL endpoint that can be used according to the schema.
  */
-function createGraphQLMiddleware(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware<ContextState> {
+function createGraphQLMiddleware(): Koa.Middleware<ContextState> {
   return graphqlHTTP(async (_request, _repsonse, ctx: Koa.ParameterizedContext<ContextState>) => ({
     schema: ctx.state.graphqlSchema,
-    graphiql: true,
+    context: ctx.state.graphqlContext,
     rootValue: {} as RootValue,
-    context: createContext(
-      getBaseUrl,
-      readJsonFile(getFilesDir(ctx)),
-      ctx.params.marker,
-      ctx.state.markerFile,
-      ctx.state.rootFile
-    ),
+    graphiql: true,
     formatError: (error: GraphQLError) => {
       console.log("Error occured in GraphQL:");
       console.log(error);

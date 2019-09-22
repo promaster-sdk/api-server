@@ -7,7 +7,6 @@ export type GetBaseUrl = (ctx: Koa.Context) => string;
 export type ReadJsonFile = <T>(fileName: string) => Promise<T>;
 
 export interface Context {
-  readonly getBaseUrl: GetBaseUrl;
   readonly readJsonFile: ReadJsonFile;
   readonly markerFile: ReleaseFile | TransactionFile;
   readonly markerName: string;
@@ -16,14 +15,12 @@ export interface Context {
 }
 
 export function createContext(
-  getBaseUrl: GetBaseUrl,
   readJsonFile: ReadJsonFile,
   markerName: string,
   markerFile: ReleaseFile | TransactionFile,
   rootFile: RootFile
 ): Context {
   return {
-    getBaseUrl,
     markerFile,
     rootFile,
     markerName,
