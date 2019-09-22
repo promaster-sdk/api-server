@@ -1,13 +1,22 @@
 import { TreeFile, ReleaseFile, ProductFile, ProductTableFile, TransactionFile } from "../file-types";
 import { Context, ReadJsonFile } from "./context";
-import { Marker, Product } from "./schema-types";
+import { Query, Marker, Product } from "./schema-types";
 
 export type RootValue = {};
 
 type ProductFileNames = ReadonlyArray<ProductFileName>;
 type ProductFileName = string;
 
-export const queryResolvers = {
+type QueryParents = {
+  readonly trees: Query["trees"];
+  readonly marker: Query["marker"];
+  readonly products: ProductFileNames;
+  readonly product: Query["product"];
+};
+
+export const queryResolvers: {
+  [P in keyof Query]?: (parent: RootValue, args: {}, ctx: Context) => Promise<QueryParents[P]>
+} = {
   trees: async (_parent: RootValue, _args: {}, ctx: Context) => {
     const { rootFile, readJsonFile } = ctx;
     const trees: Array<TreeFile> = [];
@@ -37,7 +46,7 @@ export const queryResolvers = {
       throw new Error("Invalid file type.");
     }
   },
-  products: async (_parent: RootValue, _args: {}, ctx: Context): Promise<ProductFileNames> => {
+  products: async (_parent, _args: {}, ctx: Context): Promise<ProductFileNames> => {
     const { markerFile } = ctx;
     const productFileNames = Object.values(markerFile.data.products).map((ref) => markerFile.refs[ref]);
     return productFileNames;

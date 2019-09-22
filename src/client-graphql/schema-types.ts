@@ -1,5 +1,16 @@
 import { ProductTableFileCell } from "../file-types";
 
+export interface Query {
+  readonly trees: ReadonlyArray<Tree>;
+  readonly marker: Marker;
+  readonly products: ReadonlyArray<Product>;
+  readonly product: Product | null;
+}
+
+export interface Tree {
+  readonly name: string;
+}
+
 export interface Marker {
   readonly markerName: string;
   // If this marker is a release marker then it will point to a releaseId
