@@ -61,25 +61,11 @@ export const queryResolvers = {
 export const productResolvers: {
   [P in keyof Product]?: (parent: ProductFileName, args: {}, ctx: Context) => Promise<Product[P]>
 } = {
-  id: async (parent, _args, ctx) => {
-    const productFile = await ctx.loaders.productFiles.load(parent);
-    return productFile.data.id;
-  },
-  key: async (parent, _args, ctx): Promise<string> => {
-    const productFile = await ctx.loaders.productFiles.load(parent);
-    return productFile.data.key;
-  },
-  name: async (parent: ProductFileName, _args: {}, ctx: Context): Promise<string> => {
-    const productFile = await ctx.loaders.productFiles.load(parent);
-    return productFile.data.name;
-  },
-  retired: async (parent: ProductFileName, _args: {}, ctx: Context): Promise<boolean> => {
-    const productFile = await ctx.loaders.productFiles.load(parent);
-    return productFile.data.retired;
-  },
-  _fileName: async (parent: ProductFileName, _args: {}, _ctx: Context): Promise<string> => {
-    return parent;
-  },
+  id: async (parent, _args, ctx) => (await ctx.loaders.productFiles.load(parent)).data.id,
+  key: async (parent, _args, ctx) => (await ctx.loaders.productFiles.load(parent)).data.key,
+  name: async (parent, _args: {}, ctx) => (await ctx.loaders.productFiles.load(parent)).data.name,
+  retired: async (parent, _args: {}, ctx) => (await ctx.loaders.productFiles.load(parent)).data.retired,
+  _fileName: async (parent, _args: {}, _ctx) => parent,
   modules: async (parent, _args, ctx) => {
     const { readJsonFile } = ctx;
     const productFile = await ctx.loaders.productFiles.load(parent);
