@@ -125,7 +125,7 @@ async function buildModulesType(
   for (const [n, v] of Object.entries(tablesPerModule)) {
     const moduleFieldName = toSafeName(n);
     fields[moduleFieldName] = {
-      type: await buildModuleType(moduleFieldName, v, usedTypeNames),
+      type: new GraphQLNonNull(await buildModuleType(moduleFieldName, v, usedTypeNames)),
       resolve: modulesFieldResolver,
     };
   }
@@ -145,7 +145,9 @@ async function buildModuleType(
   for (const [n, v] of Object.entries(tableDefs)) {
     const tableFieldName = toSafeName(n);
     fields[tableFieldName] = {
-      type: new GraphQLList(await buildTableRowType(tableFieldName, v.columns, usedTypeNames)),
+      type: new GraphQLNonNull(
+        GraphQLList(new GraphQLNonNull(await buildTableRowType(tableFieldName, v.columns, usedTypeNames)))
+      ),
       description: v.description,
       resolve: moduleFieldResolver,
     };

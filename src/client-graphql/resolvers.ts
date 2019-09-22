@@ -105,6 +105,9 @@ export async function moduleFieldResolver(
   const productFile = await ctx.loaders.productFiles.load(parent.productFileName);
   const tableRef = productFile.data.tables[fullTableName];
   const tableFileName = productFile.refs[tableRef];
+  if (!tableFileName) {
+    return [];
+  }
   const tableFile = await ctx.loaders.tableFiles.load(tableFileName);
   const rows = tableFile.data.rows.map((values) =>
     Object.fromEntries(tableFile.data.columns.map((c, i) => [c.name, values[i]]))
