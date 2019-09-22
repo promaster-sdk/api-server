@@ -36,7 +36,7 @@ export function createClientGraphQLMiddleware(
 
   router.all("/", async (ctx, next) => {
     const rootFileContent = await readJsonFile<RootFile>(getFilesDir(ctx))(buildRootFileName());
-    const markers = Object.keys(rootFileContent.data.markers);
+    const markers = Object.keys(rootFileContent.data.markers).map((m) => m.toLowerCase());
     const urlsToMarkers = markers.map((m) => `${getBaseUrl(ctx)}/${m}`);
     ctx.body = urlsToMarkers;
     return next();
@@ -45,7 +45,9 @@ export function createClientGraphQLMiddleware(
   router.all("/:marker", async (ctx, next) => {
     const { marker } = ctx.params;
     const rootFileContent = await readJsonFile<RootFile>(getFilesDir(ctx))(buildRootFileName());
-    const markerRef = rootFileContent.data.markers[marker];
+    const markerLowerCase = marker.toLowerCase();
+    const markerKey = Object.keys(rootFileContent.data.markers).find((m) => m.toLowerCase() === markerLowerCase);
+    const markerRef = rootFileContent.data.markers[markerKey || ""];
     const markerFileName = rootFileContent.refs[markerRef];
     if (!markerFileName) {
       ctx.body = `Marker ${marker} not found.`;
