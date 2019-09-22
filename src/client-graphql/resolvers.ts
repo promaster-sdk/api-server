@@ -57,7 +57,6 @@ export const queryResolvers = {
   },
 };
 
-// tslint:disable-next-line:no-any
 export const productResolvers: {
   [P in keyof Product]?: (parent: ProductFileName, args: {}, ctx: Context) => Promise<Product[P]>
 } = {
