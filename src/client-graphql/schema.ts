@@ -11,7 +11,7 @@ import {
   GraphQLScalarType,
   GraphQLFloat,
 } from "graphql";
-import { queryResolvers, productResolvers } from "./resolvers";
+import { queryResolvers, productResolvers, modulesFieldResolver, moduleFieldResolver } from "./resolvers";
 import {
   ProductFile,
   ProductTableFile,
@@ -20,7 +20,6 @@ import {
   TransactionFile,
   ProductTableFileColumnType,
 } from "../file-types";
-import { Module } from "./schema-types";
 import { ReadJsonFile } from "./context";
 
 export async function createSchema(
@@ -125,7 +124,10 @@ async function buildModulesType(
   const fields: GraphQLFieldConfigMap<unknown, unknown, unknown> = {};
   for (const [n, v] of Object.entries(tablesPerModule)) {
     const moduleFieldName = toSafeName(n);
-    fields[moduleFieldName] = { type: await buildModuleType(moduleFieldName, v, usedTypeNames) };
+    fields[moduleFieldName] = {
+      type: await buildModuleType(moduleFieldName, v, usedTypeNames),
+      resolve: modulesFieldResolver,
+    };
   }
   if (Object.keys(fields).length === 0) {
     return undefined;
@@ -145,7 +147,7 @@ async function buildModuleType(
     fields[tableFieldName] = {
       type: new GraphQLList(await buildTableRowType(tableFieldName, v.columns, usedTypeNames)),
       description: v.description,
-      resolve: (parent: Module) => parent[tableFieldName],
+      resolve: moduleFieldResolver,
     };
   }
   const moduleType = new GraphQLObjectType({ name: getUniqueTypeName(`Module_${moduleName}`, usedTypeNames), fields });
