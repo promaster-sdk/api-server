@@ -27,6 +27,7 @@ export async function createSchema(
   readJsonFile: ReadJsonFile,
   releaseOrTransactionFileName: string
 ): Promise<GraphQLSchema> {
+  console.log("createSchemacreateSchemacreateSchemacreateSchemacreateSchema");
   const usedTypeNames = new Set<string>();
 
   // Read the file that the marker points to, it is either a Release or Transaction file
@@ -105,10 +106,10 @@ async function buildProductType(
   const productType = new GraphQLObjectType({
     name: getUniqueTypeName("Product", usedTypeNames),
     fields: {
-      id: { type: new GraphQLNonNull(GraphQLID) },
-      key: { type: new GraphQLNonNull(GraphQLString) },
-      name: { type: new GraphQLNonNull(GraphQLString) },
-      retired: { type: new GraphQLNonNull(GraphQLBoolean) },
+      id: { type: new GraphQLNonNull(GraphQLID), resolve: productResolvers.id },
+      key: { type: new GraphQLNonNull(GraphQLString), resolve: productResolvers.key },
+      name: { type: new GraphQLNonNull(GraphQLString), resolve: productResolvers.name },
+      retired: { type: new GraphQLNonNull(GraphQLBoolean), resolve: productResolvers.retired },
       modules: modulesType
         ? { type: new GraphQLNonNull(modulesType), resolve: productResolvers.modules }
         : { type: new GraphQLNonNull(GraphQLString), resolve: () => "No tables found." },

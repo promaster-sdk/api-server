@@ -14,6 +14,8 @@ import { Marker, Product, Modules } from "./schema-types";
 
 export type RootValue = {};
 
+type ProductFileNames = ReadonlyArray<string>;
+
 export const queryResolvers = {
   trees: async (_parent: RootValue, _args: {}, ctx: Context) => {
     const { readJsonFile } = ctx;
@@ -47,13 +49,14 @@ export const queryResolvers = {
       throw new Error("Invalid file type.");
     }
   },
-  products: async (_parent: RootValue, _args: {}, ctx: Context) => {
+  products: async (_parent: RootValue, _args: {}, ctx: Context): Promise<ProductFileNames> => {
     const { readJsonFile, markerFileName } = ctx;
-    const releaseFile = await readJsonFile<ReleaseFile | TransactionFile>(markerFileName);
-    const productFileNames = Object.values(releaseFile.data.products).map((ref) => releaseFile.refs[ref]);
-    const productPromises = productFileNames.map((f) => getProduct(readJsonFile, f));
-    const products = await Promise.all(productPromises);
-    return products;
+    const markerFile = await readJsonFile<ReleaseFile | TransactionFile>(markerFileName);
+    const productFileNames = Object.values(markerFile.data.products).map((ref) => markerFile.refs[ref]);
+    return productFileNames;
+    // const productPromises = productFileNames.map((f) => getProduct(readJsonFile, f));
+    // const products = await Promise.all(productPromises);
+    // return products;
   },
   product: async (_parent: RootValue, { id }: { readonly id: string }, ctx: Context) => {
     const { readJsonFile, markerFileName } = ctx;
@@ -71,7 +74,23 @@ export const queryResolvers = {
   },
 };
 
-export const productResolvers = {
+// tslint:disable-next-line:no-any
+export const productResolvers: { [P in keyof Product]?: any } = {
+  id: async (_parent: Product, _args: {}, _ctx: Context): Promise<string> => {
+    return "hehe";
+  },
+  key: async (_parent: Product, _args: {}, _ctx: Context): Promise<string> => {
+    return "hehe";
+  },
+  name: async (_parent: Product, _args: {}, _ctx: Context): Promise<string> => {
+    return "hehe";
+  },
+  retired: async (_parent: Product, _args: {}, _ctx: Context): Promise<string> => {
+    return "hehe";
+  },
+  _fileName: async (_parent: Product, _args: {}, _ctx: Context): Promise<string> => {
+    return "hehe";
+  },
   modules: async (parent: Product, _args: {}, ctx: Context): Promise<Modules> => {
     const { readJsonFile } = ctx;
     const product = await readJsonFile<ProductFile>(parent._fileName);
@@ -97,5 +116,5 @@ export const productResolvers = {
 
 async function getProduct(readJsonFile: ReadJsonFile, productFileName: string): Promise<Product> {
   const productFile: ProductFile = await readJsonFile<ProductFile>(productFileName);
-  return { ...productFile.data, _fileName: productFileName };
+  return { ...productFile.data, _fileName: productFileName, modules: {} };
 }

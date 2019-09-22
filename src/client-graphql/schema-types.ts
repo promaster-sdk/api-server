@@ -14,6 +14,7 @@ export interface Product {
   readonly key: string;
   readonly name: string;
   readonly retired: boolean;
+  readonly modules: Modules;
   readonly _fileName: string;
 }
 
