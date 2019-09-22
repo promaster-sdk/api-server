@@ -1,7 +1,7 @@
+import { GraphQLResolveInfo } from "graphql";
 import { TreeFile, ReleaseFile, TransactionFile } from "../file-types";
 import { Context } from "./context";
 import { Query, Marker, Product, TableRow } from "./schema-types";
-import { GraphQLResolveInfo } from "graphql";
 
 export type RootValue = {};
 
