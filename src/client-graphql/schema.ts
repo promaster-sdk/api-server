@@ -27,7 +27,6 @@ export async function createSchema(
   readJsonFile: ReadJsonFile,
   releaseOrTransaction: ReleaseFile | TransactionFile
 ): Promise<GraphQLSchema> {
-  console.log("createSchemacreateSchemacreateSchemacreateSchemacreateSchema");
   const usedTypeNames = new Set<string>();
 
   // Read the file that the marker points to, it is either a Release or Transaction file

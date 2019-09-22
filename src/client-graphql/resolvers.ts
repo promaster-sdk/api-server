@@ -1,5 +1,5 @@
-import { TreeFile, ReleaseFile, ProductFile, ProductTableFile, TransactionFile } from "../file-types";
-import { Context, ReadJsonFile } from "./context";
+import { TreeFile, ReleaseFile, ProductTableFile, TransactionFile } from "../file-types";
+import { Context } from "./context";
 import { Query, Marker, Product } from "./schema-types";
 
 export type RootValue = {};
@@ -11,7 +11,7 @@ type QueryParents = {
   readonly trees: Query["trees"];
   readonly marker: Query["marker"];
   readonly products: ProductFileNames;
-  readonly product: Query["product"];
+  readonly product: ProductFileName | null;
 };
 
 export const queryResolvers: {
@@ -51,18 +51,14 @@ export const queryResolvers: {
     const productFileNames = Object.values(markerFile.data.products).map((ref) => markerFile.refs[ref]);
     return productFileNames;
   },
-  product: async (_parent: RootValue, { id }: { readonly id: string }, ctx: Context) => {
-    const { readJsonFile, markerFile } = ctx;
+  product: async (_parent, { id }: { readonly id: string }, ctx) => {
+    const { markerFile } = ctx;
     const productFileRef = markerFile.data.products[id];
-    if (productFileRef === undefined) {
+    const productFileName = markerFile.refs[productFileRef];
+    if (productFileName === undefined) {
       return null;
     }
-    const productFile = markerFile.refs[productFileRef];
-    if (productFile === undefined) {
-      return null;
-    }
-    const product = await getProduct(readJsonFile, productFile);
-    return product;
+    return productFileName;
   },
 };
 
@@ -95,8 +91,3 @@ export const productResolvers: {
     return tablesByModule;
   },
 };
-
-async function getProduct(readJsonFile: ReadJsonFile, productFileName: string): Promise<Product> {
-  const productFile: ProductFile = await readJsonFile<ProductFile>(productFileName);
-  return { ...productFile.data, modules: {} };
-}
