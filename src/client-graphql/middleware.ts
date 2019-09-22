@@ -97,7 +97,7 @@ function createGraphQLMiddleware(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUr
     schema: ctx.params.graphqlSchema,
     graphiql: true,
     rootValue: {} as RootValue,
-    context: createContext(getBaseUrl, ctx.params.markerFileName, ctx.params.marker, readJsonFile(getFilesDir(ctx))),
+    context: createContext(getBaseUrl, readJsonFile(getFilesDir(ctx)), ctx.params.markerFileName, ctx.params.marker),
     formatError: (error: GraphQLError) => {
       console.log("Error occured in GraphQL:");
       console.log(error);

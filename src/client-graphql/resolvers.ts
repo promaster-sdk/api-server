@@ -14,7 +14,8 @@ import { Marker, Product, Modules } from "./schema-types";
 
 export type RootValue = {};
 
-type ProductFileNames = ReadonlyArray<string>;
+type ProductFileNames = ReadonlyArray<ProductFileName>;
+type ProductFileName = string;
 
 export const queryResolvers = {
   trees: async (_parent: RootValue, _args: {}, ctx: Context) => {
@@ -74,13 +75,29 @@ export const queryResolvers = {
   },
 };
 
+// async function getOrLoadProduct(ctx: Context, filename: string): Promise<Product> {
+//   console.log("ctx.resolverCache.loadedProducts0", ctx.resolverCache.loadedProducts);
+//   const { readJsonFile } = ctx;
+//   let product = ctx.resolverCache.loadedProducts[filename];
+//   if (!product) {
+//     console.log("ctx.resolverCache.loadedProducts1", ctx.resolverCache.loadedProducts);
+//     product = await getProduct(readJsonFile, filename);
+//     console.log("ctx.resolverCache.loadedProducts2", ctx.resolverCache.loadedProducts);
+//     ctx.resolverCache.loadedProducts[filename] = product;
+//   }
+//   // console.log(product);
+//   return product;
+// }
+
 // tslint:disable-next-line:no-any
 export const productResolvers: { [P in keyof Product]?: any } = {
-  id: async (_parent: Product, _args: {}, _ctx: Context): Promise<string> => {
-    return "hehe";
+  id: async (parent: ProductFileName, _args: {}, ctx: Context): Promise<string> => {
+    const productFile = await ctx.loaders.productFiles.load(parent);
+    return productFile.data.id;
   },
-  key: async (_parent: Product, _args: {}, _ctx: Context): Promise<string> => {
-    return "hehe";
+  key: async (parent: ProductFileName, _args: {}, ctx: Context): Promise<string> => {
+    const productFile = await ctx.loaders.productFiles.load(parent);
+    return productFile.data.key;
   },
   name: async (_parent: Product, _args: {}, _ctx: Context): Promise<string> => {
     return "hehe";
