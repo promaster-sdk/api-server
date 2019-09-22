@@ -43,7 +43,7 @@ export const queryResolvers: {
         tx: transactionFile.data.tx.toString(),
       };
     } else {
-      throw new Error("Invalid file type.");
+      throw new Error("Invalid marker.");
     }
   },
   products: async (_parent, _args: {}, ctx: Context): Promise<ProductFileNames> => {
