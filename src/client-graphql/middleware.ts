@@ -30,18 +30,22 @@ export function createClientGraphQLMiddleware(
   prefix?: string
 ): Koa.Middleware {
   const router = new Router({ prefix });
+  router.all("/", createGetMarkersMiddleware(getFilesDir, getBaseUrl));
+  router.all("/:marker", createSchemaMiddleware(getFilesDir), createGraphQLMiddleware(getFilesDir, getBaseUrl));
+  return compose([router.routes(), router.allowedMethods()]);
+}
 
-  router.all("/", async (ctx, next) => {
+/**
+ * This middleware lists all markers and an URL to the GraphQL endpoint for each marker
+ */
+function createGetMarkersMiddleware(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
+  return async (ctx, next) => {
     const rootFileContent = await readJsonFile<RootFile>(getFilesDir(ctx))(buildRootFileName());
     const markers = Object.keys(rootFileContent.data.markers).map((m) => m.toLowerCase());
     const urlsToMarkers = markers.map((m) => `${getBaseUrl(ctx)}/${m}`);
     ctx.body = urlsToMarkers;
     return next();
-  });
-
-  router.all("/:marker", createSchemaMiddleware(getFilesDir), createGraphQLMiddleware(getFilesDir, getBaseUrl));
-
-  return compose([router.routes(), router.allowedMethods()]);
+  };
 }
 
 /**
@@ -86,6 +90,7 @@ function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware {
 /**
  * This middleware expects ctx.params.marker, ctx.params.markerFileName,
  * ctx.params.graphqlSchema to be set by a previous middleware
+ * and presents an GraphQL endpoint that can be used according to the schema.
  */
 function createGraphQLMiddleware(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
   return graphqlHTTP(async (_request, _repsonse, ctx) => ({
