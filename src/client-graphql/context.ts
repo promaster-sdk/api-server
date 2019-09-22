@@ -1,6 +1,6 @@
 import Koa from "koa";
 import DataLoader from "dataloader";
-import { ProductFile } from "../file-types";
+import { ProductFile, ReleaseFile, TransactionFile, RootFile } from "../file-types";
 
 export type GetBaseUrl = (ctx: Koa.Context) => string;
 
@@ -9,20 +9,23 @@ export type ReadJsonFile = <T>(fileName: string) => Promise<T>;
 export interface Context {
   readonly getBaseUrl: GetBaseUrl;
   readonly readJsonFile: ReadJsonFile;
-  readonly markerFileName: string;
+  readonly markerFile: ReleaseFile | TransactionFile;
   readonly markerName: string;
   readonly loaders: DataLoaders;
+  readonly rootFile: RootFile;
 }
 
 export function createContext(
   getBaseUrl: GetBaseUrl,
   readJsonFile: ReadJsonFile,
-  markerFileName: string,
-  markerName: string
+  markerName: string,
+  markerFile: ReleaseFile | TransactionFile,
+  rootFile: RootFile
 ): Context {
   return {
     getBaseUrl,
-    markerFileName,
+    markerFile,
+    rootFile,
     markerName,
     readJsonFile,
     loaders: createLoaders(readJsonFile),

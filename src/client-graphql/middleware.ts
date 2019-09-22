@@ -9,7 +9,7 @@ import { GraphQLError, GraphQLSchema } from "graphql";
 import { createSchema } from "./schema";
 import { GetBaseUrl, createContext } from "./context";
 import { RootValue } from "./resolvers";
-import { buildRootFileName, RootFile } from "../file-types";
+import { buildRootFileName, RootFile, ReleaseFile, TransactionFile } from "../file-types";
 
 const readFileAsync = promisify(fs.readFile);
 
@@ -48,22 +48,35 @@ function createGetMarkersMiddleware(getFilesDir: GetFilesDir, getBaseUrl: GetBas
   };
 }
 
+interface ContextState {
+  readonly rootFile: RootFile;
+  // readonly markerFileName: string;
+  readonly markerFile: ReleaseFile | TransactionFile;
+  readonly graphqlSchema: GraphQLSchema;
+}
+
 /**
- * This middleware expects ctx.params.marker, and adds a schema for that marker to the context.
+ * This middleware expects ctx.params.marker, and adds a schema for that marker to ctx.state.
  * It will only create the schema once, and recreate it if the marker is pointing to a new file.
  */
-function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware {
+function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware<ContextState> {
   interface SchemaPerMarker {
-    [marker: string]: { readonly markerFileName: string; readonly schema: GraphQLSchema } | undefined;
+    [marker: string]:
+      | {
+          readonly markerFileName: string;
+          readonly markerFile: ReleaseFile | TransactionFile;
+          readonly schema: GraphQLSchema;
+        }
+      | undefined;
   }
   const schemaPerMarker: SchemaPerMarker = {};
   return async (ctx, next) => {
     const { marker } = ctx.params;
-    const rootFileContent = await readJsonFile<RootFile>(getFilesDir(ctx))(buildRootFileName());
+    const rootFile = await readJsonFile<RootFile>(getFilesDir(ctx))(buildRootFileName());
     const markerLowerCase = marker.toLowerCase();
-    const markerKey = Object.keys(rootFileContent.data.markers).find((m) => m.toLowerCase() === markerLowerCase);
-    const markerRef = rootFileContent.data.markers[markerKey || ""];
-    const markerFileName = rootFileContent.refs[markerRef];
+    const markerKey = Object.keys(rootFile.data.markers).find((m) => m.toLowerCase() === markerLowerCase);
+    const markerRef = rootFile.data.markers[markerKey || ""];
+    const markerFileName = rootFile.refs[markerRef];
     if (!markerFileName) {
       ctx.body = `Marker ${marker} not found.`;
       ctx.status = 404;
@@ -78,11 +91,20 @@ function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware {
       }
     }
     if (!markerSchema) {
-      markerSchema = { markerFileName, schema: await createSchema(readJsonFile(getFilesDir(ctx)), markerFileName) };
+      const markerFile = await readJsonFile<ReleaseFile | TransactionFile>(getFilesDir(ctx))(markerFileName);
+      markerSchema = {
+        markerFileName,
+        markerFile,
+        schema: await createSchema(readJsonFile(getFilesDir(ctx)), markerFile),
+      };
       schemaPerMarker[marker] = markerSchema;
     }
-    ctx.params.markerFileName = markerSchema.markerFileName;
-    ctx.params.graphqlSchema = markerSchema.schema;
+    ctx.state = {
+      ...ctx.state,
+      graphqlSchema: markerSchema.schema,
+      rootFile,
+      markerFile: markerSchema.markerFile,
+    };
     return next();
   };
 }
@@ -92,12 +114,18 @@ function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware {
  * ctx.params.graphqlSchema to be set by a previous middleware
  * and presents an GraphQL endpoint that can be used according to the schema.
  */
-function createGraphQLMiddleware(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
-  return graphqlHTTP(async (_request, _repsonse, ctx) => ({
-    schema: ctx.params.graphqlSchema,
+function createGraphQLMiddleware(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware<ContextState> {
+  return graphqlHTTP(async (_request, _repsonse, ctx: Koa.ParameterizedContext<ContextState>) => ({
+    schema: ctx.state.graphqlSchema,
     graphiql: true,
     rootValue: {} as RootValue,
-    context: createContext(getBaseUrl, readJsonFile(getFilesDir(ctx)), ctx.params.markerFileName, ctx.params.marker),
+    context: createContext(
+      getBaseUrl,
+      readJsonFile(getFilesDir(ctx)),
+      ctx.params.marker,
+      ctx.state.markerFile,
+      ctx.state.rootFile
+    ),
     formatError: (error: GraphQLError) => {
       console.log("Error occured in GraphQL:");
       console.log(error);

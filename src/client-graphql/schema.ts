@@ -25,13 +25,12 @@ import { ReadJsonFile } from "./context";
 
 export async function createSchema(
   readJsonFile: ReadJsonFile,
-  releaseOrTransactionFileName: string
+  releaseOrTransaction: ReleaseFile | TransactionFile
 ): Promise<GraphQLSchema> {
   console.log("createSchemacreateSchemacreateSchemacreateSchemacreateSchema");
   const usedTypeNames = new Set<string>();
 
   // Read the file that the marker points to, it is either a Release or Transaction file
-  const releaseOrTransaction = await readJsonFile<ReleaseFile | TransactionFile>(releaseOrTransactionFileName);
   const productFileNames = Object.values(releaseOrTransaction.data.products).map(
     (ref) => releaseOrTransaction.refs[ref]
   );
