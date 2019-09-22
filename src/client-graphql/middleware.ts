@@ -49,8 +49,10 @@ function createGetMarkersMiddleware(getFilesDir: GetFilesDir, getBaseUrl: GetBas
 }
 
 interface ContextState {
-  readonly graphqlSchema: GraphQLSchema;
-  readonly graphqlContext: Context;
+  // tslint:disable-next-line:readonly-keyword
+  graphqlSchema: GraphQLSchema;
+  // tslint:disable-next-line:readonly-keyword
+  graphqlContext: Context;
 }
 
 /**
@@ -96,16 +98,13 @@ function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware<Contex
       };
       schemaPerMarker[marker] = markerSchema;
     }
-    ctx.state = {
-      ...ctx.state,
-      graphqlSchema: markerSchema.schema,
-      graphqlContext: createContext(
-        readJsonFile(getFilesDir(ctx)),
-        ctx.params.marker,
-        markerSchema.markerFile,
-        rootFile
-      ),
-    };
+    ctx.state.graphqlSchema = markerSchema.schema;
+    ctx.state.graphqlContext = createContext(
+      readJsonFile(getFilesDir(ctx)),
+      ctx.params.marker,
+      markerSchema.markerFile,
+      rootFile
+    );
     return next();
   };
 }
