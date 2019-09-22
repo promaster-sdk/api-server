@@ -1,6 +1,6 @@
 import { TreeFile, ReleaseFile, ProductFile, ProductTableFile, TransactionFile } from "../file-types";
 import { Context, ReadJsonFile } from "./context";
-import { Marker, Product, Modules } from "./schema-types";
+import { Marker, Product } from "./schema-types";
 
 export type RootValue = {};
 
@@ -10,7 +10,6 @@ type ProductFileName = string;
 export const queryResolvers = {
   trees: async (_parent: RootValue, _args: {}, ctx: Context) => {
     const { rootFile, readJsonFile } = ctx;
-    // const rootFile = await readJsonFile<RootFile>(buildRootFileName());
     const trees: Array<TreeFile> = [];
     for (const t of Object.keys(rootFile.data.trees)) {
       const fileName = rootFile.refs[rootFile.data.trees[t]];
@@ -59,12 +58,14 @@ export const queryResolvers = {
 };
 
 // tslint:disable-next-line:no-any
-export const productResolvers: { [P in keyof Product]?: any } = {
-  id: async (parent: ProductFileName, _args: {}, ctx: Context): Promise<string> => {
+export const productResolvers: {
+  [P in keyof Product]?: (parent: ProductFileName, args: {}, ctx: Context) => Promise<Product[P]>
+} = {
+  id: async (parent, _args, ctx) => {
     const productFile = await ctx.loaders.productFiles.load(parent);
     return productFile.data.id;
   },
-  key: async (parent: ProductFileName, _args: {}, ctx: Context): Promise<string> => {
+  key: async (parent, _args, ctx): Promise<string> => {
     const productFile = await ctx.loaders.productFiles.load(parent);
     return productFile.data.key;
   },
@@ -79,10 +80,10 @@ export const productResolvers: { [P in keyof Product]?: any } = {
   _fileName: async (parent: ProductFileName, _args: {}, _ctx: Context): Promise<string> => {
     return parent;
   },
-  modules: async (parent: Product, _args: {}, ctx: Context): Promise<Modules> => {
+  modules: async (parent, _args, ctx) => {
     const { readJsonFile } = ctx;
-    const product = await readJsonFile<ProductFile>(parent._fileName);
-    const tableFileNames = Object.values(product.data.tables).map((v) => product.refs[v]);
+    const productFile = await ctx.loaders.productFiles.load(parent);
+    const tableFileNames = Object.values(productFile.data.tables).map((v) => productFile.refs[v]);
     const tablePromises = tableFileNames.map((f) => readJsonFile<ProductTableFile>(f));
     const tables = await Promise.all(tablePromises);
     // Group tables by module
