@@ -14,7 +14,7 @@ import { buildRootFileName, RootFile, ReleaseFile, TransactionFile } from "../fi
 const readFileAsync = promisify(fs.readFile);
 
 export const readJsonFile = <T>(filesDir: string) => async (fileName: string): Promise<T> => {
-  console.log("readJsonFile", fileName);
+  // console.log("readJsonFile", fileName);
   const fullPath = path.join(filesDir, fileName);
   const content = JSON.parse(await readFileAsync(fullPath, "utf8"));
   return content;
