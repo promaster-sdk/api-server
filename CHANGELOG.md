@@ -7,11 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v1.2.0...master)
 
-## [v1.1.2](https://github.com/promaster-sdk/api-server/compare/v1.1.2...v1.2.0) - 2019-09-22
+## [v1.2.0](https://github.com/promaster-sdk/api-server/compare/v1.1.2...v1.2.0) - 2019-09-22
 
 ### Added
 
-- A lot of improvements for Client GrahQL API. ee PR [#4](https://github.com/promaster-sdk/api-server/pull/4).
+- A lot of improvements for Client GrahQL API. See PR [#4](https://github.com/promaster-sdk/api-server/pull/4).
 
 ## [v1.1.2](https://github.com/promaster-sdk/api-server/compare/v1.1.1...v1.1.2) - 2019-09-20
 
