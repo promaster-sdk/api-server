@@ -23,7 +23,7 @@ export async function createModuleType(
   usedTypeNames: Set<string>,
   tableByName: TableByName
 ): Promise<GraphQLObjectType> {
-  return await buildModuleType(moduleFieldName, tableByName, usedTypeNames);
+  return buildModuleType(moduleFieldName, tableByName, usedTypeNames);
 }
 
 export function resolveModuleType(
@@ -35,38 +35,29 @@ export function resolveModuleType(
   return { module: info.fieldName, productFileName: parent };
 }
 
-async function buildModuleType(
-  moduleName: string,
-  tableDefs: TableByName,
-  usedTypeNames: Set<string>
-): Promise<GraphQLObjectType> {
+function buildModuleType(moduleName: string, tableByName: TableByName, usedTypeNames: Set<string>): GraphQLObjectType {
   const fields: GraphQLFieldConfigMap<unknown, unknown, unknown> = {};
-  for (const [n, v] of Object.entries(tableDefs)) {
+  for (const [n, v] of Object.entries(tableByName)) {
     const tableFieldName = toSafeName(n);
+    const tableRowType = new GraphQLObjectType({
+      name: getUniqueTypeName(tableFieldName, usedTypeNames),
+      fields: buildTableRowTypeFields(v.columns),
+    });
     fields[tableFieldName] = {
-      type: new GraphQLNonNull(
-        GraphQLList(new GraphQLNonNull(await buildTableRowType(tableFieldName, v.columns, usedTypeNames)))
-      ),
+      type: new GraphQLNonNull(GraphQLList(new GraphQLNonNull(tableRowType))),
       description: v.description,
       resolve: moduleTableResolver,
     };
   }
-  const moduleType = new GraphQLObjectType({ name: getUniqueTypeName(`Module_${moduleName}`, usedTypeNames), fields });
-  return moduleType;
+  return new GraphQLObjectType({ name: getUniqueTypeName(`Module_${moduleName}`, usedTypeNames), fields });
 }
 
-async function buildTableRowType(
-  tableSafeName: string,
-  columns: ReadonlyArray<ProductTableFileColumn>,
-  usedTypeNames: Set<string>
-): Promise<GraphQLObjectType> {
-  const tableType = new GraphQLObjectType({
-    name: getUniqueTypeName(tableSafeName, usedTypeNames),
-    fields: Object.fromEntries(
-      columns.map((c) => [toSafeName(c.name), { type: columnTypeToGraphQLType(c), description: c.description }])
-    ),
-  });
-  return tableType;
+export function buildTableRowTypeFields(
+  columns: ReadonlyArray<ProductTableFileColumn>
+): GraphQLFieldConfigMap<unknown, unknown> {
+  return Object.fromEntries(
+    columns.map((c) => [toSafeName(c.name), { type: columnTypeToGraphQLType(c), description: c.description }])
+  );
 }
 
 function columnTypeToGraphQLType(c: ProductTableFileColumn): GraphQLScalarType {
