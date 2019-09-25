@@ -24,3 +24,8 @@ export interface ModulePlugin {
     info: GraphQLResolveInfo
   ) => unknown;
 }
+
+export interface ModuleFieldResolverParent {
+  readonly module: string;
+  readonly productFileName: string;
+}

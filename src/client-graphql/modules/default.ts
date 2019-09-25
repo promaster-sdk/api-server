@@ -8,7 +8,7 @@ import {
   GraphQLString,
   GraphQLResolveInfo,
 } from "graphql";
-import { TableByName } from "./module-plugin";
+import { TableByName, ModuleFieldResolverParent } from "./module-plugin";
 import { getUniqueTypeName, toSafeName } from "../shared-functions";
 import { ProductTableFileColumn, ProductTableFileColumnType } from "../..";
 import { Context } from "../context";
@@ -84,19 +84,23 @@ function columnTypeToGraphQLType(c: ProductTableFileColumn): GraphQLScalarType {
   }
 }
 
-interface ModuleFieldResolverParent {
-  readonly module: string;
-  readonly productFileName: string;
-}
-
 export async function moduleTableResolver(
   parent: ModuleFieldResolverParent,
   _args: {},
   ctx: Context,
   info: GraphQLResolveInfo
 ): Promise<ReadonlyArray<TableRow>> {
-  const fullTableName = `${parent.module}@${info.fieldName}`;
-  const productFile = await ctx.loaders.productFiles.load(parent.productFileName);
+  return resolveTable(parent.module, parent.productFileName, info.fieldName, ctx);
+}
+
+export async function resolveTable(
+  module: string,
+  productFileName: string,
+  tableName: string,
+  ctx: Context
+): Promise<ReadonlyArray<TableRow>> {
+  const fullTableName = `${module}@${tableName}`;
+  const productFile = await ctx.loaders.productFiles.load(productFileName);
   const tableRef = productFile.data.tables[fullTableName];
   const tableFileName = productFile.refs[tableRef];
   if (!tableFileName) {
