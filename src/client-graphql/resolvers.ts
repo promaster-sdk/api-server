@@ -1,7 +1,6 @@
-import { GraphQLResolveInfo } from "graphql";
 import { TreeFile, ReleaseFile, TransactionFile } from "../file-types";
 import { Context } from "./context";
-import { Query, Marker, Product, TableRow } from "./schema-types";
+import { Query, Marker, Product } from "./schema-types";
 
 export type RootValue = {};
 
@@ -80,37 +79,3 @@ export const productResolvers: {
   retired: async (parent, _args: {}, ctx) => (await ctx.loaders.productFiles.load(parent)).data.retired,
   modules: async (parent, _args, _ctx) => parent,
 };
-
-export function modulesFieldResolver(
-  parent: string,
-  _args: {},
-  _ctx: Context,
-  info: GraphQLResolveInfo
-): ModuleFieldResolverParent {
-  return { module: info.fieldName, productFileName: parent };
-}
-
-interface ModuleFieldResolverParent {
-  readonly module: string;
-  readonly productFileName: ProductFileName;
-}
-
-export async function moduleFieldResolver(
-  parent: ModuleFieldResolverParent,
-  _args: {},
-  ctx: Context,
-  info: GraphQLResolveInfo
-): Promise<ReadonlyArray<TableRow>> {
-  const fullTableName = `${parent.module}@${info.fieldName}`;
-  const productFile = await ctx.loaders.productFiles.load(parent.productFileName);
-  const tableRef = productFile.data.tables[fullTableName];
-  const tableFileName = productFile.refs[tableRef];
-  if (!tableFileName) {
-    return [];
-  }
-  const tableFile = await ctx.loaders.tableFiles.load(tableFileName);
-  const rows = tableFile.data.rows.map((values) =>
-    Object.fromEntries(tableFile.data.columns.map((c, i) => [c.name, values[i]]))
-  );
-  return rows;
-}
