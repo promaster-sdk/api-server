@@ -3,7 +3,7 @@ import { getUniqueTypeName } from "../shared-functions";
 import { TableByName, ModuleFieldResolverParent } from "./module-plugin";
 import { Context } from "../context";
 import {
-  resolveTable,
+  resolveTableRows,
   buildTableRowTypeFields,
   getProductFileNameFromRow as getProductFileName,
   filterOnParent,
@@ -31,7 +31,7 @@ export async function createModuleType(
       values: {
         type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(propertyValueRowType))),
         resolve: async (parent, _args, ctx) => {
-          const rows = await resolveTable("properties", getProductFileName(parent), "property.value", ctx.loaders);
+          const rows = await resolveTableRows("properties", "property.value", getProductFileName(parent), ctx.loaders);
           return rows.filter(filterOnParent(parent));
         },
       },
@@ -41,7 +41,7 @@ export async function createModuleType(
     type: new GraphQLNonNull(GraphQLList(new GraphQLNonNull(propertyRowType))),
     description: propertyTable.description,
     resolve: async (parent: ModuleFieldResolverParent, _args, ctx: Context) =>
-      resolveTable(parent.module, parent.productFileName, "property", ctx.loaders, true),
+      resolveTableRows(parent.module, "property", parent.productFileName, ctx.loaders, true),
   };
   return new GraphQLObjectType({ name: getUniqueTypeName(`Module_${moduleName}`, usedTypeNames), fields });
 }

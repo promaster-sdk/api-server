@@ -2,7 +2,7 @@ import { GraphQLObjectType, GraphQLFieldConfigMap, GraphQLNonNull, GraphQLList, 
 import { TableByName, ModuleFieldResolverParent } from "./module-plugin";
 import { getUniqueTypeName, toSafeName } from "../shared-functions";
 import { Context } from "../context";
-import { resolveTable, buildTableRowTypeFields } from "./shared-functions";
+import { resolveTableRows, buildTableRowTypeFields } from "./shared-functions";
 
 /**
  * This is the default generic handling for modules
@@ -24,7 +24,7 @@ export async function createModuleType(
       type: new GraphQLNonNull(GraphQLList(new GraphQLNonNull(tableRowType))),
       description: v.description,
       resolve: (parent: ModuleFieldResolverParent, _args: {}, ctx: Context, info: GraphQLResolveInfo) => {
-        return resolveTable(parent.module, parent.productFileName, info.fieldName, ctx.loaders);
+        return resolveTableRows(parent.module, info.fieldName, parent.productFileName, ctx.loaders);
       },
     };
   }

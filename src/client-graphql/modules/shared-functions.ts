@@ -6,10 +6,10 @@ import { toSafeName } from "../shared-functions";
 
 const productFileNameKey = "__$ProductFileName";
 
-export async function resolveTable(
+export async function resolveTableRows(
   module: string,
-  productFileName: string,
   tableName: string,
+  productFileName: string,
   loaders: {
     readonly productFiles: DataLoader<string, ProductFile>;
     readonly tableFiles: DataLoader<string, ProductTableFile>;
