@@ -1,10 +1,16 @@
 import * as DataLoader from "dataloader";
 import { GraphQLFieldConfigMap, GraphQLScalarType, GraphQLFloat, GraphQLString } from "graphql";
-import { ProductFile, ProductTableFile, ProductTableFileColumn, ProductTableFileColumnType } from "../../file-types";
-import { TableRow } from "../schema-types";
+import {
+  ProductFile,
+  ProductTableFile,
+  ProductTableFileColumn,
+  ProductTableFileColumnType,
+  ProductTableFileCell,
+} from "../../file-types";
+import { TableRow, TableRowWithProductFileName } from "../schema-types";
 import { toSafeName } from "../shared-functions";
-
-const productFileNameKey = "__$ProductFileName";
+import { Context } from "../context";
+import { ModuleFieldResolverParent } from "./module-plugin";
 
 export async function resolveTableRows(
   module: string,
@@ -15,7 +21,7 @@ export async function resolveTableRows(
     readonly tableFiles: DataLoader<string, ProductTableFile>;
   },
   includeProductFileName: boolean = false
-): Promise<ReadonlyArray<TableRow>> {
+): Promise<ReadonlyArray<TableRow> | ReadonlyArray<TableRowWithProductFileName>> {
   const fullTableName = `${module}@${tableName}`;
   const productFile = await loaders.productFiles.load(productFileName);
   const tableRef = productFile.data.tables[fullTableName];
@@ -23,11 +29,17 @@ export async function resolveTableRows(
   if (!tableFileName) {
     return [];
   }
+  interface MutableTableRowWithProductFileName {
+    __$productFileName$: string;
+    readonly [column: string]: ProductTableFileCell;
+  }
   const tableFile = await loaders.tableFiles.load(tableFileName);
   if (includeProductFileName) {
     return tableFile.data.rows.map((values) => {
-      const obj = Object.fromEntries(tableFile.data.columns.map((c, i) => [c.name, values[i]]));
-      obj[productFileNameKey] = productFileName;
+      const obj = Object.fromEntries(
+        tableFile.data.columns.map((c, i) => [c.name, values[i]])
+      ) as MutableTableRowWithProductFileName;
+      obj.__$productFileName$ = productFileName;
       return obj;
     });
   } else {
@@ -35,11 +47,6 @@ export async function resolveTableRows(
       Object.fromEntries(tableFile.data.columns.map((c, i) => [c.name, values[i]]))
     );
   }
-}
-
-export function getProductFileNameFromRow(row: TableRow): string {
-  // tslint:disable-next-line:no-any
-  return (row as any)[productFileNameKey];
 }
 
 export function buildTableRowTypeFields(
@@ -76,4 +83,27 @@ function columnTypeToGraphQLType(c: ProductTableFileColumn): GraphQLScalarType {
 
 export const filterOnParent = (parent: TableRow) => (row: TableRow) => {
   return row["builtin@parent_id"] === parent["builtin@id"];
+};
+
+export const parentRowResolver = (moduleName: string, tableName: string) => (
+  parent: ModuleFieldResolverParent,
+  _args: {},
+  ctx: Context
+) => {
+  return resolveTableRows(moduleName, tableName, parent.productFileName, ctx.loaders, true);
+};
+
+export const childRowResolver = (
+  moduleName: string,
+  tableName: string,
+  includeProductFileName: boolean = false
+) => async (parent: TableRowWithProductFileName, _args: {}, ctx: Context) => {
+  const rows = await resolveTableRows(
+    moduleName,
+    tableName,
+    parent.__$productFileName$,
+    ctx.loaders,
+    includeProductFileName
+  );
+  return rows.filter(filterOnParent(parent));
 };

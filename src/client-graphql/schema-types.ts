@@ -39,3 +39,8 @@ export interface Module {
 export interface TableRow {
   readonly [column: string]: ProductTableFileCell;
 }
+
+export interface TableRowWithProductFileName {
+  readonly __$productFileName$: string;
+  readonly [column: string]: ProductTableFileCell;
+}
