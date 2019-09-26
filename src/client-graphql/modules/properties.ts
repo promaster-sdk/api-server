@@ -33,18 +33,7 @@ export async function createModuleType(
       translations: {
         type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(propertyValueTranslationRowType))),
         args: { language: { type: GraphQLString, description: "The language to get translations for" } },
-        resolve: async (parent: TableRowWithProductFileName, args: { readonly language: string }, ctx: Context) => {
-          const rows = await resolveTableRows(
-            myModuleName,
-            "property.value.translation",
-            parent.__$productFileName$,
-            ctx.loaders
-          );
-          return rows.filter(
-            (row) =>
-              row["builtin@parent_id"] === parent["builtin@id"] && (!args.language || row.language === args.language)
-          );
-        },
+        resolve: childRowResolverWithLanguageArg(myModuleName, "property.value.translation", true),
       },
     },
   });
@@ -59,18 +48,7 @@ export async function createModuleType(
       translations: {
         type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(propertyTranslationRowType))),
         args: { language: { type: GraphQLString, description: "The language to get translations for" } },
-        resolve: async (parent: TableRowWithProductFileName, args: { readonly language: string }, ctx: Context) => {
-          const rows = await resolveTableRows(
-            myModuleName,
-            "property.translation",
-            parent.__$productFileName$,
-            ctx.loaders
-          );
-          return rows.filter(
-            (row) =>
-              row["builtin@parent_id"] === parent["builtin@id"] && (!args.language || row.language === args.language)
-          );
-        },
+        resolve: childRowResolverWithLanguageArg(myModuleName, "property.value", true),
       },
     },
   });
@@ -81,3 +59,20 @@ export async function createModuleType(
   };
   return new GraphQLObjectType({ name: getUniqueTypeName(`Module_${moduleName}`, usedTypeNames), fields });
 }
+
+const childRowResolverWithLanguageArg = (
+  moduleName: string,
+  tableName: string,
+  includeProductFileName: boolean = false
+) => async (parent: TableRowWithProductFileName, args: { readonly language: string }, ctx: Context) => {
+  const rows = await resolveTableRows(
+    moduleName,
+    tableName,
+    parent.__$productFileName$,
+    ctx.loaders,
+    includeProductFileName
+  );
+  return rows.filter(
+    (row) => row["builtin@parent_id"] === parent["builtin@id"] && (!args.language || row.language === args.language)
+  );
+};
