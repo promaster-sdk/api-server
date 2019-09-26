@@ -17,7 +17,7 @@ export interface ModulePlugin {
     usedTypeNames: Set<string>,
     tableByName: TableByName
   ) => Promise<GraphQLObjectType>;
-  readonly resolveModuleType: (
+  readonly resolveModuleType?: (
     parent: unknown,
     _args: { readonly [key: string]: unknown },
     ctx: Context,

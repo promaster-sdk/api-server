@@ -73,3 +73,7 @@ function columnTypeToGraphQLType(c: ProductTableFileColumn): GraphQLScalarType {
       return GraphQLString;
   }
 }
+
+export const filterOnParent = (parent: TableRow) => (row: TableRow) => {
+  return row["builtin@parent_id"] === parent["builtin@id"];
+};

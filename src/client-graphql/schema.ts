@@ -13,7 +13,7 @@ import { queryResolvers, productResolvers } from "./resolvers";
 import { ProductFile, ProductTableFile, ProductTableFileColumn, ReleaseFile, TransactionFile } from "../file-types";
 import { ReadJsonFile } from "./context";
 import { getUniqueTypeName, toSafeName } from "./shared-functions";
-import { modulePlugins, TableByName, defaultModulePlugin } from "./modules";
+import { modulePlugins, TableByName, defaultModulePlugin, defaultResolveModuleType } from "./modules";
 
 export async function createSchema(
   readJsonFile: ReadJsonFile,
@@ -119,17 +119,11 @@ async function buildModulesType(
     // Check if there is a plugin for this module or if it should use generic handling
     const moduleFieldName = toSafeName(moduleName);
     const modulePlugin = modulePlugins[moduleName] || defaultModulePlugin;
-    // if (modulePlugin !== undefined) {
+    const resolveModuleType = modulePlugin.resolveModuleType || defaultResolveModuleType;
     fields[moduleFieldName] = {
       type: new GraphQLNonNull(await modulePlugin.createModuleType(moduleFieldName, usedTypeNames, tableByName)),
-      resolve: modulePlugin.resolveModuleType,
+      resolve: resolveModuleType,
     };
-    // } else {
-    //   fields[moduleFieldName] = {
-    //     type: new GraphQLNonNull(await buildModuleType(moduleFieldName, tableByName, usedTypeNames)),
-    //     resolve: modulesFieldResolver,
-    //   };
-    // }
   }
   if (Object.keys(fields).length === 0) {
     return undefined;

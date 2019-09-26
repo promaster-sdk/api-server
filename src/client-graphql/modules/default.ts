@@ -2,7 +2,6 @@ import { GraphQLObjectType, GraphQLFieldConfigMap, GraphQLNonNull, GraphQLList, 
 import { TableByName, ModuleFieldResolverParent } from "./module-plugin";
 import { getUniqueTypeName, toSafeName } from "../shared-functions";
 import { Context } from "../context";
-import { TableRow } from "../schema-types";
 import { resolveTable, buildTableRowTypeFields } from "./shared-functions";
 
 /**
@@ -14,19 +13,6 @@ export async function createModuleType(
   usedTypeNames: Set<string>,
   tableByName: TableByName
 ): Promise<GraphQLObjectType> {
-  return buildModuleType(moduleFieldName, tableByName, usedTypeNames);
-}
-
-export function resolveModuleType(
-  parent: string,
-  _args: {},
-  _ctx: Context,
-  info: GraphQLResolveInfo
-): ModuleFieldResolverParent {
-  return { module: info.fieldName, productFileName: parent };
-}
-
-function buildModuleType(moduleName: string, tableByName: TableByName, usedTypeNames: Set<string>): GraphQLObjectType {
   const fields: GraphQLFieldConfigMap<unknown, unknown, unknown> = {};
   for (const [n, v] of Object.entries(tableByName)) {
     const tableFieldName = toSafeName(n);
@@ -37,17 +23,10 @@ function buildModuleType(moduleName: string, tableByName: TableByName, usedTypeN
     fields[tableFieldName] = {
       type: new GraphQLNonNull(GraphQLList(new GraphQLNonNull(tableRowType))),
       description: v.description,
-      resolve: moduleTableResolver,
+      resolve: (parent: ModuleFieldResolverParent, _args: {}, ctx: Context, info: GraphQLResolveInfo) => {
+        return resolveTable(parent.module, parent.productFileName, info.fieldName, ctx.loaders);
+      },
     };
   }
-  return new GraphQLObjectType({ name: getUniqueTypeName(`Module_${moduleName}`, usedTypeNames), fields });
-}
-
-async function moduleTableResolver(
-  parent: ModuleFieldResolverParent,
-  _args: {},
-  ctx: Context,
-  info: GraphQLResolveInfo
-): Promise<ReadonlyArray<TableRow>> {
-  return resolveTable(parent.module, parent.productFileName, info.fieldName, ctx.loaders);
+  return new GraphQLObjectType({ name: getUniqueTypeName(`Module_${moduleFieldName}`, usedTypeNames), fields });
 }

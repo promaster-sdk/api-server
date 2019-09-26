@@ -6,6 +6,7 @@ import {
   resolveTable,
   buildTableRowTypeFields,
   getProductFileNameFromRow as getProductFileName,
+  filterOnParent,
 } from "./shared-functions";
 
 /**
@@ -19,12 +20,11 @@ export async function createModuleType(
 ): Promise<GraphQLObjectType> {
   const fields: GraphQLFieldConfigMap<unknown, unknown, unknown> = {};
   const propertyTable = tableByName["property"];
-  const propertyValueTable = tableByName["property.value"];
   const propertyValueRowType = new GraphQLObjectType({
     name: getUniqueTypeName("property_value", usedTypeNames),
-    fields: buildTableRowTypeFields(propertyValueTable.columns),
+    fields: buildTableRowTypeFields(tableByName["property.value"].columns),
   });
-  const propertyTableRowType = new GraphQLObjectType({
+  const propertyRowType = new GraphQLObjectType({
     name: getUniqueTypeName("property", usedTypeNames),
     fields: {
       ...buildTableRowTypeFields(propertyTable.columns),
@@ -32,18 +32,16 @@ export async function createModuleType(
         type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(propertyValueRowType))),
         resolve: async (parent, _args, ctx) => {
           const rows = await resolveTable("properties", getProductFileName(parent), "property.value", ctx.loaders);
-          return rows.filter((r) => r["builtin@parent_id"] === parent["builtin@id"]);
+          return rows.filter(filterOnParent(parent));
         },
       },
     },
   });
   fields["property"] = {
-    type: new GraphQLNonNull(GraphQLList(new GraphQLNonNull(propertyTableRowType))),
+    type: new GraphQLNonNull(GraphQLList(new GraphQLNonNull(propertyRowType))),
     description: propertyTable.description,
     resolve: async (parent: ModuleFieldResolverParent, _args, ctx: Context) =>
       resolveTable(parent.module, parent.productFileName, "property", ctx.loaders, true),
   };
   return new GraphQLObjectType({ name: getUniqueTypeName(`Module_${moduleName}`, usedTypeNames), fields });
 }
-
-export { resolveModuleType } from "./default";
