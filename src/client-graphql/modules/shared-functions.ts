@@ -11,7 +11,7 @@ import {
 import { TableRow, TableRowWithProductFileName } from "../schema-types";
 import { toSafeName } from "../shared-functions";
 import { Context } from "../context";
-import { ModuleFieldResolverParent } from "./module-plugin";
+import { ModuleFieldResolverParent } from "../module-plugin";
 
 export async function resolveTableRows(
   module: string,

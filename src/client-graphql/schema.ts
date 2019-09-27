@@ -8,12 +8,25 @@ import {
   GraphQLList,
   GraphQLBoolean,
   GraphQLFieldConfigMap,
+  GraphQLResolveInfo,
 } from "graphql";
 import { queryResolvers, productResolvers } from "./resolvers";
 import { ProductFile, ProductTableFile, ProductTableFileColumn, ReleaseFile, TransactionFile } from "../file-types";
 import { ReadJsonFile } from "./context";
 import { getUniqueTypeName, toSafeName } from "./shared-functions";
-import { modulePlugins, TableByName, defaultModulePlugin, defaultResolveModuleType } from "./modules";
+import * as DefaultModule from "./modules/default";
+import * as PropertiesModule from "./modules/properties";
+import { ModulePlugin, TableByName } from "./module-plugin";
+
+const defaultModulePlugin: ModulePlugin = DefaultModule;
+
+const modulePlugins: { readonly [name: string]: ModulePlugin } = {
+  properties: PropertiesModule,
+};
+
+export const defaultResolveModuleType = (parent: string, _args: {}, _ctx: {}, info: GraphQLResolveInfo) => {
+  return { module: info.fieldName, productFileName: parent };
+};
 
 export async function createSchema(
   readJsonFile: ReadJsonFile,

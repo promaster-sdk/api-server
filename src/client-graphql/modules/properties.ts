@@ -1,6 +1,6 @@
 import { GraphQLObjectType, GraphQLNonNull, GraphQLFieldConfigMap, GraphQLList, GraphQLString } from "graphql";
 import { getUniqueTypeName } from "../shared-functions";
-import { TableByName } from "./module-plugin";
+import { TableByName } from "../module-plugin";
 import { buildTableRowTypeFields, childRowResolver, parentRowResolver, resolveTableRows } from "./shared-functions";
 import { TableRowWithProductFileName } from "../schema-types";
 import { Context } from "../context";

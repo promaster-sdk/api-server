@@ -1,6 +1,6 @@
 import { GraphQLObjectType, GraphQLResolveInfo } from "graphql";
-import { ProductTableFileColumn } from "../../file-types";
-import { Context } from "../context";
+import { ProductTableFileColumn } from "../file-types";
+import { Context } from "./context";
 
 export interface TableByName {
   readonly [tableName: string]: Table;

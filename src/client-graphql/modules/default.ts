@@ -1,5 +1,5 @@
 import { GraphQLObjectType, GraphQLFieldConfigMap, GraphQLNonNull, GraphQLList, GraphQLResolveInfo } from "graphql";
-import { TableByName, ModuleFieldResolverParent } from "./module-plugin";
+import { TableByName, ModuleFieldResolverParent } from "../module-plugin";
 import { getUniqueTypeName, toSafeName } from "../shared-functions";
 import { Context } from "../context";
 import { resolveTableRows, buildTableRowTypeFields } from "./shared-functions";
