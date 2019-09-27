@@ -18,14 +18,17 @@ export async function createModuleType(
 ): Promise<GraphQLObjectType> {
   const fields: GraphQLFieldConfigMap<unknown, unknown, unknown> = {};
   const propertyTable = tableByName["property"];
+
   const propertyValueTranslationRowType = new GraphQLObjectType({
     name: getUniqueTypeName("property_value_translation", usedTypeNames),
     fields: buildTableRowTypeFields(tableByName["property.value.translation"].columns),
   });
+
   const propertyTranslationRowType = new GraphQLObjectType({
     name: getUniqueTypeName("property_translation", usedTypeNames),
     fields: buildTableRowTypeFields(tableByName["property.translation"].columns),
   });
+
   const propertyValueRowType = new GraphQLObjectType({
     name: getUniqueTypeName("property_value", usedTypeNames),
     fields: {
@@ -37,6 +40,7 @@ export async function createModuleType(
       },
     },
   });
+
   const propertyRowType = new GraphQLObjectType({
     name: getUniqueTypeName("property", usedTypeNames),
     fields: {
@@ -48,10 +52,11 @@ export async function createModuleType(
       translations: {
         type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(propertyTranslationRowType))),
         args: { language: { type: GraphQLString, description: "The language to get translations for" } },
-        resolve: childRowResolverWithLanguageArg(myModuleName, "property.value", true),
+        resolve: childRowResolverWithLanguageArg(myModuleName, "property.translation", true),
       },
     },
   });
+
   fields["property"] = {
     type: new GraphQLNonNull(GraphQLList(new GraphQLNonNull(propertyRowType))),
     description: propertyTable.description,
