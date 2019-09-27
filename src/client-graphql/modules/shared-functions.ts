@@ -99,7 +99,6 @@ export const childRowResolver = (
   tableName: string,
   includeProductFileName: boolean = false
 ) => async (parent: TableRowWithProductFileName, _args: {}, ctx: Context) => {
-  console.log("parent", parent);
   const rows = await resolveTableRows(
     moduleName,
     tableName,
