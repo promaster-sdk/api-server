@@ -29,6 +29,11 @@ export async function createModuleType(
     fields: buildTableRowTypeFields(tableByName["property.translation"].columns),
   });
 
+  const propertyDefaultValueRowType = new GraphQLObjectType({
+    name: getUniqueTypeName("property_default_value", usedTypeNames),
+    fields: buildTableRowTypeFields(tableByName["property.def_value"].columns),
+  });
+
   const propertyValueRowType = new GraphQLObjectType({
     name: getUniqueTypeName("property_value", usedTypeNames),
     fields: {
@@ -48,6 +53,10 @@ export async function createModuleType(
       values: {
         type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(propertyValueRowType))),
         resolve: childRowResolver(myModuleName, "property.value", true),
+      },
+      defaults: {
+        type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(propertyDefaultValueRowType))),
+        resolve: childRowResolver(myModuleName, "property.def_value", true),
       },
       translations: {
         type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(propertyTranslationRowType))),
