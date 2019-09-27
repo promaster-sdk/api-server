@@ -6,6 +6,7 @@ import {
   ProductTableFileColumn,
   ProductTableFileColumnType,
   ProductTableFileCell,
+  ProductTableFileRow,
 } from "../../file-types";
 import { TableRow, TableRowWithProductFileName } from "../schema-types";
 import { toSafeName } from "../shared-functions";
@@ -36,18 +37,17 @@ export async function resolveTableRows(
   const tableFile = await loaders.tableFiles.load(tableFileName);
   if (includeProductFileName) {
     return tableFile.data.rows.map((values) => {
-      const obj = Object.fromEntries(
-        tableFile.data.columns.map((c, i) => [c.name, values[i]])
-      ) as MutableTableRowWithProductFileName;
+      const obj = rowValuesToObject(tableFile.data.columns, values) as MutableTableRowWithProductFileName;
       obj.__$productFileName$ = productFileName;
       return obj;
     });
   } else {
-    return tableFile.data.rows.map((values) =>
-      Object.fromEntries(tableFile.data.columns.map((c, i) => [c.name, values[i]]))
-    );
+    return tableFile.data.rows.map((values) => rowValuesToObject(tableFile.data.columns, values));
   }
 }
+
+const rowValuesToObject = (columns: ReadonlyArray<ProductTableFileColumn>, values: ProductTableFileRow) =>
+  Object.fromEntries(columns.map((c, i) => [c.name, values[i]]));
 
 export function buildTableRowTypeFields(
   columns: ReadonlyArray<ProductTableFileColumn>
