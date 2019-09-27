@@ -1,7 +1,14 @@
 import { GraphQLObjectType, GraphQLNonNull, GraphQLFieldConfigMap, GraphQLList, GraphQLString } from "graphql";
 import { getUniqueTypeName } from "../shared-functions";
 import { TableByName } from "../module-plugin";
-import { buildTableRowTypeFields, childRowResolver, parentRowResolver, resolveTableRows } from "./shared-functions";
+import {
+  buildTableRowTypeFields,
+  childRowResolver,
+  parentRowResolver,
+  resolveTableRows,
+  builtinParentIdColumnSafeName,
+  builtinIdColumnSafeName,
+} from "./shared-functions";
 import { TableRowWithProductFileName } from "../schema-types";
 import { Context } from "../context";
 
@@ -20,22 +27,22 @@ export async function createModuleType(
   const propertyTable = tableByName["property"];
 
   const propertyValueTranslationRowType = new GraphQLObjectType({
-    name: getUniqueTypeName("property_value_translation", usedTypeNames),
+    name: getUniqueTypeName("Property_ValueTranslation", usedTypeNames),
     fields: buildTableRowTypeFields(tableByName["property.value.translation"].columns),
   });
 
   const propertyTranslationRowType = new GraphQLObjectType({
-    name: getUniqueTypeName("property_translation", usedTypeNames),
+    name: getUniqueTypeName("Property_Translation", usedTypeNames),
     fields: buildTableRowTypeFields(tableByName["property.translation"].columns),
   });
 
   const propertyDefaultValueRowType = new GraphQLObjectType({
-    name: getUniqueTypeName("property_default_value", usedTypeNames),
+    name: getUniqueTypeName("Property_DefaultValue", usedTypeNames),
     fields: buildTableRowTypeFields(tableByName["property.def_value"].columns),
   });
 
   const propertyValueRowType = new GraphQLObjectType({
-    name: getUniqueTypeName("property_value", usedTypeNames),
+    name: getUniqueTypeName("Property_Value", usedTypeNames),
     fields: {
       ...buildTableRowTypeFields(tableByName["property.value"].columns),
       translations: {
@@ -47,7 +54,7 @@ export async function createModuleType(
   });
 
   const propertyRowType = new GraphQLObjectType({
-    name: getUniqueTypeName("property", usedTypeNames),
+    name: getUniqueTypeName("Property", usedTypeNames),
     fields: {
       ...buildTableRowTypeFields(propertyTable.columns),
       values: {
@@ -87,6 +94,8 @@ const childRowResolverWithLanguageArg = (
     includeProductFileName
   );
   return rows.filter(
-    (row) => row["builtin@parent_id"] === parent["builtin@id"] && (!args.language || row.language === args.language)
+    (row) =>
+      row[builtinParentIdColumnSafeName] === parent[builtinIdColumnSafeName] &&
+      (!args.language || row.language === args.language)
   );
 };

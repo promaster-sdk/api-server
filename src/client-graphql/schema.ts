@@ -14,14 +14,16 @@ import { queryResolvers, productResolvers } from "./resolvers";
 import { ProductFile, ProductTableFile, ProductTableFileColumn, ReleaseFile, TransactionFile } from "../file-types";
 import { ReadJsonFile } from "./context";
 import { getUniqueTypeName, toSafeName } from "./shared-functions";
+import { ModulePlugin, TableByName } from "./module-plugin";
 import * as DefaultModule from "./modules/default";
 import * as PropertiesModule from "./modules/properties";
-import { ModulePlugin, TableByName } from "./module-plugin";
+import * as SoundModule from "./modules/sound";
 
 const defaultModulePlugin: ModulePlugin = DefaultModule;
 
 const modulePlugins: { readonly [name: string]: ModulePlugin } = {
   properties: PropertiesModule,
+  sound: SoundModule,
 };
 
 export const defaultResolveModuleType = (parent: string, _args: {}, _ctx: {}, info: GraphQLResolveInfo) => {

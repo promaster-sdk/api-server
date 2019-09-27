@@ -7,11 +7,16 @@ import {
   ProductTableFileColumnType,
   ProductTableFileCell,
   ProductTableFileRow,
+  builtinIdColumnName,
+  builtinParentIdColumnName,
 } from "../../file-types";
 import { TableRow, TableRowWithProductFileName } from "../schema-types";
 import { toSafeName } from "../shared-functions";
 import { Context } from "../context";
 import { ModuleFieldResolverParent } from "../module-plugin";
+
+export const builtinParentIdColumnSafeName = toSafeName(builtinParentIdColumnName);
+export const builtinIdColumnSafeName = toSafeName(builtinIdColumnName);
 
 export async function resolveTableRows(
   module: string,
@@ -81,10 +86,6 @@ function columnTypeToGraphQLType(c: ProductTableFileColumn): GraphQLScalarType {
   }
 }
 
-export const filterOnParent = (parent: TableRow) => (row: TableRow) => {
-  return row["builtin@parent_id"] === parent["builtin@id"];
-};
-
 export const parentRowResolver = (moduleName: string, tableName: string) => (
   parent: ModuleFieldResolverParent,
   _args: {},
@@ -98,6 +99,7 @@ export const childRowResolver = (
   tableName: string,
   includeProductFileName: boolean = false
 ) => async (parent: TableRowWithProductFileName, _args: {}, ctx: Context) => {
+  console.log("parent", parent);
   const rows = await resolveTableRows(
     moduleName,
     tableName,
@@ -106,4 +108,8 @@ export const childRowResolver = (
     includeProductFileName
   );
   return rows.filter(filterOnParent(parent));
+};
+
+const filterOnParent = (parent: TableRow) => (row: TableRow) => {
+  return row[builtinParentIdColumnSafeName] === parent[builtinIdColumnSafeName];
 };
