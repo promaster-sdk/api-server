@@ -53,7 +53,7 @@ export const queryResolvers: {
   },
   product: async (_parent, { id }: { readonly id: string }, ctx) => {
     const { markerFile } = ctx;
-    const productFileRef = markerFile.data.products[id];
+    const productFileRef = markerFile.data.products[id.toLowerCase()];
     const productFileName = markerFile.refs[productFileRef];
     if (productFileName === undefined) {
       return null;
