@@ -66,7 +66,7 @@ export async function createSchema(
       markerName: { type: new GraphQLNonNull(GraphQLString) },
       releaseId: { type: GraphQLString },
       releaseName: { type: GraphQLString },
-      transactionId: { type: GraphQLString },
+      tx: { type: GraphQLString },
     },
   });
 
