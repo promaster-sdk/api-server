@@ -7,11 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v1.3.0...master)
 
+### Fixed
+
+- GraphQL Client API: Invalid name transactionId changed to tx.
+
 ## [v1.3.0](https://github.com/promaster-sdk/api-server/compare/v1.2.0...v1.3.0) - 2019-09-27
 
 ### Added
 
-- Graphql Client API: Support for plug-in shecmas per module, implement properties and sound module plug-ins. See PR [#5](https://github.com/promaster-sdk/api-server/pull/5).
+- GraphQL Client API: Support for plug-in shecmas per module, implement properties and sound module plug-ins. See PR [#5](https://github.com/promaster-sdk/api-server/pull/5).
 
 ## [v1.2.0](https://github.com/promaster-sdk/api-server/compare/v1.1.2...v1.2.0) - 2019-09-22
 
