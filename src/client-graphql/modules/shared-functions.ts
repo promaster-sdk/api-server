@@ -47,7 +47,7 @@ export async function resolveTableRows(
 }
 
 const rowValuesToObject = (columns: ReadonlyArray<ProductTableFileColumn>, values: ProductTableFileRow) =>
-  Object.fromEntries(columns.map((c, i) => [c.name, values[i]]));
+  Object.fromEntries(columns.map((c, i) => [toSafeName(c.name), values[i]]));
 
 export function buildTableRowTypeFields(
   columns: ReadonlyArray<ProductTableFileColumn>
