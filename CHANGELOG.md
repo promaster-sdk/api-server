@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v1.3.1...master)
+## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v1.4.0...master)
+
+## [v1.4.0](https://github.com/promaster-sdk/api-server/compare/v1.3.1...v1.4.0) - 2019-10-01
+
+### Added
+
+- GraphQL Client API: Support models module.
 
 ## [v1.3.1](https://github.com/promaster-sdk/api-server/compare/v1.3.0...v1.3.1) - 2019-09-27
 
@@ -17,7 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- GraphQL Client API: Support for plug-in shecmas per module, implement properties and sound module plug-ins. See PR [#5](https://github.com/promaster-sdk/api-server/pull/5).
+- GraphQL Client API: Support for plug-in schemas per module, implement properties and sound module plug-ins. See PR [#5](https://github.com/promaster-sdk/api-server/pull/5).
 
 ## [v1.2.0](https://github.com/promaster-sdk/api-server/compare/v1.1.2...v1.2.0) - 2019-09-22
 
