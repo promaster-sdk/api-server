@@ -42,8 +42,10 @@ async function startServer(config: Config.Config): Promise<void> {
   app.use(mount("/publish", publishApiWithToken));
 
   // Client REST API v3
-  const baseUrlRest = `http://${config.ip}:${config.port}/rest/v3`;
-  const clientApiRestApp = createClientRestMiddleware(() => config.filesPath, () => baseUrlRest);
+  const clientApiRestApp = createClientRestMiddleware(
+    (databaseId) => path.join(config.filesPath, databaseId),
+    (ctx, databaseId) => `${ctx.request.protocol}://${ctx.request.host}/rest/v3/${databaseId}/public`
+  );
   app.use(mount("/rest/v3", clientApiRestApp));
 
   // GraphQL API
