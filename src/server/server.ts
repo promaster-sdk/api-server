@@ -1,3 +1,4 @@
+import path from "path";
 import Koa from "koa";
 import mount from "koa-mount";
 import cors from "@koa/cors";
@@ -21,10 +22,23 @@ async function startServer(config: Config.Config): Promise<void> {
   app.use(cors()); // Allow all cors
   app.use(compress()); // Use compression
 
+  // x-response-time
+  app.use(async (ctx, next) => {
+    await next();
+    const rt = ctx.response.get("X-Response-Time");
+    console.log(`${ctx.method} ${ctx.url} - ${rt}`);
+  });
+  app.use(async (ctx, next) => {
+    const start = Date.now();
+    await next();
+    const ms = Date.now() - start;
+    ctx.set("X-Response-Time", `${ms}ms`);
+  });
+
   // Publish API
-  const publishApi = createPublishApiMiddleware(() => config.filesPath);
-  const verifyPublishApiTokenMiddleware = createVerifyApiTokenMiddleware(config.publishAuthorization);
-  const publishApiWithToken = compose([verifyPublishApiTokenMiddleware, publishApi]);
+  const publishApi = createPublishApiMiddleware((databaseId) => path.join(config.filesPath, databaseId));
+  // const verifyPublishApiTokenMiddleware = createVerifyApiTokenMiddleware(config.publishAuthorization);
+  const publishApiWithToken = compose([/* verifyPublishApiTokenMiddleware, */ publishApi]);
   app.use(mount("/publish", publishApiWithToken));
 
   // Client REST API v3
@@ -42,17 +56,17 @@ async function startServer(config: Config.Config): Promise<void> {
   console.log(`Server listening at http://${config.ip}:${config.port}`);
 }
 
-function createVerifyApiTokenMiddleware(publishAuthorization: string): Koa.Middleware {
-  return (ctx, next) => {
-    const authorizationValue = ctx.get("authorization");
-    if (authorizationValue !== publishAuthorization) {
-      console.warn("publishAuthorization failed");
-      ctx.status = 403;
-      return;
-    } else {
-      return next();
-    }
-  };
-}
+// function createVerifyApiTokenMiddleware(publishAuthorization: string): Koa.Middleware {
+//   return (ctx, next) => {
+//     const authorizationValue = ctx.get("authorization");
+//     if (authorizationValue !== publishAuthorization) {
+//       console.warn("publishAuthorization failed");
+//       ctx.status = 403;
+//       return;
+//     } else {
+//       return next();
+//     }
+//   };
+// }
 
 startServer(Config.config);

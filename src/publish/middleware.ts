@@ -7,14 +7,14 @@ import path from "path";
 import fs from "fs";
 import mkdirp from "mkdirp";
 import { promisify } from "util";
-import Uuid from "uuid";
+import * as Uuid from "uuid";
 import { getMissingFilesForRootFiles } from "./get-missing-files";
 
 const existsAsync = promisify(fs.exists);
 const mkdirpAsync = promisify(mkdirp);
 
 export interface GetFilesDir {
-  (ctx: Koa.Context): string;
+  (databaseId: string): string;
 }
 
 // This is a workaround becuase the destination function in koa-multer only get ctx.req, not full ctx.
@@ -39,7 +39,7 @@ export function createPublishApiMiddleware(getFilesDir: GetFilesDir): Koa.Middle
       // HACK, we have added ctx to req in order to be compatible with multer's express middleware
       // tslint:disable-next-line:no-any
       const ctx: Koa.Context = (req as any).ctx;
-      const dir = getFilesDir(ctx);
+      const dir = getFilesDir(getDatabaseId(ctx));
       await mkdirpAsync(dir);
       cb(null, dir);
     },
@@ -65,8 +65,8 @@ export function createPublishApiMiddleware(getFilesDir: GetFilesDir): Koa.Middle
   const router = new Router();
 
   // Download
-  router.get("/:filename", async (ctx: Router.IRouterContext) => {
-    const dest = getFilesDir(ctx);
+  router.get("/:database_id/:filename", async (ctx: Router.IRouterContext) => {
+    const dest = getFilesDir(getDatabaseId(ctx));
     const fullPath = path.join(dest, ctx.params.filename);
     if (existsAsync(fullPath)) {
       await send(ctx, ctx.params.filename, { root: dest });
@@ -77,10 +77,10 @@ export function createPublishApiMiddleware(getFilesDir: GetFilesDir): Koa.Middle
   });
 
   // Upload
-  router.post("/", upload.array("file"), async (ctx) => {
+  router.post("/:database_id", upload.array("file"), async (ctx) => {
     // tslint:disable-next-line:no-any
     const files = (ctx.req as any).files as Array<Express.Multer.File>;
-    const filesPaths = getFilesDir(ctx);
+    const filesPaths = getFilesDir(getDatabaseId(ctx));
     // tslint:disable-next-line:no-any
     const tempFileSuffix = (ctx as any).tempFileSuffix;
     const fileNames = files.map((f) => f.filename);
@@ -92,4 +92,12 @@ export function createPublishApiMiddleware(getFilesDir: GetFilesDir): Koa.Middle
   // Compose full middleware
   const all = compose([tempFileSuffixMiddleware, putCtxOnReqMiddleware, router.routes(), router.allowedMethods()]);
   return all;
+}
+
+function getDatabaseId(ctx: Koa.Context): string {
+  const databaseId = ctx.params.database_id;
+  if (!Uuid.validate(databaseId)) {
+    throw new Error(`Invalid database id: ${ctx.param.databaseId}`);
+  }
+  return databaseId;
 }
