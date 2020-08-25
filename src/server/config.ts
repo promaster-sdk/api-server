@@ -5,7 +5,8 @@ export interface Config {
   readonly ip: string;
   readonly port: number;
   readonly filesPath: string;
-  readonly publishAuthorization: string;
+  readonly jwksUri: string;
+  readonly publishApiValidClients: string;
 }
 
 export const schema = convict<Config>({
@@ -27,12 +28,17 @@ export const schema = convict<Config>({
     default: path.join(__dirname, "../../uploads/"),
     env: "FILES_PATH",
   },
-  publishAuthorization: {
-    doc: "String sent in Authorization http header, will be verified to allow publishing.",
+  jwksUri: {
+    doc: "Where to find keys used to verify JWT.",
+    format: "url",
+    default: "https://login.promaster.se/.well-known/openid-configuration/jwks",
+    env: "JWKS_URI",
+  },
+  publishApiValidClients: {
+    doc: "Comma separated list of allowed client_id's to access the publish endpoint",
     format: "String",
-    default: "NOT-SET",
-    env: "PUBLISH_AUTHORIZATION",
-    sensitive: true,
+    default: "",
+    env: "PUBLISH_API_VALID_CLIENTS",
   },
 });
 

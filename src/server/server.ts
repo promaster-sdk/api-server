@@ -1,3 +1,4 @@
+import path from "path";
 import Koa from "koa";
 import mount from "koa-mount";
 import cors from "@koa/cors";
@@ -7,6 +8,7 @@ import * as Config from "./config";
 import { createPublishApiMiddleware } from "../publish";
 import { createClientRestMiddleware } from "../client-rest";
 import { createClientGraphQLMiddleware } from "../client-graphql";
+import { createVerifyPublishApiMiddleware } from "../verify-publish-api";
 
 // tslint:disable-next-line:no-var-requires no-require-imports
 require("source-map-support").install();
@@ -21,38 +23,45 @@ async function startServer(config: Config.Config): Promise<void> {
   app.use(cors()); // Allow all cors
   app.use(compress()); // Use compression
 
+  // x-response-time
+  app.use(async (ctx, next) => {
+    await next();
+    const rt = ctx.response.get("X-Response-Time");
+    console.log(`${ctx.method} ${ctx.url} - ${rt}`);
+  });
+  app.use(async (ctx, next) => {
+    const start = Date.now();
+    await next();
+    const ms = Date.now() - start;
+    ctx.set("X-Response-Time", `${ms}ms`);
+  });
+
   // Publish API
-  const publishApi = createPublishApiMiddleware(() => config.filesPath);
-  const verifyPublishApiTokenMiddleware = createVerifyApiTokenMiddleware(config.publishAuthorization);
+  const publishApi = createPublishApiMiddleware((databaseId) => path.join(config.filesPath, databaseId));
+  const verifyPublishApiTokenMiddleware = createVerifyPublishApiMiddleware(
+    config.jwksUri,
+    config.publishApiValidClients.split(",")
+  );
   const publishApiWithToken = compose([verifyPublishApiTokenMiddleware, publishApi]);
   app.use(mount("/publish", publishApiWithToken));
 
   // Client REST API v3
-  const baseUrlRest = `http://${config.ip}:${config.port}/rest/v3`;
-  const clientApiRestApp = createClientRestMiddleware(() => config.filesPath, () => baseUrlRest);
+  const clientApiRestApp = createClientRestMiddleware(
+    (databaseId) => path.join(config.filesPath, databaseId),
+    (ctx, databaseId) => `${ctx.request.protocol}://${ctx.request.host}/rest/v3/${databaseId}/public`
+  );
   app.use(mount("/rest/v3", clientApiRestApp));
 
   // GraphQL API
-  const baseUrlGraphQL = `http://${config.ip}:${config.port}/graphql`;
-  const clientApiGraphQLApp = createClientGraphQLMiddleware(() => config.filesPath, () => baseUrlGraphQL);
+  const clientApiGraphQLApp = createClientGraphQLMiddleware(
+    (databaseId) => path.join(config.filesPath, databaseId),
+    (ctx, databaseId) => `${ctx.request.protocol}://${ctx.request.host}/graphql/${databaseId}`
+  );
   app.use(mount("/graphql", clientApiGraphQLApp));
 
   // Start server
   app.listen(config.port, config.ip);
   console.log(`Server listening at http://${config.ip}:${config.port}`);
-}
-
-function createVerifyApiTokenMiddleware(publishAuthorization: string): Koa.Middleware {
-  return (ctx, next) => {
-    const authorizationValue = ctx.get("authorization");
-    if (authorizationValue !== publishAuthorization) {
-      console.warn("publishAuthorization failed");
-      ctx.status = 403;
-      return;
-    } else {
-      return next();
-    }
-  };
 }
 
 startServer(Config.config);

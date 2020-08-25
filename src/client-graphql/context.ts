@@ -2,7 +2,7 @@ import Koa from "koa";
 import DataLoader from "dataloader";
 import { ProductFile, ReleaseFile, TransactionFile, RootFile, ProductTableFile } from "../file-types";
 
-export type GetBaseUrl = (ctx: Koa.Context) => string;
+export type GetBaseUrl = (ctx: Koa.Context, databaseId: string) => string;
 
 export type ReadJsonFile = <T>(fileName: string) => Promise<T>;
 
