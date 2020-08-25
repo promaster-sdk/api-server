@@ -32,7 +32,7 @@ const tempFileSuffixMiddleware = async (ctx: Koa.Context, next: () => Promise<vo
   await next();
 };
 
-export function createPublishApiMiddleware(getFilesDir: GetFilesDir): Koa.Middleware {
+export function createPublishApiMiddleware(getFilesDir: GetFilesDir, prefix?: string): Koa.Middleware {
   // Configure multer to handle multi-part POST
   const storage = multer.diskStorage({
     destination: async (req, _file, cb) => {
@@ -62,7 +62,7 @@ export function createPublishApiMiddleware(getFilesDir: GetFilesDir): Koa.Middle
   const upload = multer({ storage });
 
   // Router that handles downloads and uploads
-  const router = new Router();
+  const router = new Router({ prefix });
 
   // Download
   router.get("/:database_id/:filename", async (ctx: Router.IRouterContext) => {
