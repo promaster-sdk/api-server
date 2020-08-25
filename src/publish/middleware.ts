@@ -9,6 +9,7 @@ import mkdirp from "mkdirp";
 import { promisify } from "util";
 import * as Uuid from "uuid";
 import { getMissingFilesForRootFiles } from "./get-missing-files";
+import { getDatabaseId } from "../context-parsing";
 
 const existsAsync = promisify(fs.exists);
 const mkdirpAsync = promisify(mkdirp);
@@ -92,12 +93,4 @@ export function createPublishApiMiddleware(getFilesDir: GetFilesDir, prefix?: st
   // Compose full middleware
   const all = compose([tempFileSuffixMiddleware, putCtxOnReqMiddleware, router.routes(), router.allowedMethods()]);
   return all;
-}
-
-function getDatabaseId(ctx: Koa.Context): string {
-  const databaseId = ctx.params.database_id;
-  if (!Uuid.validate(databaseId)) {
-    throw new Error(`Invalid database id: ${ctx.param.databaseId}`);
-  }
-  return databaseId;
 }

@@ -10,6 +10,7 @@ import { createSchema } from "./schema";
 import { GetBaseUrl, createContext, Context } from "./context";
 import { RootValue } from "./resolvers";
 import { buildRootFileName, RootFile, ReleaseFile, TransactionFile } from "../file-types";
+import { getDatabaseId } from "../context-parsing";
 
 const readFileAsync = promisify(fs.readFile);
 
@@ -21,7 +22,7 @@ export const readJsonFile = <T>(filesDir: string) => async (fileName: string): P
 };
 
 export interface GetFilesDir {
-  (ctx: Koa.Context): string;
+  (databaseId: string): string;
 }
 
 export function createClientGraphQLMiddleware(
@@ -30,8 +31,8 @@ export function createClientGraphQLMiddleware(
   prefix?: string
 ): Koa.Middleware {
   const router = new Router({ prefix });
-  router.all("/", createGetMarkersMiddleware(getFilesDir, getBaseUrl));
-  router.all("/:marker", createSchemaMiddleware(getFilesDir), createGraphQLMiddleware());
+  router.all("/:database_id", createGetMarkersMiddleware(getFilesDir, getBaseUrl));
+  router.all("/:database_id/:marker", createSchemaMiddleware(getFilesDir), createGraphQLMiddleware());
   return compose([router.routes(), router.allowedMethods()]);
 }
 
@@ -40,9 +41,10 @@ export function createClientGraphQLMiddleware(
  */
 function createGetMarkersMiddleware(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
   return async (ctx, next) => {
-    const rootFileContent = await readJsonFile<RootFile>(getFilesDir(ctx))(buildRootFileName());
+    const databaseId = getDatabaseId(ctx);
+    const rootFileContent = await readJsonFile<RootFile>(getFilesDir(databaseId))(buildRootFileName());
     const markers = Object.keys(rootFileContent.data.markers).map((m) => m.toLowerCase());
-    const urlsToMarkers = markers.map((m) => `${getBaseUrl(ctx)}/${m}`);
+    const urlsToMarkers = markers.map((m) => `${getBaseUrl(ctx, databaseId)}/${m}`);
     ctx.body = urlsToMarkers;
     return next();
   };
@@ -71,7 +73,7 @@ function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware<Contex
   } = {};
   return async (ctx, next) => {
     const { marker } = ctx.params;
-    const rootFile = await readJsonFile<RootFile>(getFilesDir(ctx))(buildRootFileName());
+    const rootFile = await readJsonFile<RootFile>(getFilesDir(getDatabaseId(ctx)))(buildRootFileName());
     const markerLowerCase = marker.toLowerCase();
     const markerKey = Object.keys(rootFile.data.markers).find((m) => m.toLowerCase() === markerLowerCase);
     const markerRef = rootFile.data.markers[markerKey || ""];
@@ -90,17 +92,19 @@ function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware<Contex
       }
     }
     if (!markerSchema) {
-      const markerFile = await readJsonFile<ReleaseFile | TransactionFile>(getFilesDir(ctx))(markerFileName);
+      const markerFile = await readJsonFile<ReleaseFile | TransactionFile>(getFilesDir(getDatabaseId(ctx)))(
+        markerFileName
+      );
       markerSchema = {
         markerFileName,
         markerFile,
-        schema: await createSchema(readJsonFile(getFilesDir(ctx)), markerFile),
+        schema: await createSchema(readJsonFile(getFilesDir(getDatabaseId(ctx))), markerFile),
       };
       schemaPerMarker[marker] = markerSchema;
     }
     ctx.state.graphqlSchema = markerSchema.schema;
     ctx.state.graphqlContext = createContext(
-      readJsonFile(getFilesDir(ctx)),
+      readJsonFile(getFilesDir(getDatabaseId(ctx))),
       ctx.params.marker,
       markerSchema.markerFile,
       rootFile
