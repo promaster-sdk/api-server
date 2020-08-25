@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 import JwksRsa from "jwks-rsa";
-// import log from "loglevel";
 
 export interface DecodedToken {
   readonly [key: string]: string;

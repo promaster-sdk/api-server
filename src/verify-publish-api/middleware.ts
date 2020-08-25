@@ -15,11 +15,6 @@ export const createVerifyPublishApiMiddleware = (jwksUri: string, validClients: 
   }
 
   const token = authorization.replace("Bearer ", "");
-  // if (parts.length !== 2 || parts[0] !== "Bearer") {
-  //   ctx.status = 403;
-  //   return;
-  // }
-  // const token = parts[1];
   try {
     const decoded = await validateToken(jwksUri, token);
     console.log("decoded: ", decoded);
