@@ -21,7 +21,6 @@ const validateTokenWithCallback = (jwksUri: string, jwksKid: string) => (
         encodedToken,
         key.getPublicKey(),
         { clockTolerance: 900 },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (verifyErr, decoded) => {
           cb(verifyErr || undefined, decoded as DecodedToken);
         }
