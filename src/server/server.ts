@@ -8,6 +8,7 @@ import * as Config from "./config";
 import { createPublishApiMiddleware } from "../publish";
 import { createClientRestMiddleware } from "../client-rest";
 import { createClientGraphQLMiddleware } from "../client-graphql";
+import { createVerifyPublishApiMiddleware } from "../verify-publish-api";
 
 // tslint:disable-next-line:no-var-requires no-require-imports
 require("source-map-support").install();
@@ -37,8 +38,11 @@ async function startServer(config: Config.Config): Promise<void> {
 
   // Publish API
   const publishApi = createPublishApiMiddleware((databaseId) => path.join(config.filesPath, databaseId));
-  // const verifyPublishApiTokenMiddleware = createVerifyApiTokenMiddleware(config.publishAuthorization);
-  const publishApiWithToken = compose([/* verifyPublishApiTokenMiddleware, */ publishApi]);
+  const verifyPublishApiTokenMiddleware = createVerifyPublishApiMiddleware(
+    config.jwksUri,
+    config.publishApiValidClients.split(",")
+  );
+  const publishApiWithToken = compose([verifyPublishApiTokenMiddleware, publishApi]);
   app.use(mount("/publish", publishApiWithToken));
 
   // Client REST API v3
@@ -59,18 +63,5 @@ async function startServer(config: Config.Config): Promise<void> {
   app.listen(config.port, config.ip);
   console.log(`Server listening at http://${config.ip}:${config.port}`);
 }
-
-// function createVerifyApiTokenMiddleware(publishAuthorization: string): Koa.Middleware {
-//   return (ctx, next) => {
-//     const authorizationValue = ctx.get("authorization");
-//     if (authorizationValue !== publishAuthorization) {
-//       console.warn("publishAuthorization failed");
-//       ctx.status = 403;
-//       return;
-//     } else {
-//       return next();
-//     }
-//   };
-// }
 
 startServer(Config.config);
