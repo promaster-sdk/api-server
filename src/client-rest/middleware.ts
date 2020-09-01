@@ -100,7 +100,7 @@ type Next = () => Promise<unknown>;
 
 function treesHandler(getFilesDir: GetFilesDir): Koa.Middleware {
   return async function _treesHandler(ctx: Router.IRouterContext, next: Next): Promise<unknown> {
-    const rootFileContent = await readJsonFile<RootFile>(getFilesDir(getDatabaseId(ctx)), buildRootFileName());
+    const rootFileContent = await readJsonFile<RootFile>(getFilesDir(getDatabaseId(ctx, false)), buildRootFileName());
     const trees: Array<TreeFile> = [];
     for (const t of Object.keys(rootFileContent.data.trees)) {
       const fileName = rootFileContent.refs[rootFileContent.data.trees[t]];
@@ -116,7 +116,7 @@ function blobHandler(getFilesDir: GetFilesDir): Koa.Middleware {
     const blobFileName = buildBlobFileName(ctx.params.hash);
     const fileName = ctx.query["file"];
     const attachment = ctx.query["attachment"];
-    const fullPath = path.join(getFilesDir(getDatabaseId(ctx)), blobFileName);
+    const fullPath = path.join(getFilesDir(getDatabaseId(ctx, false)), blobFileName);
     if (!(await existsAsync(fullPath))) {
       ctx.status = 404;
       ctx.body = "Not found";
@@ -133,15 +133,15 @@ function blobHandler(getFilesDir: GetFilesDir): Koa.Middleware {
       ctx.headers["Content-Disposition"] = `attachment; filename="${fileName}"`;
     }
 
-    await send(ctx, blobFileName, { root: getFilesDir(getDatabaseId(ctx)) });
+    await send(ctx, blobFileName, { root: getFilesDir(getDatabaseId(ctx, false)) });
     return next();
   };
 }
 
 function latestHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
   return async function _latestHandler(ctx: Router.IRouterContext, _next: Next): Promise<unknown> {
-    const rootFileContent = await readJsonFile<RootFile>(getFilesDir(getDatabaseId(ctx)), buildRootFileName());
-    const urlToProducts = `${getBaseUrl(ctx, getDatabaseId(ctx))}/transactions/${rootFileContent.data.latest.tx}`;
+    const rootFileContent = await readJsonFile<RootFile>(getFilesDir(getDatabaseId(ctx, false)), buildRootFileName());
+    const urlToProducts = `${getBaseUrl(ctx, getDatabaseId(ctx, false))}/transactions/${rootFileContent.data.latest.tx}`;
     const apiMarker = {
       transaction_id: rootFileContent.data.latest.tx.toString(),
       date: rootFileContent.data.latest.date,
@@ -158,7 +158,7 @@ function productsForTransactionHandler(getFilesDir: GetFilesDir, getBaseUrl: Get
     const legacyTableList: ReadonlyArray<string> = ctx.query["tables"] ? ctx.query["tables"].split(",") : undefined;
     // Read the release file
     const transactionFile = await readJsonFile<TransactionFile>(
-      getFilesDir(getDatabaseId(ctx)),
+      getFilesDir(getDatabaseId(ctx, false)),
       buildTransactionFileName(tx)
     );
     // Fetch all product file names for the release
@@ -181,7 +181,7 @@ function productsForReleaseHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBase
     const legacyTableList: ReadonlyArray<string> = ctx.query["tables"] ? ctx.query["tables"].split(",") : undefined;
     // Read the release file
     const releaseFile = await readJsonFile<ReleaseFile>(
-      getFilesDir(getDatabaseId(ctx)),
+      getFilesDir(getDatabaseId(ctx, false)),
       buildReleaseFileName(releaseId)
     );
     // Fetch all product file names for the release
@@ -201,7 +201,7 @@ function productsForReleaseHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBase
 function markerHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
   return async function _markersHandler(ctx: Router.IRouterContext, next: Next): Promise<unknown> {
     const markerName = ctx.params.name;
-    const rootFileContent = await readJsonFile<RootFile>(getFilesDir(getDatabaseId(ctx)), buildRootFileName());
+    const rootFileContent = await readJsonFile<RootFile>(getFilesDir(getDatabaseId(ctx, false)), buildRootFileName());
     const markerKey = Object.keys(rootFileContent.data.markers).find(
       (m) => m.toLowerCase() === markerName.toLowerCase()
     );
@@ -220,7 +220,7 @@ function markerHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Mi
 
 function markersHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
   return async function _markersHandler(ctx: Router.IRouterContext, next: Next): Promise<unknown> {
-    const rootFileContent = await readJsonFile<RootFile>(getFilesDir(getDatabaseId(ctx)), buildRootFileName());
+    const rootFileContent = await readJsonFile<RootFile>(getFilesDir(getDatabaseId(ctx, false)), buildRootFileName());
     const apiMarkers: Array<ApiMarker> = [];
     for (const m of Object.keys(rootFileContent.data.markers)) {
       const fileName = rootFileContent.refs[rootFileContent.data.markers[m]];
@@ -236,7 +236,7 @@ function tablesForProductHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUr
     const productId: string = ctx.params.product_id;
     const tx = ctx.params.tx;
     const content = await readJsonFile<ProductFile>(
-      getFilesDir(getDatabaseId(ctx)),
+      getFilesDir(getDatabaseId(ctx, false)),
       buildProductFileName(productId, tx)
     );
 
@@ -248,7 +248,7 @@ function tablesForProductHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUr
         name: compatibleTableName,
         uri: `${getBaseUrl(
           ctx,
-          getDatabaseId(ctx)
+          getDatabaseId(ctx, false)
         )}/transactions/${tx}/products/${productId}/tables/${compatibleTableName}`,
       };
     });
@@ -266,8 +266,8 @@ function dataForTableHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): 
     // PropertyValueSet.parse(request.requestedUri.queryParameters['variant'], (_) => null) : null;
 
     // Read the product file and build it's tables
-    const filesDir = getFilesDir(getDatabaseId(ctx));
-    const baseUrl = getBaseUrl(ctx, getDatabaseId(ctx));
+    const filesDir = getFilesDir(getDatabaseId(ctx, false));
+    const baseUrl = getBaseUrl(ctx, getDatabaseId(ctx, false));
     const productFile = await readJsonFile<ProductFile>(filesDir, buildProductFileName(productId, tx));
     const apiTables = await getApiProductTables(filesDir, baseUrl, productFile, [legacyTableName]);
     const foundTable = apiTables[legacyTableName];
@@ -291,8 +291,8 @@ function allTableDataForProductHandler(getFilesDir: GetFilesDir, getBaseUrl: Get
     // var numbers = request.requestedUri.queryParameters['numbers'] == "true";
 
     // Read the product file and build it's tables
-    const filesDir = getFilesDir(getDatabaseId(ctx));
-    const baseUrl = getBaseUrl(ctx, getDatabaseId(ctx));
+    const filesDir = getFilesDir(getDatabaseId(ctx, false));
+    const baseUrl = getBaseUrl(ctx, getDatabaseId(ctx, false));
     const productFile = await readJsonFile<ProductFile>(filesDir, buildProductFileName(productId, tx));
     const apiTables = await getApiProductTables(filesDir, baseUrl, productFile, legacyTableList || ["*"]);
     ctx.body = apiTables;
@@ -315,8 +315,8 @@ async function markerFileNameToApiMarker(
   let urlToProducts = "";
   let apiMarker: ApiMarker;
   if (typeAndId.type === "release") {
-    const releaseContent = await readJsonFile<ReleaseFile>(getFilesDir(getDatabaseId(ctx)), fileName);
-    urlToProducts = `${getBaseUrl(ctx, getDatabaseId(ctx))}/releases/${typeAndId.identifier}`;
+    const releaseContent = await readJsonFile<ReleaseFile>(getFilesDir(getDatabaseId(ctx, false)), fileName);
+    urlToProducts = `${getBaseUrl(ctx, getDatabaseId(ctx, false))}/releases/${typeAndId.identifier}`;
     apiMarker = {
       marker_name: markerName,
       release_name: releaseContent.data.name,
@@ -326,7 +326,7 @@ async function markerFileNameToApiMarker(
   } else if (typeAndId.type === "transaction") {
     const parsed = parseTransactionFileName(fileName);
     const tx = parsed.tx;
-    urlToProducts = `${getBaseUrl(ctx, getDatabaseId(ctx))}/transactions/${tx}`;
+    urlToProducts = `${getBaseUrl(ctx, getDatabaseId(ctx, false))}/transactions/${tx}`;
     apiMarker = {
       marker_name: markerName,
       transaction_id: tx.toString(),
@@ -342,7 +342,7 @@ async function treeFileNameToTreeFile(ctx: Koa.Context, getFilesDir: GetFilesDir
   const typeAndId = getTypeAndIdentifierFromFileName(fileName);
   let apiTree: TreeFile;
   if (typeAndId.type === "tree") {
-    const treeContent = await readJsonFile<TreeFile>(getFilesDir(getDatabaseId(ctx)), fileName);
+    const treeContent = await readJsonFile<TreeFile>(getFilesDir(getDatabaseId(ctx, false)), fileName);
     apiTree = {
       id: treeContent.id,
       name: treeContent.name,
@@ -362,12 +362,12 @@ async function getApiProductWithOptionalTables(
   legacyTableList: ReadonlyArray<string> | undefined
 ): Promise<ApiProduct> {
   // Read the product file
-  const productFile: ProductFile = await readJsonFile<ProductFile>(getFilesDir(getDatabaseId(ctx)), productFileName);
+  const productFile: ProductFile = await readJsonFile<ProductFile>(getFilesDir(getDatabaseId(ctx, false)), productFileName);
 
   // Build the ApiProduct object
   const parsed = parseProductFileName(productFileName);
-  const filesDir = getFilesDir(getDatabaseId(ctx));
-  const baseUrl = getBaseUrl(ctx, getDatabaseId(ctx));
+  const filesDir = getFilesDir(getDatabaseId(ctx, false));
+  const baseUrl = getBaseUrl(ctx, getDatabaseId(ctx, false));
   const p: Mutable<ApiProduct> = {
     id: productFile.data.id.toUpperCase(),
     key: productFile.data.key,

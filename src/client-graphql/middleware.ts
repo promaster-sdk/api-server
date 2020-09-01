@@ -41,7 +41,7 @@ export function createClientGraphQLMiddleware(
  */
 function createGetMarkersMiddleware(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
   return async (ctx, next) => {
-    const databaseId = getDatabaseId(ctx);
+    const databaseId = getDatabaseId(ctx, false);
     const rootFileContent = await readJsonFile<RootFile>(getFilesDir(databaseId))(buildRootFileName());
     const markers = Object.keys(rootFileContent.data.markers).map((m) => m.toLowerCase());
     const urlsToMarkers = markers.map((m) => `${getBaseUrl(ctx, databaseId)}/${m}`);
@@ -73,7 +73,7 @@ function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware<Contex
   } = {};
   return async (ctx, next) => {
     const { marker } = ctx.params;
-    const rootFile = await readJsonFile<RootFile>(getFilesDir(getDatabaseId(ctx)))(buildRootFileName());
+    const rootFile = await readJsonFile<RootFile>(getFilesDir(getDatabaseId(ctx, false)))(buildRootFileName());
     const markerLowerCase = marker.toLowerCase();
     const markerKey = Object.keys(rootFile.data.markers).find((m) => m.toLowerCase() === markerLowerCase);
     const markerRef = rootFile.data.markers[markerKey || ""];
@@ -92,19 +92,19 @@ function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware<Contex
       }
     }
     if (!markerSchema) {
-      const markerFile = await readJsonFile<ReleaseFile | TransactionFile>(getFilesDir(getDatabaseId(ctx)))(
+      const markerFile = await readJsonFile<ReleaseFile | TransactionFile>(getFilesDir(getDatabaseId(ctx, false)))(
         markerFileName
       );
       markerSchema = {
         markerFileName,
         markerFile,
-        schema: await createSchema(readJsonFile(getFilesDir(getDatabaseId(ctx))), markerFile),
+        schema: await createSchema(readJsonFile(getFilesDir(getDatabaseId(ctx, false))), markerFile),
       };
       schemaPerMarker[marker] = markerSchema;
     }
     ctx.state.graphqlSchema = markerSchema.schema;
     ctx.state.graphqlContext = createContext(
-      readJsonFile(getFilesDir(getDatabaseId(ctx))),
+      readJsonFile(getFilesDir(getDatabaseId(ctx, false))),
       ctx.params.marker,
       markerSchema.markerFile,
       rootFile

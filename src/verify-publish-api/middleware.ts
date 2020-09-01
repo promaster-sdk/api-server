@@ -1,5 +1,7 @@
 import * as Koa from "koa";
-import { validateToken } from "./token-validation";
+import * as uuid from "uuid";
+import { validateToken, DecodedToken } from "./token-validation";
+import { getHeaderIgnoreCase } from "../headers";
 
 export const createVerifyPublishApiMiddleware = (jwksUri: string, validClients: ReadonlyArray<string>) => async (
   ctx: Koa.Context,
@@ -13,20 +15,42 @@ export const createVerifyPublishApiMiddleware = (jwksUri: string, validClients: 
     console.warn("Unauthorized request");
     return;
   }
-
   const token = authorization.replace("Bearer ", "");
+  let decoded: DecodedToken;
   try {
-    const decoded = await validateToken(jwksUri, token);
-    console.log("decoded: ", decoded);
-    const clientId = (decoded["clientId"] || "").toUpperCase();
-    if (!validClients.map((c) => c.toUpperCase()).includes(clientId)) {
-      throw new Error(`Client id is not allowed access ${clientId}`);
-    }
+    decoded = await validateToken(jwksUri, token);
   } catch (err) {
     console.warn("Exception while validating token, the error was: ", err);
     ctx.status = 403;
     return;
   }
+
+  // Fallback. If no database id is in url fallback to validate tenant
+  const maybeDatabaseId = ctx.request.path.match(/^\/(\.+?)\//);
+  if (!uuid.validate(maybeDatabaseId?.[1] || "")) {
+    const selectedTenant = getHeaderIgnoreCase(ctx.headers, "X-Promaster-SelectedTenantId");
+    const additionalTenants =
+      typeof decoded["promaster/claims/additional_tenant"] === "string"
+        ? [decoded["promaster/claims/additional_tenant"]]
+        : decoded["promaster/claims/additional_tenant"];
+    const mainTenant = decoded["promaster/claims/tenant_id"];
+    const allTenants = [mainTenant, ...additionalTenants];
+    if (!selectedTenant || !allTenants.some((at) => at.includes(selectedTenant))) {
+      console.warn(`SelectedTenant: ${selectedTenant} is not in allowed tenants: ${allTenants.join(", ")}`);
+      ctx.status = 403;
+      return;
+    }
+    await next();
+    return;
+  }
+
+  const clientId = (decoded["clientId"] || "").toUpperCase();
+  if (!validClients.map((c) => c.toUpperCase()).includes(clientId)) {
+    console.warn(`Client id is not allowed access ${clientId}`);
+    ctx.status = 403;
+    return;
+  }
+
   await next();
 };
 

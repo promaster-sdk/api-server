@@ -40,7 +40,7 @@ export function createPublishApiMiddleware(getFilesDir: GetFilesDir, prefix?: st
       // HACK, we have added ctx to req in order to be compatible with multer's express middleware
       // tslint:disable-next-line:no-any
       const ctx: Koa.Context = (req as any).ctx;
-      const dir = getFilesDir(getDatabaseId(ctx));
+      const dir = getFilesDir(getDatabaseId(ctx, true));
       await mkdirpAsync(dir);
       cb(null, dir);
     },
@@ -66,29 +66,41 @@ export function createPublishApiMiddleware(getFilesDir: GetFilesDir, prefix?: st
   const router = new Router({ prefix });
 
   // Download
-  router.get("/:database_id/:filename", async (ctx: Router.IRouterContext) => {
-    const dest = getFilesDir(getDatabaseId(ctx));
-    const fullPath = path.join(dest, ctx.params.filename);
-    if (existsAsync(fullPath)) {
-      await send(ctx, ctx.params.filename, { root: dest });
-    } else {
-      ctx.status = 404;
-      ctx.body = "Not found";
+  // router.get("/(:database_id/)?:filename", async (ctx: Router.IRouterContext) => {
+  router.get(
+    /^\/([0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12})?(.+)/,
+    async (ctx: Router.IRouterContext) => {
+      const fileName = ctx.params[1];
+      console.log("match!!!", ctx.params);
+      console.log("match!!!", fileName);
+      const dest = getFilesDir(getDatabaseId(ctx, true));
+      const fullPath = path.join(dest, fileName);
+      if (existsAsync(fullPath)) {
+        await send(ctx, fileName, { root: dest });
+      } else {
+        ctx.status = 404;
+        ctx.body = "Not found";
+      }
     }
-  });
+  );
 
   // Upload
-  router.post("/:database_id", upload.array("file"), async (ctx) => {
-    // tslint:disable-next-line:no-any
-    const files = (ctx.req as any).files as Array<Express.Multer.File>;
-    const filesPaths = getFilesDir(getDatabaseId(ctx));
-    // tslint:disable-next-line:no-any
-    const tempFileSuffix = (ctx as any).tempFileSuffix;
-    const fileNames = files.map((f) => f.filename);
-    const allMissingFiles = await getMissingFilesForRootFiles(filesPaths, fileNames, ctx.query.save, tempFileSuffix);
+  // router.post("/(:database_id)?", upload.array("file"), async (ctx) => {
+  router.post(
+    /^\/([0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12})?/,
+    upload.array("file"),
+    async (ctx) => {
+      // tslint:disable-next-line:no-any
+      const files = (ctx.req as any).files as Array<Express.Multer.File>;
+      const filesPaths = getFilesDir(getDatabaseId(ctx, true));
+      // tslint:disable-next-line:no-any
+      const tempFileSuffix = (ctx as any).tempFileSuffix;
+      const fileNames = files.map((f) => f.filename);
+      const allMissingFiles = await getMissingFilesForRootFiles(filesPaths, fileNames, ctx.query.save, tempFileSuffix);
 
-    ctx.body = { missingFiles: allMissingFiles };
-  });
+      ctx.body = { missingFiles: allMissingFiles };
+    }
+  );
 
   // Compose full middleware
   const all = compose([tempFileSuffixMiddleware, putCtxOnReqMiddleware, router.routes(), router.allowedMethods()]);
