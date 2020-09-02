@@ -71,7 +71,6 @@ export function createPublishApiMiddleware(getFilesDir: GetFilesDir, prefix?: st
     /^\/([0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}\/)?(.+)/,
     async (ctx: Router.IRouterContext) => {
       const fileName = ctx.params[1];
-      console.log(fileName);
       const dest = getFilesDir(getDatabaseId(ctx, true));
       const fullPath = path.join(dest, fileName);
       if (existsAsync(fullPath)) {
