@@ -26,9 +26,12 @@ export const createVerifyPublishApiMiddleware = (jwksUri: string, validClients: 
   }
 
   // Fallback. If no database id is in url fallback to validate tenant
-  const maybeDatabaseId = ctx.request.path.match(/^\/(\.+?)\//);
+  const maybeDatabaseId = ctx.request.path.match(
+    /^\/([0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12})/
+  );
   if (!uuid.validate(maybeDatabaseId?.[1] || "")) {
     const selectedTenant = getHeaderIgnoreCase(ctx.headers, "X-Promaster-SelectedTenantId");
+    console.warn("Old auth request, Veryfing tenant_id: ", selectedTenant);
     const additionalTenants =
       typeof decoded["promaster/claims/additional_tenant"] === "string"
         ? [decoded["promaster/claims/additional_tenant"]]
@@ -46,7 +49,7 @@ export const createVerifyPublishApiMiddleware = (jwksUri: string, validClients: 
 
   const clientId = (decoded["clientId"] || "").toUpperCase();
   if (!validClients.map((c) => c.toUpperCase()).includes(clientId)) {
-    console.warn(`Client id is not allowed access ${clientId}`);
+    console.warn(`Client id=${clientId} is not allowed access`);
     ctx.status = 403;
     return;
   }
