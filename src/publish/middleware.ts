@@ -68,11 +68,10 @@ export function createPublishApiMiddleware(getFilesDir: GetFilesDir, prefix?: st
   // Download
   // router.get("/(:database_id/)?:filename", async (ctx: Router.IRouterContext) => {
   router.get(
-    /^\/([0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12})?(.+)/,
+    /^\/([0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}\/)?(.+)/,
     async (ctx: Router.IRouterContext) => {
       const fileName = ctx.params[1];
-      console.log("match!!!", ctx.params);
-      console.log("match!!!", fileName);
+      console.log(fileName);
       const dest = getFilesDir(getDatabaseId(ctx, true));
       const fullPath = path.join(dest, fileName);
       if (existsAsync(fullPath)) {
