@@ -32,10 +32,8 @@ export const createVerifyPublishApiMiddleware = (jwksUri: string, validClients: 
   if (!uuid.validate(maybeDatabaseId?.[1] || "")) {
     const selectedTenant = getHeaderIgnoreCase(ctx.headers, "X-Promaster-SelectedTenantId");
     console.warn("Old auth request, Veryfing tenant_id: ", selectedTenant);
-    const additionalTenants =
-      typeof decoded["promaster/claims/additional_tenant"] === "string"
-        ? [decoded["promaster/claims/additional_tenant"]]
-        : decoded["promaster/claims/additional_tenant"];
+    const additionalTenants = getAdditionalTenants(decoded);
+
     const mainTenant = decoded["promaster/claims/tenant_id"];
     const allTenants = [mainTenant, ...additionalTenants];
     if (!selectedTenant || !allTenants.some((at) => at.includes(selectedTenant))) {
@@ -64,4 +62,17 @@ function getKeyValueIgnoreCase(keyValues: { readonly [key: string]: string }, ke
     return keyValues[found];
   }
   return undefined;
+}
+
+function getAdditionalTenants(decodedToken: DecodedToken): ReadonlyArray<string> {
+  const claim = decodedToken["promaster/claims/additional_tenant"];
+  if (!claim) {
+    return [];
+  }
+
+  if (typeof claim === "string") {
+    return [claim];
+  }
+
+  return claim;
 }
