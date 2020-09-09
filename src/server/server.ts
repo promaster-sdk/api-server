@@ -40,7 +40,7 @@ async function startServer(config: Config.Config): Promise<void> {
   const publishApi = createPublishApiMiddleware((databaseId) => path.join(config.filesPath, databaseId));
   const verifyPublishApiTokenMiddleware = createVerifyPublishApiMiddleware(
     config.jwksUri,
-    config.publishApiValidClients.split(",")
+    (config.publishApiValidClients && config.publishApiValidClients.split(",")) || []
   );
   const publishApiWithToken = compose([verifyPublishApiTokenMiddleware, publishApi]);
   app.use(mount("/publish", publishApiWithToken));
