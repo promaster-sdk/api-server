@@ -7,5 +7,5 @@ export function getUniqueTypeName(requestedName: string, usedTypeNames: Set<stri
 }
 
 export function toSafeName(name: string): string {
-  return name.replace(/[^a-z0-9]/gi, "_").toLowerCase();
+  return name.replace(/[^a-z0-9]/gi, "_");
 }
