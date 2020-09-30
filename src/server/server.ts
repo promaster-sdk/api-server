@@ -27,7 +27,7 @@ async function startServer(config: Config.Config): Promise<void> {
   app.use(async (ctx, next) => {
     await next();
     const rt = ctx.response.get("X-Response-Time");
-    console.log(`${ctx.request.ip} ${ctx.method} ${ctx.url} - ${rt}`);
+    console.log(`${new Date().toLocaleString()} ${ctx.request.ip} ${ctx.method} ${ctx.url} - ${rt}`);
   });
   app.use(async (ctx, next) => {
     const start = Date.now();
