@@ -4,6 +4,7 @@ import mount from "koa-mount";
 import cors from "@koa/cors";
 import compose from "koa-compose";
 import compress from "koa-compress";
+import { koaMiddleware as createMetricsMiddleware } from "prometheus-api-metrics";
 import * as Config from "./config";
 import { createPublishApiMiddleware } from "../publish";
 import { createClientRestMiddleware } from "../client-rest";
@@ -20,6 +21,8 @@ async function startServer(config: Config.Config): Promise<void> {
   // Basic server config
   const app = new Koa();
   app.proxy = true; // Trust proxy header fields, for example X-Forwarded-Host
+  app.use(createMetricsMiddleware()); // Add /metrics endpoint for prometheus
+
   app.use(cors()); // Allow all cors
   app.use(compress()); // Use compression
 
