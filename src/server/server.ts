@@ -21,7 +21,6 @@ async function startServer(config: Config.Config): Promise<void> {
   // Basic server config
   const app = new Koa();
   app.proxy = true; // Trust proxy header fields, for example X-Forwarded-Host
-  app.use(createMetricsMiddleware()); // Add /metrics endpoint for prometheus
 
   app.use(cors()); // Allow all cors
   app.use(compress()); // Use compression
@@ -61,6 +60,8 @@ async function startServer(config: Config.Config): Promise<void> {
     (ctx, databaseId) => `${ctx.request.protocol}://${ctx.request.host}/graphql/${databaseId}`
   );
   app.use(mount("/graphql", clientApiGraphQLApp));
+
+  app.use(createMetricsMiddleware()); // Add /metrics endpoint for prometheus
 
   // Start server
   app.listen(config.port, config.ip);

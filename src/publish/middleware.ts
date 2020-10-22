@@ -1,7 +1,7 @@
 import Koa from "koa";
 import compose from "koa-compose";
 import send from "koa-send";
-import Router from "koa-router";
+import Router from "@koa/router";
 import multer from "koa-multer";
 import path from "path";
 import fs from "fs";
@@ -69,7 +69,7 @@ export function createPublishApiMiddleware(getFilesDir: GetFilesDir, prefix?: st
   // router.get("/(:database_id/)?:filename", async (ctx: Router.IRouterContext) => {
   router.get(
     /^\/([0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}\/)?(.+)/,
-    async (ctx: Router.IRouterContext) => {
+    async (ctx: Router.RouterContext) => {
       const fileName = ctx.params[1];
       const dest = getFilesDir(getDatabaseId(ctx, true));
       const fullPath = path.join(dest, fileName);

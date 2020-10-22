@@ -2,7 +2,7 @@ import path from "path";
 import fs from "fs";
 import { promisify } from "util";
 import Koa from "koa";
-import Router from "koa-router";
+import Router from "@koa/router";
 import compose from "koa-compose";
 import graphqlHTTP from "koa-graphql";
 import { GraphQLError, GraphQLSchema } from "graphql";

@@ -1,5 +1,5 @@
 import Koa from "koa";
-import Router from "koa-router";
+import Router from "@koa/router";
 import send from "koa-send";
 import path from "path";
 import fs from "fs";
@@ -40,12 +40,12 @@ export interface GetBaseUrl {
   (ctx: Koa.Context, databaseId: string): string;
 }
 
-const cacheNeverHeader: Koa.Middleware = (ctx: Router.IRouterContext, next: Next): Promise<unknown> => {
+const cacheNeverHeader: Koa.Middleware = (ctx: Router.RouterContext, next: Next): Promise<unknown> => {
   ctx.set("cache-control", "no-cache, max-age=0");
   return next();
 };
 
-const cacheForeverHeader: Koa.Middleware = (ctx: Router.IRouterContext, next: Next): Promise<unknown> => {
+const cacheForeverHeader: Koa.Middleware = (ctx: Router.RouterContext, next: Next): Promise<unknown> => {
   ctx.set("cache-control", "public, max-age=86400");
   return next();
 };
@@ -78,7 +78,11 @@ export function createClientRestMiddleware(
     productsForTransactionHandler(getFilesDir, getBaseUrl),
     cacheForeverHeader
   ); // ?tables=T1,T2...
-  router.get("/:database_id/(public/)?releases/:id", productsForReleaseHandler(getFilesDir, getBaseUrl), cacheForeverHeader); // ?tables=T1,T2...
+  router.get(
+    "/:database_id/(public/)?releases/:id",
+    productsForReleaseHandler(getFilesDir, getBaseUrl),
+    cacheForeverHeader
+  ); // ?tables=T1,T2...
   router.get("/:database_id/(public/)?blobs/:hash", blobHandler(getFilesDir), cacheForeverHeader);
 
   // Entry files
@@ -99,7 +103,7 @@ export function createClientRestMiddleware(
 type Next = () => Promise<unknown>;
 
 function treesHandler(getFilesDir: GetFilesDir): Koa.Middleware {
-  return async function _treesHandler(ctx: Router.IRouterContext, next: Next): Promise<unknown> {
+  return async function _treesHandler(ctx: Router.RouterContext, next: Next): Promise<unknown> {
     const rootFileContent = await readJsonFile<RootFile>(getFilesDir(getDatabaseId(ctx, false)), buildRootFileName());
     const trees: Array<TreeFile> = [];
     for (const t of Object.keys(rootFileContent.data.trees)) {
@@ -112,7 +116,7 @@ function treesHandler(getFilesDir: GetFilesDir): Koa.Middleware {
 }
 
 function blobHandler(getFilesDir: GetFilesDir): Koa.Middleware {
-  return async function _blobHandler(ctx: Router.IRouterContext, next: Next): Promise<unknown> {
+  return async function _blobHandler(ctx: Router.RouterContext, next: Next): Promise<unknown> {
     const blobFileName = buildBlobFileName(ctx.params.hash);
     const fileName = ctx.query["file"];
     const attachment = ctx.query["attachment"];
@@ -139,9 +143,11 @@ function blobHandler(getFilesDir: GetFilesDir): Koa.Middleware {
 }
 
 function latestHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
-  return async function _latestHandler(ctx: Router.IRouterContext, _next: Next): Promise<unknown> {
+  return async function _latestHandler(ctx: Router.RouterContext, _next: Next): Promise<unknown> {
     const rootFileContent = await readJsonFile<RootFile>(getFilesDir(getDatabaseId(ctx, false)), buildRootFileName());
-    const urlToProducts = `${getBaseUrl(ctx, getDatabaseId(ctx, false))}/transactions/${rootFileContent.data.latest.tx}`;
+    const urlToProducts = `${getBaseUrl(ctx, getDatabaseId(ctx, false))}/transactions/${
+      rootFileContent.data.latest.tx
+    }`;
     const apiMarker = {
       transaction_id: rootFileContent.data.latest.tx.toString(),
       date: rootFileContent.data.latest.date,
@@ -153,7 +159,7 @@ function latestHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Mi
 }
 
 function productsForTransactionHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
-  return async function(ctx: Router.IRouterContext, next: Next): Promise<unknown> {
+  return async function (ctx: Router.RouterContext, next: Next): Promise<unknown> {
     const tx: string = ctx.params.tx;
     const legacyTableList: ReadonlyArray<string> = ctx.query["tables"] ? ctx.query["tables"].split(",") : undefined;
     // Read the release file
@@ -176,7 +182,7 @@ function productsForTransactionHandler(getFilesDir: GetFilesDir, getBaseUrl: Get
 }
 
 function productsForReleaseHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
-  return async function(ctx: Router.IRouterContext, next: Next): Promise<unknown> {
+  return async function (ctx: Router.RouterContext, next: Next): Promise<unknown> {
     const releaseId: string = ctx.params.id;
     const legacyTableList: ReadonlyArray<string> = ctx.query["tables"] ? ctx.query["tables"].split(",") : undefined;
     // Read the release file
@@ -199,7 +205,7 @@ function productsForReleaseHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBase
 }
 
 function markerHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
-  return async function _markersHandler(ctx: Router.IRouterContext, next: Next): Promise<unknown> {
+  return async function _markersHandler(ctx: Router.RouterContext, next: Next): Promise<unknown> {
     const markerName = ctx.params.name;
     const rootFileContent = await readJsonFile<RootFile>(getFilesDir(getDatabaseId(ctx, false)), buildRootFileName());
     const markerKey = Object.keys(rootFileContent.data.markers).find(
@@ -219,7 +225,7 @@ function markerHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Mi
 }
 
 function markersHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
-  return async function _markersHandler(ctx: Router.IRouterContext, next: Next): Promise<unknown> {
+  return async function _markersHandler(ctx: Router.RouterContext, next: Next): Promise<unknown> {
     const rootFileContent = await readJsonFile<RootFile>(getFilesDir(getDatabaseId(ctx, false)), buildRootFileName());
     const apiMarkers: Array<ApiMarker> = [];
     for (const m of Object.keys(rootFileContent.data.markers)) {
@@ -232,7 +238,7 @@ function markersHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.M
 }
 
 function tablesForProductHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
-  return async function(ctx: Router.IRouterContext, next: Next): Promise<unknown> {
+  return async function (ctx: Router.RouterContext, next: Next): Promise<unknown> {
     const productId: string = ctx.params.product_id;
     const tx = ctx.params.tx;
     const content = await readJsonFile<ProductFile>(
@@ -258,7 +264,7 @@ function tablesForProductHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUr
 }
 
 function dataForTableHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
-  return async function _dataForProductTableHandler(ctx: Router.IRouterContext, next: Next): Promise<unknown> {
+  return async function _dataForProductTableHandler(ctx: Router.RouterContext, next: Next): Promise<unknown> {
     const legacyTableName: string = ctx.params.table;
     const productId: string = ctx.params.product_id;
     const tx: string = ctx.params.tx;
@@ -282,7 +288,7 @@ function dataForTableHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): 
 }
 
 function allTableDataForProductHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
-  return async function(ctx: Router.IRouterContext, next: Next): Promise<unknown> {
+  return async function (ctx: Router.RouterContext, next: Next): Promise<unknown> {
     const productId: string = ctx.params.product_id;
     const tx: string = ctx.params.tx;
     const legacyTableList: ReadonlyArray<string> = ctx.query["tables"] ? ctx.query["tables"].split(",") : undefined;
@@ -362,7 +368,10 @@ async function getApiProductWithOptionalTables(
   legacyTableList: ReadonlyArray<string> | undefined
 ): Promise<ApiProduct> {
   // Read the product file
-  const productFile: ProductFile = await readJsonFile<ProductFile>(getFilesDir(getDatabaseId(ctx, false)), productFileName);
+  const productFile: ProductFile = await readJsonFile<ProductFile>(
+    getFilesDir(getDatabaseId(ctx, false)),
+    productFileName
+  );
 
   // Build the ApiProduct object
   const parsed = parseProductFileName(productFileName);
