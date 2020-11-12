@@ -19,6 +19,7 @@ import * as DefaultModule from "./modules/default";
 import * as PropertiesModule from "./modules/properties";
 import * as SoundModule from "./modules/sound";
 import * as ModelsModule from "./modules/models";
+import * as TextsModule from "./modules/texts";
 
 const defaultModulePlugin: ModulePlugin = DefaultModule;
 
@@ -26,6 +27,7 @@ const modulePlugins: { readonly [name: string]: ModulePlugin } = {
   properties: PropertiesModule,
   sound: SoundModule,
   models: ModelsModule,
+  texts: TextsModule,
 };
 
 export const defaultResolveModuleType = (parent: string, _args: {}, _ctx: {}, info: GraphQLResolveInfo) => {
