@@ -1,9 +1,10 @@
 export function getUniqueTypeName(requestedName: string, usedTypeNames: Set<string>): string {
-  if (usedTypeNames.has(requestedName)) {
+  const safeRequestedName = toSafeName(requestedName);
+  if (usedTypeNames.has(safeRequestedName)) {
     return getUniqueTypeName(requestedName + "A", usedTypeNames);
   }
-  usedTypeNames.add(requestedName);
-  return requestedName;
+  usedTypeNames.add(safeRequestedName);
+  return safeRequestedName;
 }
 
 export function toSafeName(name: string): string {
