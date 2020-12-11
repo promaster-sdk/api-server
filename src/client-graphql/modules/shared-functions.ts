@@ -58,7 +58,9 @@ export function buildTableRowTypeFields(
   columns: ReadonlyArray<ProductTableFileColumn>
 ): GraphQLFieldConfigMap<unknown, unknown> {
   return Object.fromEntries(
-    columns.map((c) => [toSafeName(c.name), { type: columnTypeToGraphQLType(c), description: c.description }])
+    columns
+      .filter((c) => c.name !== "")
+      .map((c) => [toSafeName(c.name), { type: columnTypeToGraphQLType(c), description: c.description }])
   );
 }
 
