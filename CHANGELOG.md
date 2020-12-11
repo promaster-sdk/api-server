@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v2.1.0...master)
 
+### Added
+
+- Fix blank column names, see PR #12.
+
 ## [v2.1.0](https://github.com/promaster-sdk/api-server/compare/v1.4.0...v2.1.0) - 2020-11-12
 
 ### Added
