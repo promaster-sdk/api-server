@@ -5,9 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v2.1.0...master)
+## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v2.1.1...master)
 
-### Added
+## [v2.1.1](https://github.com/promaster-sdk/api-server/compare/v2.1.0...v2.1.1) - 2020-12-11
+
+### Fixed
 
 - Fix blank column names, see PR #12.
 
