@@ -100,6 +100,10 @@ yarn start
 
 In promaster-edit, register a new server on port 4500 with an authorization header value of `mytoken`. Publish once to the this server, then you can try the Client API at `http://localhost:4500/rest/v3/markers`.
 
+# How to publish to local server
+
+If you are developing a new API server and want promaster to publish to it you can expose your local server on the internet using [ngrok](https://ngrok.com/).
+
 ## How to publish new version
 
 ```bash
