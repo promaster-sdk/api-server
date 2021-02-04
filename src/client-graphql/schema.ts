@@ -133,7 +133,7 @@ async function buildModulesType(
   usedTypeNames: Set<string>
 ): Promise<GraphQLObjectType | undefined> {
   const tablesPerModule = await getUniqueTableDefinitionsPerModule(productFileNames, readJsonFile);
-  const fields: GraphQLFieldConfigMap<unknown, unknown, unknown> = {};
+  const fields: GraphQLFieldConfigMap<unknown, unknown> = {};
   for (const [moduleName, tableByName] of Object.entries(tablesPerModule)) {
     // Check if there is a plugin for this module or if it should use generic handling
     const moduleFieldName = toSafeName(moduleName);

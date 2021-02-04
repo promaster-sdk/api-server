@@ -15,7 +15,7 @@ export async function createModuleType(
   usedTypeNames: Set<string>,
   tableByName: TableByName
 ): Promise<GraphQLObjectType> {
-  const fields: GraphQLFieldConfigMap<unknown, unknown, unknown> = {};
+  const fields: GraphQLFieldConfigMap<unknown, unknown> = {};
   const textTable = tableByName["text"];
 
   const textRowType = new GraphQLObjectType({
