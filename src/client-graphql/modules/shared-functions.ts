@@ -14,6 +14,7 @@ import { TableRow, TableRowWithProductFileName } from "../schema-types";
 import { toSafeName } from "../shared-functions";
 import { Context } from "../context";
 import { ModuleFieldResolverParent } from "../module-plugin";
+import { withSpan } from "../../tracing";
 
 export const builtinParentIdColumnSafeName = toSafeName(builtinParentIdColumnName);
 export const builtinIdColumnSafeName = toSafeName(builtinIdColumnName);
@@ -28,27 +29,29 @@ export async function resolveTableRows(
   },
   includeProductFileName: boolean = false
 ): Promise<ReadonlyArray<TableRow> | ReadonlyArray<TableRowWithProductFileName>> {
-  const fullTableName = `${module}@${tableName}`;
-  const productFile = await loaders.productFiles.load(productFileName);
-  const tableRef = productFile.data.tables[fullTableName];
-  const tableFileName = productFile.refs[tableRef];
-  if (!tableFileName) {
-    return [];
-  }
-  interface MutableTableRowWithProductFileName {
-    __$productFileName$: string;
-    readonly [column: string]: ProductTableFileCell;
-  }
-  const tableFile = await loaders.tableFiles.load(tableFileName);
-  if (includeProductFileName) {
-    return tableFile.data.rows.map((values) => {
-      const obj = rowValuesToObject(tableFile.data.columns, values) as MutableTableRowWithProductFileName;
-      obj.__$productFileName$ = productFileName;
-      return obj;
-    });
-  } else {
-    return tableFile.data.rows.map((values) => rowValuesToObject(tableFile.data.columns, values));
-  }
+  return await withSpan("resolveTableRows", async () => {
+    const fullTableName = `${module}@${tableName}`;
+    const productFile = await loaders.productFiles.load(productFileName);
+    const tableRef = productFile.data.tables[fullTableName];
+    const tableFileName = productFile.refs[tableRef];
+    if (!tableFileName) {
+      return [];
+    }
+    interface MutableTableRowWithProductFileName {
+      __$productFileName$: string;
+      readonly [column: string]: ProductTableFileCell;
+    }
+    const tableFile = await loaders.tableFiles.load(tableFileName);
+    if (includeProductFileName) {
+      return tableFile.data.rows.map((values) => {
+        const obj = rowValuesToObject(tableFile.data.columns, values) as MutableTableRowWithProductFileName;
+        obj.__$productFileName$ = productFileName;
+        return obj;
+      });
+    } else {
+      return tableFile.data.rows.map((values) => rowValuesToObject(tableFile.data.columns, values));
+    }
+  });
 }
 
 const rowValuesToObject = (columns: ReadonlyArray<ProductTableFileColumn>, values: ProductTableFileRow) =>

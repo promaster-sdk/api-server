@@ -11,13 +11,17 @@ import { GetBaseUrl, createContext, Context } from "./context";
 import { RootValue } from "./resolvers";
 import { buildRootFileName, RootFile, ReleaseFile, TransactionFile } from "../file-types";
 import { getDatabaseId } from "../context-parsing";
+import { withSpan } from "../tracing";
 
 const readFileAsync = promisify(fs.readFile);
 
 export const readJsonFile = <T>(filesDir: string) => async (fileName: string): Promise<T> => {
-  const fullPath = path.join(filesDir, fileName);
-  const content = JSON.parse(await readFileAsync(fullPath, "utf8"));
-  return content;
+  return await withSpan("readJsonFile", async (span) => {
+    span.setAttribute("fileName", fileName);
+    const fullPath = path.join(filesDir, fileName);
+    const content = JSON.parse(await readFileAsync(fullPath, "utf8"));
+    return content;
+  });
 };
 
 export interface GetFilesDir {
