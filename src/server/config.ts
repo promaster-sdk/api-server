@@ -7,6 +7,7 @@ export interface Config {
   readonly filesPath: string;
   readonly jwksUri: string;
   readonly publishApiValidClients: string;
+  readonly initOtel: string;
   readonly otelLogLevel: string;
   readonly otelTracesSampler: string;
 }
@@ -41,6 +42,12 @@ export const schema = convict<Config>({
     format: "String",
     default: "",
     env: "PUBLISH_API_VALID_CLIENTS",
+  },
+  initOtel: {
+    doc: "Should we initialize the OpenTelemetry SDK",
+    format: ["true", "false"],
+    default: "false",
+    env: "INIT_OTEL",
   },
   otelLogLevel: {
     doc: "Open Telemetry SDK Logging Level",
