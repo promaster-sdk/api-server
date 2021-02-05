@@ -1,7 +1,7 @@
 import * as Koa from "koa";
 import * as uuid from "uuid";
 import { validateToken, DecodedToken } from "./token-validation";
-import { getHeaderIgnoreCase } from "../headers";
+import { getHeaderIgnoreCase } from "../context-parsing";
 
 export const createVerifyPublishApiMiddleware = (jwksUri: string, validClients: ReadonlyArray<string>) => async (
   ctx: Koa.Context,

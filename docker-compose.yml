@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  jaeger:
+    image: jaegertracing/all-in-one:1.21.0
+    ports:
+      - "16686:16686" #UI
+      - "6832:6832/udp" #accept jaeger.thrift in binary Thrift protocol used by Node.js Jaeger client (because thriftrw npm package does not support compact protocol)
+      - "5778:5778" #serve configs, sampling strategies
+      - "14271:14271" #admin port: health check at / and metrics at /metrics
+      - "14250" # Jaeger grpc receiver
+
+  otel-agent:
+    image: otel/opentelemetry-collector:0.19.0
+    command: ["--config=/etc/otel-agent-config.yaml", "--log-level=DEBUG"]
+    volumes:
+      - ./docker-compose-otel-agent-config.yaml:/etc/otel-agent-config.yaml
+    ports:
+      - "4317:4317" # OTLP gRPC receiver
+    depends_on:
+      - jaeger
