@@ -10,6 +10,7 @@ export interface Config {
   readonly initOtel: string;
   readonly otelLogLevel: string;
   readonly otelTracesSampler: string;
+  readonly filenamesInParallel: number;
 }
 
 export const schema = convict<Config>({
@@ -67,6 +68,12 @@ export const schema = convict<Config>({
     ],
     default: "parentbased_always_on",
     env: "OTEL_TRACES_SAMPLER",
+  },
+  filenamesInParallel: {
+    doc: "Files to read in parallel in publish middleware",
+    format: "int",
+    default: 50,
+    env: "READ_FILES_PARALLEL",
   },
 });
 

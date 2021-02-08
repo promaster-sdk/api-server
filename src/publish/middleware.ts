@@ -33,7 +33,11 @@ const tempFileSuffixMiddleware = async (ctx: Koa.Context, next: () => Promise<vo
   await next();
 };
 
-export function createPublishApiMiddleware(getFilesDir: GetFilesDir, prefix?: string): Koa.Middleware {
+export function createPublishApiMiddleware(
+  getFilesDir: GetFilesDir,
+  prefix?: string,
+  readFilesInParallel: number = 50
+): Koa.Middleware {
   // Configure multer to handle multi-part POST
   const storage = multer.diskStorage({
     destination: async (req, _file, cb) => {
@@ -94,7 +98,13 @@ export function createPublishApiMiddleware(getFilesDir: GetFilesDir, prefix?: st
       // tslint:disable-next-line:no-any
       const tempFileSuffix = (ctx as any).tempFileSuffix;
       const fileNames = files.map((f) => f.filename);
-      const allMissingFiles = await getMissingFilesForRootFiles(filesPaths, fileNames, ctx.query.save, tempFileSuffix);
+      const allMissingFiles = await getMissingFilesForRootFiles(
+        filesPaths,
+        fileNames,
+        ctx.query.save,
+        tempFileSuffix,
+        readFilesInParallel
+      );
 
       ctx.body = { missingFiles: allMissingFiles };
     }

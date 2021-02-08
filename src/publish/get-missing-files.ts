@@ -21,7 +21,8 @@ export async function getMissingFilesForRootFiles(
   filesPath: string,
   fileNames: ReadonlyArray<string>,
   saveQueryParam: string,
-  tempFileSuffix: string
+  tempFileSuffix: string,
+  readFilesInParallel: number
 ): Promise<ReadonlyArray<string>> {
   return await withSpan("getMissingFilesForRootFiles", async (_span) => {
     // Get the directory listing once so we don't need to do I/O calls for each file to check if exists
@@ -29,7 +30,14 @@ export async function getMissingFilesForRootFiles(
 
     // console.time("getMissingFilesRecursive");
     const stats = { readFiles: 0 };
-    const missingFilesResult = await getMissingFilesRecursive(filesPath, existingFiles, fileNames, 0, stats);
+    const missingFilesResult = await getMissingFilesRecursive(
+      filesPath,
+      existingFiles,
+      fileNames,
+      0,
+      stats,
+      readFilesInParallel
+    );
     // console.timeEnd("getMissingFilesRecursive");
     // console.log("getMissingFilesRecursive stats", stats);
 
@@ -69,9 +77,11 @@ export async function getMissingFilesForRootFiles(
 }
 
 async function getExistingFiles(path: string): Promise<Set<string>> {
-  const existingFilesArray = await readDirAsync(path);
-  const existingFilesSet = new Set(existingFilesArray);
-  return existingFilesSet;
+  return await withSpan("getExistingFiles", async (_span) => {
+    const existingFilesArray = await readDirAsync(path);
+    const existingFilesSet = new Set(existingFilesArray);
+    return existingFilesSet;
+  });
 }
 
 /**
@@ -83,7 +93,8 @@ async function getMissingFilesRecursive(
   fileNames: ReadonlyArray<string>,
   level: number,
   // tslint:disable-next-line:readonly-keyword
-  stats: { readFiles: number }
+  stats: { readFiles: number },
+  readFilesInParallel: number
 ): Promise<MissingFilesResult> {
   return await withSpan("getMissingFilesRecursive", async (span) => {
     if (level > 10) {
@@ -116,7 +127,7 @@ async function getMissingFilesRecursive(
     // We can read all the files in parallel but we need to limit it becuase
     // the operating system and nodejs does not support too many open files
     const fileNamesToRead = Array.from(fileNamesWithRefs.keys());
-    const fileNamesToReadChunked = chunkArrayInGroups(fileNamesToRead, 50);
+    const fileNamesToReadChunked = chunkArrayInGroups(fileNamesToRead, readFilesInParallel);
     const allReferencedFileNames = new Set<string>();
     for (const chunk of fileNamesToReadChunked) {
       const chunkPromises = chunk.map((fileName) => readFileWithRefs(path.join(filePath, fileName)));
@@ -141,7 +152,8 @@ async function getMissingFilesRecursive(
         existingFiles,
         allReferencedFileNamesArray,
         level + 1,
-        stats
+        stats,
+        readFilesInParallel
       );
     }
 

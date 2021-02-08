@@ -41,7 +41,11 @@ export async function startServer(config: Config.Config): Promise<void> {
   });
 
   // Publish API
-  const publishApi = createPublishApiMiddleware((databaseId) => path.join(config.filesPath, databaseId));
+  const publishApi = createPublishApiMiddleware(
+    (databaseId) => path.join(config.filesPath, databaseId),
+    undefined,
+    config.filenamesInParallel
+  );
   const verifyPublishApiTokenMiddleware = createVerifyPublishApiMiddleware(
     config.jwksUri,
     (config.publishApiValidClients && config.publishApiValidClients.split(",")) || []

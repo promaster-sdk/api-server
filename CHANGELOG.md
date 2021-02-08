@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v2.2.1...master)
 
+### Added
+
+- FilesInParallel for publish middleware
+- More spans for OpenTelemetry for publish middleware
+
 ## [v2.2.1](https://github.com/promaster-sdk/api-server/compare/v2.2.0...v2.2.1) - 2021-02-08
 
 ### Added
