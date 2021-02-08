@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v2.2.0...master)
+## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v2.2.1...master)
+
+## [v2.2.1](https://github.com/promaster-sdk/api-server/compare/v2.2.0...v2.2.1) - 2021-02-08
+
+### Added
+
+- More spans for publish api.
 
 ## [v2.2.0](https://github.com/promaster-sdk/api-server/compare/v2.1.1...v2.2.0) - 2021-02-08
 
