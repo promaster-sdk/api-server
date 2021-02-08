@@ -1,12 +1,13 @@
 import path from "path";
-import fs from "fs";
-import { promisify } from "util";
+// import fs from "fs";
+import fsp from "fs/promises";
+// import { promisify } from "util";
 import { withSpan } from "../tracing";
 
-const readFileAsync = promisify(fs.readFile);
-const renameAsync = promisify(fs.rename);
-const unlinkAsync = promisify(fs.unlink);
-const readDirAsync = promisify(fs.readdir);
+// const readFileAsync = promisify(fs.readFile);
+// const renameAsync = promisify(fs.rename);
+// const unlinkAsync = promisify(fs.unlink);
+//const readDirAsync = promisify(fs.readdir);
 
 interface FileWithRefs {
   readonly refs?: { readonly [key: number]: string };
@@ -58,16 +59,16 @@ export async function getMissingFilesForRootFiles(
           // Rename on disk
           const oldFullPath = path.join(filesPath, file);
           const newFullPath = path.join(filesPath, newName);
-          return renameAsync(oldFullPath, newFullPath);
+          return fsp.rename(oldFullPath, newFullPath);
         });
         await Promise.all(renamePromises);
         // Prune (delete unused files)
         const pruneFiles = difference(existingFiles, referencedFiles);
-        const prunePromises = Array.from(pruneFiles).map((file) => unlinkAsync(path.join(filesPath, file)));
+        const prunePromises = Array.from(pruneFiles).map((file) => fsp.unlink(path.join(filesPath, file)));
         await Promise.all(prunePromises);
       } else {
         // Delete files
-        const promises = fileNames.map((file) => unlinkAsync(path.join(filesPath, file)));
+        const promises = fileNames.map((file) => fsp.unlink(path.join(filesPath, file)));
         await Promise.all(promises);
       }
     }
@@ -78,7 +79,12 @@ export async function getMissingFilesForRootFiles(
 
 async function getExistingFiles(path: string): Promise<Set<string>> {
   return await withSpan("getExistingFiles", async (_span) => {
-    const existingFilesArray = await readDirAsync(path);
+    const existingFilesArray = await fsp.readdir(path);
+    // const existingFilesSet = new Set<string>();
+    // const dir = await fsp.opendir(path, { bufferSize: 100 });
+    // for await (const dirent of dir) {
+    //   existingFilesSet.add(dirent.name);
+    // }
     const existingFilesSet = new Set(existingFilesArray);
     return existingFilesSet;
   });
@@ -171,7 +177,7 @@ async function getMissingFilesRecursive(
 async function readFileWithRefs(fileName: string): Promise<FileWithRefs> {
   return await withSpan("readFileWithRefs", async (span) => {
     span.setAttribute("filename", fileName);
-    return JSON.parse(await readFileAsync(fileName, "utf8"));
+    return JSON.parse(await fsp.readFile(fileName, "utf8"));
   });
 }
 

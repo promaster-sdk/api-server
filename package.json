@@ -6,6 +6,10 @@
   "description": "Promaster API server reference implementation",
   "repository": "https://github.com/promaster-sdk/api-server",
   "author": "Divid Promaster AB <info@divid.se>",
+  "engines": {
+    "node": ">=14.15.4"
+  },
+  "engineStrict": true,
   "license": "MIT",
   "publishConfig": {
     "access": "public"
