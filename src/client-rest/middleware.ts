@@ -28,6 +28,7 @@ import {
 import { ApiProduct, ApiTables, Mutable, ApiMarker, ApiTableRow } from "./types";
 import compose from "koa-compose";
 import { getDatabaseId } from "../context-parsing";
+import { withSpan } from "../tracing";
 
 const existsAsync = promisify(fs.exists);
 const readFileAsync = promisify(fs.readFile);
@@ -104,14 +105,16 @@ type Next = () => Promise<unknown>;
 
 function treesHandler(getFilesDir: GetFilesDir): Koa.Middleware {
   return async function _treesHandler(ctx: Router.RouterContext, next: Next): Promise<unknown> {
-    const rootFileContent = await readJsonFile<RootFile>(getFilesDir(getDatabaseId(ctx, false)), buildRootFileName());
-    const trees: Array<TreeFile> = [];
-    for (const t of Object.keys(rootFileContent.data.trees)) {
-      const fileName = rootFileContent.refs[rootFileContent.data.trees[t]];
-      trees.push(await treeFileNameToTreeFile(ctx, getFilesDir, fileName));
-    }
-    ctx.body = trees;
-    return next();
+    return await withSpan("treesHandler", async (_span) => {
+      const rootFileContent = await readJsonFile<RootFile>(getFilesDir(getDatabaseId(ctx, false)), buildRootFileName());
+      const trees: Array<TreeFile> = [];
+      for (const t of Object.keys(rootFileContent.data.trees)) {
+        const fileName = rootFileContent.refs[rootFileContent.data.trees[t]];
+        trees.push(await treeFileNameToTreeFile(ctx, getFilesDir, fileName));
+      }
+      ctx.body = trees;
+      return next();
+    });
   };
 }
 
