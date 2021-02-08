@@ -79,13 +79,13 @@ export async function getMissingFilesForRootFiles(
 
 async function getExistingFiles(path: string): Promise<Set<string>> {
   return await withSpan("getExistingFiles", async (_span) => {
-    const existingFilesArray = await fsp.readdir(path);
-    // const existingFilesSet = new Set<string>();
-    // const dir = await fsp.opendir(path, { bufferSize: 100 });
-    // for await (const dirent of dir) {
-    //   existingFilesSet.add(dirent.name);
-    // }
-    const existingFilesSet = new Set(existingFilesArray);
+    // const existingFilesArray = await fsp.readdir(path);
+    const existingFilesSet = new Set<string>();
+    const dir = await fsp.opendir(path, { bufferSize: 100 });
+    for await (const dirent of dir) {
+      existingFilesSet.add(dirent.name);
+    }
+    //const existingFilesSet = new Set(existingFilesArray);
     return existingFilesSet;
   });
 }

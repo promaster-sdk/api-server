@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v2.2.2...master)
 
+### Added
+
+- node fs promise instead of fs with promisify
+
 ## [v2.2.2](https://github.com/promaster-sdk/api-server/compare/v2.2.1...v2.2.2) - 2021-02-08
 
 ### Added
