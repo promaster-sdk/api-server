@@ -5,7 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v2.2.2...master)
+## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v2.2.3...master)
+
+## [v2.2.3](https://github.com/promaster-sdk/api-server/compare/v2.2.2...v2.2.3) - 2021-02-08
 
 ### Added
 
