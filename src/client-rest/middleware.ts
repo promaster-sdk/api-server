@@ -24,6 +24,7 @@ import {
   RootFile,
   buildRootFileName,
   TreeFile,
+  ProductTableFileColumnType,
 } from "../file-types";
 import { ApiProduct, ApiTables, Mutable, ApiMarker, ApiTableRow } from "./types";
 import compose from "koa-compose";
@@ -466,6 +467,8 @@ function mapFileRowsToApiRows(
       if (column.name !== builtinIdColumnName && column.name !== builtinParentIdColumnName) {
         if (column.type === "Blob") {
           apiRow[column.name] = fileRow[c] && baseUrl + "/blobs/" + fileRow[c];
+        } else if (column.type === ProductTableFileColumnType.Product) {
+          apiRow[column.name] = fileRow[c]?.toString().toUpperCase() ?? null;
         } else {
           apiRow[column.name] = fileRow[c];
         }
