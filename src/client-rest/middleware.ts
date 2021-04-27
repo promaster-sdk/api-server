@@ -466,7 +466,11 @@ function mapFileRowsToApiRows(
       if (column.name !== builtinIdColumnName && column.name !== builtinParentIdColumnName) {
         if (column.type === "Blob") {
           apiRow[column.name] = fileRow[c] && baseUrl + "/blobs/" + fileRow[c];
-        } else {
+    
+        } else if(column.type === "Product"){
+          apiRow[column.name] =  fileRow[c] && `${fileRow[c]}`.toUpperCase();
+        }
+         else {
           apiRow[column.name] = fileRow[c];
         }
       }
