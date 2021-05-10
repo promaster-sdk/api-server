@@ -36,7 +36,8 @@ const tempFileSuffixMiddleware = async (ctx: Koa.Context, next: () => Promise<vo
 export function createPublishApiMiddleware(
   getFilesDir: GetFilesDir,
   prefix?: string,
-  readFilesInParallel: number = 50
+  readFilesInParallel: number = 50,
+  pruneFiles = true
 ): Koa.Middleware {
   // Configure multer to handle multi-part POST
   const storage = multer.diskStorage({
@@ -103,7 +104,8 @@ export function createPublishApiMiddleware(
         fileNames,
         ctx.query.save,
         tempFileSuffix,
-        readFilesInParallel
+        readFilesInParallel,
+        pruneFiles
       );
 
       ctx.body = { missingFiles: allMissingFiles };

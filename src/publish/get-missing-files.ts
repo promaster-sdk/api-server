@@ -23,7 +23,8 @@ export async function getMissingFilesForRootFiles(
   fileNames: ReadonlyArray<string>,
   saveQueryParam: string,
   tempFileSuffix: string,
-  readFilesInParallel: number
+  readFilesInParallel: number,
+  pruneFiles: boolean
 ): Promise<ReadonlyArray<string>> {
   return await withSpan("getMissingFilesForRootFiles", async (_span) => {
     // Get the directory listing once so we don't need to do I/O calls for each file to check if exists
@@ -63,9 +64,11 @@ export async function getMissingFilesForRootFiles(
         });
         await Promise.all(renamePromises);
         // Prune (delete unused files)
-        const pruneFiles = difference(existingFiles, referencedFiles);
-        const prunePromises = Array.from(pruneFiles).map((file) => fsp.unlink(path.join(filesPath, file)));
-        await Promise.all(prunePromises);
+        if (pruneFiles) {
+          const pruneFiles = difference(existingFiles, referencedFiles);
+          const prunePromises = Array.from(pruneFiles).map((file) => fsp.unlink(path.join(filesPath, file)));
+          await Promise.all(prunePromises);
+        }
       } else {
         // Delete files
         const promises = fileNames.map((file) => fsp.unlink(path.join(filesPath, file)));
