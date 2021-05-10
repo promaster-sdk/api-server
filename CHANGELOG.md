@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v2.2.5...master)
 
+### Fixed
+
+- Simplify and document conditions for save parameter #18. See PR [#18](https://github.com/promaster-sdk/api-server/pull/18).
+
 ### Added
 
-- Added flag to enable/disable pruning
+- Added flag to enable/disable pruning. See PR [#17](https://github.com/promaster-sdk/api-server/pull/17).
 
 ## [v2.2.5](https://github.com/promaster-sdk/api-server/compare/v2.2.4...v2.2.5) - 2021-03-12
 
