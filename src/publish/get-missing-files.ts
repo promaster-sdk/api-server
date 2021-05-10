@@ -43,37 +43,38 @@ export async function getMissingFilesForRootFiles(
     // console.timeEnd("getMissingFilesRecursive");
     // console.log("getMissingFilesRecursive stats", stats);
 
+    // The uploaded files are always stored on disk but have temp file names so they are not "saved" yet.
     // Handle the save parameter, delete or rename the temp-files
     // This handling only apply to root.json
-    if (saveQueryParam === "ifcomplete" || saveQueryParam === "no") {
-      if (saveQueryParam === "ifcomplete" && missingFilesResult.missingFiles.length === 0) {
-        // In this case the publish is complete and should be commited (overwrite root.json file)
-        // Rename temp-files
-        const referencedFiles = new Set(missingFilesResult.referencedFiles);
-        const renamePromises = fileNames.map((file) => {
-          const newName = file.substr(0, file.length - tempFileSuffix.length);
-          // Rename in our sets
-          referencedFiles.delete(file);
-          referencedFiles.add(newName);
-          existingFiles.delete(file);
-          existingFiles.add(newName);
-          // Rename on disk
-          const oldFullPath = path.join(filesPath, file);
-          const newFullPath = path.join(filesPath, newName);
-          return fsp.rename(oldFullPath, newFullPath);
-        });
-        await Promise.all(renamePromises);
-        // Prune (delete unused files)
-        if (pruneFiles) {
-          const pruneFiles = difference(existingFiles, referencedFiles);
-          const prunePromises = Array.from(pruneFiles).map((file) => fsp.unlink(path.join(filesPath, file)));
-          await Promise.all(prunePromises);
-        }
-      } else {
-        // Delete files
-        const promises = fileNames.map((file) => fsp.unlink(path.join(filesPath, file)));
-        await Promise.all(promises);
+    if (saveQueryParam === "ifcomplete" && missingFilesResult.missingFiles.length === 0) {
+      // In this case the publish is complete and should be commited (overwrite root.json file)
+      // Rename temp-files ("save" them)
+      const referencedFiles = new Set(missingFilesResult.referencedFiles);
+      const renamePromises = fileNames.map((file) => {
+        const newName = file.substr(0, file.length - tempFileSuffix.length);
+        // Rename in our sets
+        referencedFiles.delete(file);
+        referencedFiles.add(newName);
+        existingFiles.delete(file);
+        existingFiles.add(newName);
+        // Rename on disk
+        const oldFullPath = path.join(filesPath, file);
+        const newFullPath = path.join(filesPath, newName);
+        return fsp.rename(oldFullPath, newFullPath);
+      });
+      await Promise.all(renamePromises);
+      // Prune (delete unused files)
+      if (pruneFiles) {
+        const pruneFiles = difference(existingFiles, referencedFiles);
+        const prunePromises = Array.from(pruneFiles).map((file) => fsp.unlink(path.join(filesPath, file)));
+        await Promise.all(prunePromises);
       }
+    } else if (saveQueryParam === "no") {
+      // Delete the temp-files instead of renamnign them (do not "save" them)
+      // One use-case for save=no is when checking update-to-date status from promaster-edit by
+      // posting root.json and checking if any missing files are returned.
+      const promises = fileNames.map((file) => fsp.unlink(path.join(filesPath, file)));
+      await Promise.all(promises);
     }
 
     return missingFilesResult.missingFiles;
