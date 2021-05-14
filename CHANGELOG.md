@@ -5,7 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v2.3.0...master)
+## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v2.3.1...master)
+
+## [v2.3.1](https://github.com/promaster-sdk/api-server/compare/v2.3.0...v2.3.1) - 2021-05-14
 
 - Adjusted rest/v3 to allow table magicloud.group.definition. This is how it was done in the old Rest API
 
