@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v2.3.0...master)
 
+- Adjusted rest/v3 to allow table magicloud.group.definition. This is how it was done in the old Rest API
+
 ## [v2.3.0](https://github.com/promaster-sdk/api-server/compare/v2.2.4...v2.3.0) - 2021-05-10
 
 ### Fixed
