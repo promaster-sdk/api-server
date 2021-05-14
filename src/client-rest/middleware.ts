@@ -567,7 +567,7 @@ async function getApiProductsForFileNames(
 
 function filterRootTables(tableNames: ReadonlyArray<string>): ReadonlyArray<string> {
   // This is to be compatible with v2 which only returns root tables, it was done the same way in Dart
-  return tableNames.filter((t) => t.indexOf(".") === -1 && t !== "magicloud");
+  return tableNames.filter((t) => (t.indexOf(".") === -1 && t !== "magicloud") || t === "magicloud.group.definition");
 }
 
 interface LegacyChildTablesPerParent {
