@@ -18,7 +18,7 @@ export function getDatabaseId(ctx: Koa.Context, fallbackTenantId: boolean): stri
   }
 
   if (!Uuid.validate(databaseId)) {
-    throw new Error(`Invalid database id: ${ctx.param.databaseId}`);
+    throw new Error(`Invalid database id: ${databaseId}`);
   }
   return databaseId;
 }
