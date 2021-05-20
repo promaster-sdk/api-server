@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v2.4.0...master)
 
+- Fix content type. See PR [#22](https://github.com/promaster-sdk/api-server/pull/22).
+
 ## [2.4.0](https://github.com/promaster-sdk/api-server/compare/v2.3.1...v2.4.0)
 
 ### Added
