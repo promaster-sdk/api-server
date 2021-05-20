@@ -5,7 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v2.3.1...master)
+## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v2.4.0...master)
+
+## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v2.3.1...v2.4.0)
 
 - Set `INIT_OTEL` to false by default. See PR [#21](https://github.com/promaster-sdk/api-server/pull/21).
 - Bugfix, recieving database id that is not an uuid will cause parsing to throw: Cannot read property 'databaseId' of undefined. See PR [#20](https://github.com/promaster-sdk/api-server/pull/20).
