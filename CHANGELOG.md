@@ -9,10 +9,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [2.4.0](https://github.com/promaster-sdk/api-server/compare/v2.3.1...v2.4.0)
 
+### Added
+
 - Set `INIT_OTEL` to false by default. See PR [#21](https://github.com/promaster-sdk/api-server/pull/21).
+
+### Fixed
+
 - Bugfix, recieving database id that is not an uuid will cause parsing to throw: Cannot read property 'databaseId' of undefined. See PR [#20](https://github.com/promaster-sdk/api-server/pull/20).
 
 ## [v2.3.1](https://github.com/promaster-sdk/api-server/compare/v2.3.0...v2.3.1) - 2021-05-14
+
+### Fixed
 
 - Adjusted rest/v3 to allow table magicloud.group.definition. This is how it was done in the old Rest API
 
