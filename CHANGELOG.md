@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v2.3.1...master)
 
+- Set `INIT_OTEL` to false by default.
 - Bugfix, recieving database id that is not an uuid will cause parsing to throw: Cannot read property 'databaseId' of undefined
 
 ## [v2.3.1](https://github.com/promaster-sdk/api-server/compare/v2.3.0...v2.3.1) - 2021-05-14
