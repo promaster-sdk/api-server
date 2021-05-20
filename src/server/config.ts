@@ -47,7 +47,7 @@ export const schema = convict<Config>({
   initOtel: {
     doc: "Should we initialize the OpenTelemetry SDK",
     format: ["true", "false"],
-    default: "true",
+    default: "false",
     env: "INIT_OTEL",
   },
   otelLogLevel: {
