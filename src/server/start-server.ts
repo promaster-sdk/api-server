@@ -8,7 +8,7 @@ import { koaMiddleware as createMetricsMiddleware } from "prometheus-api-metrics
 import { createPublishApiMiddleware } from "../publish";
 import { createClientRestMiddleware } from "../client-rest";
 import { createClientGraphQLMiddleware } from "../client-graphql";
-// import { createVerifyPublishApiMiddleware } from "../verify-publish-api";
+import { createVerifyPublishApiMiddleware } from "../verify-publish-api";
 import * as Config from "./config";
 
 // startServer(Config.config);
@@ -46,11 +46,11 @@ export async function startServer(config: Config.Config): Promise<void> {
     undefined,
     config.filenamesInParallel
   );
-  // const verifyPublishApiTokenMiddleware = createVerifyPublishApiMiddleware(
-  //   config.jwksUri,
-  //   (config.publishApiValidClients && config.publishApiValidClients.split(",")) || []
-  // );
-  const publishApiWithToken = compose([/*verifyPublishApiTokenMiddleware, */ publishApi]);
+  const verifyPublishApiTokenMiddleware = createVerifyPublishApiMiddleware(
+    config.jwksUri,
+    (config.publishApiValidClients && config.publishApiValidClients.split(",")) || []
+  );
+  const publishApiWithToken = compose([verifyPublishApiTokenMiddleware, publishApi]);
   app.use(mount("/publish", publishApiWithToken));
 
   // Client REST API v3

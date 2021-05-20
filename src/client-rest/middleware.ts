@@ -133,6 +133,8 @@ function blobHandler(getFilesDir: GetFilesDir): Koa.Middleware {
     const contentType = mimetype.lookup(fileName || "file");
     if (contentType) {
       ctx.type = contentType;
+    } else {
+      ctx.type = "application/octet-stream";
     }
 
     if (fileName && attachment) {
