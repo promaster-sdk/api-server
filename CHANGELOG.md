@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v2.4.1...master)
 
+- Rest backwards compatibility fix. Table cells that are null should be returned as empty strings ("") instead of null in the Rest API
+
 ## [2.4.1](https://github.com/promaster-sdk/api-server/compare/v2.4.0...v2.4.1)
 
 ### Fixed

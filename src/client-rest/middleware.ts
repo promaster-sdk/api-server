@@ -25,6 +25,7 @@ import {
   buildRootFileName,
   TreeFile,
   ProductTableFileColumnType,
+  ProductTableFileCell,
 } from "../file-types";
 import { ApiProduct, ApiTables, Mutable, ApiMarker, ApiTableRow } from "./types";
 import compose from "koa-compose";
@@ -468,9 +469,9 @@ function mapFileRowsToApiRows(
         if (column.type === "Blob") {
           apiRow[column.name] = fileRow[c] && baseUrl + "/blobs/" + fileRow[c];
         } else if (column.type === ProductTableFileColumnType.Product) {
-          apiRow[column.name] = fileRow[c]?.toString().toUpperCase() ?? null;
+          apiRow[column.name] = cellIsNullOrUndefined(fileRow[c]) ? "" : fileRow[c]?.toString().toUpperCase() ?? null;
         } else {
-          apiRow[column.name] = fileRow[c];
+          apiRow[column.name] = cellIsNullOrUndefined(fileRow[c]) ? "" : fileRow[c];
         }
       }
     }
@@ -480,6 +481,9 @@ function mapFileRowsToApiRows(
   return rows;
 }
 
+function cellIsNullOrUndefined(cell: ProductTableFileCell): boolean {
+  return cell === null || cell === undefined;
+}
 // Some tables had child tables embedded in v2 of the Client REST API, we
 // have some code here to replicate that for those tables
 // (For new tables we use a flat structure instead)
