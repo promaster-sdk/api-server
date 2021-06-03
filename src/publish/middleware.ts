@@ -38,7 +38,10 @@ export function createPublishApiMiddleware(
   prefix?: string,
   readFilesInParallel: number = 50,
   pruneFiles = true,
-  onPublishComplete: (databaseId: string) => Promise<void> = () => Promise.resolve()
+  onPublishComplete: (databaseId: string) => Promise<void> = (databaseId) => {
+    console.log(`Publish for database ${databaseId} complete.`);
+    return Promise.resolve();
+  }
 ): Koa.Middleware {
   // Configure multer to handle multi-part POST
   const storage = multer.diskStorage({
