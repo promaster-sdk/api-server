@@ -1,6 +1,6 @@
 {
   "name": "@promaster-sdk/api-server",
-  "version": "2.4.1",
+  "version": "2.5.1",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "description": "Promaster API server reference implementation",
