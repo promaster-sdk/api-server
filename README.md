@@ -47,7 +47,15 @@ import * as mount from "koa-mount";
 import { createPublishApiMiddleware } from "@promaster-sdk/api-server";
 
 const app = new Koa();
-const publishApi = createPublishApiMiddleware(() => "/files");
+const publishApi = createPublishApiMiddleware(
+    () => "/files",
+    undefined: string, // prefix?: string - If the middleware is mounted on a subpath
+    50, // readFilesInParallel: number - Max parallel read requests
+    true, // pruneFiles = true - If files should be deleted when not referenced by any marker files
+  (databaseId) => {
+    console.log(`Publish for database ${databaseId} complete.`);
+    return Promise.resolve();
+  }), // onPublishComplete: (databaseId: string) => Promise<void> =  - Register callback for when a database publish has been completed;
 app.use(mount("/publish", publishApi));
 ```
 
@@ -65,7 +73,10 @@ import * as mount from "koa-mount";
 import { createClientRestMiddleware } from "@promaster-sdk/api-server";
 
 const app = new Koa();
-const clientRestApi = createClientRestMiddleware(() => "/files", () => "http://myserver/");
+const clientRestApi = createClientRestMiddleware(
+  () => "/files",
+  () => "http://myserver/"
+);
 app.use(mount("/rest", clientRestApi));
 ```
 
@@ -83,7 +94,10 @@ import * as mount from "koa-mount";
 import { createClientRestMiddleware } from "@promaster-sdk/api-server";
 
 const app = new Koa();
-const clientGraphQLApi = createClientGraphQLMiddleware(() => "/files", () => "http://myserver/");
+const clientGraphQLApi = createClientGraphQLMiddleware(
+  () => "/files",
+  () => "http://myserver/"
+);
 app.use(mount("/graphql", clientGraphQLApi));
 ```
 

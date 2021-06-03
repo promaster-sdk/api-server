@@ -37,7 +37,11 @@ export function createPublishApiMiddleware(
   getFilesDir: GetFilesDir,
   prefix?: string,
   readFilesInParallel: number = 50,
-  pruneFiles = true
+  pruneFiles = true,
+  onPublishComplete: (databaseId: string) => Promise<void> = (databaseId) => {
+    console.log(`Publish for database ${databaseId} complete.`);
+    return Promise.resolve();
+  }
 ): Koa.Middleware {
   // Configure multer to handle multi-part POST
   const storage = multer.diskStorage({
@@ -95,7 +99,8 @@ export function createPublishApiMiddleware(
     async (ctx) => {
       // tslint:disable-next-line:no-any
       const files = (ctx.req as any).files as Array<Express.Multer.File>;
-      const filesPaths = getFilesDir(getDatabaseId(ctx, true));
+      const databaseId = getDatabaseId(ctx, true);
+      const filesPaths = getFilesDir(databaseId);
       // tslint:disable-next-line:no-any
       const tempFileSuffix = (ctx as any).tempFileSuffix;
       const fileNames = files.map((f) => f.filename);
@@ -105,7 +110,8 @@ export function createPublishApiMiddleware(
         ctx.query.save,
         tempFileSuffix,
         readFilesInParallel,
-        pruneFiles
+        pruneFiles,
+        () => onPublishComplete(databaseId)
       );
 
       ctx.body = { missingFiles: allMissingFiles };

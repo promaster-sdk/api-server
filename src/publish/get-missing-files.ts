@@ -24,7 +24,8 @@ export async function getMissingFilesForRootFiles(
   saveQueryParam: string,
   tempFileSuffix: string,
   readFilesInParallel: number,
-  pruneFiles: boolean
+  pruneFiles: boolean,
+  onPublishComplete: () => Promise<void>
 ): Promise<ReadonlyArray<string>> {
   return await withSpan("getMissingFilesForRootFiles", async (_span) => {
     // Get the directory listing once so we don't need to do I/O calls for each file to check if exists
@@ -69,6 +70,8 @@ export async function getMissingFilesForRootFiles(
         const prunePromises = Array.from(pruneFiles).map((file) => fsp.unlink(path.join(filesPath, file)));
         await Promise.all(prunePromises);
       }
+
+      await onPublishComplete()
     } else if (saveQueryParam === "no") {
       // Delete the temp-files instead of renamnign them (do not "save" them)
       // One use-case for save=no is when checking update-to-date status from promaster-edit by
