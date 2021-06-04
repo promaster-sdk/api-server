@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v2.4.1...master)
 
+### Changed
+
+- GraphQL Client API: For tables that have the same name but not the same columns, create a generated unique name per product
+
 ## [2.4.1](https://github.com/promaster-sdk/api-server/compare/v2.4.0...v2.4.1)
 
 ### Fixed

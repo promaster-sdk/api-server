@@ -35,13 +35,13 @@ export const schema = convict<Config>({
   jwksUri: {
     doc: "Where to find keys used to verify JWT.",
     format: "url",
-    default: "https://login.promaster.se/.well-known/openid-configuration/jwks",
+    default: "https://keycloak.promaster.se/auth/realms/promaster/protocol/openid-connect/certs",
     env: "JWKS_URI",
   },
   publishApiValidClients: {
     doc: "Comma separated list of allowed client_id's to access the publish endpoint",
     format: "String",
-    default: "",
+    default: "promaster-edit-backend",
     env: "PUBLISH_API_VALID_CLIENTS",
   },
   initOtel: {
