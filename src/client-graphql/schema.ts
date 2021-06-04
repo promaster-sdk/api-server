@@ -164,31 +164,80 @@ async function getUniqueTableDefinitionsPerModule(
   const productFiles = await Promise.all(productFilePromises);
   const tableFilePromises = productFiles.map((f) => getProductTables(readJsonFile, f));
   const tableFiles = await Promise.all(tableFilePromises);
-  const allTableFiles: ReadonlyArray<ProductTableFile> = tableFiles.flat();
+  const allTableFiles: ReadonlyArray<[ProductFile, ProductTableFile]> = tableFiles.flat();
+
+  // Detect tables that have the same name but not the same columns
+  // so we can create product-unique names for them (in order to
+  // tell someone looking at the schema which product has clashes in
+  // table names with differing column defs)
+  const checkedTables: { [name: string]: ProductTableFile } = {};
+  const tablesWithDifferingColumnDefs: { [name: string]: true } = {};
+  for (const [, t] of allTableFiles) {
+    if (
+      checkedTables[t.data.name] !== undefined &&
+      !sameColumns(checkedTables[t.data.name].data.columns, t.data.columns)
+    ) {
+      tablesWithDifferingColumnDefs[t.data.name] = true;
+    }
+    checkedTables[t.data.name] = t;
+  }
 
   // Group by module
   const tablesPerModule: {
     [module: string]: { [tableName: string]: { description: string; columns: ReadonlyArray<ProductTableFileColumn> } };
   } = {};
-  for (const t of allTableFiles) {
+  for (const [p, t] of allTableFiles) {
     let moduleColumnsPerTable = tablesPerModule[t.data.module];
     if (!moduleColumnsPerTable) {
       moduleColumnsPerTable = {};
       tablesPerModule[t.data.module] = moduleColumnsPerTable;
     }
-    // TODO: For tables that have the same name but not the same columns, create a generated unique name
-    moduleColumnsPerTable[t.data.name] = { description: t.data.description, columns: t.data.columns };
+    // For tables that have the same name but not the same columns, create a generated unique name per product
+    if (tablesWithDifferingColumnDefs[t.data.name] === true) {
+      moduleColumnsPerTable[t.data.name + "_" + p.data.key] = {
+        description: t.data.description,
+        columns: t.data.columns,
+      };
+    } else {
+      moduleColumnsPerTable[t.data.name] = { description: t.data.description, columns: t.data.columns };
+    }
   }
   return tablesPerModule;
+}
+
+function sameColumns(
+  columns1: ReadonlyArray<ProductTableFileColumn>,
+  columns2: ReadonlyArray<ProductTableFileColumn>
+): boolean {
+  // ForeignKey may not always be present but that is OK
+  const cmp1 = columns1.filter((c) => c.type !== "ForeignKey");
+  const cmp2 = columns2.filter((c) => c.type !== "ForeignKey");
+  if (cmp1.length !== cmp2.length) {
+    return false;
+  }
+  for (const c1 of cmp1) {
+    const foundIndex = cmp2.findIndex(
+      (c2) =>
+        c2.name === c1.name &&
+        c2.type === c1.type &&
+        c2.description === c1.description &&
+        c2.key === c1.key &&
+        c2.params === c1.params
+    );
+    if (foundIndex < 0) {
+      return false;
+    }
+  }
+  return true;
 }
 
 async function getProductTables(
   readJsonFile: ReadJsonFile,
   productFile: ProductFile
-): Promise<ReadonlyArray<ProductTableFile>> {
+): Promise<ReadonlyArray<[ProductFile, ProductTableFile]>> {
   const tableKeys = Object.keys(productFile.data.tables);
   const tableFileNames = tableKeys.map((tableName) => productFile.refs[productFile.data.tables[tableName]]);
   const promises = tableFileNames.map((f) => readJsonFile<ProductTableFile>(f));
   const tableFilesContent: ReadonlyArray<ProductTableFile> = await Promise.all(promises);
-  return tableFilesContent;
+  return tableFilesContent.map((c) => [productFile, c]);
 }
