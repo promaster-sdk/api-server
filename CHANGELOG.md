@@ -5,11 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v2.4.1...master)
+## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v3.0.0...master)
+
+## [3.0.0](https://github.com/promaster-sdk/api-server/compare/v2.5.1...v3.0.0)
 
 ### Changed
 
-- GraphQL Client API: For tables that have the same name but not the same columns, create a generated unique name per product
+- GraphQL Client API: For tables that have the same name but not the same columns, create a generated unique name per product. See PR [#25](https://github.com/promaster-sdk/api-server/pull/25).
+
+## [2.5.1](https://github.com/promaster-sdk/api-server/compare/v2.4.1...v2.5.1)
+
+- NOTE: that 2.5.0 release was skipped by mistake
+
+### Added
+
+- Add a publish complete hook to publish middleware. See PR [#24](https://github.com/promaster-sdk/api-server/pull/24).
 
 ## [2.4.1](https://github.com/promaster-sdk/api-server/compare/v2.4.0...v2.4.1)
 
