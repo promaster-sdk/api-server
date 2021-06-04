@@ -118,6 +118,17 @@ In promaster-edit, register a new server on port 4500 with an authorization head
 
 If you are developing a new API server and want promaster to publish to it you can expose your local server on the internet using [ngrok](https://ngrok.com/).
 
+Install ngrok CLI tool and then start it with this commmand:
+
+```
+ngrok http 4500
+```
+
+- This should give you a temporary public URL that sends traffic to `localhost:4500`.
+- The URL will be something like `http://xxxxxxx.ngrok.io`.
+- In promaster-edit under the publish area, create an API server with this URL.
+- You can now publish to this API server and the data will be sent to `localhost:4500`.
+
 ## How to publish new version
 
 ```bash
