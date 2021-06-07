@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v3.0.0...master)
 
+- Amended magicloud.group.definition to work correctly.
+
 ## [3.0.0](https://github.com/promaster-sdk/api-server/compare/v2.5.1...v3.0.0)
 
 ### Changed
