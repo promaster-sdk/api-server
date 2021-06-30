@@ -47,8 +47,15 @@ const cacheNeverHeader: Koa.Middleware = (ctx: Router.RouterContext, next: Next)
   return next();
 };
 
-const cacheForeverHeader: Koa.Middleware = (ctx: Router.RouterContext, next: Next): Promise<unknown> => {
-  ctx.set("cache-control", "public, max-age=86400");
+const cacheForeverHeaderIfSuccessResponse: Koa.Middleware = (
+  ctx: Router.RouterContext,
+  next: Next
+): Promise<unknown> => {
+  if (ctx.status !== 404) {
+    ctx.set("cache-control", "public, max-age=86400");
+  } else {
+    ctx.set("cache-control", "no-cache, max-age=0");
+  }
   return next();
 };
 
@@ -63,29 +70,29 @@ export function createClientRestMiddleware(
   router.get(
     "/:database_id/(public/)?transactions/:tx/products/:product_id/tables/:table",
     dataForTableHandler(getFilesDir, getBaseUrl),
-    cacheForeverHeader
+    cacheForeverHeaderIfSuccessResponse
   );
   router.get(
     "/:database_id/(public/)?transactions/:tx/products/:product_id/tables",
     tablesForProductHandler(getFilesDir, getBaseUrl),
-    cacheForeverHeader
+    cacheForeverHeaderIfSuccessResponse
   );
   router.get(
     "/:database_id/(public/)?transactions/:tx/products/:product_id",
     allTableDataForProductHandler(getFilesDir, getBaseUrl),
-    cacheForeverHeader
+    cacheForeverHeaderIfSuccessResponse
   ); // ?tables=T1,T2...
   router.get(
     "/:database_id/(public/)?transactions/:tx",
     productsForTransactionHandler(getFilesDir, getBaseUrl),
-    cacheForeverHeader
+    cacheForeverHeaderIfSuccessResponse
   ); // ?tables=T1,T2...
   router.get(
     "/:database_id/(public/)?releases/:id",
     productsForReleaseHandler(getFilesDir, getBaseUrl),
-    cacheForeverHeader
+    cacheForeverHeaderIfSuccessResponse
   ); // ?tables=T1,T2...
-  router.get("/:database_id/(public/)?blobs/:hash", blobHandler(getFilesDir), cacheForeverHeader);
+  router.get("/:database_id/(public/)?blobs/:hash", blobHandler(getFilesDir), cacheForeverHeaderIfSuccessResponse);
 
   // Entry files
   router.get("/:database_id/(public/)?markers", markersHandler(getFilesDir, getBaseUrl), cacheNeverHeader);
@@ -128,7 +135,7 @@ function blobHandler(getFilesDir: GetFilesDir): Koa.Middleware {
     if (!(await existsAsync(fullPath))) {
       ctx.status = 404;
       ctx.body = "Not found";
-      return;
+      return next();
     }
     const contentType = mimetype.lookup(fileName || "file");
     if (contentType) {
@@ -218,7 +225,7 @@ function markerHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Mi
     if (markerKey === undefined) {
       ctx.status = 404;
       ctx.body = "Not found";
-      return;
+      return next();
     }
     const markerRef = rootFileContent.data.markers[markerKey];
     const fileName = rootFileContent.refs[markerRef];
@@ -284,7 +291,7 @@ function dataForTableHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): 
     if (!foundTable) {
       ctx.status = 404;
       ctx.body = "Not found";
-      return;
+      return next();
     }
     ctx.body = foundTable;
     return next();
