@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v3.0.1...master)
 
+- Always return a cacheNeverHeader if the response status is 404. This prevents caching responses that failed.
+
 ## [3.0.1](https://github.com/promaster-sdk/api-server/compare/v3.0.0...v3.0.1)
 
 ### Fixed
