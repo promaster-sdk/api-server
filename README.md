@@ -1,7 +1,7 @@
 # @promaster-sdk/api-server
 
 [![npm version][version-image]][version-url]
-[![travis build][travis-image]][travis-url]
+[![build][build-image]][build-url]
 [![code style: prettier][prettier-image]][prettier-url]
 [![MIT license][license-image]][license-url]
 
@@ -137,8 +137,8 @@ yarn publish
 
 [version-image]: https://img.shields.io/npm/v/@promaster-sdk/api-server.svg?style=flat
 [version-url]: https://www.npmjs.com/package/@promaster-sdk/api-server
-[travis-image]: https://travis-ci.com/promaster-sdk/api-server.svg?branch=master&style=flat
-[travis-url]: https://travis-ci.com/promaster-sdk/api-server
+[build-image]: https://github.com/promaster-sdk/api-server/workflows/Build/badge.svg
+[build-url]: https://github.com/promaster-sdk/api-server/actions?query=workflow%3ABuild+branch%3Amaster
 [license-image]: https://img.shields.io/github/license/promaster-sdk/api-server.svg?style=flat
 [license-url]: https://opensource.org/licenses/MIT
 [prettier-image]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat

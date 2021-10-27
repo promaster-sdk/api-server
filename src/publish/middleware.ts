@@ -37,7 +37,7 @@ export function createPublishApiMiddleware(
   getFilesDir: GetFilesDir,
   prefix?: string,
   readFilesInParallel: number = 50,
-  pruneFiles = true,
+  pruneFiles: boolean = true,
   onPublishComplete: (databaseId: string) => Promise<void> = (databaseId) => {
     console.log(`Publish for database ${databaseId} complete.`);
     return Promise.resolve();

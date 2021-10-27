@@ -58,6 +58,7 @@
     "@opentelemetry/plugin-pg-pool": "^0.12.1",
     "@opentelemetry/resources": "^0.14.0",
     "@opentelemetry/tracing": "^0.14.0",
+    "@opentelemetry/core": "^0.14.0",
     "convict": "^4.2.0",
     "dataloader": "^1.4.0",
     "graphql": "^15.5.0",
