@@ -4,4 +4,4 @@ if (Config.config.initOtel === "true") {
   initOtel("promaster-api", Config.config);
   console.log("OpenTelemetry SDK initialized.");
 }
-require("./start-server").startServer(Config.config);
+require("./start-server").startServer(Config.config); // tslint:disable-line

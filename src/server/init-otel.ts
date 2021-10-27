@@ -12,6 +12,7 @@ import {
   LogLevel,
 } from "@opentelemetry/core";
 import { Config } from "./config";
+import { Sampler } from "@opentelemetry/api";
 
 export function initOtel(serviceName: string, config: Config): void {
   const sampler = getSamplerFromConfig(config.otelTracesSampler);
@@ -48,7 +49,7 @@ export function initOtel(serviceName: string, config: Config): void {
 
 // Helper function that shuold be removed when the OTEL SDK has support for ENV config
 // https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/sdk-environment-variables.md#general-sdk-configuration
-function getSamplerFromConfig(value: string) {
+function getSamplerFromConfig(value: string): Sampler {
   switch (value) {
     case "always_on":
       return new AlwaysOnSampler();
@@ -68,7 +69,7 @@ function getSamplerFromConfig(value: string) {
 }
 
 function getLogLevelFromConfig(value: string): LogLevel {
-  const level = parseInt(value);
+  const level = parseInt(value, 10);
   if (Number.isFinite(level)) {
     return level;
   }
