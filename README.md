@@ -132,7 +132,17 @@ ngrok http 4500
 ## How to publish new version
 
 ```bash
+# We should always publish both to npm and dockerhub at the same time with the same version
+# First publish a new package version to npm
 yarn publish
+# You should be promted for your desired version by the above command
+# To build and push to dockerhub, replace <version> in the below commands with
+# the version you entered for the above command
+# NOTE: Need to have this repo as current working dir
+# First build locally
+docker build -t dividab/promaster-public-api:<version> .
+# And then push to dockerhub
+docker push dividab/promaster-public-api:<version>
 ```
 
 [version-image]: https://img.shields.io/npm/v/@promaster-sdk/api-server.svg?style=flat
