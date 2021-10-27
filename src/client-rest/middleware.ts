@@ -607,9 +607,9 @@ const legacyChildTables2: LegacyChildTablesPerParent = {
       parentField: "translation",
     },
   ],
-  "shape@shape": [
+  "size@shape": [
     {
-      child: "shape@shape.size",
+      child: "size@shape.size",
       parentField: "size",
     },
   ],
