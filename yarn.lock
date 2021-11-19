@@ -116,7 +116,7 @@
     "@opentelemetry/semantic-conventions" "1.0.0"
     semver "^7.3.5"
 
-"@opentelemetry/core@1.0.1", "@opentelemetry/core@^1.0.0":
+"@opentelemetry/core@1.0.1", "@opentelemetry/core@^1.0.0", "@opentelemetry/core@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@opentelemetry/core/-/core-1.0.1.tgz#5e08cef21946fdea7952f544e8f667f6d2a0ded8"
   integrity sha512-90nQ2X6b/8X+xjcLDBYKooAcOsIlwLRYm+1VsxcX5cHl6V4CSVmDpBreQSDH/A21SqROzapk6813008SatmPpQ==

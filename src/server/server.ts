@@ -1,7 +1,7 @@
 import * as Config from "./config";
 import { initOtel } from "./otel";
 
-async function main() {
+async function main(): Promise<void> {
   if (Config.config.otelEnable === "true") {
     await initOtel();
   }
