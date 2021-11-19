@@ -166,9 +166,10 @@ yarn publish
 # the version you entered for the above command
 # NOTE: Need to have this repo as current working dir
 # First build locally
-docker build -t dividab/promaster-public-api:<version> .
+# NOTE: there is a "v" before the version number here
+docker build -t dividab/promaster-public-api:v<version> .
 # And then push to dockerhub
-docker push dividab/promaster-public-api:<version>
+docker push dividab/promaster-public-api:v<version>
 ```
 
 [version-image]: https://img.shields.io/npm/v/@promaster-sdk/api-server.svg?style=flat
