@@ -1,3 +1,4 @@
+/*
 import { SimpleSpanProcessor } from "@opentelemetry/tracing";
 import { CollectorTraceExporter } from "@opentelemetry/exporter-collector-grpc";
 import { NodeTracerProvider } from "@opentelemetry/node";
@@ -86,3 +87,4 @@ function getLogLevelFromConfig(value: string): LogLevel {
       return LogLevel.INFO;
   }
 }
+*/
