@@ -10,7 +10,7 @@ export { Span };
 export function withSpan<T extends (span: Span) => ReturnType<T>>(operationName: string, fn: T): ReturnType<T> {
   const tracer = api.trace.getTracer("default");
   const span = tracer.startSpan(operationName);
-  const ctx = api.setActiveSpan(api.context.active(), span);
+  const ctx = api.trace.setSpan(api.context.active(), span);
   const fn2 = (): ReturnType<T> => {
     const result = fn(span);
     // The result might be a promise but there is no safe way to tell,

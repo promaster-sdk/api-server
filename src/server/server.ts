@@ -1,7 +1,11 @@
 import * as Config from "./config";
-import { initOtel } from "./init-otel";
-if (Config.config.initOtel === "true") {
-  initOtel("promaster-api", Config.config);
-  console.log("OpenTelemetry SDK initialized.");
+import { initOtel } from "./otel";
+
+async function main(): Promise<void> {
+  if (Config.config.otelEnable === "true") {
+    await initOtel();
+  }
+  require("./start-server").startServer(Config.config); // tslint:disable-line
 }
-require("./start-server").startServer(Config.config); // tslint:disable-line
+
+main();
