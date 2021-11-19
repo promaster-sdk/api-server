@@ -1,5 +1,5 @@
 // api
-import api, { DiagConsoleLogger, DiagLogLevel } from "@opentelemetry/api";
+import api, { DiagConsoleLogger } from "@opentelemetry/api";
 // SDK
 import * as opentelemetry from "@opentelemetry/sdk-node";
 // Exporter
@@ -10,10 +10,13 @@ import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions"
 // Instrumentations
 import { getNodeAutoInstrumentations } from "@opentelemetry/auto-instrumentations-node";
 
+import { getEnv } from "@opentelemetry/core";
+
 export async function initOtel(): Promise<void> {
   // https://github.com/open-telemetry/opentelemetry-js/discussions/2633
-  // // Logger for otel diagnose
-  api.diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.INFO);
+  // https://github.com/open-telemetry/opentelemetry-js-api/issues/102
+  // Logger for otel diagnose (if the issue above is solved this is not needed)
+  api.diag.setLogger(new DiagConsoleLogger(), getEnv().OTEL_LOG_LEVEL);
 
   // Create otel collector exporter
   const collectorOptions = {

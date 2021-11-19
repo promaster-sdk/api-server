@@ -112,10 +112,11 @@ The server has support for OpenTelemetry. You can use the [standard environment 
 - `OTEL_TRACES_SAMPLER`
 - `OTEL_TRACES_SAMPLER_ARG`
 
-For example to set the service name:
+For example to set the service name and use verbose diagnostics logging:
 
 ```bash
 OTEL_SERVICE_NAME=my-api-server
+OTEL_LOG_LEVEL=verbose
 ```
 
 By default, `OTEL_TRACES_SAMPLER` is set to `parentbased_always_on` which means tracing will be used if the parent passes the headers to enable it.
