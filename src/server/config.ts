@@ -7,9 +7,6 @@ export interface Config {
   readonly filesPath: string;
   readonly jwksUri: string;
   readonly publishApiValidClients: string;
-  readonly initOtel: string;
-  readonly otelLogLevel: string;
-  readonly otelTracesSampler: string;
   readonly filenamesInParallel: number;
 }
 
@@ -43,31 +40,6 @@ export const schema = convict<Config>({
     format: "String",
     default: "promaster-edit-backend",
     env: "PUBLISH_API_VALID_CLIENTS",
-  },
-  initOtel: {
-    doc: "Should we initialize the OpenTelemetry SDK",
-    format: ["true", "false"],
-    default: "false",
-    env: "INIT_OTEL",
-  },
-  otelLogLevel: {
-    doc: "Open Telemetry SDK Logging Level",
-    format: ["error", "warn", "info", "debug"],
-    default: "info",
-    env: "OTEL_LOG_LEVEL",
-  },
-  otelTracesSampler: {
-    doc: "Open Telemetry SDK Traces Sampler",
-    format: [
-      "always_on",
-      "always_off",
-      "traceidratio",
-      "parentbased_always_on",
-      "parentbased_always_off",
-      "parentbased_traceidratio",
-    ],
-    default: "parentbased_always_on",
-    env: "OTEL_TRACES_SAMPLER",
   },
   filenamesInParallel: {
     doc: "Files to read in parallel in publish middleware",

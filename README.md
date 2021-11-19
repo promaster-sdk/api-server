@@ -101,6 +101,25 @@ const clientGraphQLApi = createClientGraphQLMiddleware(
 app.use(mount("/graphql", clientGraphQLApi));
 ```
 
+## Open Telemetry
+
+The server has support for OpenTelemetry. You can use the [standard environment variables](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/sdk-environment-variables.md#general-sdk-configuration) to control the behaviour:
+
+- `OTEL_RESOURCE_ATTRIBUTES`
+- `OTEL_SERVICE_NAME`
+- `OTEL_LOG_LEVEL`
+- `OTEL_PROPAGATORS`
+- `OTEL_TRACES_SAMPLER`
+- `OTEL_TRACES_SAMPLER_ARG`
+
+For example to set the service name:
+
+```bash
+OTEL_SERVICE_NAME=my-api-server
+```
+
+By default, `OTEL_TRACES_SAMPLER` is set to `parentbased_always_on` which means tracing will be used if the parent passes the headers to enable it.
+
 ## How to develop
 
 Clone the repo and run:
