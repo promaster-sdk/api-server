@@ -103,7 +103,13 @@ app.use(mount("/graphql", clientGraphQLApi));
 
 ## Open Telemetry
 
-The server has support for OpenTelemetry. You can use the [standard environment variables](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/sdk-environment-variables.md#general-sdk-configuration) to control the behaviour:
+The server has support for OpenTelemetry which can be enabled with the `OTEL_ENABLE` environment variable.
+
+```bash
+OTEL_ENABLE=true
+```
+
+When enables, you can use the [standard environment variables](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/sdk-environment-variables.md#general-sdk-configuration) to configure open telemetry:
 
 - `OTEL_RESOURCE_ATTRIBUTES`
 - `OTEL_SERVICE_NAME`

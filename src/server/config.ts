@@ -8,6 +8,7 @@ export interface Config {
   readonly jwksUri: string;
   readonly publishApiValidClients: string;
   readonly filenamesInParallel: number;
+  readonly otelEnable: string;
 }
 
 export const schema = convict<Config>({
@@ -46,6 +47,12 @@ export const schema = convict<Config>({
     format: "int",
     default: 50,
     env: "READ_FILES_PARALLEL",
+  },
+  otelEnable: {
+    doc: "Controls if OpenTelemetry SDK is loaded",
+    format: ["true", "false"],
+    default: "false",
+    env: "OTEL_ENABLE",
   },
 });
 
