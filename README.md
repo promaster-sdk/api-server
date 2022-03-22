@@ -5,6 +5,8 @@
 [![code style: prettier][prettier-image]][prettier-url]
 [![MIT license][license-image]][license-url]
 
+> NOTE: The code is provided as-is without support. Support is available by separate agreement with Divid Promaster.
+
 Promaster API server reference implementation
 
 ## Overview
