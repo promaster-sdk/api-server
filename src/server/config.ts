@@ -9,6 +9,7 @@ export interface Config {
   readonly publishApiValidClients: string;
   readonly filenamesInParallel: number;
   readonly otelEnable: string;
+  readonly graphiqlEnable: boolean;
 }
 
 export const schema = convict<Config>({
@@ -53,6 +54,12 @@ export const schema = convict<Config>({
     format: ["true", "false"],
     default: "false",
     env: "OTEL_ENABLE",
+  },
+  graphiqlEnable: {
+    doc: "Controls if graphiql is enabled",
+    format: Boolean,
+    default: true,
+    env: "GRAPHIQL_ENABLE",
   },
 });
 

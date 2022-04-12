@@ -36,11 +36,12 @@ export interface GetFilesDir {
 export function createClientGraphQLMiddleware(
   getFilesDir: GetFilesDir,
   getBaseUrl: GetBaseUrl,
-  prefix?: string
+  enableGraphIQL:boolean,
+  prefix?: string,
 ): Koa.Middleware {
   const router = new Router({ prefix });
   router.all("/:database_id", createGetMarkersMiddleware(getFilesDir, getBaseUrl));
-  router.all("/:database_id/:marker", createSchemaMiddleware(getFilesDir), createGraphQLMiddleware());
+  router.all("/:database_id/:marker", createSchemaMiddleware(getFilesDir), createGraphQLMiddleware(enableGraphIQL));
   return compose([router.routes(), router.allowedMethods()]);
 }
 
@@ -126,12 +127,12 @@ function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware<Contex
  * ctx.params.graphqlSchema to be set by a previous middleware
  * and presents an GraphQL endpoint that can be used according to the schema.
  */
-function createGraphQLMiddleware(): Koa.Middleware<ContextState> {
+function createGraphQLMiddleware(enableGraphIQL:boolean): Koa.Middleware<ContextState> {
   return graphqlHTTP(async (_request, _repsonse, ctx: Koa.ParameterizedContext<ContextState>) => ({
     schema: ctx.state.graphqlSchema,
     context: ctx.state.graphqlContext,
     rootValue: {} as RootValue,
-    graphiql: true,
+    graphiql: enableGraphIQL,
     formatError: (error: GraphQLError) => {
       console.log("Error occured in GraphQL:");
       console.log(error);
