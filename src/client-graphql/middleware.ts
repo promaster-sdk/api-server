@@ -36,8 +36,8 @@ export interface GetFilesDir {
 export function createClientGraphQLMiddleware(
   getFilesDir: GetFilesDir,
   getBaseUrl: GetBaseUrl,
-  enableGraphIQL:boolean,
-  prefix?: string,
+  enableGraphIQL: boolean,
+  prefix?: string
 ): Koa.Middleware {
   const router = new Router({ prefix });
   router.all("/:database_id", createGetMarkersMiddleware(getFilesDir, getBaseUrl));
@@ -127,7 +127,7 @@ function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware<Contex
  * ctx.params.graphqlSchema to be set by a previous middleware
  * and presents an GraphQL endpoint that can be used according to the schema.
  */
-function createGraphQLMiddleware(enableGraphIQL:boolean): Koa.Middleware<ContextState> {
+function createGraphQLMiddleware(enableGraphIQL: boolean): Koa.Middleware<ContextState> {
   return graphqlHTTP(async (_request, _repsonse, ctx: Koa.ParameterizedContext<ContextState>) => ({
     schema: ctx.state.graphqlSchema,
     context: ctx.state.graphqlContext,
