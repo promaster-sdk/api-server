@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v3.1.0...master)
 
+- Add support to disable graphiql, GRAPHIQL_ENABLE = false, defaults to true=enabled
+
 ## [3.1.0](https://github.com/promaster-sdk/api-server/compare/v3.0.3...v3.1.0)
 
 - Upgrade open telemetry [#35](https://github.com/promaster-sdk/api-server/pull/35)

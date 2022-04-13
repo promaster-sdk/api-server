@@ -64,7 +64,8 @@ export async function startServer(config: Config.Config): Promise<void> {
   // GraphQL API
   const clientApiGraphQLApp = createClientGraphQLMiddleware(
     (databaseId) => path.join(config.filesPath, databaseId),
-    (ctx, databaseId) => `${ctx.request.protocol}://${ctx.request.host}/graphql/${databaseId}`
+    (ctx, databaseId) => `${ctx.request.protocol}://${ctx.request.host}/graphql/${databaseId}`,
+    config.graphiqlEnable
   );
   app.use(mount("/graphql", clientApiGraphQLApp));
 
