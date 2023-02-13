@@ -82,7 +82,7 @@ export function createPublishApiMiddleware(
       const fileName = ctx.params[1];
       const dest = getFilesDir(getDatabaseId(ctx, true));
       const fullPath = path.join(dest, fileName);
-      if (existsAsync(fullPath)) {
+      if (await existsAsync(fullPath)) {
         await send(ctx, fileName, { root: dest });
       } else {
         ctx.status = 404;
