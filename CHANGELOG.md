@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v3.1.0...master)
+## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v3.3.0...master)
+
+## [3.3.0](https://github.com/promaster-sdk/api-server/compare/v3.2.0...v3.3.0)
+
+- Upgrade graphql-tools #42
+- Upgrade typescript and open-telemetry #41
+- Fix await #40
+
+## [3.2.0](https://github.com/promaster-sdk/api-server/compare/v3.1.0...v3.2.0)
 
 - Add support to disable graphiql, GRAPHIQL_ENABLE = false, defaults to true=enabled
 
