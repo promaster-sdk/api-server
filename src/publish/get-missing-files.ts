@@ -71,7 +71,7 @@ export async function getMissingFilesForRootFiles(
         await Promise.all(prunePromises);
       }
 
-      await onPublishComplete()
+      await onPublishComplete();
     } else if (saveQueryParam === "no") {
       // Delete the temp-files instead of renamnign them (do not "save" them)
       // One use-case for save=no is when checking update-to-date status from promaster-edit by
@@ -143,18 +143,16 @@ async function getMissingFilesRecursive(
     const fileNamesToReadChunked = chunkArrayInGroups(fileNamesToRead, readFilesInParallel);
     const allReferencedFileNames = new Set<string>();
     for (const chunk of fileNamesToReadChunked) {
-
       const chunkPromises = chunk.map((fileName) => readFileWithRefs(path.join(filePath, fileName)));
       const chunkContent = await Promise.all(chunkPromises);
       stats.readFiles = stats.readFiles + chunk.length;
 
-      for (let i =0; i <chunkContent.length; i++) {
+      for (let i = 0; i < chunkContent.length; i++) {
         // If readFileWithRefs() returned undefined then it was not able to read or parse the file
-       const content = chunkContent[i];
-       if(content === undefined) {
-            fileNamesThatAreMissing.add(chunk[i]);
-       }
-       else{
+        const content = chunkContent[i];
+        if (content === undefined) {
+          fileNamesThatAreMissing.add(chunk[i]);
+        } else {
           const referencedFileNames: ReadonlyArray<string> = (content.refs && Object.values(content.refs)) || [];
           for (const referencedFileName of referencedFileNames) {
             allReferencedFileNames.add(referencedFileName);
