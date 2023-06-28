@@ -143,23 +143,22 @@ async function getMissingFilesRecursive(
     const fileNamesToReadChunked = chunkArrayInGroups(fileNamesToRead, readFilesInParallel);
     const allReferencedFileNames = new Set<string>();
     for (const chunk of fileNamesToReadChunked) {
-      const chunkPromises = chunk.map((fileName) =>
-        readFileWithRefs(path.join(filePath, fileName)).then((fileWithRefs) => {
-          if (fileWithRefs === undefined) {
-            // JSON could not be parsed or some other error
-            fileNamesThatAreMissing.add(fileName);
-            return { refs: undefined };
-          } else {
-            return fileWithRefs;
-          }
-        })
-      );
+
+      const chunkPromises = chunk.map((fileName) => readFileWithRefs(path.join(filePath, fileName)));
       const chunkContent = await Promise.all(chunkPromises);
       stats.readFiles = stats.readFiles + chunk.length;
-      for (const content of chunkContent) {
-        const referencedFileNames: ReadonlyArray<string> = (content.refs && Object.values(content.refs)) || [];
-        for (const referencedFileName of referencedFileNames) {
-          allReferencedFileNames.add(referencedFileName);
+
+      for (let i =0; i <chunkContent.length; i++) {
+        // If readFileWithRefs() returned undefined then it was not able to read or parse the file
+       const content = chunkContent[i];
+       if(content === undefined) {
+            fileNamesThatAreMissing.add(chunk[i]);
+       }
+       else{
+          const referencedFileNames: ReadonlyArray<string> = (content.refs && Object.values(content.refs)) || [];
+          for (const referencedFileName of referencedFileNames) {
+            allReferencedFileNames.add(referencedFileName);
+          }
         }
       }
     }
