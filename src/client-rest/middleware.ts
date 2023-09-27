@@ -541,12 +541,13 @@ async function readChildTablesRecursive(
       if (childTableFileName) {
         const childTable = await readJsonFile<ProductTableFile>(filesDir, childTableFileName);
         childTableContent[childTableDef.child] = childTable;
-      }
-      // If this child table has children of it's own then recurse
-      const subChildTables = legacyChildTables2[childTableDef.child];
-      if (subChildTables) {
-        const subChildren = await readChildTablesRecursive(pf, filesDir, childTableDef.child);
-        childTableContent = { ...childTableContent, ...subChildren };
+
+        // If this child table has children of it's own then recurse
+        const subChildTables = legacyChildTables2[childTableDef.child];
+        if (subChildTables) {
+          const subChildren = await readChildTablesRecursive(pf, filesDir, childTableDef.child);
+          childTableContent = { ...childTableContent, ...subChildren };
+        }
       }
     }
   }
