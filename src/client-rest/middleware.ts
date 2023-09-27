@@ -406,7 +406,7 @@ async function getApiProductWithOptionalTables(
   return p;
 }
 
-async function getApiProductTables(
+export async function getApiProductTables(
   filesDir: string,
   baseUrl: string,
   productFile: ProductFile,
@@ -641,7 +641,7 @@ const legacyChildTables2: LegacyChildTablesPerParent = {
   ],
 };
 
-async function readJsonFile<T>(filesDir: string, fileName: string): Promise<T> {
+export async function readJsonFile<T>(filesDir: string, fileName: string): Promise<T> {
   const fullPath = path.join(filesDir, fileName);
   const content = JSON.parse(await readFileAsync(fullPath, "utf8"));
   return content;
