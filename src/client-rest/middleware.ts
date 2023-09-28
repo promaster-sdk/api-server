@@ -435,7 +435,7 @@ export async function getApiProductTables(
     const rows = mapFileRowsToApiRows(
       baseUrl,
       childTableContent,
-      buildFullTableName(tableFile),
+      fullTableName,
       tableFile.data.columns,
       tableFile.data.rows
     );
