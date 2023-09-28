@@ -481,49 +481,40 @@ function mapFileRowsToApiRows(
         }
       }
     }
-    addChildTableFieldsToRow(baseUrl, childTableContent, tableName, fileColumns, fileRow, apiRow);
+
+    // Some tables had child tables embedded in v2 of the Client REST API, we
+    // have some code here to replicate that for those tables
+    // (For new tables we use a flat structure instead)
+    const childTables = legacyChildTables2[tableName];
+    if (childTables) {
+      childTables.map((ct) => {
+        // Find the child table
+        const childTableFile = childTableContent[ct.child];
+        if (childTableFile) {
+          // Filter rows BEFORE mapping them to avoid mapping rows that will be filtered away
+          const idColumnIndex = fileColumns.findIndex((c) => c.name === builtinIdColumnName);
+          const id = fileRow[idColumnIndex];
+          const childParentIdColumnIndex = childTableFile.data.columns.findIndex(
+            (c) => c.name === builtinParentIdColumnName
+          );
+          const filteredFileRows = childTableFile.data.rows.filter((r) => r[childParentIdColumnIndex] === id);
+          const filteredApiRows = mapFileRowsToApiRows(
+            baseUrl,
+            childTableContent,
+            buildFullTableName(childTableFile),
+            childTableFile.data.columns,
+            filteredFileRows
+          );
+          apiRow[ct.parentField] = filteredApiRows;
+        } else {
+          console.warn(`Missing child table '${ct.child}'.`);
+        }
+      });
+    }
+
     return apiRow;
   });
   return rows;
-}
-
-// Some tables had child tables embedded in v2 of the Client REST API, we
-// have some code here to replicate that for those tables
-// (For new tables we use a flat structure instead)
-function addChildTableFieldsToRow(
-  baseUrl: string,
-  childTableContent: LoadedTables,
-  tableName: string,
-  fileColumns: ReadonlyArray<ProductTableFileColumn>,
-  fileRow: ProductTableFileRow,
-  apiRow: Mutable<ApiTableRow>
-): void {
-  const childTables = legacyChildTables2[tableName];
-  if (childTables) {
-    childTables.map((ct) => {
-      // Find the child table
-      const childTableFile = childTableContent[ct.child];
-      if (childTableFile) {
-        // Filter rows BEFORE mapping them to avoid mapping rows that will be filtered away
-        const idColumnIndex = fileColumns.findIndex((c) => c.name === builtinIdColumnName);
-        const id = fileRow[idColumnIndex];
-        const childParentIdColumnIndex = childTableFile.data.columns.findIndex(
-          (c) => c.name === builtinParentIdColumnName
-        );
-        const filteredFileRows = childTableFile.data.rows.filter((r) => r[childParentIdColumnIndex] === id);
-        const filteredApiRows = mapFileRowsToApiRows(
-          baseUrl,
-          childTableContent,
-          buildFullTableName(childTableFile),
-          childTableFile.data.columns,
-          filteredFileRows
-        );
-        apiRow[ct.parentField] = filteredApiRows;
-      } else {
-        console.warn(`Missing child table '${ct.child}'.`);
-      }
-    });
-  }
 }
 
 async function readChildTablesRecursive(
