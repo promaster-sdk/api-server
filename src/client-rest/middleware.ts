@@ -487,7 +487,7 @@ function mapFileRowsToApiRows(
     // (For new tables we use a flat structure instead)
     const childTables = legacyChildTables2[tableName];
     if (childTables) {
-      childTables.map((ct) => {
+      for (const ct of childTables) {
         // Find the child table
         const childTableFile = childTableContent[ct.child];
         if (childTableFile) {
@@ -509,7 +509,7 @@ function mapFileRowsToApiRows(
         } else {
           console.warn(`Missing child table '${ct.child}'.`);
         }
-      });
+      }
     }
 
     return apiRow;
