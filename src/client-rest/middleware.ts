@@ -434,7 +434,6 @@ export async function getApiProductTables(
     const rows = await mapFileRowsToApiRows(
       productFile,
       filesDir,
-      fullTableName,
       baseUrl,
       fullTableName,
       tableFile.data.columns,
@@ -462,13 +461,12 @@ function fullToLegacyTableName(prefixedTableName: string): string {
 async function mapFileRowsToApiRows(
   productFile: ProductFile,
   filesDir: string,
-  fullTableName: string,
   baseUrl: string,
   tableName: string,
   fileColumns: ReadonlyArray<ProductTableFileColumn>,
   fileRows: ReadonlyArray<ProductTableFileRow>
 ): Promise<ReadonlyArray<ApiTableRow>> {
-  const childTableContent = await readChildTablesRecursive(productFile, filesDir, fullTableName);
+  const childTableContent = await readChildTables(productFile, filesDir, tableName);
 
   // Read any child table files and send them along (to avoid reading them for every row)
   const rows: Mutable<ApiTableRow>[] = [];
@@ -507,7 +505,6 @@ async function mapFileRowsToApiRows(
           const filteredApiRows = await mapFileRowsToApiRows(
             productFile,
             filesDir,
-            fullTableName,
             baseUrl,
             buildFullTableName(childTableFile),
             childTableFile.data.columns,
@@ -525,11 +522,7 @@ async function mapFileRowsToApiRows(
   return rows;
 }
 
-async function readChildTablesRecursive(
-  pf: ProductFile,
-  filesDir: string,
-  parentTableName: string
-): Promise<LoadedTables> {
+async function readChildTables(pf: ProductFile, filesDir: string, parentTableName: string): Promise<LoadedTables> {
   let childTableContent: Mutable<LoadedTables> = {};
   const childTables = legacyChildTables2[parentTableName];
   if (childTables) {
@@ -540,13 +533,6 @@ async function readChildTablesRecursive(
       if (childTableFileName) {
         const childTable = await readJsonFile<ProductTableFile>(filesDir, childTableFileName);
         childTableContent[childTableDef.child] = childTable;
-
-        // If this child table has children of it's own then recurse
-        const subChildTables = legacyChildTables2[childTableDef.child];
-        if (subChildTables) {
-          const subChildren = await readChildTablesRecursive(pf, filesDir, childTableDef.child);
-          childTableContent = { ...childTableContent, ...subChildren };
-        }
       }
     }
   }
