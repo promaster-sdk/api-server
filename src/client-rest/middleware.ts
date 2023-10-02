@@ -466,7 +466,8 @@ function mapFileRowsToApiRows(
   fileRows: ReadonlyArray<ProductTableFileRow>
 ): ReadonlyArray<ApiTableRow> {
   // Read any child table files and send them along (to avoid reading them for every row)
-  const rows = fileRows.map((fileRow) => {
+  const rows: Mutable<ApiTableRow>[] = [];
+  for (const fileRow of fileRows) {
     const apiRow: Mutable<ApiTableRow> = {};
     for (let c = 0; c < fileColumns.length; c++) {
       const column = fileColumns[c];
@@ -512,8 +513,8 @@ function mapFileRowsToApiRows(
       }
     }
 
-    return apiRow;
-  });
+    rows.push(apiRow);
+  }
   return rows;
 }
 
