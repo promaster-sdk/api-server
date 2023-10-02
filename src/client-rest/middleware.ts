@@ -431,10 +431,11 @@ export async function getApiProductTables(
   // Map to the API objects to return
   for (const tableFile of tableFilesContent) {
     const fullTableName = buildFullTableName(tableFile);
-    const childTableContent = await readChildTablesRecursive(productFile, filesDir, fullTableName);
-    const rows = mapFileRowsToApiRows(
+    const rows = await mapFileRowsToApiRows(
+      productFile,
+      filesDir,
+      fullTableName,
       baseUrl,
-      childTableContent,
       fullTableName,
       tableFile.data.columns,
       tableFile.data.rows
@@ -458,13 +459,17 @@ function fullToLegacyTableName(prefixedTableName: string): string {
   return compatibleTableName;
 }
 
-function mapFileRowsToApiRows(
+async function mapFileRowsToApiRows(
+  productFile: ProductFile,
+  filesDir: string,
+  fullTableName: string,
   baseUrl: string,
-  childTableContent: LoadedTables,
   tableName: string,
   fileColumns: ReadonlyArray<ProductTableFileColumn>,
   fileRows: ReadonlyArray<ProductTableFileRow>
-): ReadonlyArray<ApiTableRow> {
+): Promise<ReadonlyArray<ApiTableRow>> {
+  const childTableContent = await readChildTablesRecursive(productFile, filesDir, fullTableName);
+
   // Read any child table files and send them along (to avoid reading them for every row)
   const rows: Mutable<ApiTableRow>[] = [];
   for (const fileRow of fileRows) {
@@ -499,9 +504,11 @@ function mapFileRowsToApiRows(
             (c) => c.name === builtinParentIdColumnName
           );
           const filteredFileRows = childTableFile.data.rows.filter((r) => r[childParentIdColumnIndex] === id);
-          const filteredApiRows = mapFileRowsToApiRows(
+          const filteredApiRows = await mapFileRowsToApiRows(
+            productFile,
+            filesDir,
+            fullTableName,
             baseUrl,
-            childTableContent,
             buildFullTableName(childTableFile),
             childTableFile.data.columns,
             filteredFileRows
