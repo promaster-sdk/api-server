@@ -431,16 +431,7 @@ export async function getApiProductTables(
   // Map to the API objects to return
   for (const tableFile of tableFilesContent) {
     const fullTableName = buildFullTableName(tableFile);
-    const rows = await mapFileRowsToApiRows(
-      productFile,
-      filesDir,
-      baseUrl,
-      fullTableName,
-      tableFile.data.columns,
-      tableFile.data.rows,
-      "",
-      null
-    );
+    const rows = await mapFileRowsToApiRows(productFile, filesDir, baseUrl, tableFile, "", null);
     apiTables[fullToLegacyTableName(fullTableName)] = rows;
   }
   return apiTables;
@@ -464,12 +455,14 @@ async function mapFileRowsToApiRows(
   productFile: ProductFile,
   filesDir: string,
   baseUrl: string,
-  tableName: string,
-  fileColumns: ReadonlyArray<ProductTableFileColumn>,
-  fileRows: ReadonlyArray<ProductTableFileRow>,
+  tableFile: ProductTableFile,
   parentValue: string,
   parentRowId: string | null
 ): Promise<ReadonlyArray<ApiTableRow>> {
+  const tableName = buildFullTableName(tableFile);
+  const fileColumns = tableFile.data.columns;
+  const fileRows = tableFile.data.rows;
+
   const childTableContent: Mutable<LoadedTables> = await readChildTables(productFile, filesDir, tableName);
 
   // Filter rows BEFORE mapping them to avoid mapping rows that will be filtered away
@@ -511,9 +504,7 @@ async function mapFileRowsToApiRows(
             productFile,
             filesDir,
             baseUrl,
-            buildFullTableName(childTableFile),
-            childTableFile.data.columns,
-            childTableFile.data.rows,
+            childTableFile,
             apiRow["name"]?.toString() ?? "",
             fileRow[idColumnIndex]?.toString() ?? null
           );
