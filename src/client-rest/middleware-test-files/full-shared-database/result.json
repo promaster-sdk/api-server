@@ -854,7 +854,14 @@
         "sort_no": 0,
         "property_filter": "width!=null&height!=null",
         "shape": "rectangular",
-        "size": []
+        "size": [
+          {
+            "sort_no": 0,
+            "property_filter": null,
+            "dim1": "{width}",
+            "dim2": "{height}"
+          }
+        ]
       }
     ],
     "sound_variant": [
@@ -2886,7 +2893,14 @@
         "sort_no": 0,
         "property_filter": "width!=null&height!=null",
         "shape": "rectangular",
-        "size": []
+        "size": [
+          {
+            "sort_no": 0,
+            "property_filter": null,
+            "dim1": "{width}",
+            "dim2": "{height}"
+          }
+        ]
       }
     ],
     "sound_variant": [

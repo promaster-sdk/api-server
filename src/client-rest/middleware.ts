@@ -438,7 +438,8 @@ export async function getApiProductTables(
       fullTableName,
       tableFile.data.columns,
       tableFile.data.rows,
-      ""
+      "",
+      null
     );
     apiTables[fullToLegacyTableName(fullTableName)] = rows;
   }
@@ -466,13 +467,21 @@ async function mapFileRowsToApiRows(
   tableName: string,
   fileColumns: ReadonlyArray<ProductTableFileColumn>,
   fileRows: ReadonlyArray<ProductTableFileRow>,
-  parentValue: string
+  parentValue: string,
+  parentRowId: string | null
 ): Promise<ReadonlyArray<ApiTableRow>> {
   const childTableContent: Mutable<LoadedTables> = await readChildTables(productFile, filesDir, tableName);
 
+  // Filter rows BEFORE mapping them to avoid mapping rows that will be filtered away
+  // const idColumnIndex = fileColumns.findIndex((c) => c.name === builtinIdColumnName);
+  // const parentRowId = fileRow[idColumnIndex];
+  const childParentIdColumnIndex = fileColumns.findIndex((c) => c.name === builtinParentIdColumnName);
+  const filteredFileRows =
+    childParentIdColumnIndex === -1 ? fileRows : fileRows.filter((r) => r[childParentIdColumnIndex] === parentRowId);
+
   // Read any child table files and send them along (to avoid reading them for every row)
   const rows: Mutable<ApiTableRow>[] = [];
-  for (const fileRow of fileRows) {
+  for (const fileRow of filteredFileRows) {
     const apiRow: Mutable<ApiTableRow> = {};
     for (let c = 0; c < fileColumns.length; c++) {
       const column = fileColumns[c];
@@ -497,21 +506,16 @@ async function mapFileRowsToApiRows(
         // Find the child table
         const childTableFile = childTableContent[ct.child];
         if (childTableFile) {
-          // Filter rows BEFORE mapping them to avoid mapping rows that will be filtered away
           const idColumnIndex = fileColumns.findIndex((c) => c.name === builtinIdColumnName);
-          const id = fileRow[idColumnIndex];
-          const childParentIdColumnIndex = childTableFile.data.columns.findIndex(
-            (c) => c.name === builtinParentIdColumnName
-          );
-          const filteredFileRows = childTableFile.data.rows.filter((r) => r[childParentIdColumnIndex] === id);
           const filteredApiRows = await mapFileRowsToApiRows(
             productFile,
             filesDir,
             baseUrl,
             buildFullTableName(childTableFile),
             childTableFile.data.columns,
-            filteredFileRows,
-            apiRow["name"]?.toString() ?? ""
+            childTableFile.data.rows,
+            apiRow["name"]?.toString() ?? "",
+            fileRow[idColumnIndex]?.toString() ?? null
           );
           apiRow[ct.parentField] = filteredApiRows;
         } else {
