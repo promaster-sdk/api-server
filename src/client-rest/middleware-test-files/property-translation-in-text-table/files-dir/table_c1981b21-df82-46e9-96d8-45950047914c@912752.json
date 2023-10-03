@@ -1,0 +1,22 @@
+{
+  "data": {
+    "id": "c1981b21-df82-46e9-96d8-45950047914c",
+    "module": "texts",
+    "name": "text",
+    "description": "",
+    "columns": [
+      { "type": "PrimaryKey", "name": "builtin@id" },
+      { "type": "Number", "name": "sort_no" },
+      { "type": "PropertyFilter", "name": "property_filter" },
+      { "type": "Text", "name": "name", "params": "text.name", "key": true },
+      { "type": "DynamicDiscrete", "name": "language", "params": "language.name", "key": true },
+      { "type": "LongText", "name": "text" },
+      { "type": "Text", "name": "comment" }
+    ],
+    "rows": [
+      ["d2720613-1519-49c4-b4e7-690f6795d839", 1009, null, "p_standard_width", "en-US", "Width", null],
+      ["0002c2e6-e53e-4b05-a917-9f9fc8d01c90", 1010, null, "p_standard_width", "sv-SE", "Bredd", null]
+    ]
+  },
+  "refs": {}
+}

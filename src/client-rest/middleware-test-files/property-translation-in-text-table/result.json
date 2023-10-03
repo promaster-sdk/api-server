@@ -1,0 +1,29 @@
+[
+  {
+    "property": [
+      {
+        "sort_no": 0,
+        "name": "width",
+        "group": null,
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": null,
+            "translation": "Width"
+          },
+          {
+            "sort_no": 1,
+            "language": "sv-SE",
+            "type": null,
+            "translation": "Bredd"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "data": {
+    "id": "c1981b21-df82-46e9-96d8-45950047914c",
+    "module": "texts",
+    "name": "text",
+    "description": "",
+    "columns": [
+      { "type": "PrimaryKey", "name": "builtin@id" },
+      { "type": "Number", "name": "sort_no" },
+      { "type": "PropertyFilter", "name": "property_filter" },
+      { "type": "Text", "name": "name", "params": "text.name", "key": true },
+      { "type": "DynamicDiscrete", "name": "language", "params": "language.name", "key": true },
+      { "type": "LongText", "name": "text" },
+      { "type": "Text", "name": "comment" }
+    ],
+    "rows": [
+      ["fake-1", 1009, null, "pv_width_400", "en-US", "400", null],
+      ["fake-2", 1010, null, "pv_width_400", "sv-SE", "400", null],
+      ["fake-3", 1009, null, "pv_width_600", "en-US", "600", null],
+      ["fake-4", 1010, null, "pv_width_600", "sv-SE", "600", null],
+      ["fake-5", 1009, null, "pv_width_800", "en-US", "800", null],
+      ["fake-6", 1010, null, "pv_width_800", "sv-SE", "800", null]
+    ]
+  },
+  "refs": {}
+}

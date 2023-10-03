@@ -1,0 +1,75 @@
+[
+  {
+    "property": [
+      {
+        "sort_no": 0,
+        "name": "width",
+        "group": null,
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "translation": [],
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "400",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "400"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "400"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "600",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "600"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "600"
+              }
+            ]
+          },
+          {
+            "sort_no": 2,
+            "value": "800",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "800"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "800"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
