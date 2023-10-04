@@ -1,0 +1,1 @@
+{"data":{"id":"0d477809-9a86-45f7-8d87-2af8c58b5050","module":"custom_tables","name":"hej","description":"","columns":[{"type":"PrimaryKey","name":"builtin@id"},{"type":"Number","name":"sort_no"},{"type":"Text","name":"aaa"}],"rows":[]},"refs":{}}
