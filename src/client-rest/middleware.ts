@@ -16,8 +16,6 @@ import {
   buildTransactionFileName,
   buildBlobFileName,
   TransactionFile,
-  ProductTableFileColumn,
-  ProductTableFileRow,
   parseTransactionFileName,
   builtinIdColumnName,
   builtinParentIdColumnName,
@@ -431,7 +429,7 @@ export async function getApiProductTables(
   // Map to the API objects to return
   for (const tableFile of tableFilesContent) {
     const fullTableName = buildFullTableName(tableFile);
-    const rows = await mapFileRowsToApiRows(productFile, filesDir, baseUrl, tableFile, "", null);
+    const rows = await mapFileRowsToApiRows(productFile, filesDir, baseUrl, tableFile, undefined);
     apiTables[fullToLegacyTableName(fullTableName)] = rows;
   }
   return apiTables;
@@ -456,8 +454,7 @@ async function mapFileRowsToApiRows(
   filesDir: string,
   baseUrl: string,
   tableFile: ProductTableFile,
-  parentValue: string,
-  parentRowId: string | null
+  parent: { readonly value: string; readonly rowId: string } | undefined
 ): Promise<ReadonlyArray<ApiTableRow>> {
   const tableName = buildFullTableName(tableFile);
   const fileColumns = tableFile.data.columns;
@@ -470,7 +467,9 @@ async function mapFileRowsToApiRows(
   // const parentRowId = fileRow[idColumnIndex];
   const childParentIdColumnIndex = fileColumns.findIndex((c) => c.name === builtinParentIdColumnName);
   const filteredFileRows =
-    childParentIdColumnIndex === -1 ? fileRows : fileRows.filter((r) => r[childParentIdColumnIndex] === parentRowId);
+    childParentIdColumnIndex === -1
+      ? fileRows
+      : fileRows.filter((r) => r[childParentIdColumnIndex] === parent?.rowId ?? null);
 
   // Read any child table files and send them along (to avoid reading them for every row)
   const rows: Mutable<ApiTableRow>[] = [];
@@ -500,13 +499,18 @@ async function mapFileRowsToApiRows(
         const childTableFile = childTableContent[ct.child];
         if (childTableFile) {
           const idColumnIndex = fileColumns.findIndex((c) => c.name === builtinIdColumnName);
+          const rowId = fileRow[idColumnIndex]?.toString();
           const filteredApiRows = await mapFileRowsToApiRows(
             productFile,
             filesDir,
             baseUrl,
             childTableFile,
-            apiRow["name"]?.toString() ?? "",
-            fileRow[idColumnIndex]?.toString() ?? null
+            rowId === undefined
+              ? undefined
+              : {
+                  value: apiRow["name"]?.toString() ?? "",
+                  rowId,
+                }
           );
           apiRow[ct.parentField] = filteredApiRows;
         } else {
@@ -552,7 +556,7 @@ async function mapFileRowsToApiRows(
             const laguageColumnIndex = textTable.data.columns.findIndex((col) => col.name === "language");
             const textColumnIndex = textTable.data.columns.findIndex((col) => col.name === "text");
 
-            const translationPrefix = "pv_" + parentValue + "_" + apiRow["value"];
+            const translationPrefix = "pv_" + parent?.value + "_" + apiRow["value"];
 
             const propertyTranslations = textTable.data.rows
               .map((row): {
