@@ -28,12 +28,44 @@ export async function resolveTableRows(
     readonly tableFiles: DataLoader<string, ProductTableFile>;
   },
   includeProductFileName: boolean,
-  filter: RowsFilter | undefined
+  parent:
+    | {
+        readonly id: string;
+        readonly name: string | undefined;
+      }
+    | undefined,
+  language: string | undefined
 ): Promise<ReadonlyArray<TableRow> | ReadonlyArray<TableRowWithProductFileName>> {
   return withSpan("resolveTableRows", async () => {
     const fullTableName = `${module}@${tableName}`;
     const productFile = await loaders.productFiles.load(productFileName);
     const tableRef = productFile.data.tables[fullTableName];
+
+    if (!tableRef && fullTableName === "properties@property.translation") {
+      const textRows = await resolveTableRows(
+        "texts",
+        "text",
+        productFileName,
+        loaders,
+        includeProductFileName,
+        undefined,
+        language
+      );
+
+      const fakeTranslationRows = textRows
+        .filter((textRow) => textRow.name?.toString().startsWith("p_standard_" + parent?.name))
+        .map(
+          (textRow): TableRow => ({
+            builtin_id: textRow.builtin_id,
+            sort_no: textRow.sort_no,
+            language: textRow.language,
+            translation: textRow.text,
+            type: null,
+          })
+        );
+
+      return fakeTranslationRows;
+    }
     const tableFileName = productFile.refs[tableRef];
     if (!tableFileName) {
       return [];
@@ -50,12 +82,12 @@ export async function resolveTableRows(
           obj.__$productFileName$ = productFileName;
           return obj;
         }),
-        filter
+        parent && { parentRowId: parent.id, language }
       );
     } else {
       return filterRows(
         tableFile.data.rows.map((values) => rowValuesToObject(tableFile.data.columns, values)),
-        filter
+        parent && { parentRowId: parent.id, language }
       );
     }
   });
@@ -121,7 +153,7 @@ export const parentRowResolver = (moduleName: string, tableName: string) => (
   _args: {},
   ctx: Context
 ) => {
-  return resolveTableRows(moduleName, tableName, parent.productFileName, ctx.loaders, true, undefined);
+  return resolveTableRows(moduleName, tableName, parent.productFileName, ctx.loaders, true, undefined, undefined);
 };
 
 export const childRowResolver = (moduleName: string, tableName: string, includeProductFileName: boolean) => async (
@@ -129,8 +161,21 @@ export const childRowResolver = (moduleName: string, tableName: string, includeP
   _args: {},
   ctx: Context
 ) => {
-  return resolveTableRows(moduleName, tableName, parent.__$productFileName$, ctx.loaders, includeProductFileName, {
-    parentRowId: parent[builtinIdColumnSafeName]?.toString() ?? "",
-    language: undefined,
-  });
+  const parentId = parent[builtinIdColumnSafeName];
+  const parentName = parent["name"];
+
+  return resolveTableRows(
+    moduleName,
+    tableName,
+    parent.__$productFileName$,
+    ctx.loaders,
+    includeProductFileName,
+    typeof parentId !== "string"
+      ? undefined
+      : {
+          id: parentId.toString(),
+          name: parentName?.toString(),
+        },
+    undefined
+  );
 };

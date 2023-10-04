@@ -32,7 +32,17 @@ export async function createModuleType(
 
   const propertyTranslationRowType = new GraphQLObjectType({
     name: getUniqueTypeName("Property_Translation", usedTypeNames),
-    fields: buildTableRowTypeFields(tableByName["property.translation"].columns),
+    fields: buildTableRowTypeFields(
+      // Fall back on hardcoded schema to fake translations from the text table.
+      tableByName["property.translation"]?.columns ?? [
+        { type: "PrimaryKey", name: "builtin@id" },
+        { type: "Number", name: "sort_no" },
+        { type: "ForeignKey", name: "builtin@parent_id", params: "property" },
+        { type: "DynamicDiscrete", name: "language", params: "language.name", key: true },
+        { type: "FixedDiscrete", name: "type", params: "standard,long" },
+        { type: "Text", name: "translation" },
+      ]
+    ),
   });
 
   const propertyDefaultValueRowType = new GraphQLObjectType({
@@ -85,8 +95,21 @@ const childRowResolverWithLanguageArg = (
   tableName: string,
   includeProductFileName: boolean = false
 ) => async (parent: TableRowWithProductFileName, args: { readonly language: string }, ctx: Context) => {
-  return resolveTableRows(moduleName, tableName, parent.__$productFileName$, ctx.loaders, includeProductFileName, {
-    parentRowId: parent[builtinIdColumnSafeName]?.toString() ?? "",
-    language: args.language,
-  });
+  const parentId = parent[builtinIdColumnSafeName];
+  const parentName = parent["name"];
+
+  return resolveTableRows(
+    moduleName,
+    tableName,
+    parent.__$productFileName$,
+    ctx.loaders,
+    includeProductFileName,
+    typeof parentId !== "string"
+      ? undefined
+      : {
+          id: parentId.toString(),
+          name: parentName?.toString(),
+        },
+    args.language
+  );
 };
