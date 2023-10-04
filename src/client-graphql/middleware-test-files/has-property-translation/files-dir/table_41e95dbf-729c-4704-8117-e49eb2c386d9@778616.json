@@ -1,0 +1,21 @@
+{
+  "data": {
+    "id": "41e95dbf-729c-4704-8117-e49eb2c386d9",
+    "module": "properties",
+    "name": "property.translation",
+    "description": "",
+    "columns": [
+      { "type": "PrimaryKey", "name": "builtin@id" },
+      { "type": "Number", "name": "sort_no" },
+      { "type": "ForeignKey", "name": "builtin@parent_id", "params": "property" },
+      { "type": "DynamicDiscrete", "name": "language", "params": "language.name", "key": true },
+      { "type": "FixedDiscrete", "name": "type", "params": "standard,long" },
+      { "type": "Text", "name": "translation" }
+    ],
+    "rows": [
+      ["0cdcf5f2-73ec-4900-9385-a9d8c800dbd5", 0, "9a7ddbfb-83ab-4e0f-b7b3-c99ad8b0f50c", "en-US", null, "Width"],
+      ["bae7ef9e-8d91-43f3-b3d6-0f96724e3290", 0, "9a7ddbfb-83ab-4e0f-b7b3-c99ad8b0f50c", "sv-SE", null, "Bredd"]
+    ]
+  },
+  "refs": {}
+}

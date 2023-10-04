@@ -1,0 +1,36 @@
+[
+  {
+    "data": {
+      "products": [
+        {
+          "id": "342da2d8-7e2c-4ef4-ba2c-1210adfa1a0d",
+          "name": "",
+          "modules": {
+            "properties": {
+              "property": [
+                {
+                  "builtin_id": "9a7ddbfb-83ab-4e0f-b7b3-c99ad8b0f50c",
+                  "name": "width",
+                  "translations": [
+                    {
+                      "builtin_id": "0cdcf5f2-73ec-4900-9385-a9d8c800dbd5",
+                      "language": "en-US",
+                      "type": null,
+                      "translation": "Width"
+                    },
+                    {
+                      "builtin_id": "bae7ef9e-8d91-43f3-b3d6-0f96724e3290",
+                      "language": "sv-SE",
+                      "type": null,
+                      "translation": "Bredd"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+]
