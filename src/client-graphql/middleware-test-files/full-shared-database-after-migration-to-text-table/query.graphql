@@ -1,0 +1,251 @@
+{
+  products {
+    id
+    key
+    name
+    retired
+    modules {
+      custom_tables {
+        ItemNo {
+          builtin_id
+          sort_no
+          ordering_code
+          item_no
+        }
+        SoundAttenuation {
+          builtin_id
+          sort_no
+          property_filter
+          db63
+          db125
+        }
+        TABLEABC {
+          builtin_id
+          sort_no
+          property_filter
+          Quantity
+          C
+          D
+        }
+        Test123 {
+          builtin_id
+          sort_no
+          property_filter
+          Pris
+        }
+        data {
+          builtin_id
+          sort_no
+          Propertyfilter
+          Data
+          Area
+          Weight
+        }
+        etdfetdf {
+          builtin_id
+          sort_no
+          new_column
+          new_column1
+          new_column2
+          new_column3
+          Quantity
+          Unit
+          TextId
+        }
+        hej {
+          builtin_id
+          sort_no
+          aaa
+        }
+        Weight {
+          builtin_id
+          sort_no
+          property_filter
+          Weight
+        }
+      }
+      ordering_code {
+        code {
+          builtin_id
+          sort_no
+          property_filter
+          type
+          code
+        }
+      }
+      documents {
+        document {
+          builtin_id
+          sort_no
+          property_filter
+          type
+          name
+          language
+          document
+          file_name
+        }
+      }
+      images {
+        image {
+          builtin_id
+          sort_no
+          image
+          file_name
+          property_filter
+          type
+          name
+          size
+        }
+      }
+      languages {
+        language {
+          builtin_id
+          sort_no
+          name
+        }
+      }
+      markets {
+        market {
+          builtin_id
+          sort_no
+          name
+          default_language
+          currency
+        }
+        market_price {
+          builtin_id
+          sort_no
+          property_filter
+          price
+        }
+      }
+      models {
+        model {
+          builtin_id
+          sort_no
+          property_filter
+          name
+          model
+          file_name
+          params {
+            builtin_id
+            sort_no
+            builtin_parent_id
+            property_filter
+            model_params
+          }
+        }
+      }
+      frontend {
+        module {
+          builtin_id
+          sort_no
+          name
+        }
+      }
+      properties {
+        property {
+          builtin_id
+          sort_no
+          name
+          group
+          image
+          visibility_filter
+          validation_filter
+          quantity
+          values {
+            builtin_id
+            sort_no
+            builtin_parent_id
+            value
+            property_filter
+            image
+            description
+            translations {
+              language
+              translation
+            }
+          }
+          defaults {
+            builtin_id
+            sort_no
+            builtin_parent_id
+            value
+            property_filter
+          }
+          translations {
+            language
+            type
+            translation
+          }
+        }
+      }
+      size {
+        shape {
+          builtin_id
+          sort_no
+          property_filter
+          shape
+        }
+        shape_size {
+          builtin_id
+          sort_no
+          property_filter
+          dim1
+          dim2
+        }
+      }
+      sound {
+        sound_variant {
+          builtin_id
+          sort_no
+          property_filter
+          comment
+          pressure_interpolation
+          sound_measure
+          type
+          area_ref
+          min_flow
+          max_flow
+          min_pressure
+          max_pressure
+          min_rec_flow
+          max_rec_flow
+          min_rec_pressure
+          max_rec_pressure
+          sound {
+            builtin_id
+            sort_no
+            builtin_parent_id
+            damper
+            flow
+            pressure
+            lw63
+            lw125
+            lw250
+            lw500
+            lw1k
+            lw2k
+            lw4k
+            lw8k
+            total
+          }
+          sound_line {
+            builtin_id
+            sort_no
+            builtin_parent_id
+            sound_level
+          }
+          damper {
+            builtin_id
+            sort_no
+            builtin_parent_id
+            damper
+            flow
+            pressure
+          }
+        }
+      }
+    }
+  }
+}

@@ -63,7 +63,7 @@ export async function resolveTableRows(
             sort_no: textRow.sort_no,
             language: textRow.language,
             translation: textRow.text,
-            type: null,
+            type: "standard",
           })
         );
 
