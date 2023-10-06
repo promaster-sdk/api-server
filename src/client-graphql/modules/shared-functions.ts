@@ -27,7 +27,7 @@ export async function resolveTableRows(
     readonly productFiles: DataLoader<string, ProductFile>;
     readonly tableFiles: DataLoader<string, ProductTableFile>;
   },
-  includeProductFileName: boolean = false
+  includeProductFileName: boolean
 ): Promise<ReadonlyArray<TableRow> | ReadonlyArray<TableRowWithProductFileName>> {
   return withSpan("resolveTableRows", async () => {
     const fullTableName = `${module}@${tableName}`;
@@ -99,11 +99,11 @@ export const parentRowResolver = (moduleName: string, tableName: string) => (
   return resolveTableRows(moduleName, tableName, parent.productFileName, ctx.loaders, true);
 };
 
-export const childRowResolver = (
-  moduleName: string,
-  tableName: string,
-  includeProductFileName: boolean = false
-) => async (parent: TableRowWithProductFileName, _args: {}, ctx: Context) => {
+export const childRowResolver = (moduleName: string, tableName: string, includeProductFileName: boolean) => async (
+  parent: TableRowWithProductFileName,
+  _args: {},
+  ctx: Context
+) => {
   const rows = await resolveTableRows(
     moduleName,
     tableName,
