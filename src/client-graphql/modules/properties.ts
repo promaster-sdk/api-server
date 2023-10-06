@@ -6,7 +6,6 @@ import {
   childRowResolver,
   parentRowResolver,
   resolveTableRows,
-  builtinParentIdColumnSafeName,
   builtinIdColumnSafeName,
 } from "./shared-functions";
 import { TableRowWithProductFileName } from "../schema-types";
@@ -86,16 +85,8 @@ const childRowResolverWithLanguageArg = (
   tableName: string,
   includeProductFileName: boolean = false
 ) => async (parent: TableRowWithProductFileName, args: { readonly language: string }, ctx: Context) => {
-  const rows = await resolveTableRows(
-    moduleName,
-    tableName,
-    parent.__$productFileName$,
-    ctx.loaders,
-    includeProductFileName
-  );
-  return rows.filter(
-    (row) =>
-      row[builtinParentIdColumnSafeName] === parent[builtinIdColumnSafeName] &&
-      (!args.language || row.language === args.language)
-  );
+  return resolveTableRows(moduleName, tableName, parent.__$productFileName$, ctx.loaders, includeProductFileName, {
+    parentRowId: parent[builtinIdColumnSafeName]?.toString() ?? "",
+    language: args.language,
+  });
 };

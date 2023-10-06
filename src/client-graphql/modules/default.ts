@@ -25,7 +25,7 @@ export async function createModuleType(
         type: new GraphQLNonNull(GraphQLList(new GraphQLNonNull(tableRowType))),
         description: v.description,
         resolve: (parent: ModuleFieldResolverParent, _args: {}, ctx: Context, info: GraphQLResolveInfo) => {
-          return resolveTableRows(parent.module, info.fieldName, parent.productFileName, ctx.loaders, false);
+          return resolveTableRows(parent.module, info.fieldName, parent.productFileName, ctx.loaders, false, undefined);
         },
       };
     }
