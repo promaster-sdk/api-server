@@ -1,0 +1,21 @@
+{
+  products {
+    id
+    name
+    modules {
+      properties {
+        property {
+          name
+          values {
+            sort_no
+            value
+            translations {
+              language
+              translation
+            }
+          }
+        }
+      }
+    }
+  }
+}

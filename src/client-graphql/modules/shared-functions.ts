@@ -32,8 +32,10 @@ export async function resolveTableRows(
     | {
         readonly id: string;
         readonly name: string | undefined;
+        readonly value: string | undefined;
       }
     | undefined,
+  grandParent: { readonly name: string | undefined } | undefined,
   language: string | undefined
 ): Promise<ReadonlyArray<TableRow> | ReadonlyArray<TableRowWithProductFileName>> {
   return withSpan("resolveTableRows", async () => {
@@ -49,11 +51,12 @@ export async function resolveTableRows(
         loaders,
         includeProductFileName,
         undefined,
+        undefined,
         language
       );
 
       const fakeTranslationRows = textRows
-        .filter((textRow) => textRow.name?.toString().startsWith("p_standard_" + parent?.name))
+        .filter((textRow) => textRow.name?.toString() === "p_standard_" + parent?.name)
         .map(
           (textRow): TableRow => ({
             builtin_id: textRow.builtin_id,
@@ -66,6 +69,34 @@ export async function resolveTableRows(
 
       return fakeTranslationRows;
     }
+
+    if (!tableRef && fullTableName === "properties@property.value.translation") {
+      const textRows = await resolveTableRows(
+        "texts",
+        "text",
+        productFileName,
+        loaders,
+        includeProductFileName,
+        undefined,
+        undefined,
+        language
+      );
+
+      const fakeTranslationRows = textRows
+        .filter((textRow) => textRow.name?.toString() === "pv_" + grandParent?.name + "_" + parent?.value)
+        .map(
+          (textRow): TableRow => ({
+            builtin_id: textRow.builtin_id,
+            sort_no: textRow.sort_no,
+            language: textRow.language,
+            translation: textRow.text,
+            type: null,
+          })
+        );
+
+      return fakeTranslationRows;
+    }
+
     const tableFileName = productFile.refs[tableRef];
     if (!tableFileName) {
       return [];
@@ -77,16 +108,21 @@ export async function resolveTableRows(
     const tableFile = await loaders.tableFiles.load(tableFileName);
     if (includeProductFileName) {
       return filterRows(
-        tableFile.data.rows.map((values) => {
-          const obj = rowValuesToObject(tableFile.data.columns, values) as MutableTableRowWithProductFileName;
-          obj.__$productFileName$ = productFileName;
-          return obj;
-        }),
+        tableFile.data.rows.map(
+          (values): MutableTableRowWithProductFileName => ({
+            ...rowValuesToObject(tableFile.data.columns, values),
+            __$productFileName$: productFileName,
+            __$parentName$: parent?.name ?? null,
+          })
+        ),
         parent && { parentRowId: parent.id, language }
       );
     } else {
       return filterRows(
-        tableFile.data.rows.map((values) => rowValuesToObject(tableFile.data.columns, values)),
+        tableFile.data.rows.map((values) => ({
+          ...rowValuesToObject(tableFile.data.columns, values),
+          __$parentName$: parent?.name ?? null,
+        })),
         parent && { parentRowId: parent.id, language }
       );
     }
@@ -153,7 +189,16 @@ export const parentRowResolver = (moduleName: string, tableName: string) => (
   _args: {},
   ctx: Context
 ) => {
-  return resolveTableRows(moduleName, tableName, parent.productFileName, ctx.loaders, true, undefined, undefined);
+  return resolveTableRows(
+    moduleName,
+    tableName,
+    parent.productFileName,
+    ctx.loaders,
+    true,
+    undefined,
+    undefined,
+    undefined
+  );
 };
 
 export const childRowResolver = (moduleName: string, tableName: string, includeProductFileName: boolean) => async (
@@ -163,6 +208,8 @@ export const childRowResolver = (moduleName: string, tableName: string, includeP
 ) => {
   const parentId = parent[builtinIdColumnSafeName];
   const parentName = parent["name"];
+  const parentValue = parent["value"];
+  const grandParentName = parent["__$parentName$"];
 
   return resolveTableRows(
     moduleName,
@@ -175,6 +222,12 @@ export const childRowResolver = (moduleName: string, tableName: string, includeP
       : {
           id: parentId.toString(),
           name: parentName?.toString(),
+          value: parentValue?.toString(),
+        },
+    typeof grandParentName !== "string"
+      ? undefined
+      : {
+          name: grandParentName,
         },
     undefined
   );

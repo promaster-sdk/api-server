@@ -1,0 +1,35 @@
+[
+  {
+    "_queryType": "Query",
+    "_directives": ["@include", "@skip", "@deprecated", "@specifiedBy"],
+    "_typeMap": {
+      "Query": "Query",
+      "Tree": "Tree",
+      "String": "String",
+      "TreeRelation": "TreeRelation",
+      "ID": "ID",
+      "Int": "Int",
+      "Marker": "Marker",
+      "Product": "Product",
+      "Boolean": "Boolean",
+      "Modules": "Modules",
+      "Module_properties": "Module_properties",
+      "Property": "Property",
+      "Float": "Float",
+      "Property_Value": "Property_Value",
+      "Property_ValueTranslation": "Property_ValueTranslation",
+      "Property_DefaultValue": "Property_DefaultValue",
+      "Property_Translation": "Property_Translation",
+      "__Schema": "__Schema",
+      "__Type": "__Type",
+      "__TypeKind": "__TypeKind",
+      "__Field": "__Field",
+      "__InputValue": "__InputValue",
+      "__EnumValue": "__EnumValue",
+      "__Directive": "__Directive",
+      "__DirectiveLocation": "__DirectiveLocation"
+    },
+    "_subTypeMap": {},
+    "_implementationsMap": {}
+  }
+]

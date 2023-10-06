@@ -1,0 +1,65 @@
+[
+  {
+    "data": {
+      "products": [
+        {
+          "id": "342da2d8-7e2c-4ef4-ba2c-1210adfa1a0d",
+          "name": "",
+          "modules": {
+            "properties": {
+              "property": [
+                {
+                  "name": "width",
+                  "values": [
+                    {
+                      "sort_no": 0,
+                      "value": "400",
+                      "translations": [
+                        {
+                          "language": "en-US",
+                          "translation": "400"
+                        },
+                        {
+                          "language": "sv-SE",
+                          "translation": "400"
+                        }
+                      ]
+                    },
+                    {
+                      "sort_no": 1,
+                      "value": "600",
+                      "translations": [
+                        {
+                          "language": "en-US",
+                          "translation": "600"
+                        },
+                        {
+                          "language": "sv-SE",
+                          "translation": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "sort_no": 2,
+                      "value": "800",
+                      "translations": [
+                        {
+                          "language": "en-US",
+                          "translation": "800"
+                        },
+                        {
+                          "language": "sv-SE",
+                          "translation": "800"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+]

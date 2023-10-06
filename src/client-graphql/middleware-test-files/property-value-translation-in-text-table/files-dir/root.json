@@ -1,0 +1,10 @@
+{
+  "data": {
+    "markers": { "PRODUCTION": 0 },
+    "latest": { "tx": 912752, "transaction": 2, "date": 1695716048809 },
+    "trees": { "73839479-3059-475a-8282-326c3b27e5b5": 3 }
+  },
+  "refs": {
+    "0": "release_ddd45f4a-2b29-410c-a054-4266361385a4.json"
+  }
+}

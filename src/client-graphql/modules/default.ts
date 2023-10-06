@@ -32,6 +32,7 @@ export async function createModuleType(
             ctx.loaders,
             false,
             undefined,
+            undefined,
             undefined
           );
         },
