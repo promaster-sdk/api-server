@@ -29,7 +29,7 @@ export async function resolveTableRows(
   },
   includeProductFileName: boolean = false
 ): Promise<ReadonlyArray<TableRow> | ReadonlyArray<TableRowWithProductFileName>> {
-  return await withSpan("resolveTableRows", async () => {
+  return withSpan("resolveTableRows", async () => {
     const fullTableName = `${module}@${tableName}`;
     const productFile = await loaders.productFiles.load(productFileName);
     const tableRef = productFile.data.tables[fullTableName];
