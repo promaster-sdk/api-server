@@ -27,12 +27,76 @@ export async function resolveTableRows(
     readonly productFiles: DataLoader<string, ProductFile>;
     readonly tableFiles: DataLoader<string, ProductTableFile>;
   },
-  includeProductFileName: boolean = false
+  includeProductFileName: boolean,
+  parent:
+    | {
+        readonly id: string;
+        readonly name: string | undefined;
+        readonly value: string | undefined;
+      }
+    | undefined,
+  grandParent: { readonly name: string | undefined } | undefined,
+  language: string | undefined
 ): Promise<ReadonlyArray<TableRow> | ReadonlyArray<TableRowWithProductFileName>> {
-  return await withSpan("resolveTableRows", async () => {
+  return withSpan("resolveTableRows", async () => {
     const fullTableName = `${module}@${tableName}`;
     const productFile = await loaders.productFiles.load(productFileName);
     const tableRef = productFile.data.tables[fullTableName];
+
+    if (!tableRef && fullTableName === "properties@property.translation") {
+      const textRows = await resolveTableRows(
+        "texts",
+        "text",
+        productFileName,
+        loaders,
+        includeProductFileName,
+        undefined,
+        undefined,
+        language
+      );
+
+      const fakeTranslationRows = textRows
+        .filter((textRow) => textRow.name?.toString() === "p_standard_" + parent?.name)
+        .map(
+          (textRow): TableRow => ({
+            builtin_id: textRow.builtin_id,
+            sort_no: textRow.sort_no,
+            language: textRow.language,
+            translation: textRow.text,
+            type: "standard",
+          })
+        );
+
+      return fakeTranslationRows;
+    }
+
+    if (!tableRef && fullTableName === "properties@property.value.translation") {
+      const textRows = await resolveTableRows(
+        "texts",
+        "text",
+        productFileName,
+        loaders,
+        includeProductFileName,
+        undefined,
+        undefined,
+        language
+      );
+
+      const fakeTranslationRows = textRows
+        .filter((textRow) => textRow.name?.toString() === "pv_" + grandParent?.name + "_" + parent?.value)
+        .map(
+          (textRow): TableRow => ({
+            builtin_id: textRow.builtin_id,
+            sort_no: textRow.sort_no,
+            language: textRow.language,
+            translation: textRow.text,
+            type: null,
+          })
+        );
+
+      return fakeTranslationRows;
+    }
+
     const tableFileName = productFile.refs[tableRef];
     if (!tableFileName) {
       return [];
@@ -43,15 +107,44 @@ export async function resolveTableRows(
     }
     const tableFile = await loaders.tableFiles.load(tableFileName);
     if (includeProductFileName) {
-      return tableFile.data.rows.map((values) => {
-        const obj = rowValuesToObject(tableFile.data.columns, values) as MutableTableRowWithProductFileName;
-        obj.__$productFileName$ = productFileName;
-        return obj;
-      });
+      return filterRows(
+        tableFile.data.rows.map(
+          (values): MutableTableRowWithProductFileName => ({
+            ...rowValuesToObject(tableFile.data.columns, values),
+            __$productFileName$: productFileName,
+            __$parentName$: parent?.name ?? null,
+          })
+        ),
+        parent && { parentRowId: parent.id, language }
+      );
     } else {
-      return tableFile.data.rows.map((values) => rowValuesToObject(tableFile.data.columns, values));
+      return filterRows(
+        tableFile.data.rows.map((values) => ({
+          ...rowValuesToObject(tableFile.data.columns, values),
+          __$parentName$: parent?.name ?? null,
+        })),
+        parent && { parentRowId: parent.id, language }
+      );
     }
   });
+}
+
+interface RowsFilter {
+  readonly parentRowId: string;
+  readonly language: string | undefined;
+}
+
+function filterRows(
+  rows: ReadonlyArray<TableRow> | ReadonlyArray<TableRowWithProductFileName>,
+  filter: RowsFilter | undefined
+): readonly TableRow[] {
+  return !filter
+    ? rows
+    : rows.filter(
+        (row) =>
+          row[builtinParentIdColumnSafeName] === filter.parentRowId &&
+          (!filter.language || row.language === filter.language)
+      );
 }
 
 const rowValuesToObject = (columns: ReadonlyArray<ProductTableFileColumn>, values: ProductTableFileRow) =>
@@ -96,24 +189,46 @@ export const parentRowResolver = (moduleName: string, tableName: string) => (
   _args: {},
   ctx: Context
 ) => {
-  return resolveTableRows(moduleName, tableName, parent.productFileName, ctx.loaders, true);
+  return resolveTableRows(
+    moduleName,
+    tableName,
+    parent.productFileName,
+    ctx.loaders,
+    true,
+    undefined,
+    undefined,
+    undefined
+  );
 };
 
-export const childRowResolver = (
-  moduleName: string,
-  tableName: string,
-  includeProductFileName: boolean = false
-) => async (parent: TableRowWithProductFileName, _args: {}, ctx: Context) => {
-  const rows = await resolveTableRows(
+export const childRowResolver = (moduleName: string, tableName: string, includeProductFileName: boolean) => async (
+  parent: TableRowWithProductFileName,
+  _args: {},
+  ctx: Context
+) => {
+  const parentId = parent[builtinIdColumnSafeName];
+  const parentName = parent["name"];
+  const parentValue = parent["value"];
+  const grandParentName = parent["__$parentName$"];
+
+  return resolveTableRows(
     moduleName,
     tableName,
     parent.__$productFileName$,
     ctx.loaders,
-    includeProductFileName
+    includeProductFileName,
+    typeof parentId !== "string"
+      ? undefined
+      : {
+          id: parentId.toString(),
+          name: parentName?.toString(),
+          value: parentValue?.toString(),
+        },
+    typeof grandParentName !== "string"
+      ? undefined
+      : {
+          name: grandParentName,
+        },
+    undefined
   );
-  return rows.filter(filterOnParent(parent));
-};
-
-const filterOnParent = (parent: TableRow) => (row: TableRow) => {
-  return row[builtinParentIdColumnSafeName] === parent[builtinIdColumnSafeName];
 };

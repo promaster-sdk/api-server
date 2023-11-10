@@ -1,0 +1,24 @@
+{
+  "data": {
+    "id": "133c37d9-ad84-45f7-ab5b-457a0fe484c2",
+    "module": "properties",
+    "name": "property.value.translation",
+    "description": "",
+    "columns": [
+      { "type": "PrimaryKey", "name": "builtin@id" },
+      { "type": "Number", "name": "sort_no" },
+      { "type": "ForeignKey", "name": "builtin@parent_id", "params": "property.value" },
+      { "type": "DynamicDiscrete", "name": "language", "params": "language.name", "key": true },
+      { "type": "Text", "name": "translation" }
+    ],
+    "rows": [
+      ["a27dde2e-5a81-469b-83d6-e3f12fe41119", 0, "54582389-185b-42d1-a94f-407efa54df23", "en-US", "800"],
+      ["afbfdd2b-634c-44f4-ac15-53c41640781e", 0, "04bb87bb-ebbe-4936-b2e2-aaa52c9e9d55", "en-US", "600"],
+      ["e59ab36e-71ec-4c9b-aa42-c74712a2fa9e", 0, "9d55ce5b-a346-473d-b138-552eb51fe52b", "en-US", "400"],
+      ["c34e2745-b477-41c0-a61d-3e1730ec09dc", 1, "9d55ce5b-a346-473d-b138-552eb51fe52b", "sv-SE", "400"],
+      ["582e2f94-4c42-4bcc-b461-fa6d03431d69", 1, "04bb87bb-ebbe-4936-b2e2-aaa52c9e9d55", "en-US", "600"],
+      ["9be8797b-aeaf-49c6-b69e-8035e40b8839", 1, "54582389-185b-42d1-a94f-407efa54df23", "en-US", "800"]
+    ]
+  },
+  "refs": {}
+}

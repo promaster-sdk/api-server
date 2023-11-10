@@ -16,8 +16,6 @@ import {
   buildTransactionFileName,
   buildBlobFileName,
   TransactionFile,
-  ProductTableFileColumn,
-  ProductTableFileRow,
   parseTransactionFileName,
   builtinIdColumnName,
   builtinParentIdColumnName,
@@ -406,7 +404,7 @@ async function getApiProductWithOptionalTables(
   return p;
 }
 
-async function getApiProductTables(
+export async function getApiProductTables(
   filesDir: string,
   baseUrl: string,
   productFile: ProductFile,
@@ -431,14 +429,7 @@ async function getApiProductTables(
   // Map to the API objects to return
   for (const tableFile of tableFilesContent) {
     const fullTableName = buildFullTableName(tableFile);
-    const childTableContent = await readChildTablesRecursive(productFile, filesDir, fullTableName);
-    const rows = mapFileRowsToApiRows(
-      baseUrl,
-      childTableContent,
-      buildFullTableName(tableFile),
-      tableFile.data.columns,
-      tableFile.data.rows
-    );
+    const rows = await mapFileRowsToApiRows(productFile, filesDir, baseUrl, tableFile, undefined);
     apiTables[fullToLegacyTableName(fullTableName)] = rows;
   }
   return apiTables;
@@ -458,15 +449,31 @@ function fullToLegacyTableName(prefixedTableName: string): string {
   return compatibleTableName;
 }
 
-function mapFileRowsToApiRows(
+async function mapFileRowsToApiRows(
+  productFile: ProductFile,
+  filesDir: string,
   baseUrl: string,
-  childTableContent: LoadedTables,
-  tableName: string,
-  fileColumns: ReadonlyArray<ProductTableFileColumn>,
-  fileRows: ReadonlyArray<ProductTableFileRow>
-): ReadonlyArray<ApiTableRow> {
+  tableFile: ProductTableFile,
+  parent: { readonly value: string; readonly rowId: string } | undefined
+): Promise<ReadonlyArray<ApiTableRow>> {
+  const tableName = buildFullTableName(tableFile);
+  const fileColumns = tableFile.data.columns;
+  const fileRows = tableFile.data.rows;
+
+  const childTableContent: Mutable<LoadedTables> = await readChildTables(productFile, filesDir, tableName);
+
+  // Filter rows BEFORE mapping them to avoid mapping rows that will be filtered away
+  // const idColumnIndex = fileColumns.findIndex((c) => c.name === builtinIdColumnName);
+  // const parentRowId = fileRow[idColumnIndex];
+  const childParentIdColumnIndex = fileColumns.findIndex((c) => c.name === builtinParentIdColumnName);
+  const filteredFileRows =
+    childParentIdColumnIndex === -1
+      ? fileRows
+      : fileRows.filter((r) => r[childParentIdColumnIndex] === parent?.rowId ?? null);
+
   // Read any child table files and send them along (to avoid reading them for every row)
-  const rows = fileRows.map((fileRow) => {
+  const rows: Mutable<ApiTableRow>[] = [];
+  for (const fileRow of filteredFileRows) {
     const apiRow: Mutable<ApiTableRow> = {};
     for (let c = 0; c < fileColumns.length; c++) {
       const column = fileColumns[c];
@@ -481,56 +488,104 @@ function mapFileRowsToApiRows(
         }
       }
     }
-    addChildTableFieldsToRow(baseUrl, childTableContent, tableName, fileColumns, fileRow, apiRow);
-    return apiRow;
-  });
+
+    // Some tables had child tables embedded in v2 of the Client REST API, we
+    // have some code here to replicate that for those tables
+    // (For new tables we use a flat structure instead)
+    const childTables = legacyChildTables2[tableName];
+    if (childTables) {
+      for (const ct of childTables) {
+        // Find the child table
+        const childTableFile = childTableContent[ct.child];
+        if (childTableFile) {
+          const idColumnIndex = fileColumns.findIndex((c) => c.name === builtinIdColumnName);
+          const rowId = fileRow[idColumnIndex]?.toString();
+          const filteredApiRows = await mapFileRowsToApiRows(
+            productFile,
+            filesDir,
+            baseUrl,
+            childTableFile,
+            rowId === undefined
+              ? undefined
+              : {
+                  value: apiRow["name"]?.toString() ?? "",
+                  rowId,
+                }
+          );
+          apiRow[ct.parentField] = filteredApiRows;
+        } else {
+          console.warn(`Missing child table '${ct.child}'.`);
+
+          // The property and property value translation child tables were moved to the
+          // text table. Emulate for compatibility.
+          const textTableRef = productFile.refs[productFile.data.tables["texts@text"]];
+
+          if (ct.child === "properties@property.translation" && textTableRef) {
+            const textTable = await readJsonFile<ProductTableFile>(filesDir, textTableRef);
+
+            const nameColumnIndex = textTable.data.columns.findIndex((col) => col.name === "name");
+            const laguageColumnIndex = textTable.data.columns.findIndex((col) => col.name === "language");
+            const textColumnIndex = textTable.data.columns.findIndex((col) => col.name === "text");
+
+            const translationPrefix = "p_standard_" + apiRow["name"];
+
+            const propertyTranslations = textTable.data.rows
+              .map((row): {
+                name: string | null;
+                laguage: string | null;
+                text: string | null;
+              } => ({
+                name: row[nameColumnIndex]?.toString() ?? null,
+                laguage: row[laguageColumnIndex]?.toString() ?? null,
+                text: row[textColumnIndex]?.toString() ?? null,
+              }))
+              .filter((translation) => translation.name?.startsWith(translationPrefix));
+
+            apiRow[ct.parentField] = propertyTranslations.map((propertyTranslation, index) => ({
+              sort_no: index,
+              language: propertyTranslation.laguage,
+              type: null, // "standard"?
+              translation: propertyTranslation.text,
+            }));
+          }
+
+          if (ct.child === "properties@property.value.translation" && textTableRef) {
+            const textTable = await readJsonFile<ProductTableFile>(filesDir, textTableRef);
+
+            const nameColumnIndex = textTable.data.columns.findIndex((col) => col.name === "name");
+            const laguageColumnIndex = textTable.data.columns.findIndex((col) => col.name === "language");
+            const textColumnIndex = textTable.data.columns.findIndex((col) => col.name === "text");
+
+            const translationPrefix = "pv_" + parent?.value + "_" + apiRow["value"];
+
+            const propertyTranslations = textTable.data.rows
+              .map((row): {
+                name: string | null;
+                laguage: string | null;
+                text: string | null;
+              } => ({
+                name: row[nameColumnIndex]?.toString() ?? null,
+                laguage: row[laguageColumnIndex]?.toString() ?? null,
+                text: row[textColumnIndex]?.toString() ?? null,
+              }))
+              .filter((translation) => translation.name?.startsWith(translationPrefix));
+
+            apiRow[ct.parentField] = propertyTranslations.map((propertyTranslation, index) => ({
+              sort_no: index,
+              language: propertyTranslation.laguage,
+              translation: propertyTranslation.text,
+            }));
+          }
+        }
+      }
+    }
+
+    rows.push(apiRow);
+  }
   return rows;
 }
 
-// Some tables had child tables embedded in v2 of the Client REST API, we
-// have some code here to replicate that for those tables
-// (For new tables we use a flat structure instead)
-function addChildTableFieldsToRow(
-  baseUrl: string,
-  childTableContent: LoadedTables,
-  tableName: string,
-  fileColumns: ReadonlyArray<ProductTableFileColumn>,
-  fileRow: ProductTableFileRow,
-  apiRow: Mutable<ApiTableRow>
-): void {
-  const childTables = legacyChildTables2[tableName];
-  if (childTables) {
-    childTables.map((ct) => {
-      // Find the child table
-      const childTableFile = childTableContent[ct.child];
-      if (childTableFile) {
-        // Filter rows BEFORE mapping them to avoid mapping rows that will be filtered away
-        const idColumnIndex = fileColumns.findIndex((c) => c.name === builtinIdColumnName);
-        const id = fileRow[idColumnIndex];
-        const childParentIdColumnIndex = childTableFile.data.columns.findIndex(
-          (c) => c.name === builtinParentIdColumnName
-        );
-        const filteredFileRows = childTableFile.data.rows.filter((r) => r[childParentIdColumnIndex] === id);
-        const filteredApiRows = mapFileRowsToApiRows(
-          baseUrl,
-          childTableContent,
-          buildFullTableName(childTableFile),
-          childTableFile.data.columns,
-          filteredFileRows
-        );
-        apiRow[ct.parentField] = filteredApiRows;
-      } else {
-        console.warn(`Missing child table '${ct.child}'.`);
-      }
-    });
-  }
-}
-
-async function readChildTablesRecursive(
-  pf: ProductFile,
-  filesDir: string,
-  parentTableName: string
-): Promise<LoadedTables> {
+async function readChildTables(pf: ProductFile, filesDir: string, parentTableName: string): Promise<LoadedTables> {
   let childTableContent: Mutable<LoadedTables> = {};
   const childTables = legacyChildTables2[parentTableName];
   if (childTables) {
@@ -541,12 +596,6 @@ async function readChildTablesRecursive(
       if (childTableFileName) {
         const childTable = await readJsonFile<ProductTableFile>(filesDir, childTableFileName);
         childTableContent[childTableDef.child] = childTable;
-      }
-      // If this child table has children of it's own then recurse
-      const subChildTables = legacyChildTables2[childTableDef.child];
-      if (subChildTables) {
-        const subChildren = await readChildTablesRecursive(pf, filesDir, childTableDef.child);
-        childTableContent = { ...childTableContent, ...subChildren };
       }
     }
   }
@@ -641,7 +690,7 @@ const legacyChildTables2: LegacyChildTablesPerParent = {
   ],
 };
 
-async function readJsonFile<T>(filesDir: string, fileName: string): Promise<T> {
+export async function readJsonFile<T>(filesDir: string, fileName: string): Promise<T> {
   const fullPath = path.join(filesDir, fileName);
   const content = JSON.parse(await readFileAsync(fullPath, "utf8"));
   return content;

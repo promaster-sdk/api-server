@@ -1,0 +1,1 @@
+{"data":{"id":"0ff54eef-978d-4ed2-8482-bc7caf1d690b","module":"custom_tables","name":"LOCAL_TEST","description":"","columns":[{"type":"PrimaryKey","name":"builtin@id"},{"type":"Number","name":"sort_no"}],"rows":[]},"refs":{}}

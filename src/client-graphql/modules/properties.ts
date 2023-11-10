@@ -6,7 +6,6 @@ import {
   childRowResolver,
   parentRowResolver,
   resolveTableRows,
-  builtinParentIdColumnSafeName,
   builtinIdColumnSafeName,
 } from "./shared-functions";
 import { TableRowWithProductFileName } from "../schema-types";
@@ -28,12 +27,31 @@ export async function createModuleType(
 
   const propertyValueTranslationRowType = new GraphQLObjectType({
     name: getUniqueTypeName("Property_ValueTranslation", usedTypeNames),
-    fields: buildTableRowTypeFields(tableByName["property.value.translation"].columns),
+    fields: buildTableRowTypeFields(
+      // Fall back on hardcoded schema to fake translations from the text table.
+      tableByName["property.value.translation"]?.columns ?? [
+        { type: "PrimaryKey", name: "builtin@id" },
+        { type: "Number", name: "sort_no" },
+        { type: "ForeignKey", name: "builtin@parent_id", params: "property.value" },
+        { type: "DynamicDiscrete", name: "language", params: "language.name", key: true },
+        { type: "Text", name: "translation" },
+      ]
+    ),
   });
 
   const propertyTranslationRowType = new GraphQLObjectType({
     name: getUniqueTypeName("Property_Translation", usedTypeNames),
-    fields: buildTableRowTypeFields(tableByName["property.translation"].columns),
+    fields: buildTableRowTypeFields(
+      // Fall back on hardcoded schema to fake translations from the text table.
+      tableByName["property.translation"]?.columns ?? [
+        { type: "PrimaryKey", name: "builtin@id" },
+        { type: "Number", name: "sort_no" },
+        { type: "ForeignKey", name: "builtin@parent_id", params: "property" },
+        { type: "DynamicDiscrete", name: "language", params: "language.name", key: true },
+        { type: "FixedDiscrete", name: "type", params: "standard,long" },
+        { type: "Text", name: "translation" },
+      ]
+    ),
   });
 
   const propertyDefaultValueRowType = new GraphQLObjectType({
@@ -86,16 +104,29 @@ const childRowResolverWithLanguageArg = (
   tableName: string,
   includeProductFileName: boolean = false
 ) => async (parent: TableRowWithProductFileName, args: { readonly language: string }, ctx: Context) => {
-  const rows = await resolveTableRows(
+  const parentId = parent[builtinIdColumnSafeName];
+  const parentName = parent["name"];
+  const parentValue = parent["value"];
+  const grandParentName = parent["__$parentName$"];
+
+  return resolveTableRows(
     moduleName,
     tableName,
     parent.__$productFileName$,
     ctx.loaders,
-    includeProductFileName
-  );
-  return rows.filter(
-    (row) =>
-      row[builtinParentIdColumnSafeName] === parent[builtinIdColumnSafeName] &&
-      (!args.language || row.language === args.language)
+    includeProductFileName,
+    typeof parentId !== "string"
+      ? undefined
+      : {
+          id: parentId.toString(),
+          name: parentName?.toString(),
+          value: parentValue?.toString(),
+        },
+    typeof grandParentName !== "string"
+      ? undefined
+      : {
+          name: grandParentName,
+        },
+    args.language
   );
 };

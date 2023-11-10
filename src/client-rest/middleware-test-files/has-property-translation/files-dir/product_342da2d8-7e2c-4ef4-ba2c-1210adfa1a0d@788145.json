@@ -1,0 +1,17 @@
+{
+  "data": {
+    "id": "342da2d8-7e2c-4ef4-ba2c-1210adfa1a0d",
+    "key": "DEMODAMPER",
+    "name": "",
+    "description": "",
+    "retired": false,
+    "tables": {
+      "properties@property": 16,
+      "properties@property.translation": 26
+    }
+  },
+  "refs": {
+    "16": "table_66c88372-ae07-4916-9dcf-4e6908820630@788145.json",
+    "26": "table_41e95dbf-729c-4704-8117-e49eb2c386d9@778616.json"
+  }
+}

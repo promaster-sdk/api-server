@@ -1,0 +1,4967 @@
+[
+  {
+    "ct_well_known_products": [
+      {
+        "sort_no": 0,
+        "well_known_key": "MY_PROD_A",
+        "product": "8F179B5A-E2FB-4D22-8BF6-F928C3FD65E1"
+      },
+      {
+        "sort_no": 1,
+        "well_known_key": "MY_PROD_B",
+        "product": "FD73A9AD-02DA-4BB6-B730-738BFFE96703"
+      }
+    ]
+  },
+  {
+    "ct_ItemNo": [
+      {
+        "sort_no": 1,
+        "ordering_code": "dfdfddfdfdfdf",
+        "item_no": "jkjkj"
+      },
+      {
+        "sort_no": 2,
+        "ordering_code": null,
+        "item_no": null
+      },
+      {
+        "sort_no": 3,
+        "ordering_code": null,
+        "item_no": null
+      },
+      {
+        "sort_no": 4,
+        "ordering_code": null,
+        "item_no": "ITEM_2"
+      }
+    ],
+    "ct_SoundAttenuation": [
+      {
+        "sort_no": 0,
+        "property_filter": "width=800",
+        "db63": null,
+        "db125": "51"
+      },
+      {
+        "sort_no": 1,
+        "property_filter": "width=",
+        "db63": null,
+        "db125": "53"
+      },
+      {
+        "sort_no": 2,
+        "property_filter": null,
+        "db63": null,
+        "db125": null
+      },
+      {
+        "sort_no": 3,
+        "property_filter": null,
+        "db63": null,
+        "db125": null
+      }
+    ],
+    "ct_TABLEABC": [],
+    "ct_Test123": [
+      {
+        "sort_no": 0,
+        "property_filter": "width=800&height=1000",
+        "Pris": 200
+      },
+      {
+        "sort_no": 1,
+        "property_filter": "width=800&height=800",
+        "Pris": 80
+      }
+    ],
+    "code": [
+      {
+        "sort_no": 0,
+        "property_filter": null,
+        "type": null,
+        "code": "DEMO"
+      },
+      {
+        "sort_no": 1,
+        "property_filter": "width!=null&height!=null",
+        "type": null,
+        "code": "-{width}X{height}"
+      },
+      {
+        "sort_no": 2,
+        "property_filter": "tightness=1",
+        "type": null,
+        "code": "-1"
+      },
+      {
+        "sort_no": 3,
+        "property_filter": "tightness=2,3",
+        "type": null,
+        "code": "-2"
+      },
+      {
+        "sort_no": 5,
+        "property_filter": "material=1",
+        "type": null,
+        "code": "-4"
+      },
+      {
+        "sort_no": 6,
+        "property_filter": "material=2",
+        "type": null,
+        "code": "-5"
+      },
+      {
+        "sort_no": 7,
+        "property_filter": "material=3",
+        "type": null,
+        "code": "-6"
+      },
+      {
+        "sort_no": 10,
+        "property_filter": "connection=1",
+        "type": null,
+        "code": "-9"
+      },
+      {
+        "sort_no": 11,
+        "property_filter": "connection=2",
+        "type": null,
+        "code": "-10"
+      }
+    ],
+    "ct_data": [
+      {
+        "sort_no": 0,
+        "Propertyfilter": "width=400&height=600",
+        "Data": 31,
+        "Area": 31,
+        "Weight": 41
+      },
+      {
+        "sort_no": 1,
+        "Propertyfilter": "width!=400&height!=600",
+        "Data": 60,
+        "Area": 40,
+        "Weight": 60
+      }
+    ],
+    "document": [
+      {
+        "sort_no": 0,
+        "property_filter": "material=1",
+        "type": null,
+        "name": "Produkten/Drift- och skötselinformation",
+        "language": "sv-SE",
+        "document": null,
+        "file_name": null
+      },
+      {
+        "sort_no": 1,
+        "property_filter": null,
+        "type": null,
+        "name": "CE-dokument",
+        "language": "sv-SE",
+        "document": null,
+        "file_name": null
+      },
+      {
+        "sort_no": 2,
+        "property_filter": "material=2",
+        "type": null,
+        "name": "Miljö/Byggvarudeklaration - Förzinkat",
+        "language": "sv-SE",
+        "document": null,
+        "file_name": null
+      },
+      {
+        "sort_no": 3,
+        "property_filter": null,
+        "type": null,
+        "name": "Miljö/Byggvarudeklaration - Aluzink",
+        "language": "sv-SE",
+        "document": null,
+        "file_name": "_Aggregat 1.pdf"
+      },
+      {
+        "sort_no": 4,
+        "property_filter": null,
+        "type": null,
+        "name": "Miljö/Byggvarudeklaration - Aluminium",
+        "language": "sv-SE",
+        "document": null,
+        "file_name": null
+      },
+      {
+        "sort_no": 5,
+        "property_filter": null,
+        "type": null,
+        "name": "Miljö/Byggvarudeklaration - Rostfritt",
+        "language": "sv-SE",
+        "document": null,
+        "file_name": null
+      },
+      {
+        "sort_no": 6,
+        "property_filter": null,
+        "type": null,
+        "name": "Miljö/Byggvarudeklaration - Rostfritt, syrafast",
+        "language": "sv-SE",
+        "document": null,
+        "file_name": null
+      },
+      {
+        "sort_no": 7,
+        "property_filter": null,
+        "type": null,
+        "name": "Tillbehör",
+        "language": "sv-SE",
+        "document": null,
+        "file_name": null
+      },
+      {
+        "sort_no": 15,
+        "property_filter": null,
+        "type": null,
+        "name": "Product/Operation and Maintenance Instructions",
+        "language": "en-US",
+        "document": null,
+        "file_name": null
+      }
+    ],
+    "ct_etdfetdf": [],
+    "ct_hej": [],
+    "image": [
+      {
+        "sort_no": 0,
+        "image": "/blobs/7ff79282e5294fedd7b92fad888190db4883844a",
+        "file_name": "demodamper.jpeg",
+        "property_filter": "material=2",
+        "type": null,
+        "name": "demodamper",
+        "size": null
+      }
+    ],
+    "language": [
+      {
+        "sort_no": 0,
+        "name": "sv-SE"
+      },
+      {
+        "sort_no": 2,
+        "name": "en-US"
+      }
+    ],
+    "market": [
+      {
+        "sort_no": 0,
+        "name": "DK",
+        "default_language": "Dansk",
+        "currency": "DKK"
+      },
+      {
+        "sort_no": 1,
+        "name": "SV",
+        "default_language": "Svenska",
+        "currency": "SEK"
+      },
+      {
+        "sort_no": 2,
+        "name": "EN",
+        "default_language": "English",
+        "currency": "EURO"
+      }
+    ],
+    "model": [
+      {
+        "sort_no": 0,
+        "property_filter": null,
+        "name": "DEMODAMPER",
+        "model": null,
+        "file_name": "damper.qmd",
+        "params": [
+          {
+            "sort_no": 0,
+            "property_filter": "width!=null&height!=null",
+            "model_params": "L=220;S=40;B={width};H={height}"
+          }
+        ]
+      }
+    ],
+    "module": [
+      {
+        "sort_no": 0,
+        "name": "model"
+      },
+      {
+        "sort_no": 1,
+        "name": "calculation"
+      }
+    ],
+    "property": [
+      {
+        "sort_no": 0,
+        "name": "width",
+        "group": null,
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "400",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "400"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "400"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "600",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "600"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "600"
+              }
+            ]
+          },
+          {
+            "sort_no": 2,
+            "value": "800",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "800"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "800"
+              }
+            ]
+          },
+          {
+            "sort_no": 3,
+            "value": "1000",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "1000"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "1000"
+              }
+            ]
+          },
+          {
+            "sort_no": 5,
+            "value": "1400",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "1400"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "1400"
+              }
+            ]
+          },
+          {
+            "sort_no": 7,
+            "value": "1600",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "1600"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "1600"
+              }
+            ]
+          },
+          {
+            "sort_no": 8,
+            "value": "1800",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "1800"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "1800"
+              }
+            ]
+          },
+          {
+            "sort_no": 9,
+            "value": "2000",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "2000"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "2000"
+              }
+            ]
+          },
+          {
+            "sort_no": 10,
+            "value": "2500",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 2,
+                "language": "sv-SE",
+                "translation": "2000"
+              },
+              {
+                "sort_no": 2,
+                "language": "en-US",
+                "translation": "2000"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": null,
+            "translation": "Bredd"
+          },
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": null,
+            "translation": "Width"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 1,
+        "name": "height",
+        "group": null,
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "400",
+            "property_filter": "width=400, 600&material=1",
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "400"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "400"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "600",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "600"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "600"
+              }
+            ]
+          },
+          {
+            "sort_no": 2,
+            "value": "800",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "800"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "800"
+              }
+            ]
+          },
+          {
+            "sort_no": 3,
+            "value": "1000",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "1000"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "1000"
+              }
+            ]
+          },
+          {
+            "sort_no": 4,
+            "value": "1200",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "1200"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "1200"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Höjd ändrad"
+          },
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Height changed"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 3,
+        "name": "tightness",
+        "group": null,
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Class 1"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Klass 1"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Class 2"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Klass 2"
+              }
+            ]
+          },
+          {
+            "sort_no": 2,
+            "value": "3",
+            "property_filter": "width=800&height=800",
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Class 3"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Klass 3"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": null,
+            "translation": "Täthet"
+          },
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": null,
+            "translation": "Tightness"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 4,
+        "name": "material",
+        "group": null,
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": "width=800~1000",
+            "image": null,
+            "description": "Aluminium",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Aluminium"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Aluminium"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": null,
+            "image": null,
+            "description": "Varmförzinkad",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Varmförzinkad"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Varmförzinkad"
+              }
+            ]
+          },
+          {
+            "sort_no": 2,
+            "value": "3",
+            "property_filter": null,
+            "image": null,
+            "description": "Rostfritt",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Stainless"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Rostfritt"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": null,
+            "translation": "Material"
+          },
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": null,
+            "translation": "Material"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 5,
+        "name": "connection",
+        "group": null,
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": null,
+            "image": null,
+            "description": "Gejd",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "Gejd"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "Gejd"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": null,
+            "image": null,
+            "description": "Fläns",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Fläns"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Fläns"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": null,
+            "translation": "Anslutning"
+          },
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": null,
+            "translation": "Connection"
+          }
+        ],
+        "def_value": []
+      }
+    ],
+    "shape": [
+      {
+        "sort_no": 0,
+        "property_filter": "width!=null&height!=null",
+        "shape": "rectangular",
+        "size": [
+          {
+            "sort_no": 0,
+            "property_filter": null,
+            "dim1": "{width}",
+            "dim2": "{height}"
+          }
+        ]
+      }
+    ],
+    "sound_variant": [
+      {
+        "sort_no": 0,
+        "property_filter": null,
+        "comment": null,
+        "pressure_interpolation": "polynomial",
+        "sound_measure": "lp10a",
+        "type": "flow",
+        "area_ref": null,
+        "min_flow": 0.2,
+        "max_flow": 112,
+        "min_pressure": 2,
+        "max_pressure": 150,
+        "min_rec_flow": null,
+        "max_rec_flow": null,
+        "min_rec_pressure": 20,
+        "max_rec_pressure": 100,
+        "damper": [
+          {
+            "sort_no": 0,
+            "damper": "30",
+            "flow": 0.5,
+            "pressure": 20
+          },
+          {
+            "sort_no": 1,
+            "damper": "45",
+            "flow": 1.3,
+            "pressure": 22
+          },
+          {
+            "sort_no": 2,
+            "damper": "90",
+            "flow": 5,
+            "pressure": 12
+          }
+        ],
+        "sound": [
+          {
+            "sort_no": 0,
+            "damper": null,
+            "flow": 0.4,
+            "pressure": 12,
+            "lw63": 0,
+            "lw125": 47,
+            "lw250": 45,
+            "lw500": 44,
+            "lw1k": 39,
+            "lw2k": 32,
+            "lw4k": 25,
+            "lw8k": 22,
+            "total": null
+          },
+          {
+            "sort_no": 1,
+            "damper": null,
+            "flow": 0.9,
+            "pressure": 27,
+            "lw63": 0,
+            "lw125": 46,
+            "lw250": 43,
+            "lw500": 44,
+            "lw1k": 39,
+            "lw2k": 32,
+            "lw4k": 24,
+            "lw8k": 21,
+            "total": null
+          },
+          {
+            "sort_no": 2,
+            "damper": null,
+            "flow": 3.5,
+            "pressure": 6.5,
+            "lw63": 0,
+            "lw125": 46,
+            "lw250": 43,
+            "lw500": 45,
+            "lw1k": 38,
+            "lw2k": 31,
+            "lw4k": 25,
+            "lw8k": 21,
+            "total": null
+          },
+          {
+            "sort_no": 3,
+            "damper": null,
+            "flow": 4.3,
+            "pressure": 9.8,
+            "lw63": 0,
+            "lw125": 51,
+            "lw250": 48,
+            "lw500": 50,
+            "lw1k": 43,
+            "lw2k": 36,
+            "lw4k": 3,
+            "lw8k": 26,
+            "total": null
+          },
+          {
+            "sort_no": 4,
+            "damper": null,
+            "flow": 0.6,
+            "pressure": 27.4,
+            "lw63": 0,
+            "lw125": 51,
+            "lw250": 50,
+            "lw500": 49,
+            "lw1k": 43,
+            "lw2k": 37,
+            "lw4k": 30,
+            "lw8k": 27,
+            "total": null
+          }
+        ],
+        "sound_line": [
+          {
+            "sort_no": 0,
+            "sound_level": 25
+          },
+          {
+            "sort_no": 1,
+            "sound_level": 35
+          },
+          {
+            "sort_no": 2,
+            "sound_level": 45
+          }
+        ]
+      },
+      {
+        "sort_no": 1,
+        "property_filter": "width!=1000",
+        "comment": null,
+        "pressure_interpolation": "polynomial",
+        "sound_measure": "lp10a",
+        "type": "flow",
+        "area_ref": null,
+        "min_flow": null,
+        "max_flow": null,
+        "min_pressure": null,
+        "max_pressure": null,
+        "min_rec_flow": null,
+        "max_rec_flow": null,
+        "min_rec_pressure": null,
+        "max_rec_pressure": null,
+        "damper": [],
+        "sound": [],
+        "sound_line": []
+      }
+    ],
+    "text": [
+      {
+        "sort_no": 0,
+        "property_filter": "tightness=3",
+        "name": "name",
+        "language": "sv-SE",
+        "text": "DEMOSVENSK - TÄTHETSKLASS 1x\nDEMOSVENSK - TÄTHETSKLASS 1",
+        "comment": null
+      },
+      {
+        "sort_no": 0,
+        "property_filter": "tightness=2",
+        "name": "name",
+        "language": "sv-SE",
+        "text": "DEMOSVENSK - TÄTHETSKLASS 2",
+        "comment": null
+      },
+      {
+        "sort_no": 0,
+        "property_filter": "tightness=2",
+        "name": "name",
+        "language": "en-US",
+        "text": null,
+        "comment": null
+      },
+      {
+        "sort_no": 0,
+        "property_filter": "tightness=3",
+        "name": "name",
+        "language": "en-US",
+        "text": null,
+        "comment": null
+      },
+      {
+        "sort_no": 1,
+        "property_filter": "tightness=2",
+        "name": "name",
+        "language": "en-US",
+        "text": "DEMOENGELSK test 2",
+        "comment": null
+      },
+      {
+        "sort_no": 1,
+        "property_filter": "tightness=3",
+        "name": "name",
+        "language": "en-US",
+        "text": "DEMOENGELSK test 3",
+        "comment": null
+      },
+      {
+        "sort_no": 3,
+        "property_filter": null,
+        "name": "short_description",
+        "language": "sv-SE",
+        "text": "Regler- och avstängningsspjäll Täthetsklass 1-3 >>",
+        "comment": null
+      },
+      {
+        "sort_no": 4,
+        "property_filter": null,
+        "name": "short_description",
+        "language": "en-US",
+        "text": "Control and shut-off damper Seal class 1-3 >>",
+        "comment": null
+      },
+      {
+        "sort_no": 6,
+        "property_filter": null,
+        "name": "long_description",
+        "language": "sv-SE",
+        "text": "**Ett regler- och avstängningsspjäll** avsett för komfort- eller industri- ventilationsanläggningar. Spjället har goda regleregenskaper. Spjäll enligt klass 1 används vid injustering och reglering. Spjäll klass 2/3 används som avstängningsspjäll.",
+        "comment": null
+      },
+      {
+        "sort_no": 7,
+        "property_filter": null,
+        "name": "long_description",
+        "language": "en-US",
+        "text": "A damper designed for comfort or industrial ventilation systems.The damper has good regulating properties. Class 1 compliant damper used for adjustment and control. Class 2/3 dampers are used as shut-off dampers.",
+        "comment": null
+      },
+      {
+        "sort_no": 8,
+        "property_filter": null,
+        "name": "test",
+        "language": "sv-SE",
+        "text": "• Högpresterande 4-vägsblåsande komfortmodul med kyla, värme och ventilation\n\n• Stort spann mellan lägsta och högsta luftflöde\n\n• Få varianter klarar många behov\n\n• Optimerad för låg energiförbrukning\n\n• Hanterar höga luftflöden vid låga drivtryck\n\n• Låg ljudnivå\n\n• Enkel installation genom låg vikt, kompakta mått och valbar luftanslutning på kort eller långsida\n\n• Snygg design med valbara perforeringsmönster",
+        "comment": null
+      },
+      {
+        "sort_no": 8,
+        "property_filter": null,
+        "name": "test",
+        "language": "en-US",
+        "text": "• High performance 4-way distribution comfort module with cooling, heating and ventilation\n\n• Large span between the lowest and highest air flow\n\n• Few variants serve many needs\n\n• Optimized for low energy consumption\n\n• Manages high air flow at low driving pressure\n\n• Low sound level\n\n• Easy installation on account of low weight, compact dimensions and optional air connections on short or long sides\n\n• Stylish design with optional perforation pattern",
+        "comment": null
+      }
+    ]
+  },
+  {
+    "property": [
+      {
+        "sort_no": 0,
+        "name": "fantype",
+        "group": "Fan",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": null,
+            "image": "/blobs/65f4db70e2e65898326430ea57c0e6cb36f0b0d2",
+            "description": "Plug fan",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Plug fan"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Kammarfläkt"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": null,
+            "image": "/blobs/27f199a7324ceabc67fd06823fe179ba2e74a59d",
+            "description": "Centrifugal fan",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Centrifugal fan"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Radialfläkt"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Fan type"
+          },
+          {
+            "sort_no": 1,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Fläkttyp"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 1,
+        "name": "fanmodel",
+        "group": "Fan",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": null,
+            "image": null,
+            "description": "model A",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "Modell A"
+              },
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Model A"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": null,
+            "image": null,
+            "description": "model B",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "Svenska",
+                "translation": "Modell B"
+              },
+              {
+                "sort_no": 0,
+                "language": "English",
+                "translation": "Model B"
+              }
+            ]
+          },
+          {
+            "sort_no": 2,
+            "value": "3",
+            "property_filter": "fantype=1&fansize=300",
+            "image": null,
+            "description": "model C",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "Svenska",
+                "translation": "Modell C"
+              },
+              {
+                "sort_no": 0,
+                "language": "English",
+                "translation": "Model C"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Fan model"
+          },
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Fläktmodell"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 2,
+        "name": "fansize",
+        "group": "Fan",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "300",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "300"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "300"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "400",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "400"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "400"
+              }
+            ]
+          },
+          {
+            "sort_no": 2,
+            "value": "500",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "500"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "500"
+              }
+            ]
+          },
+          {
+            "sort_no": 3,
+            "value": "700",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "600"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "600"
+              }
+            ]
+          },
+          {
+            "sort_no": 3,
+            "value": "600",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "600"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "600"
+              }
+            ]
+          },
+          {
+            "sort_no": 4,
+            "value": "900",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": []
+          },
+          {
+            "sort_no": 5,
+            "value": "100000000000000000000",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": []
+          },
+          {
+            "sort_no": 6,
+            "value": null,
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": []
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Fläktstorlek"
+          },
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Fan size"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 3,
+        "name": "bladetype",
+        "group": "Fan",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Forward curved"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Framåtböjda"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": "fanmodel=1",
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Backward curved"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Bakåtböjda"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Fan blade"
+          },
+          {
+            "sort_no": 1,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Fläktblad"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 4,
+        "name": "bladematerial",
+        "group": "Fan",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": null,
+            "image": null,
+            "description": "Aluminium",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Aluminium"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Aluminium"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": null,
+            "image": null,
+            "description": "Nylon",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Nylon"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Nylon"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Material fläktblad"
+          },
+          {
+            "sort_no": 1,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Fan blade material"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 5,
+        "name": "fanmotor",
+        "group": "Motor",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": null,
+            "image": null,
+            "description": "AC IE3",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "AC IE2"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "AC IE2"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": null,
+            "image": null,
+            "description": "AC IE3",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "AC IE3"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "AC IE3"
+              }
+            ]
+          },
+          {
+            "sort_no": 2,
+            "value": "3",
+            "property_filter": null,
+            "image": null,
+            "description": "EC",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "EC"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "EC"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Motor"
+          },
+          {
+            "sort_no": 1,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Motor"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 6,
+        "name": "numberofpoles",
+        "group": "Motor",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "2",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "2-poles"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "2-polig"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "4",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "4-poles"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "4-polig"
+              }
+            ]
+          },
+          {
+            "sort_no": 2,
+            "value": "6",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "6-poles"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "6-polig"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Poles"
+          },
+          {
+            "sort_no": 1,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Poler"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 7,
+        "name": "drive",
+        "group": "Motor",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": "fantype=2",
+            "image": null,
+            "description": "Belt",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Belt"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Rem"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": "fantype=1",
+            "image": null,
+            "description": "Direct",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Direct"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Direkt"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Drive"
+          },
+          {
+            "sort_no": 1,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Drivenhet"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 8,
+        "name": "airvolume",
+        "group": "Performance",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "MassFlow",
+        "value": [],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Air Volume"
+          },
+          {
+            "sort_no": 1,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Luftmängd"
+          }
+        ],
+        "def_value": [
+          {
+            "sort_no": 0,
+            "value": "500:LiterPerHour",
+            "property_filter": null
+          }
+        ]
+      },
+      {
+        "sort_no": 9,
+        "name": "esp",
+        "group": "Performance",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": "esp>50:Pascal&esp<500:Pascal",
+        "quantity": "Pressure",
+        "value": [],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Externt tryck"
+          },
+          {
+            "sort_no": 1,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "External pressure"
+          }
+        ],
+        "def_value": [
+          {
+            "sort_no": 0,
+            "value": "160:Pascal",
+            "property_filter": null
+          }
+        ]
+      }
+    ],
+    "ct_ItemNo": [
+      {
+        "sort_no": 0,
+        "ordering_code": "FAN-2-1-A",
+        "item_no": "ITEM_3"
+      },
+      {
+        "sort_no": 0,
+        "ordering_code": "FAN-2-2-A",
+        "item_no": "ITEM_4"
+      },
+      {
+        "sort_no": 0,
+        "ordering_code": "FAN-1-1-7",
+        "item_no": "ITEM_1B"
+      },
+      {
+        "sort_no": 0,
+        "ordering_code": "FAN-1-2-A",
+        "item_no": "ITEM_5"
+      }
+    ],
+    "ct_Weight": [
+      {
+        "sort_no": 10,
+        "property_filter": "fantype=1&fansize=300",
+        "Weight": 51
+      },
+      {
+        "sort_no": 11,
+        "property_filter": "fantype=1&fansize=400",
+        "Weight": 71
+      },
+      {
+        "sort_no": 12,
+        "property_filter": "fantype=1&fansize=500",
+        "Weight": 91
+      },
+      {
+        "sort_no": 13,
+        "property_filter": "fantype=1&fansize=600",
+        "Weight": 100
+      },
+      {
+        "sort_no": 14,
+        "property_filter": "fantype=2&fansize=300",
+        "Weight": 190
+      },
+      {
+        "sort_no": 15,
+        "property_filter": "fantype=2&fansize=400",
+        "Weight": 81
+      },
+      {
+        "sort_no": 16,
+        "property_filter": "fantype=2&fansize=400",
+        "Weight": 96
+      },
+      {
+        "sort_no": 17,
+        "property_filter": "fantype=2&fansize=600",
+        "Weight": 105
+      },
+      {
+        "sort_no": 18,
+        "property_filter": "fantype=2&fansize=300",
+        "Weight": 204
+      }
+    ],
+    "code": [
+      {
+        "sort_no": 0,
+        "property_filter": null,
+        "type": "main",
+        "code": "FAN-{fantype}-{fanmodel}"
+      },
+      {
+        "sort_no": 1,
+        "property_filter": "fanmotor=1",
+        "type": "main",
+        "code": "-A"
+      },
+      {
+        "sort_no": 2,
+        "property_filter": "fanmotor=2",
+        "type": "main",
+        "code": "-B"
+      },
+      {
+        "sort_no": 3,
+        "property_filter": "fanmotor=3",
+        "type": "main",
+        "code": "-C"
+      }
+    ],
+    "document": [],
+    "image": [
+      {
+        "sort_no": 0,
+        "image": "/blobs/65f4db70e2e65898326430ea57c0e6cb36f0b0d2",
+        "file_name": "plug-fan.jpeg",
+        "property_filter": "fantype=1",
+        "type": "product_photo",
+        "name": "Plug fan",
+        "size": null
+      },
+      {
+        "sort_no": 1,
+        "image": "/blobs/27f199a7324ceabc67fd06823fe179ba2e74a59d",
+        "file_name": "centrifugal-fan.jpeg",
+        "property_filter": "fantype=2",
+        "type": "product_photo",
+        "name": "Centrifugal fan",
+        "size": null
+      }
+    ],
+    "language": [
+      {
+        "sort_no": 0,
+        "name": "en-US"
+      },
+      {
+        "sort_no": 0,
+        "name": "sv-SE"
+      }
+    ],
+    "text": [
+      {
+        "sort_no": 0,
+        "property_filter": "fantype=1",
+        "name": "name",
+        "language": "en-US",
+        "text": "Very good plug fan°",
+        "comment": null
+      },
+      {
+        "sort_no": 1,
+        "property_filter": "fantype=1",
+        "name": "name",
+        "language": "sv-SE",
+        "text": "Väldigt bra kammarfläkt",
+        "comment": null
+      },
+      {
+        "sort_no": 2,
+        "property_filter": "fantype=2",
+        "name": "name",
+        "language": "en-US",
+        "text": "Very good centrifugalfan",
+        "comment": null
+      },
+      {
+        "sort_no": 3,
+        "property_filter": "fantype=2",
+        "name": "name",
+        "language": "sv-SE",
+        "text": "Väldigt bra centrifugalfläkt",
+        "comment": null
+      },
+      {
+        "sort_no": 4,
+        "property_filter": null,
+        "name": "short_description",
+        "language": "en-US",
+        "text": "A short and classy description x",
+        "comment": null
+      },
+      {
+        "sort_no": 5,
+        "property_filter": null,
+        "name": "short_description",
+        "language": "sv-SE",
+        "text": "En kort och välformulerad beskrivning",
+        "comment": null
+      },
+      {
+        "sort_no": 6,
+        "property_filter": null,
+        "name": "long_description",
+        "language": "en-US",
+        "text": "A long and very detailed description.",
+        "comment": null
+      },
+      {
+        "sort_no": 7,
+        "property_filter": null,
+        "name": "long_description",
+        "language": "sv-SE",
+        "text": "En lång och detaljerad beskrivning",
+        "comment": null
+      }
+    ]
+  },
+  {},
+  {
+    "ct_well_known_products": [
+      {
+        "sort_no": 0,
+        "well_known_key": "MY_PROD_A",
+        "product": "8F179B5A-E2FB-4D22-8BF6-F928C3FD65E1"
+      },
+      {
+        "sort_no": 1,
+        "well_known_key": "MY_PROD_B",
+        "product": "FD73A9AD-02DA-4BB6-B730-738BFFE96703"
+      }
+    ]
+  },
+  {
+    "ct_ItemNo": [
+      {
+        "sort_no": 1,
+        "ordering_code": "dfdfddfdfdfdf",
+        "item_no": "jkjkj"
+      },
+      {
+        "sort_no": 2,
+        "ordering_code": null,
+        "item_no": null
+      },
+      {
+        "sort_no": 3,
+        "ordering_code": null,
+        "item_no": null
+      },
+      {
+        "sort_no": 4,
+        "ordering_code": null,
+        "item_no": "ITEM_2"
+      }
+    ],
+    "ct_SoundAttenuation": [
+      {
+        "sort_no": 0,
+        "property_filter": "width=800",
+        "db63": null,
+        "db125": "51"
+      },
+      {
+        "sort_no": 1,
+        "property_filter": "width=",
+        "db63": null,
+        "db125": "53"
+      },
+      {
+        "sort_no": 2,
+        "property_filter": null,
+        "db63": null,
+        "db125": null
+      },
+      {
+        "sort_no": 3,
+        "property_filter": null,
+        "db63": null,
+        "db125": null
+      }
+    ],
+    "ct_TABLEABC": [],
+    "ct_Test123": [
+      {
+        "sort_no": 0,
+        "property_filter": "width=800&height=1000",
+        "Pris": 200
+      },
+      {
+        "sort_no": 1,
+        "property_filter": "width=800&height=800",
+        "Pris": 80
+      }
+    ],
+    "code": [
+      {
+        "sort_no": 0,
+        "property_filter": null,
+        "type": null,
+        "code": "DEMO"
+      },
+      {
+        "sort_no": 1,
+        "property_filter": "width!=null&height!=null",
+        "type": null,
+        "code": "-{width}X{height}"
+      },
+      {
+        "sort_no": 2,
+        "property_filter": "tightness=1",
+        "type": null,
+        "code": "-1"
+      },
+      {
+        "sort_no": 3,
+        "property_filter": "tightness=2,3",
+        "type": null,
+        "code": "-2"
+      },
+      {
+        "sort_no": 5,
+        "property_filter": "material=1",
+        "type": null,
+        "code": "-4"
+      },
+      {
+        "sort_no": 6,
+        "property_filter": "material=2",
+        "type": null,
+        "code": "-5"
+      },
+      {
+        "sort_no": 7,
+        "property_filter": "material=3",
+        "type": null,
+        "code": "-6"
+      },
+      {
+        "sort_no": 10,
+        "property_filter": "connection=1",
+        "type": null,
+        "code": "-9"
+      },
+      {
+        "sort_no": 11,
+        "property_filter": "connection=2",
+        "type": null,
+        "code": "-10"
+      }
+    ],
+    "ct_data": [
+      {
+        "sort_no": 0,
+        "Propertyfilter": "width=400&height=600",
+        "Data": 31,
+        "Area": 31,
+        "Weight": 41
+      },
+      {
+        "sort_no": 1,
+        "Propertyfilter": "width!=400&height!=600",
+        "Data": 60,
+        "Area": 40,
+        "Weight": 60
+      },
+      {
+        "sort_no": 2,
+        "Propertyfilter": null,
+        "Data": 11,
+        "Area": 21,
+        "Weight": 20
+      }
+    ],
+    "document": [
+      {
+        "sort_no": 0,
+        "property_filter": "material=1",
+        "type": null,
+        "name": "Produkten/Drift- och skötselinformation",
+        "language": "sv-SE",
+        "document": null,
+        "file_name": null
+      },
+      {
+        "sort_no": 1,
+        "property_filter": null,
+        "type": null,
+        "name": "CE-dokument",
+        "language": "sv-SE",
+        "document": null,
+        "file_name": null
+      },
+      {
+        "sort_no": 2,
+        "property_filter": "material=2",
+        "type": null,
+        "name": "Miljö/Byggvarudeklaration - Förzinkat",
+        "language": "sv-SE",
+        "document": null,
+        "file_name": null
+      },
+      {
+        "sort_no": 3,
+        "property_filter": null,
+        "type": null,
+        "name": "Miljö/Byggvarudeklaration - Aluzink",
+        "language": "sv-SE",
+        "document": null,
+        "file_name": "_Aggregat 1.pdf"
+      },
+      {
+        "sort_no": 4,
+        "property_filter": null,
+        "type": null,
+        "name": "Miljö/Byggvarudeklaration - Aluminium",
+        "language": "sv-SE",
+        "document": null,
+        "file_name": null
+      },
+      {
+        "sort_no": 5,
+        "property_filter": null,
+        "type": null,
+        "name": "Miljö/Byggvarudeklaration - Rostfritt",
+        "language": "sv-SE",
+        "document": null,
+        "file_name": null
+      },
+      {
+        "sort_no": 6,
+        "property_filter": null,
+        "type": null,
+        "name": "Miljö/Byggvarudeklaration - Rostfritt, syrafast",
+        "language": "sv-SE",
+        "document": null,
+        "file_name": null
+      },
+      {
+        "sort_no": 7,
+        "property_filter": null,
+        "type": null,
+        "name": "Tillbehör",
+        "language": "sv-SE",
+        "document": null,
+        "file_name": null
+      },
+      {
+        "sort_no": 15,
+        "property_filter": null,
+        "type": null,
+        "name": "Product/Operation and Maintenance Instructions",
+        "language": "en-US",
+        "document": null,
+        "file_name": null
+      }
+    ],
+    "ct_etdfetdf": [],
+    "ct_hej": [],
+    "image": [
+      {
+        "sort_no": 0,
+        "image": null,
+        "file_name": "2015-09-24 16_11_55-Promaster - Internet Explorer.png",
+        "property_filter": "material=3",
+        "type": null,
+        "name": "product_image",
+        "size": null
+      },
+      {
+        "sort_no": 1,
+        "image": null,
+        "file_name": "test.jpg",
+        "property_filter": "material=2",
+        "type": null,
+        "name": "product_image",
+        "size": null
+      }
+    ],
+    "language": [
+      {
+        "sort_no": 0,
+        "name": "sv-SE"
+      },
+      {
+        "sort_no": 2,
+        "name": "en-US"
+      }
+    ],
+    "market": [
+      {
+        "sort_no": 0,
+        "name": "DK",
+        "default_language": "Dansk",
+        "currency": "DKK"
+      },
+      {
+        "sort_no": 1,
+        "name": "SV",
+        "default_language": "Svenska",
+        "currency": "SEK"
+      },
+      {
+        "sort_no": 2,
+        "name": "EN",
+        "default_language": "English",
+        "currency": "EURO"
+      }
+    ],
+    "model": [
+      {
+        "sort_no": 0,
+        "property_filter": null,
+        "name": "DEMODAMPER",
+        "model": null,
+        "file_name": "damper.qmd",
+        "params": [
+          {
+            "sort_no": 0,
+            "property_filter": "width!=null&height!=null",
+            "model_params": "L=220;S=40;B={width};H={height}"
+          }
+        ]
+      }
+    ],
+    "module": [
+      {
+        "sort_no": 0,
+        "name": "model"
+      },
+      {
+        "sort_no": 1,
+        "name": "calculation"
+      }
+    ],
+    "property": [
+      {
+        "sort_no": 0,
+        "name": "width",
+        "group": null,
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "400",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "400"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "400"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "600",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "600"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "600"
+              }
+            ]
+          },
+          {
+            "sort_no": 2,
+            "value": "800",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "800"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "800"
+              }
+            ]
+          },
+          {
+            "sort_no": 3,
+            "value": "1000",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "1000"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "1000"
+              }
+            ]
+          },
+          {
+            "sort_no": 5,
+            "value": "1400",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "1400"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "1400"
+              }
+            ]
+          },
+          {
+            "sort_no": 7,
+            "value": "1600",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "1600"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "1600"
+              }
+            ]
+          },
+          {
+            "sort_no": 8,
+            "value": "1800",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "1800"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "1800"
+              }
+            ]
+          },
+          {
+            "sort_no": 9,
+            "value": "2000",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "2000"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "2000"
+              }
+            ]
+          },
+          {
+            "sort_no": 10,
+            "value": "2500",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 2,
+                "language": "en-US",
+                "translation": "2000"
+              },
+              {
+                "sort_no": 2,
+                "language": "sv-SE",
+                "translation": "2000"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": null,
+            "translation": "Bredd"
+          },
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": null,
+            "translation": "Width"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 1,
+        "name": "height",
+        "group": null,
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "400",
+            "property_filter": "width=400, 600&material=1",
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "400"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "400"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "600",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "600"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "600"
+              }
+            ]
+          },
+          {
+            "sort_no": 2,
+            "value": "800",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "800"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "800"
+              }
+            ]
+          },
+          {
+            "sort_no": 3,
+            "value": "1000",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "1000"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "1000"
+              }
+            ]
+          },
+          {
+            "sort_no": 4,
+            "value": "1200",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "1200"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "1200"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Höjd ändrad"
+          },
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Height changed"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 3,
+        "name": "tightness",
+        "group": null,
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Class 1"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Klass 1"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Class 2"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Klass 2"
+              }
+            ]
+          },
+          {
+            "sort_no": 2,
+            "value": "3",
+            "property_filter": "width=800&height=800",
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Class 3"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Klass 3"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": null,
+            "translation": "Täthet"
+          },
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": null,
+            "translation": "Tightness"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 4,
+        "name": "material",
+        "group": null,
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": "width=800~1000",
+            "image": null,
+            "description": "Aluminium",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Aluminium"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Aluminium"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": null,
+            "image": null,
+            "description": "Varmförzinkad",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Varmförzinkad"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Varmförzinkad"
+              }
+            ]
+          },
+          {
+            "sort_no": 2,
+            "value": "3",
+            "property_filter": null,
+            "image": null,
+            "description": "Rostfritt",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Stainless"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Rostfritt"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": null,
+            "translation": "Material"
+          },
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": null,
+            "translation": "Material"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 5,
+        "name": "connection",
+        "group": null,
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": null,
+            "image": null,
+            "description": "Gejd",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "Gejd"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "Gejd"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": null,
+            "image": null,
+            "description": "Fläns",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Fläns"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Fläns"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": null,
+            "translation": "Anslutning"
+          },
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": null,
+            "translation": "Connection"
+          }
+        ],
+        "def_value": []
+      }
+    ],
+    "shape": [
+      {
+        "sort_no": 0,
+        "property_filter": "width!=null&height!=null",
+        "shape": "rectangular",
+        "size": [
+          {
+            "sort_no": 0,
+            "property_filter": null,
+            "dim1": "{width}",
+            "dim2": "{height}"
+          }
+        ]
+      }
+    ],
+    "sound_variant": [
+      {
+        "sort_no": 0,
+        "property_filter": null,
+        "comment": null,
+        "pressure_interpolation": "polynomial",
+        "sound_measure": "lp10a",
+        "type": "flow",
+        "area_ref": null,
+        "min_flow": 0.2,
+        "max_flow": 112,
+        "min_pressure": 2,
+        "max_pressure": 150,
+        "min_rec_flow": null,
+        "max_rec_flow": null,
+        "min_rec_pressure": 20,
+        "max_rec_pressure": 100,
+        "damper": [
+          {
+            "sort_no": 0,
+            "damper": "30",
+            "flow": 0.5,
+            "pressure": 20
+          },
+          {
+            "sort_no": 1,
+            "damper": "45",
+            "flow": 1.3,
+            "pressure": 22
+          },
+          {
+            "sort_no": 2,
+            "damper": "90",
+            "flow": 5,
+            "pressure": 12
+          }
+        ],
+        "sound": [
+          {
+            "sort_no": 0,
+            "damper": null,
+            "flow": 0.4,
+            "pressure": 12,
+            "lw63": 0,
+            "lw125": 47,
+            "lw250": 45,
+            "lw500": 44,
+            "lw1k": 39,
+            "lw2k": 32,
+            "lw4k": 25,
+            "lw8k": 22,
+            "total": null
+          },
+          {
+            "sort_no": 1,
+            "damper": null,
+            "flow": 0.9,
+            "pressure": 27,
+            "lw63": 0,
+            "lw125": 46,
+            "lw250": 43,
+            "lw500": 44,
+            "lw1k": 39,
+            "lw2k": 32,
+            "lw4k": 24,
+            "lw8k": 21,
+            "total": null
+          },
+          {
+            "sort_no": 2,
+            "damper": null,
+            "flow": 3.5,
+            "pressure": 6.5,
+            "lw63": 0,
+            "lw125": 46,
+            "lw250": 43,
+            "lw500": 45,
+            "lw1k": 38,
+            "lw2k": 31,
+            "lw4k": 25,
+            "lw8k": 21,
+            "total": null
+          },
+          {
+            "sort_no": 3,
+            "damper": null,
+            "flow": 4.3,
+            "pressure": 9.8,
+            "lw63": 0,
+            "lw125": 51,
+            "lw250": 48,
+            "lw500": 50,
+            "lw1k": 43,
+            "lw2k": 36,
+            "lw4k": 3,
+            "lw8k": 26,
+            "total": null
+          },
+          {
+            "sort_no": 4,
+            "damper": null,
+            "flow": 0.6,
+            "pressure": 27.4,
+            "lw63": 0,
+            "lw125": 51,
+            "lw250": 50,
+            "lw500": 49,
+            "lw1k": 43,
+            "lw2k": 37,
+            "lw4k": 30,
+            "lw8k": 27,
+            "total": null
+          }
+        ],
+        "sound_line": [
+          {
+            "sort_no": 0,
+            "sound_level": 25
+          },
+          {
+            "sort_no": 1,
+            "sound_level": 35
+          },
+          {
+            "sort_no": 2,
+            "sound_level": 45
+          }
+        ]
+      },
+      {
+        "sort_no": 1,
+        "property_filter": "width!=1000",
+        "comment": null,
+        "pressure_interpolation": "polynomial",
+        "sound_measure": "lp10a",
+        "type": "flow",
+        "area_ref": null,
+        "min_flow": null,
+        "max_flow": null,
+        "min_pressure": null,
+        "max_pressure": null,
+        "min_rec_flow": null,
+        "max_rec_flow": null,
+        "min_rec_pressure": null,
+        "max_rec_pressure": null,
+        "damper": [],
+        "sound": [],
+        "sound_line": []
+      }
+    ],
+    "text": [
+      {
+        "sort_no": 0,
+        "property_filter": "tightness=3",
+        "name": "name",
+        "language": "sv-SE",
+        "text": "DEMOSVENSK - TÄTHETSKLASS 1x\nDEMOSVENSK - TÄTHETSKLASS 1",
+        "comment": null
+      },
+      {
+        "sort_no": 0,
+        "property_filter": "tightness=2",
+        "name": "name",
+        "language": "sv-SE",
+        "text": "DEMOSVENSK - TÄTHETSKLASS 2",
+        "comment": null
+      },
+      {
+        "sort_no": 0,
+        "property_filter": "tightness=2",
+        "name": "name",
+        "language": "en-US",
+        "text": null,
+        "comment": null
+      },
+      {
+        "sort_no": 0,
+        "property_filter": "tightness=3",
+        "name": "name",
+        "language": "en-US",
+        "text": null,
+        "comment": null
+      },
+      {
+        "sort_no": 1,
+        "property_filter": "tightness=2",
+        "name": "name",
+        "language": "en-US",
+        "text": "DEMOENGELSK test 2",
+        "comment": null
+      },
+      {
+        "sort_no": 1,
+        "property_filter": "tightness=3",
+        "name": "name",
+        "language": "en-US",
+        "text": "DEMOENGELSK test 3",
+        "comment": null
+      },
+      {
+        "sort_no": 3,
+        "property_filter": null,
+        "name": "short_description",
+        "language": "sv-SE",
+        "text": "Regler- och avstängningsspjäll Täthetsklass 1-3 >>",
+        "comment": null
+      },
+      {
+        "sort_no": 4,
+        "property_filter": null,
+        "name": "short_description",
+        "language": "en-US",
+        "text": "Control and shut-off damper Seal class 1-3 >>",
+        "comment": null
+      },
+      {
+        "sort_no": 6,
+        "property_filter": null,
+        "name": "long_description",
+        "language": "sv-SE",
+        "text": "**Ett regler- och avstängningsspjäll** avsett för komfort- eller industri- ventilationsanläggningar. Spjället har goda regleregenskaper. Spjäll enligt klass 1 används vid injustering och reglering. Spjäll klass 2/3 används som avstängningsspjäll.",
+        "comment": null
+      },
+      {
+        "sort_no": 7,
+        "property_filter": null,
+        "name": "long_description",
+        "language": "en-US",
+        "text": "A damper designed for comfort or industrial ventilation systems.The damper has good regulating properties. Class 1 compliant damper used for adjustment and control. Class 2/3 dampers are used as shut-off dampers.",
+        "comment": null
+      },
+      {
+        "sort_no": 8,
+        "property_filter": null,
+        "name": "test",
+        "language": "sv-SE",
+        "text": "• Högpresterande 4-vägsblåsande komfortmodul med kyla, värme och ventilation\n\n• Stort spann mellan lägsta och högsta luftflöde\n\n• Få varianter klarar många behov\n\n• Optimerad för låg energiförbrukning\n\n• Hanterar höga luftflöden vid låga drivtryck\n\n• Låg ljudnivå\n\n• Enkel installation genom låg vikt, kompakta mått och valbar luftanslutning på kort eller långsida\n\n• Snygg design med valbara perforeringsmönster",
+        "comment": null
+      },
+      {
+        "sort_no": 8,
+        "property_filter": null,
+        "name": "test",
+        "language": "en-US",
+        "text": "• High performance 4-way distribution comfort module with cooling, heating and ventilation\n\n• Large span between the lowest and highest air flow\n\n• Few variants serve many needs\n\n• Optimized for low energy consumption\n\n• Manages high air flow at low driving pressure\n\n• Low sound level\n\n• Easy installation on account of low weight, compact dimensions and optional air connections on short or long sides\n\n• Stylish design with optional perforation pattern",
+        "comment": null
+      }
+    ]
+  },
+  {
+    "property": [
+      {
+        "sort_no": 0,
+        "name": "fantype",
+        "group": "Fan",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": null,
+            "image": "/blobs/65f4db70e2e65898326430ea57c0e6cb36f0b0d2",
+            "description": "Plug fan",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Plug fan"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Kammarfläkt"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": null,
+            "image": "/blobs/27f199a7324ceabc67fd06823fe179ba2e74a59d",
+            "description": "Centrifugal fan",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Centrifugal fan"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Radialfläkt"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Fan type"
+          },
+          {
+            "sort_no": 1,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Fläkttyp"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 1,
+        "name": "fanmodel",
+        "group": "Fan",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": null,
+            "image": null,
+            "description": "model A",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Model A"
+              },
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "Modell A"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": null,
+            "image": null,
+            "description": "model B",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "English",
+                "translation": "Model B"
+              },
+              {
+                "sort_no": 0,
+                "language": "Svenska",
+                "translation": "Modell B"
+              }
+            ]
+          },
+          {
+            "sort_no": 2,
+            "value": "3",
+            "property_filter": "fantype=1&fansize=300",
+            "image": null,
+            "description": "model C",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "English",
+                "translation": "Model C"
+              },
+              {
+                "sort_no": 0,
+                "language": "Svenska",
+                "translation": "Modell C"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Fläktmodell"
+          },
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Fan model"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 2,
+        "name": "fansize",
+        "group": "Fan",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "300",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "300"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "300"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "400",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "400"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "400"
+              }
+            ]
+          },
+          {
+            "sort_no": 2,
+            "value": "500",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "500"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "500"
+              }
+            ]
+          },
+          {
+            "sort_no": 3,
+            "value": "700",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "600"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "600"
+              }
+            ]
+          },
+          {
+            "sort_no": 3,
+            "value": "600",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "600"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "600"
+              }
+            ]
+          },
+          {
+            "sort_no": 4,
+            "value": "900",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": []
+          },
+          {
+            "sort_no": 5,
+            "value": "100000000000000000000",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": []
+          },
+          {
+            "sort_no": 6,
+            "value": null,
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": []
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Fläktstorlek"
+          },
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Fan size"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 3,
+        "name": "bladetype",
+        "group": "Fan",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Forward curved"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Framåtböjda"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": "fanmodel=1",
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Backward curved"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Bakåtböjda"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Fan blade"
+          },
+          {
+            "sort_no": 1,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Fläktblad"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 4,
+        "name": "bladematerial",
+        "group": "Fan",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": null,
+            "image": null,
+            "description": "Aluminium",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Aluminium"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Aluminium"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": null,
+            "image": null,
+            "description": "Nylon",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Nylon"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Nylon"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Material fläktblad"
+          },
+          {
+            "sort_no": 1,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Fan blade material"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 5,
+        "name": "fanmotor",
+        "group": "Motor",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": null,
+            "image": null,
+            "description": "AC IE3",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "AC IE2"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "AC IE2"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": null,
+            "image": null,
+            "description": "AC IE3",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "AC IE3"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "AC IE3"
+              }
+            ]
+          },
+          {
+            "sort_no": 2,
+            "value": "3",
+            "property_filter": null,
+            "image": null,
+            "description": "EC",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "EC"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "EC"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Motor"
+          },
+          {
+            "sort_no": 1,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Motor"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 6,
+        "name": "numberofpoles",
+        "group": "Motor",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "2",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "2-poles"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "2-polig"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "4",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "4-poles"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "4-polig"
+              }
+            ]
+          },
+          {
+            "sort_no": 2,
+            "value": "6",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "6-poles"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "6-polig"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Poles"
+          },
+          {
+            "sort_no": 1,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Poler"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 7,
+        "name": "drive",
+        "group": "Motor",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": "fantype=2",
+            "image": null,
+            "description": "Belt",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Belt"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Rem"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": "fantype=1",
+            "image": null,
+            "description": "Direct",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Direct"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Direkt"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Drive"
+          },
+          {
+            "sort_no": 1,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Drivenhet"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 8,
+        "name": "airvolume",
+        "group": "Performance",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "MassFlow",
+        "value": [],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Air Volume"
+          },
+          {
+            "sort_no": 1,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Luftmängd"
+          }
+        ],
+        "def_value": [
+          {
+            "sort_no": 0,
+            "value": "500:LiterPerHour",
+            "property_filter": null
+          }
+        ]
+      },
+      {
+        "sort_no": 9,
+        "name": "esp",
+        "group": "Performance",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": "esp>50:Pascal&esp<500:Pascal",
+        "quantity": "Pressure",
+        "value": [],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Externt tryck"
+          },
+          {
+            "sort_no": 1,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "External pressure"
+          }
+        ],
+        "def_value": [
+          {
+            "sort_no": 0,
+            "value": "160:Pascal",
+            "property_filter": null
+          }
+        ]
+      }
+    ],
+    "ct_ItemNo": [
+      {
+        "sort_no": 10,
+        "ordering_code": "FAN-1-1-7",
+        "item_no": "ITEM_1B"
+      },
+      {
+        "sort_no": 20,
+        "ordering_code": "FAN-2-2-A",
+        "item_no": "ITEM_4"
+      },
+      {
+        "sort_no": 30,
+        "ordering_code": "FAN-2-1-A",
+        "item_no": "ITEM_3"
+      },
+      {
+        "sort_no": 40,
+        "ordering_code": "FAN-1-2-A",
+        "item_no": "ITEM_2"
+      }
+    ],
+    "ct_Weight": [
+      {
+        "sort_no": 10,
+        "property_filter": "fantype=1&fansize=300",
+        "Weight": 51
+      },
+      {
+        "sort_no": 11,
+        "property_filter": "fantype=1&fansize=400",
+        "Weight": 72
+      },
+      {
+        "sort_no": 12,
+        "property_filter": "fantype=1&fansize=500",
+        "Weight": 92
+      },
+      {
+        "sort_no": 13,
+        "property_filter": "fantype=1&fansize=600",
+        "Weight": 101
+      },
+      {
+        "sort_no": 14,
+        "property_filter": "fantype=2&fansize=300",
+        "Weight": 61
+      },
+      {
+        "sort_no": 15,
+        "property_filter": "fantype=2&fansize=400",
+        "Weight": 81
+      },
+      {
+        "sort_no": 16,
+        "property_filter": "fantype=2&fansize=500",
+        "Weight": 95
+      },
+      {
+        "sort_no": 17,
+        "property_filter": "fantype=2&fansize=600",
+        "Weight": 105
+      }
+    ],
+    "code": [
+      {
+        "sort_no": 0,
+        "property_filter": null,
+        "type": "main",
+        "code": "FAN-{fantype}-{fanmodel}"
+      },
+      {
+        "sort_no": 1,
+        "property_filter": "fanmotor=1",
+        "type": "main",
+        "code": "-A"
+      },
+      {
+        "sort_no": 2,
+        "property_filter": "fanmotor=2",
+        "type": "main",
+        "code": "-B"
+      },
+      {
+        "sort_no": 3,
+        "property_filter": "fanmotor=3",
+        "type": "main",
+        "code": "-C"
+      }
+    ],
+    "document": [],
+    "image": [
+      {
+        "sort_no": 0,
+        "image": "/blobs/65f4db70e2e65898326430ea57c0e6cb36f0b0d2",
+        "file_name": "plug-fan.jpeg",
+        "property_filter": "fantype=1",
+        "type": "product_photo",
+        "name": "Plug fan",
+        "size": null
+      },
+      {
+        "sort_no": 1,
+        "image": "/blobs/27f199a7324ceabc67fd06823fe179ba2e74a59d",
+        "file_name": "centrifugal-fan.jpeg",
+        "property_filter": "fantype=2",
+        "type": "product_photo",
+        "name": "Centrifugal fan",
+        "size": null
+      }
+    ],
+    "language": [
+      {
+        "sort_no": 0,
+        "name": "sv-SE"
+      },
+      {
+        "sort_no": 0,
+        "name": "en-US"
+      }
+    ],
+    "text": [
+      {
+        "sort_no": 0,
+        "property_filter": "fantype=1",
+        "name": "name",
+        "language": "en-US",
+        "text": "Very good plug fan°",
+        "comment": null
+      },
+      {
+        "sort_no": 1,
+        "property_filter": "fantype=1",
+        "name": "name",
+        "language": "sv-SE",
+        "text": "Väldigt bra kammarfläkt",
+        "comment": null
+      },
+      {
+        "sort_no": 2,
+        "property_filter": "fantype=2",
+        "name": "name",
+        "language": "en-US",
+        "text": "Very good centrifugalfan",
+        "comment": null
+      },
+      {
+        "sort_no": 3,
+        "property_filter": "fantype=2",
+        "name": "name",
+        "language": "sv-SE",
+        "text": "Väldigt bra centrifugalfläkt",
+        "comment": null
+      },
+      {
+        "sort_no": 4,
+        "property_filter": null,
+        "name": "short_description",
+        "language": "en-US",
+        "text": "A short and classy description x",
+        "comment": null
+      },
+      {
+        "sort_no": 5,
+        "property_filter": null,
+        "name": "short_description",
+        "language": "sv-SE",
+        "text": "En kort och välformulerad beskrivning",
+        "comment": null
+      },
+      {
+        "sort_no": 6,
+        "property_filter": null,
+        "name": "long_description",
+        "language": "en-US",
+        "text": "A long and very detailed description.",
+        "comment": null
+      },
+      {
+        "sort_no": 7,
+        "property_filter": null,
+        "name": "long_description",
+        "language": "sv-SE",
+        "text": "En lång och detaljerad beskrivning",
+        "comment": null
+      }
+    ]
+  },
+  {},
+  {
+    "property": [
+      {
+        "sort_no": 0,
+        "name": "fantype",
+        "group": "Fan",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": null,
+            "image": "/blobs/65f4db70e2e65898326430ea57c0e6cb36f0b0d2",
+            "description": "Plug fan",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Plug fan"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Kammarfläkt"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": null,
+            "image": "/blobs/27f199a7324ceabc67fd06823fe179ba2e74a59d",
+            "description": "Centrifugal fan",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Centrifugal fan"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Radialfläkt"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Fan type"
+          },
+          {
+            "sort_no": 1,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Fläkttyp"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 1,
+        "name": "fanmodel",
+        "group": "Fan",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": null,
+            "image": null,
+            "description": "model A",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "Modell A"
+              },
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Model A"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": null,
+            "image": null,
+            "description": "model B",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "Svenska",
+                "translation": "Modell B"
+              },
+              {
+                "sort_no": 0,
+                "language": "English",
+                "translation": "Model B"
+              }
+            ]
+          },
+          {
+            "sort_no": 2,
+            "value": "3",
+            "property_filter": "fantype=1&fansize=300",
+            "image": null,
+            "description": "model C",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "Svenska",
+                "translation": "Modell C"
+              },
+              {
+                "sort_no": 0,
+                "language": "English",
+                "translation": "Model C"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Fan model"
+          },
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Fläktmodell"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 2,
+        "name": "fansize",
+        "group": "Fan",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "300",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "300"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "300"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "400",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "400"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "400"
+              }
+            ]
+          },
+          {
+            "sort_no": 2,
+            "value": "500",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "500"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "500"
+              }
+            ]
+          },
+          {
+            "sort_no": 3,
+            "value": "700",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "600"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "600"
+              }
+            ]
+          },
+          {
+            "sort_no": 3,
+            "value": "600",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "sv-SE",
+                "translation": "600"
+              },
+              {
+                "sort_no": 1,
+                "language": "en-US",
+                "translation": "600"
+              }
+            ]
+          },
+          {
+            "sort_no": 4,
+            "value": "900",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": []
+          },
+          {
+            "sort_no": 5,
+            "value": "100000000000000000000",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": []
+          },
+          {
+            "sort_no": 6,
+            "value": null,
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": []
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Fläktstorlek"
+          },
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Fan size"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 3,
+        "name": "bladetype",
+        "group": "Fan",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Forward curved"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Framåtböjda"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": "fanmodel=1",
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Backward curved"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Bakåtböjda"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Fan blade"
+          },
+          {
+            "sort_no": 1,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Fläktblad"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 4,
+        "name": "bladematerial",
+        "group": "Fan",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": null,
+            "image": null,
+            "description": "Aluminium",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Aluminium"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Aluminium"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": null,
+            "image": null,
+            "description": "Nylon",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Nylon"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Nylon"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Material fläktblad"
+          },
+          {
+            "sort_no": 1,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Fan blade material"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 5,
+        "name": "fanmotor",
+        "group": "Motor",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": null,
+            "image": null,
+            "description": "AC IE3",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "AC IE2"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "AC IE2"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": null,
+            "image": null,
+            "description": "AC IE3",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "AC IE3"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "AC IE3"
+              }
+            ]
+          },
+          {
+            "sort_no": 2,
+            "value": "3",
+            "property_filter": null,
+            "image": null,
+            "description": "EC",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "EC"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "EC"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Motor"
+          },
+          {
+            "sort_no": 1,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Motor"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 6,
+        "name": "numberofpoles",
+        "group": "Motor",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "2",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "2-poles"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "2-polig"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "4",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "4-poles"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "4-polig"
+              }
+            ]
+          },
+          {
+            "sort_no": 2,
+            "value": "6",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "6-poles"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "6-polig"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Poles"
+          },
+          {
+            "sort_no": 1,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Poler"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 7,
+        "name": "drive",
+        "group": "Motor",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "Discrete",
+        "value": [
+          {
+            "sort_no": 0,
+            "value": "1",
+            "property_filter": "fantype=2",
+            "image": null,
+            "description": "Belt",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Belt"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Rem"
+              }
+            ]
+          },
+          {
+            "sort_no": 1,
+            "value": "2",
+            "property_filter": "fantype=1",
+            "image": null,
+            "description": "Direct",
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "Direct"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "Direkt"
+              }
+            ]
+          }
+        ],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Drive"
+          },
+          {
+            "sort_no": 1,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Drivenhet"
+          }
+        ],
+        "def_value": []
+      },
+      {
+        "sort_no": 8,
+        "name": "airvolume",
+        "group": "Performance",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": null,
+        "quantity": "MassFlow",
+        "value": [],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "Air Volume"
+          },
+          {
+            "sort_no": 1,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Luftmängd"
+          }
+        ],
+        "def_value": [
+          {
+            "sort_no": 0,
+            "value": "500:LiterPerHour",
+            "property_filter": null
+          }
+        ]
+      },
+      {
+        "sort_no": 9,
+        "name": "esp",
+        "group": "Performance",
+        "image": null,
+        "visibility_filter": null,
+        "validation_filter": "esp>50:Pascal&esp<500:Pascal",
+        "quantity": "Pressure",
+        "value": [],
+        "translation": [
+          {
+            "sort_no": 0,
+            "language": "sv-SE",
+            "type": "standard",
+            "translation": "Externt tryck"
+          },
+          {
+            "sort_no": 1,
+            "language": "en-US",
+            "type": "standard",
+            "translation": "External pressure"
+          }
+        ],
+        "def_value": [
+          {
+            "sort_no": 0,
+            "value": "160:Pascal",
+            "property_filter": null
+          }
+        ]
+      }
+    ],
+    "ct_ItemNo": [
+      {
+        "sort_no": 0,
+        "ordering_code": "FAN-2-1-A",
+        "item_no": "ITEM_3"
+      },
+      {
+        "sort_no": 0,
+        "ordering_code": "FAN-2-2-A",
+        "item_no": "ITEM_4"
+      },
+      {
+        "sort_no": 0,
+        "ordering_code": "FAN-1-1-7",
+        "item_no": "ITEM_1B"
+      },
+      {
+        "sort_no": 0,
+        "ordering_code": "FAN-1-2-A",
+        "item_no": "ITEM_2"
+      }
+    ],
+    "ct_Weight": [
+      {
+        "sort_no": 10,
+        "property_filter": "fantype=1&fansize=300",
+        "Weight": 51
+      },
+      {
+        "sort_no": 11,
+        "property_filter": "fantype=1&fansize=400",
+        "Weight": 71
+      },
+      {
+        "sort_no": 12,
+        "property_filter": "fantype=1&fansize=50",
+        "Weight": 91
+      },
+      {
+        "sort_no": 13,
+        "property_filter": "fantype=1&fansize=60",
+        "Weight": 100
+      },
+      {
+        "sort_no": 14,
+        "property_filter": "fantype=2&fansize=300",
+        "Weight": 190
+      },
+      {
+        "sort_no": 15,
+        "property_filter": "fantype=2&fansize=400",
+        "Weight": 81
+      },
+      {
+        "sort_no": 16,
+        "property_filter": "fantype=2&fansize=400",
+        "Weight": 95
+      },
+      {
+        "sort_no": 17,
+        "property_filter": "fantype=2&fansize=600",
+        "Weight": 105
+      },
+      {
+        "sort_no": 18,
+        "property_filter": "fantype=2&fansize=300",
+        "Weight": 204
+      }
+    ],
+    "code": [
+      {
+        "sort_no": 0,
+        "property_filter": null,
+        "type": "main",
+        "code": "FAN-{fantype}-{fanmodel}"
+      },
+      {
+        "sort_no": 1,
+        "property_filter": "fanmotor=1",
+        "type": "main",
+        "code": "-A"
+      },
+      {
+        "sort_no": 2,
+        "property_filter": "fanmotor=2",
+        "type": "main",
+        "code": "-B"
+      },
+      {
+        "sort_no": 3,
+        "property_filter": "fanmotor=3",
+        "type": "main",
+        "code": "-C"
+      }
+    ],
+    "document": [],
+    "image": [
+      {
+        "sort_no": 0,
+        "image": "/blobs/65f4db70e2e65898326430ea57c0e6cb36f0b0d2",
+        "file_name": "plug-fan.jpeg",
+        "property_filter": "fantype=1",
+        "type": "product_photo",
+        "name": "Plug fan",
+        "size": null
+      },
+      {
+        "sort_no": 1,
+        "image": "/blobs/27f199a7324ceabc67fd06823fe179ba2e74a59d",
+        "file_name": "centrifugal-fan.jpeg",
+        "property_filter": "fantype=2",
+        "type": "product_photo",
+        "name": "Centrifugal fan",
+        "size": null
+      }
+    ],
+    "language": [
+      {
+        "sort_no": 0,
+        "name": "en-US"
+      },
+      {
+        "sort_no": 0,
+        "name": "sv-SE"
+      }
+    ],
+    "text": [
+      {
+        "sort_no": 0,
+        "property_filter": "fantype=1",
+        "name": "name",
+        "language": "en-US",
+        "text": "Very good plug fan°",
+        "comment": null
+      },
+      {
+        "sort_no": 1,
+        "property_filter": "fantype=1",
+        "name": "name",
+        "language": "sv-SE",
+        "text": "Väldigt bra kammarfläkt",
+        "comment": null
+      },
+      {
+        "sort_no": 2,
+        "property_filter": "fantype=2",
+        "name": "name",
+        "language": "en-US",
+        "text": "Very good centrifugalfan",
+        "comment": null
+      },
+      {
+        "sort_no": 3,
+        "property_filter": "fantype=2",
+        "name": "name",
+        "language": "sv-SE",
+        "text": "Väldigt bra centrifugalfläkt",
+        "comment": null
+      },
+      {
+        "sort_no": 4,
+        "property_filter": null,
+        "name": "short_description",
+        "language": "en-US",
+        "text": "A short and classy description x",
+        "comment": null
+      },
+      {
+        "sort_no": 5,
+        "property_filter": null,
+        "name": "short_description",
+        "language": "sv-SE",
+        "text": "En kort och välformulerad beskrivning",
+        "comment": null
+      },
+      {
+        "sort_no": 6,
+        "property_filter": null,
+        "name": "long_description",
+        "language": "en-US",
+        "text": "A long and very detailed description.",
+        "comment": null
+      },
+      {
+        "sort_no": 7,
+        "property_filter": null,
+        "name": "long_description",
+        "language": "sv-SE",
+        "text": "En lång och detaljerad beskrivning",
+        "comment": null
+      }
+    ]
+  }
+]

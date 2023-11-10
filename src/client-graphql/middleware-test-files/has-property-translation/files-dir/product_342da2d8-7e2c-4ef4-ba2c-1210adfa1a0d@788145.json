@@ -1,0 +1,23 @@
+{
+  "data": {
+    "id": "342da2d8-7e2c-4ef4-ba2c-1210adfa1a0d",
+    "key": "DEMODAMPER",
+    "name": "",
+    "description": "",
+    "retired": false,
+    "tables": {
+      "properties@property": 16,
+      "properties@property.def_value": 17,
+      "properties@property.translation": 18,
+      "properties@property.value": 19,
+      "properties@property.value.translation": 20
+    }
+  },
+  "refs": {
+    "16": "table_66c88372-ae07-4916-9dcf-4e6908820630@778616.json",
+    "17": "table_da231ae4-3a26-4248-800e-647c406de494@778616.json",
+    "18": "table_41e95dbf-729c-4704-8117-e49eb2c386d9@778616.json",
+    "19": "table_4041926f-f143-4ded-b487-0cfd4a2eac28@778616.json",
+    "20": "table_133c37d9-ad84-45f7-ab5b-457a0fe484c2@778616.json"
+  }
+}

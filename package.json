@@ -69,9 +69,11 @@
     "prom-client": "11.x",
     "prometheus-api-metrics": "^3.1.0",
     "source-map-support": "^0.5.3",
-    "uuid": "^8.3.0"
+    "uuid": "^8.3.0",
+    "vitest": "^0.34.5"
   },
   "scripts": {
+    "test": "vitest",
     "start": "tsc && tsc-watch --preserveWatchOutput --onSuccess \"node -r dotenv/config ./lib/server/server.js\" --onFailure \"echo Beep! Compilation Failed\"",
     "build": "tsc",
     "clean": "rm -rf lib",

@@ -1,0 +1,4828 @@
+[
+	{
+		"data": {
+			"products": [
+				{
+					"id": "342da2d8-7e2c-4ef4-ba2c-1210adfa1a0d",
+					"key": "DEMODAMPER",
+					"name": "",
+					"retired": false,
+					"modules": {
+						"custom_tables": {
+							"ItemNo": [
+								{
+									"builtin_id": "07c281ba-265d-47d0-8ad3-4d8298ed716e",
+									"sort_no": 1,
+									"ordering_code": "dfdfddfdfdfdf",
+									"item_no": "jkjkj"
+								},
+								{
+									"builtin_id": "5d6a65d0-f0e8-4221-9014-b955a2271863",
+									"sort_no": 2,
+									"ordering_code": null,
+									"item_no": null
+								},
+								{
+									"builtin_id": "98fae02d-7064-40a2-a276-cdc48e13cc21",
+									"sort_no": 3,
+									"ordering_code": null,
+									"item_no": null
+								},
+								{
+									"builtin_id": "bdde557f-b9e3-4001-8764-f6aa89269056",
+									"sort_no": 4,
+									"ordering_code": null,
+									"item_no": "ITEM_2"
+								}
+							],
+							"SoundAttenuation": [
+								{
+									"builtin_id": "b690fab9-b017-43df-a69b-de99d6798930",
+									"sort_no": 0,
+									"property_filter": "width=800",
+									"db63": null,
+									"db125": "51"
+								},
+								{
+									"builtin_id": "8c1d8cb1-ab81-4f0e-b9d3-350fa0e44e49",
+									"sort_no": 1,
+									"property_filter": "width=",
+									"db63": null,
+									"db125": "53"
+								},
+								{
+									"builtin_id": "48c0a30f-b91b-4e04-8103-cd59f9fb5f4e",
+									"sort_no": 2,
+									"property_filter": null,
+									"db63": null,
+									"db125": null
+								},
+								{
+									"builtin_id": "0aa7f297-70d1-45e1-a445-fa9799122cde",
+									"sort_no": 3,
+									"property_filter": null,
+									"db63": null,
+									"db125": null
+								}
+							],
+							"TABLEABC": [],
+							"Test123": [
+								{
+									"builtin_id": "e379ab0f-2f84-4fb2-8437-74364c257c46",
+									"sort_no": 0,
+									"property_filter": "width=800&height=1000",
+									"Pris": 200
+								},
+								{
+									"builtin_id": "16e63ca9-37eb-4f94-be26-e4646440754a",
+									"sort_no": 1,
+									"property_filter": "width=800&height=800",
+									"Pris": 80
+								}
+							],
+							"data": [
+								{
+									"builtin_id": "42f3e0eb-8812-4973-9762-7488f2bf3008",
+									"sort_no": 0,
+									"Propertyfilter": "width=400&height=600",
+									"Data": 31,
+									"Area": 31,
+									"Weight": 41
+								},
+								{
+									"builtin_id": "8a78a012-19f9-4648-b58f-dea8b00a0412",
+									"sort_no": 1,
+									"Propertyfilter": "width!=400&height!=600",
+									"Data": 60,
+									"Area": 40,
+									"Weight": 60
+								}
+							],
+							"etdfetdf": [],
+							"hej": [],
+							"Weight": []
+						},
+						"ordering_code": {
+							"code": [
+								{
+									"builtin_id": "aefa0ca4-eb8e-4507-8f97-df91f9d35fe6",
+									"sort_no": 0,
+									"property_filter": null,
+									"type": null,
+									"code": "DEMO"
+								},
+								{
+									"builtin_id": "0bc5bbb4-d738-452a-840e-c2eb5d37f967",
+									"sort_no": 1,
+									"property_filter": "width!=null&height!=null",
+									"type": null,
+									"code": "-{width}X{height}"
+								},
+								{
+									"builtin_id": "7665078a-1319-4dce-a91f-e8cb68b3709d",
+									"sort_no": 2,
+									"property_filter": "tightness=1",
+									"type": null,
+									"code": "-1"
+								},
+								{
+									"builtin_id": "3c37bcfb-6234-4859-992f-c6238eccd00e",
+									"sort_no": 3,
+									"property_filter": "tightness=2,3",
+									"type": null,
+									"code": "-2"
+								},
+								{
+									"builtin_id": "de87b5f5-cab2-40c4-878c-034f93b1843f",
+									"sort_no": 5,
+									"property_filter": "material=1",
+									"type": null,
+									"code": "-4"
+								},
+								{
+									"builtin_id": "407c4f9b-3bfb-4c44-a270-12c14778852b",
+									"sort_no": 6,
+									"property_filter": "material=2",
+									"type": null,
+									"code": "-5"
+								},
+								{
+									"builtin_id": "3a20d4ad-b4a8-437a-a4db-ef8413078ea3",
+									"sort_no": 7,
+									"property_filter": "material=3",
+									"type": null,
+									"code": "-6"
+								},
+								{
+									"builtin_id": "87838c9c-17c5-43ec-9fa7-61faece63fe1",
+									"sort_no": 10,
+									"property_filter": "connection=1",
+									"type": null,
+									"code": "-9"
+								},
+								{
+									"builtin_id": "2dd71b3b-14c7-4f73-a694-ea51f1871e92",
+									"sort_no": 11,
+									"property_filter": "connection=2",
+									"type": null,
+									"code": "-10"
+								}
+							]
+						},
+						"documents": {
+							"document": [
+								{
+									"builtin_id": "530d79c6-5c4d-443c-8810-970f8c88b4df",
+									"sort_no": 0,
+									"property_filter": "material=1",
+									"type": null,
+									"name": "Produkten/Drift- och skötselinformation",
+									"language": "sv-SE",
+									"document": null,
+									"file_name": null
+								},
+								{
+									"builtin_id": "ec6b6161-7110-4610-ab5c-cc9a7cee7d7e",
+									"sort_no": 1,
+									"property_filter": null,
+									"type": null,
+									"name": "CE-dokument",
+									"language": "sv-SE",
+									"document": null,
+									"file_name": null
+								},
+								{
+									"builtin_id": "eb2f7e64-5dbc-4aed-b0fd-af98c11fb7c5",
+									"sort_no": 2,
+									"property_filter": "material=2",
+									"type": null,
+									"name": "Miljö/Byggvarudeklaration - Förzinkat",
+									"language": "sv-SE",
+									"document": null,
+									"file_name": null
+								},
+								{
+									"builtin_id": "f80f0b73-d162-4f06-9cc2-f1d081544fef",
+									"sort_no": 3,
+									"property_filter": null,
+									"type": null,
+									"name": "Miljö/Byggvarudeklaration - Aluzink",
+									"language": "sv-SE",
+									"document": null,
+									"file_name": "_Aggregat 1.pdf"
+								},
+								{
+									"builtin_id": "556a9767-6520-426b-97fd-d5576f22fb59",
+									"sort_no": 4,
+									"property_filter": null,
+									"type": null,
+									"name": "Miljö/Byggvarudeklaration - Aluminium",
+									"language": "sv-SE",
+									"document": null,
+									"file_name": null
+								},
+								{
+									"builtin_id": "6700529f-af65-4f36-9400-7a9d97a7d2ed",
+									"sort_no": 5,
+									"property_filter": null,
+									"type": null,
+									"name": "Miljö/Byggvarudeklaration - Rostfritt",
+									"language": "sv-SE",
+									"document": null,
+									"file_name": null
+								},
+								{
+									"builtin_id": "516ba650-c2b1-43b3-b655-a9c000d26fd1",
+									"sort_no": 6,
+									"property_filter": null,
+									"type": null,
+									"name": "Miljö/Byggvarudeklaration - Rostfritt, syrafast",
+									"language": "sv-SE",
+									"document": null,
+									"file_name": null
+								},
+								{
+									"builtin_id": "763359a8-81e3-4af5-9aa3-1017bf0ec4e6",
+									"sort_no": 7,
+									"property_filter": null,
+									"type": null,
+									"name": "Tillbehör",
+									"language": "sv-SE",
+									"document": null,
+									"file_name": null
+								},
+								{
+									"builtin_id": "bdde30ae-7686-4e52-b745-7199aa04bbbf",
+									"sort_no": 15,
+									"property_filter": null,
+									"type": null,
+									"name": "Product/Operation and Maintenance Instructions",
+									"language": "en-US",
+									"document": null,
+									"file_name": null
+								}
+							]
+						},
+						"images": {
+							"image": [
+								{
+									"builtin_id": "0457acbf-ea33-459b-8149-3091bc1d56f0",
+									"sort_no": 0,
+									"image": "7ff79282e5294fedd7b92fad888190db4883844a",
+									"file_name": "demodamper.jpeg",
+									"property_filter": "material=2",
+									"type": null,
+									"name": "demodamper",
+									"size": null
+								}
+							]
+						},
+						"languages": {
+							"language": [
+								{
+									"builtin_id": "b9bbd6bc-effb-424c-b9ab-b04a8b161dd6",
+									"sort_no": 0,
+									"name": "sv-SE"
+								},
+								{
+									"builtin_id": "7196de20-e01f-4131-8bf1-38ce5f4e3128",
+									"sort_no": 2,
+									"name": "en-US"
+								}
+							]
+						},
+						"markets": {
+							"market": [
+								{
+									"builtin_id": "f3497536-cea7-42c1-8247-aa3e996f5e36",
+									"sort_no": 0,
+									"name": "DK",
+									"default_language": "Dansk",
+									"currency": "DKK"
+								},
+								{
+									"builtin_id": "b80ec067-0e7a-4ceb-b9eb-c19b64a4690c",
+									"sort_no": 1,
+									"name": "SV",
+									"default_language": "Svenska",
+									"currency": "SEK"
+								},
+								{
+									"builtin_id": "6165babb-a15c-476c-973d-915f457944ec",
+									"sort_no": 2,
+									"name": "EN",
+									"default_language": "English",
+									"currency": "EURO"
+								}
+							],
+							"market_price": []
+						},
+						"models": {
+							"model": [
+								{
+									"builtin_id": "0adefdb2-dae8-45fb-9a90-d83b5793fb35",
+									"sort_no": 0,
+									"property_filter": null,
+									"name": "DEMODAMPER",
+									"model": null,
+									"file_name": "damper.qmd",
+									"params": [
+										{
+											"builtin_id": "3591e889-4aaa-4a1d-93d5-4deca6daffe8",
+											"sort_no": 0,
+											"builtin_parent_id": "0adefdb2-dae8-45fb-9a90-d83b5793fb35",
+											"property_filter": "width!=null&height!=null",
+											"model_params": "L=220;S=40;B={width};H={height}"
+										}
+									]
+								}
+							]
+						},
+						"frontend": {
+							"module": [
+								{
+									"builtin_id": "0951fc18-6cd0-407f-a187-ec19b249c921",
+									"sort_no": 0,
+									"name": "model"
+								},
+								{
+									"builtin_id": "517a176d-6d67-43ad-86ce-09e734eabb60",
+									"sort_no": 1,
+									"name": "calculation"
+								}
+							]
+						},
+						"properties": {
+							"property": [
+								{
+									"builtin_id": "9a7ddbfb-83ab-4e0f-b7b3-c99ad8b0f50c",
+									"sort_no": 0,
+									"name": "width",
+									"group": null,
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "9d55ce5b-a346-473d-b138-552eb51fe52b",
+											"sort_no": 0,
+											"builtin_parent_id": "9a7ddbfb-83ab-4e0f-b7b3-c99ad8b0f50c",
+											"value": "400",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "400"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "400"
+												}
+											]
+										},
+										{
+											"builtin_id": "04bb87bb-ebbe-4936-b2e2-aaa52c9e9d55",
+											"sort_no": 1,
+											"builtin_parent_id": "9a7ddbfb-83ab-4e0f-b7b3-c99ad8b0f50c",
+											"value": "600",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "600"
+												},
+												{
+													"language": "en-US",
+													"translation": "600"
+												}
+											]
+										},
+										{
+											"builtin_id": "54582389-185b-42d1-a94f-407efa54df23",
+											"sort_no": 2,
+											"builtin_parent_id": "9a7ddbfb-83ab-4e0f-b7b3-c99ad8b0f50c",
+											"value": "800",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "800"
+												},
+												{
+													"language": "en-US",
+													"translation": "800"
+												}
+											]
+										},
+										{
+											"builtin_id": "e729be01-3eac-4a2b-acfa-d5a8595fcfd7",
+											"sort_no": 3,
+											"builtin_parent_id": "9a7ddbfb-83ab-4e0f-b7b3-c99ad8b0f50c",
+											"value": "1000",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "1000"
+												},
+												{
+													"language": "en-US",
+													"translation": "1000"
+												}
+											]
+										},
+										{
+											"builtin_id": "192cb334-4d84-42d3-8754-c6a81d69bec9",
+											"sort_no": 5,
+											"builtin_parent_id": "9a7ddbfb-83ab-4e0f-b7b3-c99ad8b0f50c",
+											"value": "1400",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "1400"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "1400"
+												}
+											]
+										},
+										{
+											"builtin_id": "697f2ee8-292e-47ac-9a31-b071f2e2c95b",
+											"sort_no": 7,
+											"builtin_parent_id": "9a7ddbfb-83ab-4e0f-b7b3-c99ad8b0f50c",
+											"value": "1600",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "1600"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "1600"
+												}
+											]
+										},
+										{
+											"builtin_id": "93463b57-f14f-4b17-8a9a-5d552049f9c3",
+											"sort_no": 8,
+											"builtin_parent_id": "9a7ddbfb-83ab-4e0f-b7b3-c99ad8b0f50c",
+											"value": "1800",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "1800"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "1800"
+												}
+											]
+										},
+										{
+											"builtin_id": "40c450c1-5278-46eb-a08f-b9c965d85362",
+											"sort_no": 9,
+											"builtin_parent_id": "9a7ddbfb-83ab-4e0f-b7b3-c99ad8b0f50c",
+											"value": "2000",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "2000"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "2000"
+												}
+											]
+										},
+										{
+											"builtin_id": "2e6ad046-905c-4593-9429-e1ace96f1ed9",
+											"sort_no": 10,
+											"builtin_parent_id": "9a7ddbfb-83ab-4e0f-b7b3-c99ad8b0f50c",
+											"value": "2500",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "2000"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "2000"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Width"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Bredd"
+										}
+									]
+								},
+								{
+									"builtin_id": "d4b15514-b7d0-46be-b84a-ee1789933e12",
+									"sort_no": 1,
+									"name": "height",
+									"group": null,
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "75fb9fc7-47fa-4c97-88bb-8d1094ee134f",
+											"sort_no": 0,
+											"builtin_parent_id": "d4b15514-b7d0-46be-b84a-ee1789933e12",
+											"value": "400",
+											"property_filter": "width=400, 600&material=1",
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "400"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "400"
+												}
+											]
+										},
+										{
+											"builtin_id": "6bb6028f-1978-48b3-9a75-a0dad7fb8ef1",
+											"sort_no": 1,
+											"builtin_parent_id": "d4b15514-b7d0-46be-b84a-ee1789933e12",
+											"value": "600",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "600"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "600"
+												}
+											]
+										},
+										{
+											"builtin_id": "ca6377f5-d46c-4e3f-b15b-48d3d1275a52",
+											"sort_no": 2,
+											"builtin_parent_id": "d4b15514-b7d0-46be-b84a-ee1789933e12",
+											"value": "800",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "800"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "800"
+												}
+											]
+										},
+										{
+											"builtin_id": "8fef42ba-2b7b-430f-a1f5-4c2df49728ff",
+											"sort_no": 3,
+											"builtin_parent_id": "d4b15514-b7d0-46be-b84a-ee1789933e12",
+											"value": "1000",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "1000"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "1000"
+												}
+											]
+										},
+										{
+											"builtin_id": "0c54da1e-b37c-44f2-804d-858caa3b8fc7",
+											"sort_no": 4,
+											"builtin_parent_id": "d4b15514-b7d0-46be-b84a-ee1789933e12",
+											"value": "1200",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "1200"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "1200"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Height changed"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Höjd ändrad"
+										}
+									]
+								},
+								{
+									"builtin_id": "434738eb-1597-4bce-9027-1ea3a9fb6f3f",
+									"sort_no": 3,
+									"name": "tightness",
+									"group": null,
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "10dbbe77-ba34-4c2d-9f60-c42cde0da5e1",
+											"sort_no": 0,
+											"builtin_parent_id": "434738eb-1597-4bce-9027-1ea3a9fb6f3f",
+											"value": "1",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Class 1"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Klass 1"
+												}
+											]
+										},
+										{
+											"builtin_id": "ca3f076f-c088-4fa1-b085-4aed7321a265",
+											"sort_no": 2,
+											"builtin_parent_id": "434738eb-1597-4bce-9027-1ea3a9fb6f3f",
+											"value": "2",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": []
+										},
+										{
+											"builtin_id": "f653cfb9-11cf-40d3-a25a-0821def76082",
+											"sort_no": 3,
+											"builtin_parent_id": "434738eb-1597-4bce-9027-1ea3a9fb6f3f",
+											"value": "3",
+											"property_filter": "width=800&height=800",
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Class 3"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Klass 3"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Tightness"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Täthet"
+										}
+									]
+								},
+								{
+									"builtin_id": "dbccd654-036f-4909-b3f8-18e6863e2e12",
+									"sort_no": 4,
+									"name": "material",
+									"group": null,
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "9bdd20d2-128d-41e6-ad09-b1be5f85d4ba",
+											"sort_no": 0,
+											"builtin_parent_id": "dbccd654-036f-4909-b3f8-18e6863e2e12",
+											"value": "1",
+											"property_filter": "width=800~1000",
+											"image": null,
+											"description": "Aluminium",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Aluminium"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Aluminium"
+												}
+											]
+										},
+										{
+											"builtin_id": "be9a02e8-e2ec-4955-813f-48343be89799",
+											"sort_no": 1,
+											"builtin_parent_id": "dbccd654-036f-4909-b3f8-18e6863e2e12",
+											"value": "2",
+											"property_filter": null,
+											"image": null,
+											"description": "Varmförzinkad",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Varmförzinkad"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Varmförzinkad"
+												}
+											]
+										},
+										{
+											"builtin_id": "abdf87d4-3c49-4a85-8427-07a6611e09f6",
+											"sort_no": 2,
+											"builtin_parent_id": "dbccd654-036f-4909-b3f8-18e6863e2e12",
+											"value": "3",
+											"property_filter": null,
+											"image": null,
+											"description": "Rostfritt",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Stainless"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Rostfritt"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Material"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Material"
+										}
+									]
+								},
+								{
+									"builtin_id": "adbda8e2-f567-46fb-af71-a5d96a046c2b",
+									"sort_no": 5,
+									"name": "connection",
+									"group": null,
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "e326f089-b6bf-44e4-9d42-83d8c01fe277",
+											"sort_no": 0,
+											"builtin_parent_id": "adbda8e2-f567-46fb-af71-a5d96a046c2b",
+											"value": "1",
+											"property_filter": null,
+											"image": null,
+											"description": "Gejd",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Gejd"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Gejd"
+												}
+											]
+										},
+										{
+											"builtin_id": "275006b8-b66e-45f3-9b8a-91449dc307b1",
+											"sort_no": 1,
+											"builtin_parent_id": "adbda8e2-f567-46fb-af71-a5d96a046c2b",
+											"value": "2",
+											"property_filter": null,
+											"image": null,
+											"description": "Fläns",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Fläns"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Fläns"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Connection"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Anslutning"
+										}
+									]
+								}
+							]
+						},
+						"size": {
+							"shape": [
+								{
+									"builtin_id": "7763e1eb-02ba-4001-8b8b-46b6bcac9400",
+									"sort_no": 0,
+									"property_filter": "width!=null&height!=null",
+									"shape": "rectangular"
+								}
+							],
+							"shape_size": []
+						},
+						"sound": {
+							"sound_variant": [
+								{
+									"builtin_id": "39213d58-1d1d-413e-9c87-0e0d3c40fa32",
+									"sort_no": 0,
+									"property_filter": null,
+									"comment": null,
+									"pressure_interpolation": "polynomial",
+									"sound_measure": "lp10a",
+									"type": "flow",
+									"area_ref": null,
+									"min_flow": 0.2,
+									"max_flow": 112,
+									"min_pressure": 2,
+									"max_pressure": 150,
+									"min_rec_flow": null,
+									"max_rec_flow": null,
+									"min_rec_pressure": 20,
+									"max_rec_pressure": 100,
+									"sound": [
+										{
+											"builtin_id": "fda515bd-70e5-4f0f-8ab2-f894710ce274",
+											"sort_no": 0,
+											"builtin_parent_id": "39213d58-1d1d-413e-9c87-0e0d3c40fa32",
+											"damper": null,
+											"flow": 0.4,
+											"pressure": 12,
+											"lw63": 0,
+											"lw125": 47,
+											"lw250": 45,
+											"lw500": 44,
+											"lw1k": 39,
+											"lw2k": 32,
+											"lw4k": 25,
+											"lw8k": 22,
+											"total": null
+										},
+										{
+											"builtin_id": "d478067d-6c3d-4ea2-adac-499a02b5ffb1",
+											"sort_no": 1,
+											"builtin_parent_id": "39213d58-1d1d-413e-9c87-0e0d3c40fa32",
+											"damper": null,
+											"flow": 0.9,
+											"pressure": 27,
+											"lw63": 0,
+											"lw125": 46,
+											"lw250": 43,
+											"lw500": 44,
+											"lw1k": 39,
+											"lw2k": 32,
+											"lw4k": 24,
+											"lw8k": 21,
+											"total": null
+										},
+										{
+											"builtin_id": "de4f3667-9bf5-4d6b-869b-21adcec50015",
+											"sort_no": 2,
+											"builtin_parent_id": "39213d58-1d1d-413e-9c87-0e0d3c40fa32",
+											"damper": null,
+											"flow": 3.5,
+											"pressure": 6.5,
+											"lw63": 0,
+											"lw125": 46,
+											"lw250": 43,
+											"lw500": 45,
+											"lw1k": 38,
+											"lw2k": 31,
+											"lw4k": 25,
+											"lw8k": 21,
+											"total": null
+										},
+										{
+											"builtin_id": "fa6f9bc4-c917-4fbc-8044-f6dfe627fdc5",
+											"sort_no": 3,
+											"builtin_parent_id": "39213d58-1d1d-413e-9c87-0e0d3c40fa32",
+											"damper": null,
+											"flow": 4.3,
+											"pressure": 9.8,
+											"lw63": 0,
+											"lw125": 51,
+											"lw250": 48,
+											"lw500": 50,
+											"lw1k": 43,
+											"lw2k": 36,
+											"lw4k": 3,
+											"lw8k": 26,
+											"total": null
+										},
+										{
+											"builtin_id": "65b3d2b6-b7b8-4539-adf6-c8ca0ef85635",
+											"sort_no": 4,
+											"builtin_parent_id": "39213d58-1d1d-413e-9c87-0e0d3c40fa32",
+											"damper": null,
+											"flow": 0.6,
+											"pressure": 27.4,
+											"lw63": 0,
+											"lw125": 51,
+											"lw250": 50,
+											"lw500": 49,
+											"lw1k": 43,
+											"lw2k": 37,
+											"lw4k": 30,
+											"lw8k": 27,
+											"total": null
+										}
+									],
+									"sound_line": [
+										{
+											"builtin_id": "f0cdb2a3-79dc-4746-a638-ed8d7a3095bf",
+											"sort_no": 0,
+											"builtin_parent_id": "39213d58-1d1d-413e-9c87-0e0d3c40fa32",
+											"sound_level": 25
+										},
+										{
+											"builtin_id": "7ff99c7c-acb5-49d0-a754-48da825ee967",
+											"sort_no": 1,
+											"builtin_parent_id": "39213d58-1d1d-413e-9c87-0e0d3c40fa32",
+											"sound_level": 35
+										},
+										{
+											"builtin_id": "6827dc26-4e23-4e78-a0c4-a2c3a6aabb6c",
+											"sort_no": 2,
+											"builtin_parent_id": "39213d58-1d1d-413e-9c87-0e0d3c40fa32",
+											"sound_level": 45
+										}
+									],
+									"damper": [
+										{
+											"builtin_id": "d30c3db3-4e76-4fec-b950-fe703f94f9ba",
+											"sort_no": 0,
+											"builtin_parent_id": "39213d58-1d1d-413e-9c87-0e0d3c40fa32",
+											"damper": "30",
+											"flow": 0.5,
+											"pressure": 20
+										},
+										{
+											"builtin_id": "24e8b0ad-5eb2-4ef8-982c-0df85e31cbd7",
+											"sort_no": 1,
+											"builtin_parent_id": "39213d58-1d1d-413e-9c87-0e0d3c40fa32",
+											"damper": "45",
+											"flow": 1.3,
+											"pressure": 22
+										},
+										{
+											"builtin_id": "56180983-d707-4c8c-b40b-22992177c25d",
+											"sort_no": 2,
+											"builtin_parent_id": "39213d58-1d1d-413e-9c87-0e0d3c40fa32",
+											"damper": "90",
+											"flow": 5,
+											"pressure": 12
+										}
+									]
+								}
+							]
+						}
+					}
+				},
+				{
+					"id": "8f179b5a-e2fb-4d22-8bf6-f928c3fd65e1",
+					"key": "demofan",
+					"name": "DEMOFAN",
+					"retired": false,
+					"modules": {
+						"custom_tables": {
+							"ItemNo": [
+								{
+									"builtin_id": "a2aee833-c002-4947-85c3-c31348959441",
+									"sort_no": 0,
+									"ordering_code": "FAN-2-1-A",
+									"item_no": "ITEM_3"
+								},
+								{
+									"builtin_id": "7735b843-2d29-4b1d-b5c3-fcdc4e9beccd",
+									"sort_no": 0,
+									"ordering_code": "FAN-2-2-A",
+									"item_no": "ITEM_4"
+								},
+								{
+									"builtin_id": "139a59b2-8b52-4956-b5e6-7f36d9ac535b",
+									"sort_no": 0,
+									"ordering_code": "FAN-1-1-7",
+									"item_no": "ITEM_1B"
+								},
+								{
+									"builtin_id": "6e417f1f-906b-4c7b-b6c3-4aae99c6d57e",
+									"sort_no": 0,
+									"ordering_code": "FAN-1-2-A",
+									"item_no": "ITEM_5"
+								}
+							],
+							"SoundAttenuation": [],
+							"TABLEABC": [],
+							"Test123": [],
+							"data": [],
+							"etdfetdf": [],
+							"hej": [],
+							"Weight": [
+								{
+									"builtin_id": "9181f3bd-f7bd-4e00-b16c-9346ec431b09",
+									"sort_no": 10,
+									"property_filter": "fantype=1&fansize=300",
+									"Weight": 51
+								},
+								{
+									"builtin_id": "5fe49d27-97c1-43e1-a64a-82ec5a80fab2",
+									"sort_no": 11,
+									"property_filter": "fantype=1&fansize=400",
+									"Weight": 71
+								},
+								{
+									"builtin_id": "7571e674-66f6-4530-97eb-c1637e648d4e",
+									"sort_no": 12,
+									"property_filter": "fantype=1&fansize=500",
+									"Weight": 91
+								},
+								{
+									"builtin_id": "e0908dac-1815-4ed4-928a-69a598aa6c35",
+									"sort_no": 13,
+									"property_filter": "fantype=1&fansize=600",
+									"Weight": 100
+								},
+								{
+									"builtin_id": "4cd16d04-04b6-446e-8ee1-5adf61f741bc",
+									"sort_no": 14,
+									"property_filter": "fantype=2&fansize=300",
+									"Weight": 190
+								},
+								{
+									"builtin_id": "b1a137f8-92df-4984-9474-0403cebdd725",
+									"sort_no": 15,
+									"property_filter": "fantype=2&fansize=400",
+									"Weight": 81
+								},
+								{
+									"builtin_id": "ea091dec-90aa-4195-9883-2487eee64aef",
+									"sort_no": 16,
+									"property_filter": "fantype=2&fansize=400",
+									"Weight": 96
+								},
+								{
+									"builtin_id": "a547aa3d-5625-41a2-ba6f-74f49fcd40ea",
+									"sort_no": 17,
+									"property_filter": "fantype=2&fansize=600",
+									"Weight": 105
+								},
+								{
+									"builtin_id": "9780b243-52c6-4111-87bc-98881a78d410",
+									"sort_no": 18,
+									"property_filter": "fantype=2&fansize=300",
+									"Weight": 204
+								}
+							]
+						},
+						"ordering_code": {
+							"code": [
+								{
+									"builtin_id": "4eb41351-183f-4a41-a898-d60c0941fe6d",
+									"sort_no": 0,
+									"property_filter": null,
+									"type": "main",
+									"code": "FAN-{fantype}-{fanmodel}"
+								},
+								{
+									"builtin_id": "4fbaf4db-28c1-4fbe-9fa0-7d269e5f7783",
+									"sort_no": 1,
+									"property_filter": "fanmotor=1",
+									"type": "main",
+									"code": "-A"
+								},
+								{
+									"builtin_id": "87faf363-51d0-471e-af99-d0055a5272a0",
+									"sort_no": 2,
+									"property_filter": "fanmotor=2",
+									"type": "main",
+									"code": "-B"
+								},
+								{
+									"builtin_id": "ee9fdaf9-c348-4f31-aae6-fba373d401ac",
+									"sort_no": 3,
+									"property_filter": "fanmotor=3",
+									"type": "main",
+									"code": "-C"
+								}
+							]
+						},
+						"documents": {
+							"document": []
+						},
+						"images": {
+							"image": [
+								{
+									"builtin_id": "c142ed79-ad09-411a-a62a-513c37b86e03",
+									"sort_no": 0,
+									"image": "65f4db70e2e65898326430ea57c0e6cb36f0b0d2",
+									"file_name": "plug-fan.jpeg",
+									"property_filter": "fantype=1",
+									"type": "product_photo",
+									"name": "Plug fan",
+									"size": null
+								},
+								{
+									"builtin_id": "7a66b7e4-d61f-4395-b681-b80804df9573",
+									"sort_no": 1,
+									"image": "27f199a7324ceabc67fd06823fe179ba2e74a59d",
+									"file_name": "centrifugal-fan.jpeg",
+									"property_filter": "fantype=2",
+									"type": "product_photo",
+									"name": "Centrifugal fan",
+									"size": null
+								}
+							]
+						},
+						"languages": {
+							"language": [
+								{
+									"builtin_id": "157319c5-0446-4949-98b3-2fff5a802ac3",
+									"sort_no": 0,
+									"name": "en-US"
+								},
+								{
+									"builtin_id": "0473f869-b054-4679-b8d3-b205fdd0dcb0",
+									"sort_no": 0,
+									"name": "sv-SE"
+								}
+							]
+						},
+						"markets": {
+							"market": [],
+							"market_price": []
+						},
+						"models": {
+							"model": []
+						},
+						"frontend": {
+							"module": []
+						},
+						"properties": {
+							"property": [
+								{
+									"builtin_id": "b9d71da0-faae-4244-a2b7-4d32f4e34798",
+									"sort_no": 0,
+									"name": "fantype",
+									"group": "Fan",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "54e414ee-c42a-442c-8406-2f5c149ce1e8",
+											"sort_no": 0,
+											"builtin_parent_id": "b9d71da0-faae-4244-a2b7-4d32f4e34798",
+											"value": "1",
+											"property_filter": null,
+											"image": "65f4db70e2e65898326430ea57c0e6cb36f0b0d2",
+											"description": "Plug fan",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Plug fan"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Kammarfläkt"
+												}
+											]
+										},
+										{
+											"builtin_id": "1fbc4280-3c4f-4d2d-adc0-e35733144594",
+											"sort_no": 1,
+											"builtin_parent_id": "b9d71da0-faae-4244-a2b7-4d32f4e34798",
+											"value": "2",
+											"property_filter": null,
+											"image": "27f199a7324ceabc67fd06823fe179ba2e74a59d",
+											"description": "Centrifugal fan",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Centrifugal fan"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Radialfläkt"
+												}
+											]
+										}
+									],
+									"defaults": [
+										{
+											"builtin_id": "4c83a01f-efb5-4477-8ec8-1daf4ae02e9c",
+											"sort_no": 0,
+											"builtin_parent_id": "b9d71da0-faae-4244-a2b7-4d32f4e34798",
+											"value": "1",
+											"property_filter": null
+										}
+									],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Fan type"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Fläkttyp"
+										}
+									]
+								},
+								{
+									"builtin_id": "7f141a94-e12d-4489-906e-dc1af2cef656",
+									"sort_no": 1,
+									"name": "fanmodel",
+									"group": "Fan",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "5cc2b7df-cd67-4c29-b9db-a4e133a641f8",
+											"sort_no": 0,
+											"builtin_parent_id": "7f141a94-e12d-4489-906e-dc1af2cef656",
+											"value": "1",
+											"property_filter": null,
+											"image": null,
+											"description": "model A",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Model A"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Modell A"
+												}
+											]
+										},
+										{
+											"builtin_id": "9e503301-ef81-4c5b-aec2-d2c8396258ca",
+											"sort_no": 1,
+											"builtin_parent_id": "7f141a94-e12d-4489-906e-dc1af2cef656",
+											"value": "2",
+											"property_filter": null,
+											"image": null,
+											"description": "model B",
+											"translations": [
+												{
+													"language": "English",
+													"translation": "Model B"
+												},
+												{
+													"language": "Svenska",
+													"translation": "Modell B"
+												}
+											]
+										},
+										{
+											"builtin_id": "3769883b-c243-4d4e-82fe-f58513c6df2d",
+											"sort_no": 2,
+											"builtin_parent_id": "7f141a94-e12d-4489-906e-dc1af2cef656",
+											"value": "3",
+											"property_filter": "fantype=1&fansize=300",
+											"image": null,
+											"description": "model C",
+											"translations": [
+												{
+													"language": "English",
+													"translation": "Model C"
+												},
+												{
+													"language": "Svenska",
+													"translation": "Modell C"
+												}
+											]
+										},
+										{
+											"builtin_id": "96a4a09a-5b18-4f92-8d33-d1afbf0b9aab",
+											"sort_no": 3,
+											"builtin_parent_id": "7f141a94-e12d-4489-906e-dc1af2cef656",
+											"value": "4",
+											"property_filter": null,
+											"image": null,
+											"description": "model D",
+											"translations": []
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Fan model"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Fläktmodell"
+										}
+									]
+								},
+								{
+									"builtin_id": "eb0f534a-e458-41e7-a30d-bf511fc6cc28",
+									"sort_no": 2,
+									"name": "fansize",
+									"group": "Fan",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "1d7fcb22-0674-4c20-ae6e-7d716556e7e9",
+											"sort_no": 0,
+											"builtin_parent_id": "eb0f534a-e458-41e7-a30d-bf511fc6cc28",
+											"value": "300",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "300"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "300"
+												}
+											]
+										},
+										{
+											"builtin_id": "dadf0c9f-f7cb-46e2-8162-3083cfd38638",
+											"sort_no": 1,
+											"builtin_parent_id": "eb0f534a-e458-41e7-a30d-bf511fc6cc28",
+											"value": "400",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "400"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "400"
+												}
+											]
+										},
+										{
+											"builtin_id": "8bd25e49-0fb6-4f8c-b484-ae325a38041a",
+											"sort_no": 2,
+											"builtin_parent_id": "eb0f534a-e458-41e7-a30d-bf511fc6cc28",
+											"value": "500",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "500"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "500"
+												}
+											]
+										},
+										{
+											"builtin_id": "ef653ad5-d4d5-496f-aaec-e0d3531215fc",
+											"sort_no": 3,
+											"builtin_parent_id": "eb0f534a-e458-41e7-a30d-bf511fc6cc28",
+											"value": "700",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "600"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "600"
+												}
+											]
+										},
+										{
+											"builtin_id": "1bd52d8d-53c4-4b28-bc22-110f557b65f6",
+											"sort_no": 3,
+											"builtin_parent_id": "eb0f534a-e458-41e7-a30d-bf511fc6cc28",
+											"value": "600",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "600"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "600"
+												}
+											]
+										},
+										{
+											"builtin_id": "aeaecdc6-f101-49c4-8f50-e8568873bf6b",
+											"sort_no": 4,
+											"builtin_parent_id": "eb0f534a-e458-41e7-a30d-bf511fc6cc28",
+											"value": "900",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": []
+										},
+										{
+											"builtin_id": "6bc3d267-86dd-4f8d-8171-e270e7083ea1",
+											"sort_no": 5,
+											"builtin_parent_id": "eb0f534a-e458-41e7-a30d-bf511fc6cc28",
+											"value": "100000000000000000000",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": []
+										},
+										{
+											"builtin_id": "ff5bfea5-0ead-4e33-91af-676c8ccb5fa3",
+											"sort_no": 6,
+											"builtin_parent_id": "eb0f534a-e458-41e7-a30d-bf511fc6cc28",
+											"value": null,
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": []
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Fan size"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Fläktstorlek"
+										}
+									]
+								},
+								{
+									"builtin_id": "86cc49cc-ab1f-491a-a5bc-8615db020462",
+									"sort_no": 3,
+									"name": "bladetype",
+									"group": "Fan",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "7e79e5d8-5583-4aec-92f4-be4e95ced450",
+											"sort_no": 0,
+											"builtin_parent_id": "86cc49cc-ab1f-491a-a5bc-8615db020462",
+											"value": "1",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Forward curved"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Framåtböjda"
+												}
+											]
+										},
+										{
+											"builtin_id": "6154badd-ad4a-4fb2-8284-5f2d0a2e5261",
+											"sort_no": 1,
+											"builtin_parent_id": "86cc49cc-ab1f-491a-a5bc-8615db020462",
+											"value": "2",
+											"property_filter": "fanmodel=1",
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Backward curved"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Bakåtböjda"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Fan blade"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Fläktblad"
+										}
+									]
+								},
+								{
+									"builtin_id": "f3a9df26-68f0-4c74-9600-152eccefa1d6",
+									"sort_no": 4,
+									"name": "bladematerial",
+									"group": "Fan",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "11e524ba-5262-49e2-95fb-69076669d59c",
+											"sort_no": 0,
+											"builtin_parent_id": "f3a9df26-68f0-4c74-9600-152eccefa1d6",
+											"value": "1",
+											"property_filter": null,
+											"image": null,
+											"description": "Aluminium",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Aluminium"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Aluminium"
+												}
+											]
+										},
+										{
+											"builtin_id": "f516e1c1-bb9e-4d6d-98d1-21963ce16334",
+											"sort_no": 1,
+											"builtin_parent_id": "f3a9df26-68f0-4c74-9600-152eccefa1d6",
+											"value": "2",
+											"property_filter": null,
+											"image": null,
+											"description": "Nylon",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Nylon"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Nylon"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Fan blade material"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Material fläktblad"
+										}
+									]
+								},
+								{
+									"builtin_id": "9907574a-128e-46a0-89fa-9355c4f630d4",
+									"sort_no": 5,
+									"name": "fanmotor",
+									"group": "Motor",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "79661b38-9e6e-4b47-8395-86210a39915d",
+											"sort_no": 0,
+											"builtin_parent_id": "9907574a-128e-46a0-89fa-9355c4f630d4",
+											"value": "1",
+											"property_filter": null,
+											"image": null,
+											"description": "AC IE3",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "AC IE2"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "AC IE2"
+												}
+											]
+										},
+										{
+											"builtin_id": "de328f48-5a74-439d-8637-d011334c38a7",
+											"sort_no": 1,
+											"builtin_parent_id": "9907574a-128e-46a0-89fa-9355c4f630d4",
+											"value": "2",
+											"property_filter": null,
+											"image": null,
+											"description": "AC IE3",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "AC IE3"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "AC IE3"
+												}
+											]
+										},
+										{
+											"builtin_id": "f0ff3944-f732-41e9-ad87-ce3de4a954df",
+											"sort_no": 2,
+											"builtin_parent_id": "9907574a-128e-46a0-89fa-9355c4f630d4",
+											"value": "3",
+											"property_filter": null,
+											"image": null,
+											"description": "EC",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "EC"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "EC"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Motor"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Motor"
+										}
+									]
+								},
+								{
+									"builtin_id": "c899bf54-c56d-4a66-a20e-eef4ffaea7d5",
+									"sort_no": 6,
+									"name": "numberofpoles",
+									"group": "Motor",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "45c6921d-3a63-49a8-9f6d-e13346fe2c0c",
+											"sort_no": 0,
+											"builtin_parent_id": "c899bf54-c56d-4a66-a20e-eef4ffaea7d5",
+											"value": "2",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "2-poles"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "2-polig"
+												}
+											]
+										},
+										{
+											"builtin_id": "c356fd7f-60d6-435b-b117-a4cd496594ad",
+											"sort_no": 1,
+											"builtin_parent_id": "c899bf54-c56d-4a66-a20e-eef4ffaea7d5",
+											"value": "4",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "4-poles"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "4-polig"
+												}
+											]
+										},
+										{
+											"builtin_id": "60f835af-8b20-4117-966b-982388014a77",
+											"sort_no": 2,
+											"builtin_parent_id": "c899bf54-c56d-4a66-a20e-eef4ffaea7d5",
+											"value": "6",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "6-poles"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "6-polig"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Poles"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Poler"
+										}
+									]
+								},
+								{
+									"builtin_id": "6bfe8b04-cce1-412c-96f5-c95769240012",
+									"sort_no": 7,
+									"name": "drive",
+									"group": "Motor",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "773d6dbd-f512-4a7c-b413-b876d958cbd9",
+											"sort_no": 0,
+											"builtin_parent_id": "6bfe8b04-cce1-412c-96f5-c95769240012",
+											"value": "1",
+											"property_filter": "fantype=2",
+											"image": null,
+											"description": "Belt",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Belt"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Rem"
+												}
+											]
+										},
+										{
+											"builtin_id": "e8822fc6-e709-41e0-acc5-293644404766",
+											"sort_no": 1,
+											"builtin_parent_id": "6bfe8b04-cce1-412c-96f5-c95769240012",
+											"value": "2",
+											"property_filter": "fantype=1",
+											"image": null,
+											"description": "Direct",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Direct"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Direkt"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Drive"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Drivenhet"
+										}
+									]
+								},
+								{
+									"builtin_id": "91ad9814-b6e6-4419-a7ac-0e78ead685f8",
+									"sort_no": 8,
+									"name": "airvolume",
+									"group": "Performance",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "MassFlow",
+									"values": [],
+									"defaults": [
+										{
+											"builtin_id": "a75bd2cc-48f9-4dfd-a616-6c2f1bb52c1d",
+											"sort_no": 0,
+											"builtin_parent_id": "91ad9814-b6e6-4419-a7ac-0e78ead685f8",
+											"value": "500:LiterPerHour",
+											"property_filter": null
+										}
+									],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Air Volume"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Luftmängd"
+										}
+									]
+								},
+								{
+									"builtin_id": "8027a4a3-59d0-468f-9384-bc1bfccac9ba",
+									"sort_no": 9,
+									"name": "esp",
+									"group": "Performance",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": "esp>50:Pascal&esp<500:Pascal",
+									"quantity": "Pressure",
+									"values": [],
+									"defaults": [
+										{
+											"builtin_id": "8964349f-005d-45e2-b421-11c9dcba4a6c",
+											"sort_no": 0,
+											"builtin_parent_id": "8027a4a3-59d0-468f-9384-bc1bfccac9ba",
+											"value": "160:Pascal",
+											"property_filter": null
+										}
+									],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "External pressure"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Externt tryck"
+										}
+									]
+								}
+							]
+						},
+						"size": {
+							"shape": [],
+							"shape_size": []
+						},
+						"sound": {
+							"sound_variant": []
+						}
+					}
+				},
+				{
+					"id": "e4278ea7-3f6a-42f6-a537-23da3f4e7378",
+					"key": "demofan_20220824_075726",
+					"name": "demofan_for test",
+					"retired": false,
+					"modules": {
+						"custom_tables": {
+							"ItemNo": [
+								{
+									"builtin_id": "cf4b29b8-20b9-4a9b-82c3-41c4b26b3c20",
+									"sort_no": 0,
+									"ordering_code": "FAN-1-2-A",
+									"item_no": "ITEM_2"
+								},
+								{
+									"builtin_id": "21d1247c-d912-41cf-aadb-ea61e4a38b8c",
+									"sort_no": 0,
+									"ordering_code": "FAN-2-1-A",
+									"item_no": "ITEM_3"
+								},
+								{
+									"builtin_id": "f0ed4ecd-2e83-4d42-ae09-ea256db4c4f1",
+									"sort_no": 0,
+									"ordering_code": "FAN-2-2-A",
+									"item_no": "ITEM_4"
+								},
+								{
+									"builtin_id": "8dfb06db-3bd1-4fa3-947b-62ee8982979d",
+									"sort_no": 0,
+									"ordering_code": "FAN-1-1-7",
+									"item_no": "ITEM_1B"
+								}
+							],
+							"SoundAttenuation": [],
+							"TABLEABC": [],
+							"Test123": [],
+							"data": [],
+							"etdfetdf": [],
+							"hej": [],
+							"Weight": [
+								{
+									"builtin_id": "372729bd-e5e4-4769-874d-4be75f86004b",
+									"sort_no": 10,
+									"property_filter": "fantype=1&fansize=300",
+									"Weight": 51
+								},
+								{
+									"builtin_id": "cd6c732b-33ff-41a1-bd0c-d64e18e3a322",
+									"sort_no": 11,
+									"property_filter": "fantype=1&fansize=400",
+									"Weight": 71
+								},
+								{
+									"builtin_id": "8cb743b6-3b74-4995-ad5b-8f605cf86ece",
+									"sort_no": 12,
+									"property_filter": "fantype=1&fansize=500",
+									"Weight": 91
+								},
+								{
+									"builtin_id": "8d962f8b-3f0e-44df-b88a-b2520dce2cb4",
+									"sort_no": 13,
+									"property_filter": "fantype=1&fansize=600",
+									"Weight": 100
+								},
+								{
+									"builtin_id": "10605d79-93b9-4f3a-870c-b3a625cb2ff1",
+									"sort_no": 14,
+									"property_filter": "fantype=2&fansize=300",
+									"Weight": 190
+								},
+								{
+									"builtin_id": "62c2f181-8a52-435f-8008-140dc9bcdfc6",
+									"sort_no": 15,
+									"property_filter": "fantype=2&fansize=400",
+									"Weight": 81
+								},
+								{
+									"builtin_id": "878e32a9-085b-42d9-8fff-5719c661f610",
+									"sort_no": 16,
+									"property_filter": "fantype=2&fansize=400",
+									"Weight": 96
+								},
+								{
+									"builtin_id": "4eb216b8-a6fd-40d5-9983-e725d3c837a5",
+									"sort_no": 17,
+									"property_filter": "fantype=2&fansize=600",
+									"Weight": 105
+								},
+								{
+									"builtin_id": "af91aabc-baa3-4c67-ae72-89831e19e866",
+									"sort_no": 18,
+									"property_filter": "fantype=2&fansize=300",
+									"Weight": 204
+								}
+							]
+						},
+						"ordering_code": {
+							"code": [
+								{
+									"builtin_id": "a11a8beb-fc1f-4033-a474-445532ed9e59",
+									"sort_no": 0,
+									"property_filter": null,
+									"type": "main",
+									"code": "FAN-{fantype}-{fanmodel}"
+								},
+								{
+									"builtin_id": "dda2ce9c-aa3e-46f5-8cf2-c46ee060d47c",
+									"sort_no": 1,
+									"property_filter": "fanmotor=1",
+									"type": "main",
+									"code": "-A"
+								},
+								{
+									"builtin_id": "b132f301-5f80-4dac-87c4-217e9c3cb283",
+									"sort_no": 2,
+									"property_filter": "fanmotor=2",
+									"type": "main",
+									"code": "-B"
+								},
+								{
+									"builtin_id": "dc8c69ef-377d-4e4a-ab1b-7eab08fc1082",
+									"sort_no": 3,
+									"property_filter": "fanmotor=3",
+									"type": "main",
+									"code": "-C"
+								}
+							]
+						},
+						"documents": {
+							"document": []
+						},
+						"images": {
+							"image": [
+								{
+									"builtin_id": "c14bd827-938b-4362-adb8-c5e7f4072d2f",
+									"sort_no": 0,
+									"image": "65f4db70e2e65898326430ea57c0e6cb36f0b0d2",
+									"file_name": "plug-fan.jpeg",
+									"property_filter": "fantype=1",
+									"type": "product_photo",
+									"name": "Plug fan",
+									"size": null
+								},
+								{
+									"builtin_id": "0ecf0051-6dbc-4c14-a225-6476ea03995d",
+									"sort_no": 1,
+									"image": "27f199a7324ceabc67fd06823fe179ba2e74a59d",
+									"file_name": "centrifugal-fan.jpeg",
+									"property_filter": "fantype=2",
+									"type": "product_photo",
+									"name": "Centrifugal fan",
+									"size": null
+								}
+							]
+						},
+						"languages": {
+							"language": [
+								{
+									"builtin_id": "a544421a-e421-4210-99da-a58f9f652a6c",
+									"sort_no": 0,
+									"name": "en-US"
+								},
+								{
+									"builtin_id": "194818cf-c418-40b6-9f06-1297a50aad5d",
+									"sort_no": 0,
+									"name": "sv-SE"
+								}
+							]
+						},
+						"markets": {
+							"market": [],
+							"market_price": []
+						},
+						"models": {
+							"model": []
+						},
+						"frontend": {
+							"module": []
+						},
+						"properties": {
+							"property": [
+								{
+									"builtin_id": "7c328fcd-c8ad-4213-ab1a-699152e5a137",
+									"sort_no": 0,
+									"name": "fantype",
+									"group": "Fan",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "a29ac0f4-d43a-4c45-8d79-841263ffce39",
+											"sort_no": 0,
+											"builtin_parent_id": "7c328fcd-c8ad-4213-ab1a-699152e5a137",
+											"value": "1",
+											"property_filter": null,
+											"image": "65f4db70e2e65898326430ea57c0e6cb36f0b0d2",
+											"description": "Plug fan",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Plug fan"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Kammarfläkt"
+												}
+											]
+										},
+										{
+											"builtin_id": "59b42648-b90c-4be2-a1c7-210889cc51cb",
+											"sort_no": 1,
+											"builtin_parent_id": "7c328fcd-c8ad-4213-ab1a-699152e5a137",
+											"value": "2",
+											"property_filter": null,
+											"image": "27f199a7324ceabc67fd06823fe179ba2e74a59d",
+											"description": "Centrifugal fan",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Centrifugal fan"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Radialfläkt"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Fan type"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Fläkttyp"
+										}
+									]
+								},
+								{
+									"builtin_id": "4be76b28-ca0e-42c0-a6d9-71ab26a18658",
+									"sort_no": 1,
+									"name": "fanmodel",
+									"group": "Fan",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "cd7beade-8acc-48b5-a3f3-079aabb4c70a",
+											"sort_no": 0,
+											"builtin_parent_id": "4be76b28-ca0e-42c0-a6d9-71ab26a18658",
+											"value": "1",
+											"property_filter": null,
+											"image": null,
+											"description": "model A",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Model A"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Modell A"
+												}
+											]
+										},
+										{
+											"builtin_id": "e7701c1e-01cb-4845-9180-83e5459ee4b8",
+											"sort_no": 1,
+											"builtin_parent_id": "4be76b28-ca0e-42c0-a6d9-71ab26a18658",
+											"value": "2",
+											"property_filter": null,
+											"image": null,
+											"description": "model B",
+											"translations": [
+												{
+													"language": "English",
+													"translation": "Model B"
+												},
+												{
+													"language": "Svenska",
+													"translation": "Modell B"
+												}
+											]
+										},
+										{
+											"builtin_id": "1dc5f9e7-c346-4140-816e-c060ca5bec7c",
+											"sort_no": 2,
+											"builtin_parent_id": "4be76b28-ca0e-42c0-a6d9-71ab26a18658",
+											"value": "3",
+											"property_filter": "fantype=1&fansize=300",
+											"image": null,
+											"description": "model C",
+											"translations": [
+												{
+													"language": "English",
+													"translation": "Model C"
+												},
+												{
+													"language": "Svenska",
+													"translation": "Modell C"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Fan model"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Fläktmodell"
+										}
+									]
+								},
+								{
+									"builtin_id": "c2844b8d-91ec-41c3-8239-657759981ea5",
+									"sort_no": 2,
+									"name": "fansize",
+									"group": "Fan",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "165ae098-bdf9-472f-bc1a-9f8011117233",
+											"sort_no": 0,
+											"builtin_parent_id": "c2844b8d-91ec-41c3-8239-657759981ea5",
+											"value": "300",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "300"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "300"
+												}
+											]
+										},
+										{
+											"builtin_id": "e350bc2b-d225-46b3-8360-a6233a5ffd50",
+											"sort_no": 1,
+											"builtin_parent_id": "c2844b8d-91ec-41c3-8239-657759981ea5",
+											"value": "400",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "400"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "400"
+												}
+											]
+										},
+										{
+											"builtin_id": "de9b526a-1a9d-4b03-b78f-65526be1469e",
+											"sort_no": 2,
+											"builtin_parent_id": "c2844b8d-91ec-41c3-8239-657759981ea5",
+											"value": "500",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "500"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "500"
+												}
+											]
+										},
+										{
+											"builtin_id": "5062b32d-92f4-4a8e-ae22-e3992bea266b",
+											"sort_no": 3,
+											"builtin_parent_id": "c2844b8d-91ec-41c3-8239-657759981ea5",
+											"value": "700",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "600"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "600"
+												}
+											]
+										},
+										{
+											"builtin_id": "5461761b-ebbe-4cca-bb62-adc6b02e6080",
+											"sort_no": 3,
+											"builtin_parent_id": "c2844b8d-91ec-41c3-8239-657759981ea5",
+											"value": "600",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "600"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "600"
+												}
+											]
+										},
+										{
+											"builtin_id": "fab450c3-3156-4fab-a999-4be19e0072e5",
+											"sort_no": 4,
+											"builtin_parent_id": "c2844b8d-91ec-41c3-8239-657759981ea5",
+											"value": "900",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": []
+										},
+										{
+											"builtin_id": "1cbf79bd-d2a2-4d76-a0d2-868c25daf61d",
+											"sort_no": 5,
+											"builtin_parent_id": "c2844b8d-91ec-41c3-8239-657759981ea5",
+											"value": "100000000000000000000",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": []
+										},
+										{
+											"builtin_id": "f449bda5-6e68-4ef2-8154-2b78ac5c743a",
+											"sort_no": 6,
+											"builtin_parent_id": "c2844b8d-91ec-41c3-8239-657759981ea5",
+											"value": null,
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": []
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Fan size"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Fläktstorlek"
+										}
+									]
+								},
+								{
+									"builtin_id": "c11dce1a-6164-4969-9bb0-23b07a504318",
+									"sort_no": 3,
+									"name": "bladetype",
+									"group": "Fan",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "5a4af75c-56be-407a-8387-c54224b776ff",
+											"sort_no": 0,
+											"builtin_parent_id": "c11dce1a-6164-4969-9bb0-23b07a504318",
+											"value": "1",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Forward curved"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Framåtböjda"
+												}
+											]
+										},
+										{
+											"builtin_id": "85ec6ce3-8fa6-4f67-9322-6db24b2387c2",
+											"sort_no": 1,
+											"builtin_parent_id": "c11dce1a-6164-4969-9bb0-23b07a504318",
+											"value": "2",
+											"property_filter": "fanmodel=1",
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Backward curved"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Bakåtböjda"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Fan blade"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Fläktblad"
+										}
+									]
+								},
+								{
+									"builtin_id": "a11a0e88-05ab-4612-a163-deabd595abc2",
+									"sort_no": 4,
+									"name": "bladematerial",
+									"group": "Fan",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "d8f9fafa-cbf8-4d59-98bb-7055e91243cd",
+											"sort_no": 0,
+											"builtin_parent_id": "a11a0e88-05ab-4612-a163-deabd595abc2",
+											"value": "1",
+											"property_filter": null,
+											"image": null,
+											"description": "Aluminium",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Aluminium"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Aluminium"
+												}
+											]
+										},
+										{
+											"builtin_id": "3006a9ad-dfd4-4643-816e-5ffeba426005",
+											"sort_no": 1,
+											"builtin_parent_id": "a11a0e88-05ab-4612-a163-deabd595abc2",
+											"value": "2",
+											"property_filter": null,
+											"image": null,
+											"description": "Nylon",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Nylon"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Nylon"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Fan blade material"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Material fläktblad"
+										}
+									]
+								},
+								{
+									"builtin_id": "6e2bb295-3a6e-44fd-bce3-7500aa275665",
+									"sort_no": 5,
+									"name": "fanmotor",
+									"group": "Motor",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "75fcc011-3390-4030-9ffd-1aad1717f665",
+											"sort_no": 0,
+											"builtin_parent_id": "6e2bb295-3a6e-44fd-bce3-7500aa275665",
+											"value": "1",
+											"property_filter": null,
+											"image": null,
+											"description": "AC IE3",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "AC IE2"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "AC IE2"
+												}
+											]
+										},
+										{
+											"builtin_id": "fe44217a-6530-496f-8bfc-109d317983a2",
+											"sort_no": 1,
+											"builtin_parent_id": "6e2bb295-3a6e-44fd-bce3-7500aa275665",
+											"value": "2",
+											"property_filter": null,
+											"image": null,
+											"description": "AC IE3",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "AC IE3"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "AC IE3"
+												}
+											]
+										},
+										{
+											"builtin_id": "eb88a8c2-4cbd-4705-80da-6267abcbb289",
+											"sort_no": 2,
+											"builtin_parent_id": "6e2bb295-3a6e-44fd-bce3-7500aa275665",
+											"value": "3",
+											"property_filter": null,
+											"image": null,
+											"description": "EC",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "EC"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "EC"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Motor"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Motor"
+										}
+									]
+								},
+								{
+									"builtin_id": "8996bbbb-1d78-4788-afd5-7ab23865a6d6",
+									"sort_no": 6,
+									"name": "numberofpoles",
+									"group": "Motor",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "1f9ebb6b-6842-4cba-a7a1-2c09eb13a5d7",
+											"sort_no": 0,
+											"builtin_parent_id": "8996bbbb-1d78-4788-afd5-7ab23865a6d6",
+											"value": "2",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "2-poles"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "2-polig"
+												}
+											]
+										},
+										{
+											"builtin_id": "2033ebb7-06e1-491d-8562-fdf7bda4bbf6",
+											"sort_no": 1,
+											"builtin_parent_id": "8996bbbb-1d78-4788-afd5-7ab23865a6d6",
+											"value": "4",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "4-poles"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "4-polig"
+												}
+											]
+										},
+										{
+											"builtin_id": "d2e30e5a-bdf2-46ef-98fc-2b5743a3f365",
+											"sort_no": 2,
+											"builtin_parent_id": "8996bbbb-1d78-4788-afd5-7ab23865a6d6",
+											"value": "6",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "6-poles"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "6-polig"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Poles"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Poler"
+										}
+									]
+								},
+								{
+									"builtin_id": "5f9f619b-5d6b-4a5b-a6c9-5d44016e617c",
+									"sort_no": 7,
+									"name": "drive",
+									"group": "Motor",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "f997205b-8fa0-433b-b856-828271d4ef75",
+											"sort_no": 0,
+											"builtin_parent_id": "5f9f619b-5d6b-4a5b-a6c9-5d44016e617c",
+											"value": "1",
+											"property_filter": "fantype=2",
+											"image": null,
+											"description": "Belt",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Belt"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Rem"
+												}
+											]
+										},
+										{
+											"builtin_id": "624f9439-8336-49b9-a099-5696a56602a8",
+											"sort_no": 1,
+											"builtin_parent_id": "5f9f619b-5d6b-4a5b-a6c9-5d44016e617c",
+											"value": "2",
+											"property_filter": "fantype=1",
+											"image": null,
+											"description": "Direct",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Direct"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Direkt"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Drive"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Drivenhet"
+										}
+									]
+								},
+								{
+									"builtin_id": "aac8a60b-13d8-41fe-ada7-f4460684b962",
+									"sort_no": 8,
+									"name": "airvolume",
+									"group": "Performance",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "MassFlow",
+									"values": [],
+									"defaults": [
+										{
+											"builtin_id": "b4b4331c-d534-4902-b3ab-8f40d43dd70a",
+											"sort_no": 0,
+											"builtin_parent_id": "aac8a60b-13d8-41fe-ada7-f4460684b962",
+											"value": "500:LiterPerHour",
+											"property_filter": null
+										}
+									],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Air Volume"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Luftmängd"
+										}
+									]
+								},
+								{
+									"builtin_id": "5991fd23-661e-42f6-a1fa-30bde7f7338d",
+									"sort_no": 9,
+									"name": "esp",
+									"group": "Performance",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": "esp>50:Pascal&esp<500:Pascal",
+									"quantity": "Pressure",
+									"values": [],
+									"defaults": [
+										{
+											"builtin_id": "35bccd00-9953-4bc0-844a-caf5d2296477",
+											"sort_no": 0,
+											"builtin_parent_id": "5991fd23-661e-42f6-a1fa-30bde7f7338d",
+											"value": "160:Pascal",
+											"property_filter": null
+										}
+									],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "External pressure"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Externt tryck"
+										}
+									]
+								}
+							]
+						},
+						"size": {
+							"shape": [],
+							"shape_size": []
+						},
+						"sound": {
+							"sound_variant": []
+						}
+					}
+				},
+				{
+					"id": "1395db4b-e50c-4acf-8b7c-2d0caccfaca9",
+					"key": "demofan_copy",
+					"name": "DEMOFAN_TA",
+					"retired": false,
+					"modules": {
+						"custom_tables": {
+							"ItemNo": [
+								{
+									"builtin_id": "31176c2d-6ff3-4ebe-a826-b56ef86dbe16",
+									"sort_no": 0,
+									"ordering_code": "FAN-1-2-A",
+									"item_no": "ITEM_2"
+								},
+								{
+									"builtin_id": "fb91169e-42e5-479d-97e6-b595eaa80806",
+									"sort_no": 0,
+									"ordering_code": "FAN-2-1-A",
+									"item_no": "ITEM_3"
+								},
+								{
+									"builtin_id": "9c82b421-8432-43f6-bf7e-7d15fb56115e",
+									"sort_no": 0,
+									"ordering_code": "FAN-1-1-7",
+									"item_no": "ITEM_1B"
+								},
+								{
+									"builtin_id": "8e366935-4f2f-4deb-a252-10c44067d1fb",
+									"sort_no": 0,
+									"ordering_code": "FAN-2-2-A",
+									"item_no": "ITEM_5"
+								}
+							],
+							"SoundAttenuation": [],
+							"TABLEABC": [],
+							"Test123": [],
+							"data": [],
+							"etdfetdf": [],
+							"hej": [],
+							"Weight": [
+								{
+									"builtin_id": "7a9ac80d-68bc-45eb-9a41-661b1d005a0e",
+									"sort_no": 10,
+									"property_filter": "fantype=1&fansize=300",
+									"Weight": 51
+								},
+								{
+									"builtin_id": "8223588c-f78a-4f4f-9165-9f666caf1d71",
+									"sort_no": 11,
+									"property_filter": "fantype=1&fansize=400",
+									"Weight": 71
+								},
+								{
+									"builtin_id": "2219e53d-98ea-4dab-8895-dc2955b08f4d",
+									"sort_no": 12,
+									"property_filter": "fantype=1&fansize=500",
+									"Weight": 91
+								},
+								{
+									"builtin_id": "487a8438-538b-4d19-8b71-58f752613c03",
+									"sort_no": 13,
+									"property_filter": "fantype=2&fansize=600",
+									"Weight": 100
+								},
+								{
+									"builtin_id": "be75289e-9fa1-477e-9f25-6b41eefcad04",
+									"sort_no": 14,
+									"property_filter": "fantype=2&fansize=300",
+									"Weight": 190
+								},
+								{
+									"builtin_id": "1f68cd5f-8153-4001-ba35-e57d1c9b0f90",
+									"sort_no": 15,
+									"property_filter": "fantype=2&fansize=400",
+									"Weight": 81
+								},
+								{
+									"builtin_id": "a10b518e-6ce9-4277-b82c-19482fe7897f",
+									"sort_no": 16,
+									"property_filter": "fantype=2&fansize=400",
+									"Weight": 96
+								},
+								{
+									"builtin_id": "ff529cbe-34e1-4cf5-a182-1f988f83c9bc",
+									"sort_no": 17,
+									"property_filter": "fantype=2&fansize=600",
+									"Weight": 105
+								},
+								{
+									"builtin_id": "6ef80976-8731-42bb-98c2-9761afba7762",
+									"sort_no": 18,
+									"property_filter": "fantype=2&fansize=300",
+									"Weight": 204
+								}
+							]
+						},
+						"ordering_code": {
+							"code": [
+								{
+									"builtin_id": "2f9379d6-945a-44a9-aeed-da24efb34a9b",
+									"sort_no": 0,
+									"property_filter": null,
+									"type": "main",
+									"code": "FAN-{fantype}-{fanmodel}"
+								},
+								{
+									"builtin_id": "719e5b3b-acbd-4cb2-a41d-f68e2159bce6",
+									"sort_no": 1,
+									"property_filter": "fanmotor=1",
+									"type": "main",
+									"code": "-A"
+								},
+								{
+									"builtin_id": "df17037e-6a03-4e7a-866d-a65acd9aa51c",
+									"sort_no": 2,
+									"property_filter": "fanmotor=2",
+									"type": "main",
+									"code": "-B"
+								},
+								{
+									"builtin_id": "b008bda6-d05b-449f-b22a-1b224a4b65ff",
+									"sort_no": 3,
+									"property_filter": "fanmotor=3",
+									"type": "main",
+									"code": "-C"
+								}
+							]
+						},
+						"documents": {
+							"document": []
+						},
+						"images": {
+							"image": [
+								{
+									"builtin_id": "47a5986d-5988-4fc4-aa7e-0641a488867c",
+									"sort_no": 0,
+									"image": "65f4db70e2e65898326430ea57c0e6cb36f0b0d2",
+									"file_name": "plug-fan.jpeg",
+									"property_filter": "fantype=1",
+									"type": "product_photo",
+									"name": "Plug fan",
+									"size": null
+								},
+								{
+									"builtin_id": "46d41a76-d8e2-4489-9015-0faac90a6760",
+									"sort_no": 1,
+									"image": "27f199a7324ceabc67fd06823fe179ba2e74a59d",
+									"file_name": "centrifugal-fan.jpeg",
+									"property_filter": "fantype=2",
+									"type": "product_photo",
+									"name": "Centrifugal fan",
+									"size": null
+								}
+							]
+						},
+						"languages": {
+							"language": [
+								{
+									"builtin_id": "62699829-2061-4948-89f3-911ea94d768b",
+									"sort_no": 0,
+									"name": "en-US"
+								},
+								{
+									"builtin_id": "2c6b3a24-c83b-49cf-8df7-9e6c774b8cb4",
+									"sort_no": 0,
+									"name": "sv-SE"
+								}
+							]
+						},
+						"markets": {
+							"market": [],
+							"market_price": []
+						},
+						"models": {
+							"model": []
+						},
+						"frontend": {
+							"module": []
+						},
+						"properties": {
+							"property": [
+								{
+									"builtin_id": "bdb5aa1c-9b19-473c-8645-06e22d01943e",
+									"sort_no": 0,
+									"name": "fantype",
+									"group": "Fan",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "d0b9d543-3e84-40c8-8628-7acbac21595e",
+											"sort_no": 0,
+											"builtin_parent_id": "bdb5aa1c-9b19-473c-8645-06e22d01943e",
+											"value": "1",
+											"property_filter": null,
+											"image": "65f4db70e2e65898326430ea57c0e6cb36f0b0d2",
+											"description": "Plug fan",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Plug fan"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Kammarfläkt"
+												}
+											]
+										},
+										{
+											"builtin_id": "371292f5-2e52-474c-8586-d6e077d82a8a",
+											"sort_no": 1,
+											"builtin_parent_id": "bdb5aa1c-9b19-473c-8645-06e22d01943e",
+											"value": "2",
+											"property_filter": null,
+											"image": "27f199a7324ceabc67fd06823fe179ba2e74a59d",
+											"description": "Centrifugal fan",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Centrifugal fan"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Radialfläkt"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Fan type"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Fläkttyp"
+										}
+									]
+								},
+								{
+									"builtin_id": "b3e400f9-6f4e-4ae2-8e57-48e292361873",
+									"sort_no": 1,
+									"name": "fanmodel",
+									"group": "Fan",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "aaff1ce0-4de3-4b14-ac72-8b734e81b1c0",
+											"sort_no": 0,
+											"builtin_parent_id": "b3e400f9-6f4e-4ae2-8e57-48e292361873",
+											"value": "1",
+											"property_filter": null,
+											"image": null,
+											"description": "model A",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Model A"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Modell A"
+												}
+											]
+										},
+										{
+											"builtin_id": "92d43390-c56a-44b0-9341-4eb4f10a2ab6",
+											"sort_no": 1,
+											"builtin_parent_id": "b3e400f9-6f4e-4ae2-8e57-48e292361873",
+											"value": "2",
+											"property_filter": null,
+											"image": null,
+											"description": "model B",
+											"translations": [
+												{
+													"language": "English",
+													"translation": "Model B"
+												},
+												{
+													"language": "Svenska",
+													"translation": "Modell B"
+												}
+											]
+										},
+										{
+											"builtin_id": "004c5af9-d276-41d3-a3c6-25486f273061",
+											"sort_no": 2,
+											"builtin_parent_id": "b3e400f9-6f4e-4ae2-8e57-48e292361873",
+											"value": "3",
+											"property_filter": "fantype=1&fansize=300",
+											"image": null,
+											"description": "model C",
+											"translations": [
+												{
+													"language": "English",
+													"translation": "Model C"
+												},
+												{
+													"language": "Svenska",
+													"translation": "Modell C"
+												}
+											]
+										},
+										{
+											"builtin_id": "bde34b7a-ba80-4f37-9730-8230c68b8c37",
+											"sort_no": 6,
+											"builtin_parent_id": "b3e400f9-6f4e-4ae2-8e57-48e292361873",
+											"value": "4",
+											"property_filter": null,
+											"image": null,
+											"description": "model D",
+											"translations": [
+												{
+													"language": null,
+													"translation": null
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Fan model"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Fläktmodell"
+										}
+									]
+								},
+								{
+									"builtin_id": "e446ce9f-69f0-46cc-b9d8-110508926bd1",
+									"sort_no": 2,
+									"name": "fansize",
+									"group": "Fan",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "e61dffc9-4640-41e9-907f-3079fdb5fb29",
+											"sort_no": 0,
+											"builtin_parent_id": "e446ce9f-69f0-46cc-b9d8-110508926bd1",
+											"value": "300",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "300"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "300"
+												}
+											]
+										},
+										{
+											"builtin_id": "2cd688cd-51a6-473a-8b5b-a301de7ac595",
+											"sort_no": 1,
+											"builtin_parent_id": "e446ce9f-69f0-46cc-b9d8-110508926bd1",
+											"value": "400",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "400"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "400"
+												}
+											]
+										},
+										{
+											"builtin_id": "02248491-cf4a-45bb-bbaf-2abcebf40fed",
+											"sort_no": 2,
+											"builtin_parent_id": "e446ce9f-69f0-46cc-b9d8-110508926bd1",
+											"value": "500",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "500"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "500"
+												}
+											]
+										},
+										{
+											"builtin_id": "c48a700e-715b-4b80-a5c0-8cc575c8e365",
+											"sort_no": 3,
+											"builtin_parent_id": "e446ce9f-69f0-46cc-b9d8-110508926bd1",
+											"value": "600",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "600"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "600"
+												}
+											]
+										},
+										{
+											"builtin_id": "47486b64-f686-4817-accb-59df1403e261",
+											"sort_no": 3,
+											"builtin_parent_id": "e446ce9f-69f0-46cc-b9d8-110508926bd1",
+											"value": "700",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "600"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "600"
+												}
+											]
+										},
+										{
+											"builtin_id": "eee7d107-068c-4a15-827b-6f26d0cb69e6",
+											"sort_no": 4,
+											"builtin_parent_id": "e446ce9f-69f0-46cc-b9d8-110508926bd1",
+											"value": "900",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": []
+										},
+										{
+											"builtin_id": "f51b65b8-2147-4f2f-85bc-a54a603c9b4b",
+											"sort_no": 5,
+											"builtin_parent_id": "e446ce9f-69f0-46cc-b9d8-110508926bd1",
+											"value": "100000000000000000000",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": []
+										},
+										{
+											"builtin_id": "b657ac4d-92de-4cad-89c2-5a4b65d31ace",
+											"sort_no": 6,
+											"builtin_parent_id": "e446ce9f-69f0-46cc-b9d8-110508926bd1",
+											"value": null,
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": []
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Fan size"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Fläktstorlek"
+										}
+									]
+								},
+								{
+									"builtin_id": "fa27210f-a00b-47b9-959c-7c838c259083",
+									"sort_no": 3,
+									"name": "bladetype",
+									"group": "Fan",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "32359db6-cf78-42b1-a724-85ca01ad12ae",
+											"sort_no": 0,
+											"builtin_parent_id": "fa27210f-a00b-47b9-959c-7c838c259083",
+											"value": "1",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Forward curved"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Framåtböjda"
+												}
+											]
+										},
+										{
+											"builtin_id": "9429a067-ce61-40c2-a6dc-b003ceccd675",
+											"sort_no": 1,
+											"builtin_parent_id": "fa27210f-a00b-47b9-959c-7c838c259083",
+											"value": "2",
+											"property_filter": "fanmodel=1",
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Backward curved"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Bakåtböjda"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Fan blade"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Fläktblad"
+										}
+									]
+								},
+								{
+									"builtin_id": "e8525625-a37d-4c0f-ba64-a590adc0a753",
+									"sort_no": 4,
+									"name": "bladematerial",
+									"group": "Fan",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "2876498a-c884-4bcf-abfe-adc7b492ed59",
+											"sort_no": 0,
+											"builtin_parent_id": "e8525625-a37d-4c0f-ba64-a590adc0a753",
+											"value": "1",
+											"property_filter": null,
+											"image": null,
+											"description": "Aluminium",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Aluminium"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Aluminium"
+												}
+											]
+										},
+										{
+											"builtin_id": "a8fa6772-e6cd-4d22-b657-37b47900d176",
+											"sort_no": 1,
+											"builtin_parent_id": "e8525625-a37d-4c0f-ba64-a590adc0a753",
+											"value": "2",
+											"property_filter": null,
+											"image": null,
+											"description": "Nylon",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Nylon"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Nylon"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Fan blade material"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Material fläktblad"
+										}
+									]
+								},
+								{
+									"builtin_id": "70ed89e0-c38e-435d-9b84-570646868601",
+									"sort_no": 5,
+									"name": "fanmotor",
+									"group": "Motor",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "d66df86d-a1fb-4104-8bde-4b509d5cc2a4",
+											"sort_no": 0,
+											"builtin_parent_id": "70ed89e0-c38e-435d-9b84-570646868601",
+											"value": "1",
+											"property_filter": null,
+											"image": null,
+											"description": "AC IE3",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "AC IE2"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "AC IE2"
+												}
+											]
+										},
+										{
+											"builtin_id": "286578de-6a84-47cc-a79e-5c1abdfb25a3",
+											"sort_no": 1,
+											"builtin_parent_id": "70ed89e0-c38e-435d-9b84-570646868601",
+											"value": "2",
+											"property_filter": null,
+											"image": null,
+											"description": "AC IE3",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "AC IE3"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "AC IE3"
+												}
+											]
+										},
+										{
+											"builtin_id": "9e49061a-254e-4757-a3d8-088520fc234e",
+											"sort_no": 2,
+											"builtin_parent_id": "70ed89e0-c38e-435d-9b84-570646868601",
+											"value": "3",
+											"property_filter": null,
+											"image": null,
+											"description": "EC",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "EC"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "EC"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Motor"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Motor"
+										}
+									]
+								},
+								{
+									"builtin_id": "32812aab-5fed-4131-a944-e553565b12eb",
+									"sort_no": 6,
+									"name": "numberofpoles",
+									"group": "Motor",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "ea4a4e03-a407-47ef-abed-452d46983a97",
+											"sort_no": 0,
+											"builtin_parent_id": "32812aab-5fed-4131-a944-e553565b12eb",
+											"value": "2",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "2-poles"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "2-polig"
+												}
+											]
+										},
+										{
+											"builtin_id": "3193b33f-ee75-4816-965d-d397b9b8e460",
+											"sort_no": 1,
+											"builtin_parent_id": "32812aab-5fed-4131-a944-e553565b12eb",
+											"value": "4",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "4-poles"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "4-polig"
+												}
+											]
+										},
+										{
+											"builtin_id": "c7b92bcb-a68e-4aad-a460-ac11f55a89db",
+											"sort_no": 2,
+											"builtin_parent_id": "32812aab-5fed-4131-a944-e553565b12eb",
+											"value": "6",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "6-poles"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "6-polig"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Poles"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Poler"
+										}
+									]
+								},
+								{
+									"builtin_id": "fb1b5f3f-151d-4f8a-bc80-f310468a2119",
+									"sort_no": 7,
+									"name": "drive",
+									"group": "Motor",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "f1b24a1d-5282-47d6-ab04-60553d09a95a",
+											"sort_no": 0,
+											"builtin_parent_id": "fb1b5f3f-151d-4f8a-bc80-f310468a2119",
+											"value": "1",
+											"property_filter": "fantype=2",
+											"image": null,
+											"description": "Belt",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Belt"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Rem"
+												}
+											]
+										},
+										{
+											"builtin_id": "7b6ad897-c918-4941-8af5-4f3efb61d7f7",
+											"sort_no": 1,
+											"builtin_parent_id": "fb1b5f3f-151d-4f8a-bc80-f310468a2119",
+											"value": "2",
+											"property_filter": "fantype=1",
+											"image": null,
+											"description": "Direct",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Direct"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Direkt"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Drive"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Drivenhet"
+										}
+									]
+								},
+								{
+									"builtin_id": "b7ba6b53-2972-4876-ba42-d2cea161fa0b",
+									"sort_no": 8,
+									"name": "airvolume",
+									"group": "Performance",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "MassFlow",
+									"values": [],
+									"defaults": [
+										{
+											"builtin_id": "6456a4ea-8fd4-495e-b75b-f0035d0d47ae",
+											"sort_no": 0,
+											"builtin_parent_id": "b7ba6b53-2972-4876-ba42-d2cea161fa0b",
+											"value": "500:LiterPerHour",
+											"property_filter": null
+										}
+									],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Air Volume"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Luftmängd"
+										}
+									]
+								},
+								{
+									"builtin_id": "b9e9d71b-f202-4fbe-8744-f7b81eada3c8",
+									"sort_no": 9,
+									"name": "esp",
+									"group": "Performance",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": "esp>50:Pascal&esp<500:Pascal",
+									"quantity": "Pressure",
+									"values": [],
+									"defaults": [
+										{
+											"builtin_id": "59c10dfe-d69b-4e82-9c27-2c13a2a058c9",
+											"sort_no": 0,
+											"builtin_parent_id": "b9e9d71b-f202-4fbe-8744-f7b81eada3c8",
+											"value": "160:Pascal",
+											"property_filter": null
+										}
+									],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "External pressure"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Externt tryck"
+										}
+									]
+								}
+							]
+						},
+						"size": {
+							"shape": [],
+							"shape_size": []
+						},
+						"sound": {
+							"sound_variant": []
+						}
+					}
+				},
+				{
+					"id": "e45e351b-937a-4d10-a7e7-eaba57b246c8",
+					"key": "demofan_copy_copy",
+					"name": "DEMOFAN_TB",
+					"retired": false,
+					"modules": {
+						"custom_tables": {
+							"ItemNo": [
+								{
+									"builtin_id": "20da48ed-60fe-4f81-9fa4-5eae10cb712d",
+									"sort_no": 0,
+									"ordering_code": "FAN-1-2-A",
+									"item_no": "ITEM_2"
+								},
+								{
+									"builtin_id": "a7fde01c-6ffb-46ad-a4ed-56272210f5d1",
+									"sort_no": 0,
+									"ordering_code": "FAN-2-1-A",
+									"item_no": "ITEM_3"
+								},
+								{
+									"builtin_id": "09b07a90-ef62-4a06-ab74-e6a496d4ae87",
+									"sort_no": 0,
+									"ordering_code": "FAN-2-2-A",
+									"item_no": "ITEM_4"
+								},
+								{
+									"builtin_id": "5dac32f3-ee59-49cf-89ee-005cb8f3134a",
+									"sort_no": 0,
+									"ordering_code": "FAN-1-1-7",
+									"item_no": "ITEM_1B"
+								}
+							],
+							"SoundAttenuation": [],
+							"TABLEABC": [],
+							"Test123": [],
+							"data": [],
+							"etdfetdf": [],
+							"hej": [],
+							"Weight": [
+								{
+									"builtin_id": "f215c5a5-3401-4892-9fd4-2d4f11e55031",
+									"sort_no": 10,
+									"property_filter": "fantype=1&fansize=300",
+									"Weight": 51
+								},
+								{
+									"builtin_id": "58e8e94b-8b80-4b7b-902b-6fdd73f3185c",
+									"sort_no": 11,
+									"property_filter": "fantype=1&fansize=400",
+									"Weight": 71
+								},
+								{
+									"builtin_id": "114a457d-b720-4407-8532-14a59726855c",
+									"sort_no": 12,
+									"property_filter": "fantype=1&fansize=500",
+									"Weight": 91
+								},
+								{
+									"builtin_id": "bbae0cd2-6a25-4263-ac60-67096773b71b",
+									"sort_no": 13,
+									"property_filter": "fantype=1&fansize=600",
+									"Weight": 100
+								},
+								{
+									"builtin_id": "3811a96a-bf3d-445c-8f85-81c730efec34",
+									"sort_no": 14,
+									"property_filter": "fantype=2&fansize=300",
+									"Weight": 190
+								},
+								{
+									"builtin_id": "a687716f-a575-4ddb-a817-45bbc627eaad",
+									"sort_no": 15,
+									"property_filter": "fantype=2&fansize=400",
+									"Weight": 81
+								},
+								{
+									"builtin_id": "cfbb1e1a-44ad-461d-8299-8b4ea544ad1e",
+									"sort_no": 16,
+									"property_filter": "fantype=2&fansize=400",
+									"Weight": 96
+								},
+								{
+									"builtin_id": "62af49ae-ecde-4dca-a137-2e7b2691412d",
+									"sort_no": 17,
+									"property_filter": "fantype=2&fansize=600",
+									"Weight": 105
+								},
+								{
+									"builtin_id": "fbe55703-ab8f-4c7d-aff0-e9f33845f64b",
+									"sort_no": 18,
+									"property_filter": "fantype=2&fansize=300",
+									"Weight": 204
+								}
+							]
+						},
+						"ordering_code": {
+							"code": [
+								{
+									"builtin_id": "316b29dd-7a80-43a9-8807-c7deec8b0f11",
+									"sort_no": 0,
+									"property_filter": null,
+									"type": "main",
+									"code": "FAN-{fantype}-{fanmodel}"
+								},
+								{
+									"builtin_id": "66bec2fa-e0ed-4de5-9e1f-aba3aa4c115c",
+									"sort_no": 1,
+									"property_filter": "fanmotor=1",
+									"type": "main",
+									"code": "-A"
+								},
+								{
+									"builtin_id": "805ccffb-179d-48ed-8a26-6928c49e38b7",
+									"sort_no": 2,
+									"property_filter": "fanmotor=2",
+									"type": "main",
+									"code": "-B"
+								},
+								{
+									"builtin_id": "7b7cf5f1-2815-4f73-ae05-f6da125d4a73",
+									"sort_no": 3,
+									"property_filter": "fanmotor=3",
+									"type": "main",
+									"code": "-C"
+								}
+							]
+						},
+						"documents": {
+							"document": []
+						},
+						"images": {
+							"image": [
+								{
+									"builtin_id": "d9d3793a-fa2b-403a-b44b-212b563b86e8",
+									"sort_no": 0,
+									"image": "65f4db70e2e65898326430ea57c0e6cb36f0b0d2",
+									"file_name": "plug-fan.jpeg",
+									"property_filter": "fantype=1",
+									"type": "product_photo",
+									"name": "Plug fan",
+									"size": null
+								},
+								{
+									"builtin_id": "bfcaa153-e09a-4566-b6aa-fb088fc51a93",
+									"sort_no": 1,
+									"image": "27f199a7324ceabc67fd06823fe179ba2e74a59d",
+									"file_name": "centrifugal-fan.jpeg",
+									"property_filter": "fantype=2",
+									"type": "product_photo",
+									"name": "Centrifugal fan",
+									"size": null
+								}
+							]
+						},
+						"languages": {
+							"language": [
+								{
+									"builtin_id": "c4cdb235-9f84-43c7-84ce-3e98551a681f",
+									"sort_no": 0,
+									"name": "en-US"
+								},
+								{
+									"builtin_id": "18c3cdd1-cf0e-4816-8218-fc366367a608",
+									"sort_no": 0,
+									"name": "sv-SE"
+								}
+							]
+						},
+						"markets": {
+							"market": [],
+							"market_price": []
+						},
+						"models": {
+							"model": []
+						},
+						"frontend": {
+							"module": []
+						},
+						"properties": {
+							"property": [
+								{
+									"builtin_id": "575479f4-67a9-4c40-93f3-9b0af69a95a9",
+									"sort_no": 0,
+									"name": "fantype",
+									"group": "Fan",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "12e73500-cd36-41eb-8424-6fcbc7a21273",
+											"sort_no": 0,
+											"builtin_parent_id": "575479f4-67a9-4c40-93f3-9b0af69a95a9",
+											"value": "1",
+											"property_filter": null,
+											"image": "65f4db70e2e65898326430ea57c0e6cb36f0b0d2",
+											"description": "Plug fan",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Plug fan"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Kammarfläkt"
+												}
+											]
+										},
+										{
+											"builtin_id": "12dc236b-1d00-4ae3-b4e0-5fdde38b2608",
+											"sort_no": 1,
+											"builtin_parent_id": "575479f4-67a9-4c40-93f3-9b0af69a95a9",
+											"value": "2",
+											"property_filter": null,
+											"image": "27f199a7324ceabc67fd06823fe179ba2e74a59d",
+											"description": "Centrifugal fan",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Centrifugal fan"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Radialfläkt"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Fan type"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Fläkttyp"
+										}
+									]
+								},
+								{
+									"builtin_id": "5ea0cfa1-2ec8-48ed-9d94-aa39b0c176c5",
+									"sort_no": 1,
+									"name": "fanmodel",
+									"group": "Fan",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "95b3d877-4666-4439-859d-04d2863efa1a",
+											"sort_no": 0,
+											"builtin_parent_id": "5ea0cfa1-2ec8-48ed-9d94-aa39b0c176c5",
+											"value": "1",
+											"property_filter": null,
+											"image": null,
+											"description": "model A",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Model A"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Modell A"
+												}
+											]
+										},
+										{
+											"builtin_id": "8cae3095-877a-4482-a599-5d475c452263",
+											"sort_no": 1,
+											"builtin_parent_id": "5ea0cfa1-2ec8-48ed-9d94-aa39b0c176c5",
+											"value": "2",
+											"property_filter": null,
+											"image": null,
+											"description": "model B",
+											"translations": [
+												{
+													"language": "English",
+													"translation": "Model B"
+												},
+												{
+													"language": "Svenska",
+													"translation": "Modell B"
+												}
+											]
+										},
+										{
+											"builtin_id": "cab56bda-ee99-42d3-93f1-9697be8f115f",
+											"sort_no": 2,
+											"builtin_parent_id": "5ea0cfa1-2ec8-48ed-9d94-aa39b0c176c5",
+											"value": "3",
+											"property_filter": "fantype=1&fansize=300",
+											"image": null,
+											"description": "model C",
+											"translations": [
+												{
+													"language": "English",
+													"translation": "Model C"
+												},
+												{
+													"language": "Svenska",
+													"translation": "Modell C"
+												}
+											]
+										},
+										{
+											"builtin_id": "f56d8651-f673-4251-8d71-98315dae487f",
+											"sort_no": 6,
+											"builtin_parent_id": "5ea0cfa1-2ec8-48ed-9d94-aa39b0c176c5",
+											"value": "4",
+											"property_filter": null,
+											"image": null,
+											"description": "model D",
+											"translations": [
+												{
+													"language": null,
+													"translation": null
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Fan model"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Fläktmodell"
+										}
+									]
+								},
+								{
+									"builtin_id": "93203860-e840-437f-83d6-4fcccf449f1d",
+									"sort_no": 2,
+									"name": "fansize",
+									"group": "Fan",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "c34676fc-6d4a-49b5-b4ce-49b9a725cd39",
+											"sort_no": 0,
+											"builtin_parent_id": "93203860-e840-437f-83d6-4fcccf449f1d",
+											"value": "300",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "300"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "300"
+												}
+											]
+										},
+										{
+											"builtin_id": "25f43c6d-dc79-4cc7-9b70-9382eb999344",
+											"sort_no": 1,
+											"builtin_parent_id": "93203860-e840-437f-83d6-4fcccf449f1d",
+											"value": "400",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "400"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "400"
+												}
+											]
+										},
+										{
+											"builtin_id": "21d5e67e-e647-45c8-908a-e88a36d39796",
+											"sort_no": 2,
+											"builtin_parent_id": "93203860-e840-437f-83d6-4fcccf449f1d",
+											"value": "500",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "500"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "500"
+												}
+											]
+										},
+										{
+											"builtin_id": "2a194d36-64d9-4b53-a1f7-f213ffbf259c",
+											"sort_no": 3,
+											"builtin_parent_id": "93203860-e840-437f-83d6-4fcccf449f1d",
+											"value": "600",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "600"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "600"
+												}
+											]
+										},
+										{
+											"builtin_id": "602c4e43-1325-45da-ab41-28a9bdfd11ec",
+											"sort_no": 3,
+											"builtin_parent_id": "93203860-e840-437f-83d6-4fcccf449f1d",
+											"value": "700",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "600"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "600"
+												}
+											]
+										},
+										{
+											"builtin_id": "476e4ec4-7a15-49a4-b011-5a4c7e132f53",
+											"sort_no": 4,
+											"builtin_parent_id": "93203860-e840-437f-83d6-4fcccf449f1d",
+											"value": "900",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": []
+										},
+										{
+											"builtin_id": "43eedbe3-8fa3-4ac8-a87d-7d556b226dba",
+											"sort_no": 5,
+											"builtin_parent_id": "93203860-e840-437f-83d6-4fcccf449f1d",
+											"value": "100000000000000000000",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": []
+										},
+										{
+											"builtin_id": "bb5cfb93-1233-4bfe-987f-bf57a94e4cb0",
+											"sort_no": 6,
+											"builtin_parent_id": "93203860-e840-437f-83d6-4fcccf449f1d",
+											"value": null,
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": []
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Fan size"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Fläktstorlek"
+										}
+									]
+								},
+								{
+									"builtin_id": "07100f04-abf4-485f-bdd3-7f288cc60bd0",
+									"sort_no": 3,
+									"name": "bladetype",
+									"group": "Fan",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "85fd38d8-07c9-4e21-b4ac-095954d2722b",
+											"sort_no": 0,
+											"builtin_parent_id": "07100f04-abf4-485f-bdd3-7f288cc60bd0",
+											"value": "1",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Forward curved"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Framåtböjda"
+												}
+											]
+										},
+										{
+											"builtin_id": "e07a5027-6485-4844-aa01-8378d327fc04",
+											"sort_no": 1,
+											"builtin_parent_id": "07100f04-abf4-485f-bdd3-7f288cc60bd0",
+											"value": "2",
+											"property_filter": "fanmodel=1",
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Backward curved"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Bakåtböjda"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Fan blade"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Fläktblad"
+										}
+									]
+								},
+								{
+									"builtin_id": "8debf212-ebcf-4e2d-bbe6-eb8157e71e39",
+									"sort_no": 4,
+									"name": "bladematerial",
+									"group": "Fan",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "77296ce1-bdd6-4480-9b7b-eff6e8715fe9",
+											"sort_no": 0,
+											"builtin_parent_id": "8debf212-ebcf-4e2d-bbe6-eb8157e71e39",
+											"value": "1",
+											"property_filter": null,
+											"image": null,
+											"description": "Aluminium",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Aluminium"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Aluminium"
+												}
+											]
+										},
+										{
+											"builtin_id": "3d180d51-17a1-4756-bfdc-c7ee0dc60fb1",
+											"sort_no": 1,
+											"builtin_parent_id": "8debf212-ebcf-4e2d-bbe6-eb8157e71e39",
+											"value": "2",
+											"property_filter": null,
+											"image": null,
+											"description": "Nylon",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Nylon"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Nylon"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Fan blade material"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Material fläktblad"
+										}
+									]
+								},
+								{
+									"builtin_id": "fc51392c-1d3a-4b44-b6bc-5711dc1b0557",
+									"sort_no": 5,
+									"name": "fanmotor",
+									"group": "Motor",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "98e0d45f-923b-441f-ab3c-a87f42e8dea6",
+											"sort_no": 0,
+											"builtin_parent_id": "fc51392c-1d3a-4b44-b6bc-5711dc1b0557",
+											"value": "1",
+											"property_filter": null,
+											"image": null,
+											"description": "AC IE3",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "AC IE2"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "AC IE2"
+												}
+											]
+										},
+										{
+											"builtin_id": "3ec52c9b-d155-475f-b233-4c445b39881e",
+											"sort_no": 1,
+											"builtin_parent_id": "fc51392c-1d3a-4b44-b6bc-5711dc1b0557",
+											"value": "2",
+											"property_filter": null,
+											"image": null,
+											"description": "AC IE3",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "AC IE3"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "AC IE3"
+												}
+											]
+										},
+										{
+											"builtin_id": "24523cce-4ac4-4986-9ca9-36ce11e31bad",
+											"sort_no": 2,
+											"builtin_parent_id": "fc51392c-1d3a-4b44-b6bc-5711dc1b0557",
+											"value": "3",
+											"property_filter": null,
+											"image": null,
+											"description": "EC",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "EC"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "EC"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Motor"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Motor"
+										}
+									]
+								},
+								{
+									"builtin_id": "d48f6f68-dfb9-45f8-a591-c6da6ee4bc30",
+									"sort_no": 6,
+									"name": "numberofpoles",
+									"group": "Motor",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "64000f77-4e2e-4b3d-a8e1-c61a49dd370d",
+											"sort_no": 0,
+											"builtin_parent_id": "d48f6f68-dfb9-45f8-a591-c6da6ee4bc30",
+											"value": "2",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "2-poles"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "2-polig"
+												}
+											]
+										},
+										{
+											"builtin_id": "2229451d-1219-415e-8d33-cd4b26cc7c2d",
+											"sort_no": 1,
+											"builtin_parent_id": "d48f6f68-dfb9-45f8-a591-c6da6ee4bc30",
+											"value": "4",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "4-poles"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "4-polig"
+												}
+											]
+										},
+										{
+											"builtin_id": "9516dd7a-f836-4dac-941d-9f7777cddc5c",
+											"sort_no": 2,
+											"builtin_parent_id": "d48f6f68-dfb9-45f8-a591-c6da6ee4bc30",
+											"value": "6",
+											"property_filter": null,
+											"image": null,
+											"description": null,
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "6-poles"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "6-polig"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Poles"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Poler"
+										}
+									]
+								},
+								{
+									"builtin_id": "47215795-7b03-4eb1-8596-a4ba95d97be6",
+									"sort_no": 7,
+									"name": "drive",
+									"group": "Motor",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "Discrete",
+									"values": [
+										{
+											"builtin_id": "d1081ffb-6155-47bb-8424-f662fa9041e8",
+											"sort_no": 0,
+											"builtin_parent_id": "47215795-7b03-4eb1-8596-a4ba95d97be6",
+											"value": "1",
+											"property_filter": "fantype=2",
+											"image": null,
+											"description": "Belt",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Belt"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Rem"
+												}
+											]
+										},
+										{
+											"builtin_id": "ee971b77-38ff-4f30-a385-8e2f7137f024",
+											"sort_no": 1,
+											"builtin_parent_id": "47215795-7b03-4eb1-8596-a4ba95d97be6",
+											"value": "2",
+											"property_filter": "fantype=1",
+											"image": null,
+											"description": "Direct",
+											"translations": [
+												{
+													"language": "en-US",
+													"translation": "Direct"
+												},
+												{
+													"language": "sv-SE",
+													"translation": "Direkt"
+												}
+											]
+										}
+									],
+									"defaults": [],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Drive"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Drivenhet"
+										}
+									]
+								},
+								{
+									"builtin_id": "4b7d5502-5e52-445e-a691-2479b31abcb8",
+									"sort_no": 8,
+									"name": "airvolume",
+									"group": "Performance",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": null,
+									"quantity": "MassFlow",
+									"values": [],
+									"defaults": [
+										{
+											"builtin_id": "2408ec20-c664-4f1c-bdc1-0ea781183a6f",
+											"sort_no": 0,
+											"builtin_parent_id": "4b7d5502-5e52-445e-a691-2479b31abcb8",
+											"value": "500:LiterPerHour",
+											"property_filter": null
+										}
+									],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "Air Volume"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Luftmängd"
+										}
+									]
+								},
+								{
+									"builtin_id": "facd554c-131c-4b02-9e2d-52475eea1747",
+									"sort_no": 9,
+									"name": "esp",
+									"group": "Performance",
+									"image": null,
+									"visibility_filter": null,
+									"validation_filter": "esp>50:Pascal&esp<500:Pascal",
+									"quantity": "Pressure",
+									"values": [],
+									"defaults": [
+										{
+											"builtin_id": "3e0d2152-957e-4a5b-a2d0-dbcfabf42384",
+											"sort_no": 0,
+											"builtin_parent_id": "facd554c-131c-4b02-9e2d-52475eea1747",
+											"value": "160:Pascal",
+											"property_filter": null
+										}
+									],
+									"translations": [
+										{
+											"language": "en-US",
+											"type": "standard",
+											"translation": "External pressure"
+										},
+										{
+											"language": "sv-SE",
+											"type": "standard",
+											"translation": "Externt tryck"
+										}
+									]
+								}
+							]
+						},
+						"size": {
+							"shape": [],
+							"shape_size": []
+						},
+						"sound": {
+							"sound_variant": []
+						}
+					}
+				},
+				{
+					"id": "857d5226-6bb2-47f0-a4bb-b5553a8b1047",
+					"key": "FANS",
+					"name": "",
+					"retired": false,
+					"modules": {
+						"custom_tables": {
+							"ItemNo": [],
+							"SoundAttenuation": [],
+							"TABLEABC": [],
+							"Test123": [],
+							"data": [],
+							"etdfetdf": [],
+							"hej": [],
+							"Weight": []
+						},
+						"ordering_code": {
+							"code": []
+						},
+						"documents": {
+							"document": []
+						},
+						"images": {
+							"image": []
+						},
+						"languages": {
+							"language": []
+						},
+						"markets": {
+							"market": [],
+							"market_price": []
+						},
+						"models": {
+							"model": []
+						},
+						"frontend": {
+							"module": []
+						},
+						"properties": {
+							"property": []
+						},
+						"size": {
+							"shape": [],
+							"shape_size": []
+						},
+						"sound": {
+							"sound_variant": []
+						}
+					}
+				},
+				{
+					"id": "1dc53e3a-2813-4bd7-af54-39d0c27fd1df",
+					"key": "ROOT",
+					"name": "ROOT",
+					"retired": false,
+					"modules": {
+						"custom_tables": {
+							"ItemNo": [],
+							"SoundAttenuation": [],
+							"TABLEABC": [],
+							"Test123": [],
+							"data": [],
+							"etdfetdf": [],
+							"hej": [],
+							"Weight": []
+						},
+						"ordering_code": {
+							"code": []
+						},
+						"documents": {
+							"document": []
+						},
+						"images": {
+							"image": []
+						},
+						"languages": {
+							"language": []
+						},
+						"markets": {
+							"market": [],
+							"market_price": []
+						},
+						"models": {
+							"model": []
+						},
+						"frontend": {
+							"module": []
+						},
+						"properties": {
+							"property": []
+						},
+						"size": {
+							"shape": [],
+							"shape_size": []
+						},
+						"sound": {
+							"sound_variant": []
+						}
+					}
+				}
+			]
+		}
+	}
+]
