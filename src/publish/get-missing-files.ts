@@ -67,7 +67,7 @@ export async function getMissingFilesForRootFiles(
       // Prune (delete unused files)
       if (pruneFiles) {
         const pruneFiles = difference(existingFiles, referencedFiles);
-        const prunePromises = Array.from(pruneFiles).map((file) => fsp.unlink(path.join(filesPath, file)));
+        const prunePromises = Array.from(pruneFiles).map((file) => deleteFile(path.join(filesPath, file)));
         await Promise.all(prunePromises);
       }
 
@@ -76,12 +76,26 @@ export async function getMissingFilesForRootFiles(
       // Delete the temp-files instead of renamnign them (do not "save" them)
       // One use-case for save=no is when checking update-to-date status from promaster-edit by
       // posting root.json and checking if any missing files are returned.
-      const promises = fileNames.map((file) => fsp.unlink(path.join(filesPath, file)));
+      const promises = fileNames.map((file) => deleteFile(path.join(filesPath, file)));
       await Promise.all(promises);
     }
 
     return missingFilesResult.missingFiles;
   });
+}
+
+async function deleteFile(filePath: string): Promise<void> {
+  try {
+    await fsp.unlink(filePath);
+    //console.log("==>> deleted file: ", filePath);
+  } catch (err) {
+    if (err && err.code && err.code === "ENOENT") {
+      console.log("file doesn't exist: ", filePath);
+    } else {
+      //console.log("==>> ERR deleting file: ", filePath, " (err = ", err, ")");
+      throw err;
+    }
+  }
 }
 
 async function getExistingFiles(path: string): Promise<Set<string>> {
