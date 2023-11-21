@@ -15,13 +15,13 @@
                     {
                       "builtin_id": "d2720613-1519-49c4-b4e7-690f6795d839",
                       "language": "en-US",
-                      "type": null,
+                      "type": "standard",
                       "translation": "Width"
                     },
                     {
                       "builtin_id": "0002c2e6-e53e-4b05-a917-9f9fc8d01c90",
                       "language": "sv-SE",
-                      "type": null,
+                      "type": "standard",
                       "translation": "Bredd"
                     }
                   ]
