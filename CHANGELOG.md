@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v3.4.0...master)
 
+## [3.6.0](https://github.com/promaster-sdk/api-server/compare/v3.5.0...v3.6.0)
+
+- Temp file deletion fix #47
+- Add fake property and property value translations #45
+
+## [3.5.0](https://github.com/promaster-sdk/api-server/compare/v3.4.0...v3.5.0)
+
+- Fix corrupt JSON on publish #44
+
 ## [3.4.0](https://github.com/promaster-sdk/api-server/compare/v3.3.0...v3.4.0)
 
 - Remove graphql-tools #43
