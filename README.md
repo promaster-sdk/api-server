@@ -161,8 +161,11 @@ ngrok http 4500
 
 ```bash
 # We should always publish both to npm and dockerhub at the same time with the same version
-# First publish a new package version to npm
-yarn publish
+# First publish a new package version to npm, run **one** of the commands below
+# This command will both increment version and publish the package to npm
+yarn version --patch
+yarn version --minor
+yarn version --major
 # You should be promted for your desired version by the above command
 # To build and push to dockerhub, replace <version> in the below commands with
 # the version you entered for the above command
