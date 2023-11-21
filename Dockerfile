@@ -1,11 +1,11 @@
-FROM node:14.15.4 AS builder
+FROM node:14.21.3 AS builder
 WORKDIR /app
 COPY src src
 COPY package.json yarn.lock tsconfig.json tsconfig.settings.json ./
 RUN yarn install
 RUN yarn run build
 
-FROM node:14.15.4
+FROM node:14.21.3
 
 WORKDIR /app
 COPY --from=builder /app/lib/ ./lib
