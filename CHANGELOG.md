@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v3.6.1...master)
+## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v3.6.2...master)
+
+## [3.6.2](https://github.com/promaster-sdk/api-server/compare/v3.6.1...v3.6.2)
+
+- Performance fix for reading child-table files #50
 
 ## [3.6.1](https://github.com/promaster-sdk/api-server/compare/v3.6.0...v3.6.1)
 
