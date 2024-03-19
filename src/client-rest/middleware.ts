@@ -451,7 +451,7 @@ function fullToLegacyTableName(prefixedTableName: string): string {
 }
 
 type LoadedFiles = {
-  [fileName: string]: ProductTableFile;
+  readonly [fileName: string]: ProductTableFile;
 };
 
 async function mapFileRowsToApiRows(
@@ -596,7 +596,7 @@ async function getChildTables(
   pf: ProductFile,
   filesDir: string,
   parentTableName: string,
-  childFiles: LoadedFiles
+  childFiles: Mutable<LoadedFiles>
 ): Promise<LoadedTables> {
   let childTableContent: Mutable<LoadedTables> = {};
   const childTables = legacyChildTables2[parentTableName];
