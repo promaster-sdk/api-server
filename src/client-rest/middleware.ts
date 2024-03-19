@@ -427,9 +427,10 @@ export async function getApiProductTables(
   const promises = tableFileNames.map((f) => readJsonFile<ProductTableFile>(filesDir, f));
   const tableFilesContent: ReadonlyArray<ProductTableFile> = await Promise.all(promises);
   // Map to the API objects to return
+  const childFiles: Record<string, ProductTableFile> = {};
   for (const tableFile of tableFilesContent) {
     const fullTableName = buildFullTableName(tableFile);
-    const rows = await mapFileRowsToApiRows(productFile, filesDir, baseUrl, tableFile, undefined);
+    const rows = await mapFileRowsToApiRows(productFile, filesDir, baseUrl, tableFile, childFiles, undefined);
     apiTables[fullToLegacyTableName(fullTableName)] = rows;
   }
   return apiTables;
@@ -454,13 +455,14 @@ async function mapFileRowsToApiRows(
   filesDir: string,
   baseUrl: string,
   tableFile: ProductTableFile,
+  childFiles: Record<string, ProductTableFile>,
   parent: { readonly value: string; readonly rowId: string } | undefined
 ): Promise<ReadonlyArray<ApiTableRow>> {
   const tableName = buildFullTableName(tableFile);
   const fileColumns = tableFile.data.columns;
   const fileRows = tableFile.data.rows;
 
-  const childTableContent: Mutable<LoadedTables> = await readChildTables(productFile, filesDir, tableName);
+  const childTableContent: Mutable<LoadedTables> = await getChildTables(productFile, filesDir, tableName, childFiles);
 
   // Filter rows BEFORE mapping them to avoid mapping rows that will be filtered away
   // const idColumnIndex = fileColumns.findIndex((c) => c.name === builtinIdColumnName);
@@ -505,6 +507,7 @@ async function mapFileRowsToApiRows(
             filesDir,
             baseUrl,
             childTableFile,
+            childFiles,
             rowId === undefined
               ? undefined
               : {
@@ -585,17 +588,27 @@ async function mapFileRowsToApiRows(
   return rows;
 }
 
-async function readChildTables(pf: ProductFile, filesDir: string, parentTableName: string): Promise<LoadedTables> {
+async function getChildTables(
+  pf: ProductFile,
+  filesDir: string,
+  parentTableName: string,
+  childFiles: Record<string, ProductTableFile>
+): Promise<LoadedTables> {
   let childTableContent: Mutable<LoadedTables> = {};
   const childTables = legacyChildTables2[parentTableName];
   if (childTables) {
     for (const childTableDef of childTables) {
-      // Read the child table's file
+      // Read the child table's file, if not read before
       const childTableName = childTableDef.child;
       const childTableFileName = pf.refs[pf.data.tables[childTableName]];
       if (childTableFileName) {
-        const childTable = await readJsonFile<ProductTableFile>(filesDir, childTableFileName);
-        childTableContent[childTableDef.child] = childTable;
+        if (childFiles[childTableFileName] !== undefined) {
+          childTableContent[childTableDef.child] = childFiles[childTableFileName];
+        } else {
+          const childTable = await readJsonFile<ProductTableFile>(filesDir, childTableFileName);
+          childTableContent[childTableDef.child] = childTable;
+          childFiles[childTableFileName] = childTable;
+        }
       }
     }
   }
