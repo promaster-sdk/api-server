@@ -427,7 +427,7 @@ export async function getApiProductTables(
   const promises = tableFileNames.map((f) => readJsonFile<ProductTableFile>(filesDir, f));
   const tableFilesContent: ReadonlyArray<ProductTableFile> = await Promise.all(promises);
   // Map to the API objects to return
-  const childFiles: LoadedFiles = {};
+  const childFiles: Record<string, ProductTableFile> = {};
   for (const tableFile of tableFilesContent) {
     const fullTableName = buildFullTableName(tableFile);
     const rows = await mapFileRowsToApiRows(productFile, filesDir, baseUrl, tableFile, childFiles, undefined);
@@ -450,16 +450,12 @@ function fullToLegacyTableName(prefixedTableName: string): string {
   return compatibleTableName;
 }
 
-type LoadedFiles = {
-  readonly [fileName: string]: ProductTableFile;
-};
-
 async function mapFileRowsToApiRows(
   productFile: ProductFile,
   filesDir: string,
   baseUrl: string,
   tableFile: ProductTableFile,
-  childFiles: LoadedFiles,
+  childFiles: Record<string, ProductTableFile>,
   parent: { readonly value: string; readonly rowId: string } | undefined
 ): Promise<ReadonlyArray<ApiTableRow>> {
   const tableName = buildFullTableName(tableFile);
@@ -596,7 +592,7 @@ async function getChildTables(
   pf: ProductFile,
   filesDir: string,
   parentTableName: string,
-  childFiles: Mutable<LoadedFiles>
+  childFiles: Record<string, ProductTableFile>
 ): Promise<LoadedTables> {
   let childTableContent: Mutable<LoadedTables> = {};
   const childTables = legacyChildTables2[parentTableName];
