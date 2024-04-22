@@ -1,0 +1,69 @@
+{
+    "data": {
+        "id": "fc1e3028-87b8-4b2d-b4d9-e29f1d1d0695",
+        "module": "properties",
+        "name": "property",
+        "description": "",
+        "columns": [
+            {
+                "type": "PrimaryKey",
+                "name": "builtin@id"
+            },
+            {
+                "type": "Number",
+                "name": "sort_no"
+            },
+            {
+                "type": "Text",
+                "name": "name",
+                "params": "property.name",
+                "key": true
+            },
+            {
+                "type": "Text",
+                "name": "group",
+                "params": "property.group"
+            },
+            {
+                "type": "Blob",
+                "name": "image",
+                "params": "image_filename"
+            },
+            {
+                "type": "PropertyFilter",
+                "name": "visibility_filter"
+            },
+            {
+                "type": "PropertyFilter",
+                "name": "validation_filter"
+            },
+            {
+                "type": "Quantity",
+                "name": "quantity"
+            }
+        ],
+        "rows": [
+            [
+                "6227fb04-e87c-4798-b4f1-cdec81a80455",
+                0,
+                "model",
+                "main",
+                null,
+                null,
+                null,
+                "Discrete"
+            ],
+            [
+                "9271c67a-601b-4c0a-821c-b5805807515a",
+                1,
+                "variant",
+                "main",
+                null,
+                null,
+                null,
+                "Discrete"
+            ]
+        ]
+    },
+    "refs": {}
+}

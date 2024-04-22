@@ -1,0 +1,16 @@
+{
+  "data": {
+    "latest": {
+      "tx": 1806995,
+      "transaction": 1,
+      "date": 1713775876832
+    },
+    "trees": {
+      "94820470-5da0-11e7-fe1b-3d21decf5d71": 2
+    }
+  },
+  "refs": {
+    "0": "release_ed147c3d-59f4-47f6-b664-1ceb5557d4ec.json",
+    "1": "tree_94820470-5da0-11e7-fe1b-3d21decf5d71@6ffb0da6fccb8c020be63fb07994a14bdec92da4.json"
+  }
+}

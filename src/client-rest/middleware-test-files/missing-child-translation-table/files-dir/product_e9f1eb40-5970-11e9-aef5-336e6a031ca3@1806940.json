@@ -1,0 +1,21 @@
+{
+    "data": {
+        "id": "e9f1eb40-5970-11e9-aef5-336e6a031ca3",
+        "key": "Test",
+        "name": "Test",
+        "description": "",
+        "retired": false,
+        "tables": {
+            "properties@property": 12,
+            "properties@property.value": 13,
+            "properties@property.def_value": 14,
+            "texts@text": 15
+        }
+    },
+    "refs": {
+        "12": "table_fc1e3028-87b8-4b2d-b4d9-e29f1d1d0695@1806940.json",
+        "13": "table_8a2603e3-f849-4670-af60-67477b5a2c4f@1806940.json",
+        "14": "table_3ee34bd0-5970-11e9-a38f-b31b93f13a64@1806940.json",
+        "15": "table_e89daa3a-1c46-4bcf-ba0e-c9b5701b7357@1806940.json"
+    }
+}

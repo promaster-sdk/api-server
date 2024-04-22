@@ -1,0 +1,12 @@
+{
+    "data": {
+        "id": "ed147c3d-59f4-47f6-b664-1ceb5557d4ec",
+        "name": "test",
+        "products": {
+            "e9f1eb40-5970-11e9-aef5-336e6a031ca3": 0
+        }
+    },
+    "refs": {
+        "0": "product_e9f1eb40-5970-11e9-aef5-336e6a031ca3@1806940.json"
+    }
+}
