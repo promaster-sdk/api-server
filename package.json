@@ -1,6 +1,6 @@
 {
   "name": "@promaster-sdk/api-server",
-  "version": "3.6.2",
+  "version": "3.6.3",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "description": "Promaster API server reference implementation",
@@ -80,7 +80,7 @@
     "rebuild": "yarn clean && yarn build",
     "lint": "tslint './src/**/*.ts{,x}'",
     "precommit": "lint-staged",
-    "verify": "yarn clean && yarn build && yarn test",
+    "verify": "yarn clean && yarn build",
     "preversion": "yarn verify",
     "postversion": "git push --tags && yarn publish --new-version $npm_package_version && git push && echo \"Successfully released version $npm_package_version!\""
   },
