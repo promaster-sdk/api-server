@@ -473,6 +473,9 @@ async function mapFileRowsToApiRows(
       ? fileRows
       : fileRows.filter((r) => r[childParentIdColumnIndex] === parent?.rowId ?? null);
 
+  let textTablePropertyValueTranslation: ProductTableFile | undefined = undefined;
+  let textTablePropertyTranslation: ProductTableFile | undefined = undefined;
+
   // Read any child table files and send them along (to avoid reading them for every row)
   const rows: Mutable<ApiTableRow>[] = [];
   for (const fileRow of filteredFileRows) {
@@ -517,22 +520,25 @@ async function mapFileRowsToApiRows(
           );
           apiRow[ct.parentField] = filteredApiRows;
         } else {
-          console.warn(`Missing child table '${ct.child}'.`);
-
+          // console.warn(`Missing child table '${ct.child}'.`);
           // The property and property value translation child tables were moved to the
           // text table. Emulate for compatibility.
           const textTableRef = productFile.refs[productFile.data.tables["texts@text"]];
 
           if (ct.child === "properties@property.translation" && textTableRef) {
-            const textTable = await readJsonFile<ProductTableFile>(filesDir, textTableRef);
+            textTablePropertyTranslation =
+              textTablePropertyTranslation ?? (await readJsonFile<ProductTableFile>(filesDir, textTableRef));
 
-            const nameColumnIndex = textTable.data.columns.findIndex((col) => col.name === "name");
-            const laguageColumnIndex = textTable.data.columns.findIndex((col) => col.name === "language");
-            const textColumnIndex = textTable.data.columns.findIndex((col) => col.name === "text");
+            const nameColumnIndex = textTablePropertyTranslation.data.columns.findIndex((col) => col.name === "name");
+            const laguageColumnIndex = textTablePropertyTranslation.data.columns.findIndex(
+              (col) => col.name === "language"
+            );
+            const textColumnIndex = textTablePropertyTranslation.data.columns.findIndex((col) => col.name === "text");
 
             const translationPrefix = "p_standard_" + apiRow["name"];
 
-            const propertyTranslations = textTable.data.rows
+            const propertyTranslations = textTablePropertyTranslation.data.rows
+              .filter((row) => (row[nameColumnIndex]?.toString() ?? null)?.startsWith(translationPrefix))
               .map((row): {
                 name: string | null;
                 laguage: string | null;
@@ -541,8 +547,8 @@ async function mapFileRowsToApiRows(
                 name: row[nameColumnIndex]?.toString() ?? null,
                 laguage: row[laguageColumnIndex]?.toString() ?? null,
                 text: row[textColumnIndex]?.toString() ?? null,
-              }))
-              .filter((translation) => translation.name?.startsWith(translationPrefix));
+              }));
+            // .filter((translation) => translation.name?.startsWith(translationPrefix));
 
             apiRow[ct.parentField] = propertyTranslations.map((propertyTranslation, index) => ({
               sort_no: index,
@@ -553,15 +559,23 @@ async function mapFileRowsToApiRows(
           }
 
           if (ct.child === "properties@property.value.translation" && textTableRef) {
-            const textTable = await readJsonFile<ProductTableFile>(filesDir, textTableRef);
+            textTablePropertyValueTranslation =
+              textTablePropertyValueTranslation ?? (await readJsonFile<ProductTableFile>(filesDir, textTableRef));
 
-            const nameColumnIndex = textTable.data.columns.findIndex((col) => col.name === "name");
-            const laguageColumnIndex = textTable.data.columns.findIndex((col) => col.name === "language");
-            const textColumnIndex = textTable.data.columns.findIndex((col) => col.name === "text");
+            const nameColumnIndex = textTablePropertyValueTranslation.data.columns.findIndex(
+              (col) => col.name === "name"
+            );
+            const laguageColumnIndex = textTablePropertyValueTranslation.data.columns.findIndex(
+              (col) => col.name === "language"
+            );
+            const textColumnIndex = textTablePropertyValueTranslation.data.columns.findIndex(
+              (col) => col.name === "text"
+            );
 
             const translationPrefix = "pv_" + parent?.value + "_" + apiRow["value"];
 
-            const propertyTranslations = textTable.data.rows
+            const propertyTranslations = textTablePropertyValueTranslation.data.rows
+              .filter((row) => (row[nameColumnIndex]?.toString() ?? null)?.startsWith(translationPrefix))
               .map((row): {
                 name: string | null;
                 laguage: string | null;
@@ -570,8 +584,8 @@ async function mapFileRowsToApiRows(
                 name: row[nameColumnIndex]?.toString() ?? null,
                 laguage: row[laguageColumnIndex]?.toString() ?? null,
                 text: row[textColumnIndex]?.toString() ?? null,
-              }))
-              .filter((translation) => translation.name?.startsWith(translationPrefix));
+              }));
+            // .filter((translation) => translation.name?.startsWith(translationPrefix));
 
             apiRow[ct.parentField] = propertyTranslations.map((propertyTranslation, index) => ({
               sort_no: index,
