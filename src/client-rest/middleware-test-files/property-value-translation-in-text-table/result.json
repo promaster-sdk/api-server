@@ -67,6 +67,25 @@
                 "translation": "800"
               }
             ]
+          },
+          {
+            "sort_no": 3,
+            "value": "4000",
+            "property_filter": null,
+            "image": null,
+            "description": null,
+            "translation": [
+              {
+                "sort_no": 0,
+                "language": "en-US",
+                "translation": "4000"
+              },
+              {
+                "sort_no": 1,
+                "language": "sv-SE",
+                "translation": "4000"
+              }
+            ]
           }
         ]
       }
