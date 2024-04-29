@@ -5,7 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v3.6.2...master)
+## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v3.6.4...master)
+
+- Fix duplicated translations for backwards compatible property value texts #54
+
+## [3.6.4](https://github.com/promaster-sdk/api-server/compare/v3.6.3...v3.6.4)
+
+- fix: Improve performance when creating backward compatible json #52
+
+## [3.6.3](https://github.com/promaster-sdk/api-server/compare/v3.6.2...v3.6.3)
+
+- fix: Improve performance when creating backward compatible json #52
 
 ## [3.6.2](https://github.com/promaster-sdk/api-server/compare/v3.6.1...v3.6.2)
 
