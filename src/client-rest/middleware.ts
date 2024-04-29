@@ -572,10 +572,10 @@ async function mapFileRowsToApiRows(
               (col) => col.name === "text"
             );
 
-            const translationPrefix = "pv_" + parent?.value + "_" + apiRow["value"];
+            const translationKey = "pv_" + parent?.value + "_" + apiRow["value"];
 
             const propertyTranslations = textTablePropertyValueTranslation.data.rows
-              .filter((row) => (row[nameColumnIndex]?.toString() ?? null)?.startsWith(translationPrefix))
+              .filter((row) => row[nameColumnIndex]?.toString() === translationKey)
               .map((row): {
                 name: string | null;
                 laguage: string | null;

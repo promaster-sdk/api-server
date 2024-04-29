@@ -19,7 +19,9 @@
       ["fake-3", 1009, null, "pv_width_600", "en-US", "600", null],
       ["fake-4", 1010, null, "pv_width_600", "sv-SE", "600", null],
       ["fake-5", 1009, null, "pv_width_800", "en-US", "800", null],
-      ["fake-6", 1010, null, "pv_width_800", "sv-SE", "800", null]
+      ["fake-6", 1010, null, "pv_width_800", "sv-SE", "800", null],
+      ["fake-7", 1009, null, "pv_width_4000", "en-US", "4000", null],
+      ["fake-8", 1010, null, "pv_width_4000", "sv-SE", "4000", null]
     ]
   },
   "refs": {}
