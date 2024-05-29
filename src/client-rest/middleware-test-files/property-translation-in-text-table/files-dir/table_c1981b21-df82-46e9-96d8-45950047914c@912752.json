@@ -16,8 +16,8 @@
     "rows": [
       ["d2720613-1519-49c4-b4e7-690f6795d839", 1009, null, "p_standard_width", "en-US", "Width", null],
       ["0002c2e6-e53e-4b05-a917-9f9fc8d01c90", 1010, null, "p_standard_width", "sv-SE", "Bredd", null],
-      ["d2720613-1519-49c4-b4e7-690f6795d839", 1109, null, "p_standard_width2", "en-US", "Width", null],
-      ["0002c2e6-e53e-4b05-a917-9f9fc8d01c90", 1110, null, "p_standard_width2", "sv-SE", "Bredd", null]
+      ["d2720613-1519-49c4-b4e7-690f6795d839", 1109, null, "p_standard_width2", "en-US", "Width2", null],
+      ["0002c2e6-e53e-4b05-a917-9f9fc8d01c90", 1110, null, "p_standard_width2", "sv-SE", "Bredd2", null]
     ]
   },
   "refs": {}
