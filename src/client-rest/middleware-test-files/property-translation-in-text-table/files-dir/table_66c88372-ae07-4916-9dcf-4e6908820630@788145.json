@@ -14,7 +14,10 @@
       { "type": "PropertyFilter", "name": "validation_filter" },
       { "type": "Quantity", "name": "quantity" }
     ],
-    "rows": [["9a7ddbfb-83ab-4e0f-b7b3-c99ad8b0f50c", 0, "width", null, null, null, null, "Discrete"]]
+    "rows": [
+      ["9a7ddbfb-83ab-4e0f-b7b3-c99ad8b0f50c", 0, "width", null, null, null, null, "Discrete"],
+      ["9a7ddbfb-83ab-4e0f-b7b3-c99ad8b0f50c", 0, "width2", null, null, null, null, "Discrete"]
+    ]
   },
   "refs": {}
 }
