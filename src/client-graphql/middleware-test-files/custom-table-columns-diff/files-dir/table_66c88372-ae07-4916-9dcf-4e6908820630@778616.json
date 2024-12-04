@@ -1,0 +1,16 @@
+{
+  "data": {
+    "id": "66c88372-ae07-4916-9dcf-4e6908820630",
+    "module": "custom_tables",
+    "name": "table1",
+    "description": "",
+    "columns": [
+      { "type": "PrimaryKey", "name": "builtin@id" },
+      { "type": "Number", "name": "sort_no" },
+      { "type": "Text", "name": "name" },
+      { "type": "Text", "name": "comment" }
+    ],
+    "rows": [["9a7ddbfb-83ab-4e0f-b7b3-c99ad8b0f50c", 0, "width", "a comment"]]
+  },
+  "refs": {}
+}

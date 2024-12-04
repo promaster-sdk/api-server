@@ -1,0 +1,16 @@
+{
+  "data": {
+    "id": "ea231ae4-3a26-4248-800e-647c406de495",
+    "module": "properties",
+    "name": "property.def_value",
+    "description": "",
+    "columns": [
+      { "type": "PrimaryKey", "name": "builtin@id" },
+      { "type": "Number", "name": "sort_no" },
+      { "type": "Text", "name": "value", "key": true },
+      { "type": "PropertyFilter", "name": "property_filter" }
+    ],
+    "rows": []
+  },
+  "refs": {}
+}

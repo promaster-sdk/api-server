@@ -1,0 +1,15 @@
+{
+  products {
+    id
+    name
+    modules {
+      custom_tables {
+        table1 {
+          builtin_id
+          name
+          comment
+        }
+      }
+    }
+  }
+}

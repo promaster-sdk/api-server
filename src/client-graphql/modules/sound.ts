@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLNonNull, GraphQLFieldConfigMap, GraphQLList } from "graphql";
+import { GraphQLObjectType, GraphQLNonNull, GraphQLFieldConfigMap, GraphQLList, GraphQLString } from "graphql";
 import { getUniqueTypeName } from "../shared-functions";
 import { TableByName } from "../module-plugin";
 import { buildTableRowTypeFields, childRowResolver, parentRowResolver } from "./shared-functions";
@@ -16,20 +16,37 @@ export async function createModuleType(
 ): Promise<GraphQLObjectType> {
   const fields: GraphQLFieldConfigMap<unknown, unknown> = {};
   const soundVariantTable = tableByName["sound_variant"];
+  const soundVariantDamperTable = tableByName["sound_variant.damper"];
+  const soundVariantSoundlineTable = tableByName["sound_variant.sound_line"];
+  const soundVariantSoundTable = tableByName["sound_variant.sound"];
+
+  if (
+    soundVariantTable === undefined ||
+    soundVariantDamperTable === undefined ||
+    soundVariantSoundlineTable === undefined ||
+    soundVariantSoundTable === undefined
+  ) {
+    fields["sound_type_error"] = {
+      type: GraphQLString,
+      description:
+        "sound type error: cannot find sound_variant/sound_variant.damper/sound_variant.sound_line/sound_variant.sound",
+    };
+    return new GraphQLObjectType({ name: getUniqueTypeName(`Module_${moduleName}`, usedTypeNames), fields });
+  }
 
   const damperRowType = new GraphQLObjectType({
     name: getUniqueTypeName("Sound_Damper", usedTypeNames),
-    fields: buildTableRowTypeFields(tableByName["sound_variant.damper"].columns),
+    fields: buildTableRowTypeFields(soundVariantDamperTable.columns),
   });
 
   const soundLineRowType = new GraphQLObjectType({
     name: getUniqueTypeName("Sound_SoundLine", usedTypeNames),
-    fields: buildTableRowTypeFields(tableByName["sound_variant.sound_line"].columns),
+    fields: buildTableRowTypeFields(soundVariantSoundlineTable.columns),
   });
 
   const soundRowType = new GraphQLObjectType({
     name: getUniqueTypeName("Sound_Sound", usedTypeNames),
-    fields: buildTableRowTypeFields(tableByName["sound_variant.sound"].columns),
+    fields: buildTableRowTypeFields(soundVariantSoundTable.columns),
   });
 
   const soundVariantRowType = new GraphQLObjectType({

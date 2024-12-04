@@ -1,0 +1,21 @@
+{
+  "data": {
+    "id": "66c88372-ae07-4916-9dcf-4e6908820630",
+    "module": "properties",
+    "name": "property",
+    "description": "",
+    "columns": [
+      { "type": "PrimaryKey", "name": "builtin@id" },
+      { "type": "Number", "name": "sort_no" },
+      { "type": "Text", "name": "name", "params": "property.name", "key": true },
+      { "type": "Text", "name": "group", "params": "property.group" },
+      { "type": "Blob", "name": "image", "params": "image_filename" },
+      { "type": "PropertyFilter", "name": "visibility_filter" },
+      { "type": "PropertyFilter", "name": "validation_filter" },
+      { "type": "Quantity", "name": "quantity" },
+      { "type": "Text", "name": "comment" }
+    ],
+    "rows": [["9a7ddbfb-83ab-4e0f-b7b3-c99ad8b0f50c", 0, "width", null, null, null, null, "Discrete", "a comment"]]
+  },
+  "refs": {}
+}

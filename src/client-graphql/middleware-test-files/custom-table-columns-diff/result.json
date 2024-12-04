@@ -1,0 +1,5 @@
+[
+  {
+    "errors": [{ "message": "Cannot query field \"table1\" on type \"Module_custom_tables\"." }]
+  }
+]

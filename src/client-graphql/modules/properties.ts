@@ -24,6 +24,16 @@ export async function createModuleType(
 ): Promise<GraphQLObjectType> {
   const fields: GraphQLFieldConfigMap<unknown, unknown> = {};
   const propertyTable = tableByName["property"];
+  const propertyDefValueTable = tableByName["property.def_value"];
+  const propertyValueTable = tableByName["property.value"];
+
+  if (propertyTable === undefined || propertyDefValueTable === undefined || propertyValueTable === undefined) {
+    fields["property_type_error"] = {
+      type: GraphQLString,
+      description: "property type error: cannot find property/property.def_value/property.value",
+    };
+    return new GraphQLObjectType({ name: getUniqueTypeName(`Module_${moduleName}`, usedTypeNames), fields });
+  }
 
   const propertyValueTranslationRowType = new GraphQLObjectType({
     name: getUniqueTypeName("Property_ValueTranslation", usedTypeNames),
@@ -56,13 +66,13 @@ export async function createModuleType(
 
   const propertyDefaultValueRowType = new GraphQLObjectType({
     name: getUniqueTypeName("Property_DefaultValue", usedTypeNames),
-    fields: buildTableRowTypeFields(tableByName["property.def_value"].columns),
+    fields: buildTableRowTypeFields(propertyDefValueTable.columns),
   });
 
   const propertyValueRowType = new GraphQLObjectType({
     name: getUniqueTypeName("Property_Value", usedTypeNames),
     fields: {
-      ...buildTableRowTypeFields(tableByName["property.value"].columns),
+      ...buildTableRowTypeFields(propertyValueTable.columns),
       translations: {
         type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(propertyValueTranslationRowType))),
         args: { language: { type: GraphQLString, description: "The language to get translations for" } },

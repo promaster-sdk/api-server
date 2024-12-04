@@ -1,0 +1,5 @@
+[
+  {
+    "errors": [{ "message": "Cannot query field \"property\" on type \"Module_properties\"." }]
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "data": {
+    "id": "442da2d8-7e2c-4ef4-ba2c-1210adfa1a0e",
+    "key": "DEMODAMPER2",
+    "name": "",
+    "description": "",
+    "retired": false,
+    "tables": {
+      "custom_tables@table1": 16
+    }
+  },
+  "refs": {
+    "16": "table_76c88372-ae07-4916-9dcf-4e6908820631@778617.json"
+  }
+}
