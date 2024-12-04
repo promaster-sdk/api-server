@@ -18,6 +18,14 @@ export async function createModuleType(
   const fields: GraphQLFieldConfigMap<unknown, unknown> = {};
   const textTable = tableByName["text"];
 
+  if (textTable === undefined) {
+    fields["texts_type_error"] = {
+      type: GraphQLString,
+      description: "texts type error: cannot find text",
+    };
+    return new GraphQLObjectType({ name: getUniqueTypeName(`Module_${moduleName}`, usedTypeNames), fields });
+  }
+
   const textRowType = new GraphQLObjectType({
     name: getUniqueTypeName("Texts_Text", usedTypeNames),
     fields: {

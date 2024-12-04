@@ -1,0 +1,23 @@
+{
+  "data": {
+    "id": "5041926f-f143-4ded-b487-0cfd4a2eac29",
+    "module": "properties",
+    "name": "property.value",
+    "description": "",
+    "columns": [
+      { "type": "PrimaryKey", "name": "builtin@id" },
+      { "type": "Number", "name": "sort_no" },
+      { "type": "ForeignKey", "name": "builtin@parent_id", "params": "property" },
+      { "type": "Text", "name": "value", "key": true },
+      { "type": "PropertyFilter", "name": "property_filter" },
+      { "type": "Blob", "name": "image", "params": "image_filename" },
+      { "type": "Text", "name": "description" }
+    ],
+    "rows": [
+      ["ad55ce5b-a346-473d-b138-552eb51fe52c", 0, "aa7ddbfb-83ab-4e0f-b7b3-c99ad8b0f50d", "400", null, null, null],
+      ["14bb87bb-ebbe-4936-b2e2-aaa52c9e9d56", 1, "aa7ddbfb-83ab-4e0f-b7b3-c99ad8b0f50d", "600", null, null, null],
+      ["64582389-185b-42d1-a94f-407efa54df24", 2, "aa7ddbfb-83ab-4e0f-b7b3-c99ad8b0f50d", "800", null, null, null]
+    ]
+  },
+  "refs": {}
+}

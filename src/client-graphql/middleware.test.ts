@@ -42,7 +42,17 @@ describe("createSchema", async () => {
 
       const result = await readJsonFile(currentTestFilesFolder)("result.json");
 
-      expect(responses).toEqual(result);
+      // GraphQL errors doesn't map to json, so we have to fix it manually
+      const errorMessages = responses
+        .filter((r) => r.errors)
+        .flatMap((r) => r.errors!.map((err) => ({ message: err.message })));
+      const errors = errorMessages.length > 0 ? [{ errors: errorMessages }] : undefined;
+
+      if (errors) {
+        expect(errors).toEqual(result);
+      } else {
+        expect(responses).toEqual(result);
+      }
     });
   }
 });

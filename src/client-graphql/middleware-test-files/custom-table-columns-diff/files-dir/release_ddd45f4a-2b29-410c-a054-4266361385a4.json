@@ -1,0 +1,14 @@
+{
+  "data": {
+    "id": "ddd45f4a-2b29-410c-a054-4266361385a4",
+    "name": "TEST",
+    "products": {
+      "342da2d8-7e2c-4ef4-ba2c-1210adfa1a0d": 1,
+      "442da2d8-7e2c-4ef4-ba2c-1210adfa1a0e": 2
+    }
+  },
+  "refs": {
+    "1": "product_342da2d8-7e2c-4ef4-ba2c-1210adfa1a0d@788145.json",
+    "2": "product_442da2d8-7e2c-4ef4-ba2c-1210adfa1a0e@788146.json"
+  }
+}

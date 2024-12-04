@@ -1,0 +1,15 @@
+{
+  products {
+    id
+    name
+    modules {
+      properties {
+        property {
+          builtin_id
+          name
+          comment
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLNonNull, GraphQLFieldConfigMap, GraphQLList } from "graphql";
+import { GraphQLObjectType, GraphQLNonNull, GraphQLFieldConfigMap, GraphQLList, GraphQLString } from "graphql";
 import { getUniqueTypeName } from "../shared-functions";
 import { TableByName } from "../module-plugin";
 import { buildTableRowTypeFields, childRowResolver, parentRowResolver } from "./shared-functions";
@@ -16,10 +16,19 @@ export async function createModuleType(
 ): Promise<GraphQLObjectType> {
   const fields: GraphQLFieldConfigMap<unknown, unknown> = {};
   const modelTable = tableByName["model"];
+  const modelParamsTable = tableByName["model.params"];
+
+  if (modelTable === undefined || modelParamsTable === undefined) {
+    fields["models_type_error"] = {
+      type: GraphQLString,
+      description: "models type error: cannot find model/model.params",
+    };
+    return new GraphQLObjectType({ name: getUniqueTypeName(`Module_${moduleName}`, usedTypeNames), fields });
+  }
 
   const modelParamsRowType = new GraphQLObjectType({
     name: getUniqueTypeName("Model_Params", usedTypeNames),
-    fields: buildTableRowTypeFields(tableByName["model.params"].columns),
+    fields: buildTableRowTypeFields(modelParamsTable.columns),
   });
 
   const modelRowType = new GraphQLObjectType({
