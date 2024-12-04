@@ -5,9 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v3.6.4...master)
+## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v3.7.0...master)
 
-- Fix duplicated translations for backwards compatible property value texts #54
+## [3.7.0](https://github.com/promaster-sdk/api-server/compare/v3.6.5...v3.7.0)
+
+- feature: Better error-handling in graphql-queries for standard modules #57
+
+## [3.6.5](https://github.com/promaster-sdk/api-server/compare/v3.6.4...v3.6.5)
+
+- fix: Fix duplicate property translations when property name starts with same prefix (#55)
 
 ## [3.6.4](https://github.com/promaster-sdk/api-server/compare/v3.6.3...v3.6.4)
 
