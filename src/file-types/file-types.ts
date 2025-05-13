@@ -8,6 +8,7 @@ export interface RootFile {
     readonly markers: FileRefMap;
     readonly latest: LatestTransaction;
     readonly trees: FileRefMap;
+    readonly databaseKey: string;
   };
   readonly refs: FileRefResolutionMap;
 }
