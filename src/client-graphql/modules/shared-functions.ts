@@ -178,6 +178,9 @@ function columnTypeToGraphQLType(c: ProductTableFileColumn): GraphQLScalarType {
     case ProductTableFileColumnType.Text:
     case ProductTableFileColumnType.TextId:
     case ProductTableFileColumnType.Unit:
+    case ProductTableFileColumnType.DatabaseKey:
+    case ProductTableFileColumnType.Json:
+    case ProductTableFileColumnType.FixedMultiDiscrete:
       return GraphQLString;
     default:
       return GraphQLString;
