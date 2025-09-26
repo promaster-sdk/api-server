@@ -20,6 +20,7 @@ import * as PropertiesModule from "./modules/properties";
 import * as SoundModule from "./modules/sound";
 import * as ModelsModule from "./modules/models";
 import * as TextsModule from "./modules/texts";
+import { columnTypeToGraphQLType } from "./modules/shared-functions";
 
 const defaultModulePlugin: ModulePlugin = DefaultModule;
 
@@ -217,12 +218,7 @@ function sameColumns(
   }
   for (const c1 of cmp1) {
     const foundIndex = cmp2.findIndex(
-      (c2) =>
-        c2.name === c1.name &&
-        c2.type === c1.type &&
-        c2.description === c1.description &&
-        c2.key === c1.key &&
-        c2.params === c1.params
+      (c2) => c2.name === c1.name && columnTypeToGraphQLType(c2) === columnTypeToGraphQLType(c1)
     );
     if (foundIndex < 0) {
       return false;

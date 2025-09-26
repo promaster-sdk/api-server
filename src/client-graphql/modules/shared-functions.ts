@@ -160,7 +160,7 @@ export function buildTableRowTypeFields(
   );
 }
 
-function columnTypeToGraphQLType(c: ProductTableFileColumn): GraphQLScalarType {
+export function columnTypeToGraphQLType(c: ProductTableFileColumn): GraphQLScalarType {
   switch (c.type) {
     case ProductTableFileColumnType.Number:
       return GraphQLFloat;
