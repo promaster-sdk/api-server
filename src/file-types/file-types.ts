@@ -98,7 +98,9 @@ export enum ProductTableFileColumnType {
   DynamicDiscrete = "DynamicDiscrete",
   DatabaseKey = "DatabaseKey",
   FixedMultiDiscrete = "FixedMultiDiscrete",
+  DynamicMultiDiscrete = "DynamicMultiDiscrete",
   Json = "Json",
+  Integer = "Integer",
   // Columns of type "Table" are deprecated and not used in the file formats
   // Table = "Table",
   Number = "Number",

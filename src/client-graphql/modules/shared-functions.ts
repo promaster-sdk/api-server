@@ -1,5 +1,5 @@
 import * as DataLoader from "dataloader";
-import { GraphQLFieldConfigMap, GraphQLScalarType, GraphQLFloat, GraphQLString } from "graphql";
+import { GraphQLFieldConfigMap, GraphQLScalarType, GraphQLFloat, GraphQLString, GraphQLInt } from "graphql";
 import {
   ProductFile,
   ProductTableFile,
@@ -162,6 +162,8 @@ export function buildTableRowTypeFields(
 
 export function columnTypeToGraphQLType(c: ProductTableFileColumn): GraphQLScalarType {
   switch (c.type) {
+    case ProductTableFileColumnType.Integer:
+      return GraphQLInt;
     case ProductTableFileColumnType.Number:
       return GraphQLFloat;
     case ProductTableFileColumnType.Blob:
@@ -181,6 +183,7 @@ export function columnTypeToGraphQLType(c: ProductTableFileColumn): GraphQLScala
     case ProductTableFileColumnType.DatabaseKey:
     case ProductTableFileColumnType.Json:
     case ProductTableFileColumnType.FixedMultiDiscrete:
+    case ProductTableFileColumnType.DynamicMultiDiscrete:
       return GraphQLString;
     default:
       return GraphQLString;
