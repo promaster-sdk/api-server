@@ -5,6 +5,8 @@ export default defineConfig({
   extends: [dividConfig],
   ignorePatterns: ["lib/", "vite.config.*"],
   rules: {
+    "max-lines": ["error", { max: 3600 }],
+
     // Migration baseline from tslint, enable once code is fixed:
     "typescript/prefer-readonly-parameter-types": "off", // 104
     "typescript/consistent-type-imports": "off", // 50
