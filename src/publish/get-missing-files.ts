@@ -111,9 +111,7 @@ async function getExistingFiles(path: string): Promise<Set<string>> {
   });
 }
 
-/**
- * This function recursively check for missing files.
- */
+/** This function recursively check for missing files. */
 async function getMissingFilesRecursive(
   filePath: string,
   existingFiles: Set<string>,

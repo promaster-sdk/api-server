@@ -9,5 +9,6 @@
   "arrowParens": "always",
   "bracketSpacing": true,
   "sortPackageJson": true,
+  "jsdoc": true,
   "ignorePatterns": ["src/**/middleware-test-files/**", "**/*.{yml,yaml,toml}", "*.md"]
 }

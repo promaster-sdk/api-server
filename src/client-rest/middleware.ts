@@ -107,9 +107,7 @@ export function createClientRestMiddleware(
   return compose([router.routes(), router.allowedMethods()]);
 }
 
-/***************************
- * Handlers
- ***************************/
+/** Handlers */
 
 type Next = () => Promise<unknown>;
 
@@ -339,9 +337,7 @@ function allTableDataForProductHandler(
   };
 }
 
-/***************************
- * Internal functions
- ***************************/
+/** Internal functions */
 
 async function markerFileNameToApiMarker(
   ctx: Koa.Context,

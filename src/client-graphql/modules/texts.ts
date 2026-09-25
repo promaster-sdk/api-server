@@ -4,9 +4,7 @@ import { ModuleFieldResolverParent, TableByName } from "../module-plugin";
 import { buildTableRowTypeFields, parentRowResolver } from "./shared-functions";
 import { Context } from "../context";
 
-/**
- * This file has specific schema and resolvers for the texts module
- */
+/** This file has specific schema and resolvers for the texts module */
 
 const myModuleName = "texts";
 

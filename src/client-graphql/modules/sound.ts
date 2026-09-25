@@ -3,9 +3,7 @@ import { getUniqueTypeName } from "../shared-functions";
 import { TableByName } from "../module-plugin";
 import { buildTableRowTypeFields, childRowResolver, parentRowResolver } from "./shared-functions";
 
-/**
- * This file has specific schema and resolvers for the properties module
- */
+/** This file has specific schema and resolvers for the properties module */
 
 const myModuleName = "sound";
 

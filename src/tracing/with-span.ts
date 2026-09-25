@@ -3,10 +3,7 @@ import * as api from "@opentelemetry/api";
 type Span = api.Span;
 export { Span };
 
-/**
- * Create a new span, make it the active span on a new context and execute the provided
- * function within that context
- */
+/** Create a new span, make it the active span on a new context and execute the provided function within that context */
 export function withSpan<T extends (span: Span) => ReturnType<T>>(operationName: string, fn: T): ReturnType<T> {
   const tracer = api.trace.getTracer("default");
   const span = tracer.startSpan(operationName);

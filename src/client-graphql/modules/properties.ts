@@ -11,9 +11,7 @@ import {
 import { TableRowWithProductFileName } from "../schema-types";
 import { Context } from "../context";
 
-/**
- * This file has specific schema and resolvers for the properties module
- */
+/** This file has specific schema and resolvers for the properties module */
 
 const myModuleName = "properties";
 

@@ -4,9 +4,7 @@ import { getUniqueTypeName, toSafeName } from "../shared-functions";
 import { Context } from "../context";
 import { resolveTableRows, buildTableRowTypeFields } from "./shared-functions";
 
-/**
- * This is the default generic handling for modules
- */
+/** This is the default generic handling for modules */
 
 export async function createModuleType(
   moduleFieldName: string,

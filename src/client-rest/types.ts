@@ -23,9 +23,7 @@ export interface ApiProduct {
   readonly transaction_id: string;
   readonly tables: string;
   readonly all_tables: string;
-  /**
-   * The "data" key is only returned if the querystring specified tables=table1,table2
-   */
+  /** The "data" key is only returned if the querystring specified tables=table1,table2 */
   readonly data?: ApiTables;
 }
 

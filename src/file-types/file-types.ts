@@ -1,6 +1,4 @@
-/**
- * Defines the files that we send to the api server's publish endpoint.
- */
+/** Defines the files that we send to the api server's publish endpoint. */
 export type FileType = "root" | "transaction" | "release" | "product" | "table" | "blob" | "tree";
 
 export interface RootFile {
@@ -31,9 +29,7 @@ export interface TreeRelation {
   readonly sortNo: number;
 }
 
-/**
- * File that holds all products as they looked at a given transaction
- */
+/** File that holds all products as they looked at a given transaction */
 export interface TransactionFile {
   readonly data: {
     readonly tx: number;
@@ -219,9 +215,7 @@ export function parseProductTableFileIdentifier(fileIdentifier: string): {
   };
 }
 
-/**
- * For example "product_324234234@12312.json" => ["product", "324234234@12312"]
- */
+/** For example "product_324234234@12312.json" => ["product", "324234234@12312"] */
 export function getTypeAndIdentifierFromFileName(fileName: string): {
   readonly type: FileType;
   readonly identifier: string;
