@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     // Language & Environment
-    "target": "es2020",
+    "target": "esnext",
     "lib": ["esnext"],
 
     // Module
