@@ -107,7 +107,7 @@ export function createPublishApiMiddleware(
       const allMissingFiles = await getMissingFilesForRootFiles(
         filesPaths,
         fileNames,
-        ctx.query.save,
+        ctx.query.save as string,
         tempFileSuffix,
         readFilesInParallel,
         pruneFiles,

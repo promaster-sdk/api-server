@@ -9,13 +9,10 @@
   "engines": {
     "node": ">=14.15.4"
   },
-  "engineStrict": true,
   "license": "MIT",
+  "packageManager": "pnpm@12.3.1",
   "publishConfig": {
     "access": "public"
-  },
-  "resolutions": {
-    "graphql": "15.5.0"
   },
   "devDependencies": {
     "@types/amqplib": "^0.10.1",
@@ -32,6 +29,7 @@
     "@types/koa__router": "^8.0.3",
     "@types/mkdirp": "^0.5.2",
     "@types/multer": "^1.3.7",
+    "@types/node": "^24.6.2",
     "@types/uuid": "^8.3.0",
     "dotenv": "^7.0.0",
     "lint-staged": "^8.1.5",
@@ -77,11 +75,11 @@
     "start": "tsc && tsc-watch --preserveWatchOutput --onSuccess \"node -r dotenv/config ./lib/server/server.js\" --onFailure \"echo Beep! Compilation Failed\"",
     "build": "tsc",
     "clean": "rm -rf lib",
-    "rebuild": "yarn clean && yarn build",
+    "rebuild": "pnpm clean && pnpm build",
     "lint": "tslint './src/**/*.ts{,x}'",
     "precommit": "lint-staged",
-    "verify": "yarn clean && yarn build",
-    "preversion": "yarn verify",
+    "verify": "pnpm clean && pnpm build",
+    "preversion": "pnpm verify",
     "postversion": "git push --tags && yarn publish --new-version $npm_package_version && git push && echo \"Successfully released version $npm_package_version!\""
   },
   "lint-staged": {

@@ -1,15 +1,17 @@
-FROM node:14.21.3 AS builder
+FROM node:24.9.0 AS builder
 WORKDIR /app
+RUN corepack enable
 COPY src src
-COPY package.json yarn.lock tsconfig.json tsconfig.settings.json ./
-RUN yarn install
-RUN yarn run build
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.json tsconfig.settings.json ./
+RUN pnpm install --frozen-lockfile
+RUN pnpm run build
 
-FROM node:14.21.3
+FROM node:24.9.0
 
 WORKDIR /app
+RUN corepack enable
 COPY --from=builder /app/lib/ ./lib
-COPY package.json yarn.lock ./
-RUN yarn install --production
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+RUN pnpm install --frozen-lockfile --prod
 
 CMD ["node", "./lib/server/server"]

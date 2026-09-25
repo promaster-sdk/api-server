@@ -6,6 +6,7 @@
     "declarationMap": true,
     "sourceMap": true,
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "jsx": "react",
     "newLine": "LF",
     "noEmitOnError": false,

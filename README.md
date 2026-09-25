@@ -24,7 +24,7 @@ The Client API serves the data from the files recieved via the Publish API to a 
 ## How to install
 
 ```bash
-yarn add @promaster-sdk/api-server
+pnpm add @promaster-sdk/api-server
 ```
 
 ## How to use the stand-alone server
@@ -164,7 +164,8 @@ Tool versions are pinned in `.tool-versions` (`mise install` or `asdf install`).
 cat << EOF > .env
 PUBLISH_AUTHORIZATION=mytoken
 EOF
-yarn start
+pnpm install
+pnpm start
 ```
 
 In promaster-edit, register a new server on port 4500 with an authorization header value of `mytoken`. Publish once to the this server, then you can try the Client API at `http://localhost:4500/rest/v3/markers`.

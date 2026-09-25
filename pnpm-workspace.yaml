@@ -1,0 +1,6 @@
+allowBuilds:
+  core-js: false
+  esbuild: true
+  protobufjs: true
+overrides:
+  graphql: "15.5.0"

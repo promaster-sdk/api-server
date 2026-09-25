@@ -55,11 +55,14 @@ export const createVerifyPublishApiMiddleware = (jwksUri: string, validClients: 
   await next();
 };
 
-function getKeyValueIgnoreCase(keyValues: { readonly [key: string]: string }, key: string): string | undefined {
+function getKeyValueIgnoreCase(
+  keyValues: { readonly [key: string]: string | ReadonlyArray<string> | undefined },
+  key: string
+): string | undefined {
   const keyLower = key.toLowerCase();
   const found = Object.keys(keyValues).find((header) => header.toLowerCase() === keyLower);
   if (found !== undefined) {
-    return keyValues[found];
+    return keyValues[found] as string | undefined;
   }
   return undefined;
 }

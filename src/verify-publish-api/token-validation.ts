@@ -49,7 +49,7 @@ function getKidFromEncodedToken(encodedToken: string): string | undefined {
   // Get the jwksKid from the token header kid field
   const decoded = jwt.decode(encodedToken, { complete: true });
   if (typeof decoded !== "string") {
-    return decoded && decoded.header && decoded.header.kid;
+    return (decoded && decoded.header && decoded.header.kid) as string | undefined;
   }
   return undefined;
 }
