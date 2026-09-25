@@ -6,7 +6,7 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.json tsconfig.sett
 RUN pnpm install --frozen-lockfile
 RUN pnpm run build
 
-FROM node:24.9.0
+FROM node:24.9.0-slim
 
 WORKDIR /app
 RUN corepack enable
