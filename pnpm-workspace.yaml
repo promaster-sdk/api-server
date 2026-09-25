@@ -4,3 +4,7 @@ allowBuilds:
   protobufjs: true
 overrides:
   graphql: "15.5.0"
+peerDependencyRules:
+  allowedVersions:
+    # vitest only uses the otel api for opt-in tracing; the server's otel 1.9.x/0.35.x packages need api <1.5
+    vitest>@opentelemetry/api: "~1.4.0"
