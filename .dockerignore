@@ -1,0 +1,9 @@
+*
+!src
+!package.json
+!pnpm-lock.yaml
+!pnpm-workspace.yaml
+!tsconfig.json
+!tsconfig.settings.json
+src/**/*.test.ts
+src/**/middleware-test-files
