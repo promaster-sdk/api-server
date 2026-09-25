@@ -29,7 +29,7 @@ pnpm add @promaster-sdk/api-server
 ## How to use the stand-alone server
 
 ```bash
-node lib/server.js
+node lib/server/server.js
 ```
 
 The server can be configured with environment variables as, see the [config schema](src/server/config.ts) for all settings..
@@ -192,12 +192,12 @@ ngrok http 4500
 # We should always publish both to npm and dockerhub at the same time with the same version
 # First publish a new package version to npm, run **one** of the commands below
 # This command will both increment version and publish the package to npm
-yarn version --patch
-yarn version --minor
-yarn version --major
-# You should be promted for your desired version by the above command
+pnpm version patch
+pnpm version minor
+pnpm version major
+# The new version is printed by the above command
 # To build and push to dockerhub, replace <version> in the below commands with
-# the version you entered for the above command
+# the version printed by the above command
 # NOTE: Need to have this repo as current working dir
 # First build locally
 # NOTE: there is a "v" before the version number here
