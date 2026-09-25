@@ -9,5 +9,5 @@
   "arrowParens": "always",
   "bracketSpacing": true,
   "sortPackageJson": true,
-  "ignorePatterns": ["pnpm-lock.yaml", "CHANGELOG.md", "src/**/middleware-test-files/**"]
+  "ignorePatterns": ["src/**/middleware-test-files/**", "**/*.{yml,yaml,toml}", "*.md"]
 }
