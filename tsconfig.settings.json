@@ -28,6 +28,7 @@
     "strictNullChecks": true,
 
     // Type Checking — additional strictness
+    "allowUnreachableCode": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
