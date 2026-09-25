@@ -1,24 +1,34 @@
 {
   "compilerOptions": {
+    // Language & Environment
     "target": "es2020",
+    "jsx": "react",
+
+    // Module
     "module": "commonjs",
+    "esModuleInterop": true,
+    "types": ["node", "multer"],
+
+    // Interop
+    "skipLibCheck": true,
+
+    // Emit
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "jsx": "react",
-    "newLine": "LF",
     "noEmitOnError": false,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
+    "newLine": "LF",
+
+    // Type Checking
     "strict": false,
-    "types": ["node", "multer"],
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+
+    // Type Checking — additional strictness
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "strictNullChecks": true
-    // "keyofStringsOnly": false
+    "noUnusedParameters": true
   }
 }
