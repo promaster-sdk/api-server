@@ -14,6 +14,8 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
+    "strict": false,
+    "types": ["node", "multer"],
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strictNullChecks": true

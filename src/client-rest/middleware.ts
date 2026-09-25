@@ -504,9 +504,7 @@ async function mapFileRowsToApiRows(
   // const parentRowId = fileRow[idColumnIndex];
   const childParentIdColumnIndex = fileColumns.findIndex((c) => c.name === builtinParentIdColumnName);
   const filteredFileRows =
-    childParentIdColumnIndex === -1
-      ? fileRows
-      : fileRows.filter((r) => r[childParentIdColumnIndex] === parent?.rowId ?? null);
+    childParentIdColumnIndex === -1 ? fileRows : fileRows.filter((r) => r[childParentIdColumnIndex] === parent?.rowId);
 
   let textTablePropertyValueTranslation: ProductTableFile | undefined = undefined;
   let textTablePropertyTranslation: ProductTableFile | undefined = undefined;
