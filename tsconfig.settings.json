@@ -3,7 +3,7 @@
     // Language & Environment
     "target": "es2020",
     "lib": ["dom", "esnext"],
-    "jsx": "react",
+    "jsx": "react-jsx",
 
     // Module
     "module": "commonjs",
