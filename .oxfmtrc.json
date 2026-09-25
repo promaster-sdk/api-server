@@ -1,6 +1,13 @@
 {
+  "useTabs": false,
+  "tabWidth": 2,
   "printWidth": 120,
+  "singleQuote": false,
+  "quoteProps": "as-needed",
   "trailingComma": "es5",
+  "semi": true,
   "arrowParens": "always",
+  "bracketSpacing": true,
+  "sortPackageJson": true,
   "ignorePatterns": ["pnpm-lock.yaml", "CHANGELOG.md", "src/**/middleware-test-files/**"]
 }
