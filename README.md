@@ -158,7 +158,7 @@ By default, `OTEL_TRACES_SAMPLER` is set to `parentbased_always_on` which means 
 
 ## How to develop
 
-Clone the repo and run:
+Tool versions are pinned in `.tool-versions` (`mise install` or `asdf install`). Clone the repo and run:
 
 ```bash
 cat << EOF > .env
