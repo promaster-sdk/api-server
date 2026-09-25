@@ -1,1 +1,1 @@
-export { createVerifyPublishApiMiddleware } from "./middleware";
+export { createVerifyPublishApiMiddleware } from "./middleware.js";

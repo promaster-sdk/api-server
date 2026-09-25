@@ -1,20 +1,24 @@
+import { createRequire } from "module";
 import path from "path";
 import Koa from "koa";
 import mount from "koa-mount";
 import cors from "@koa/cors";
 import compose from "koa-compose";
 import compress from "koa-compress";
-import { koaMiddleware as createMetricsMiddleware } from "prometheus-api-metrics";
-import { createPublishApiMiddleware } from "../publish";
-import { createClientRestMiddleware } from "../client-rest";
-import { createClientGraphQLMiddleware } from "../client-graphql";
-import { createVerifyPublishApiMiddleware } from "../verify-publish-api";
-import * as Config from "./config";
+import type * as PrometheusApiMetrics from "prometheus-api-metrics";
+import { createPublishApiMiddleware } from "../publish/index.js";
+import { createClientRestMiddleware } from "../client-rest/index.js";
+import { createClientGraphQLMiddleware } from "../client-graphql/index.js";
+import { createVerifyPublishApiMiddleware } from "../verify-publish-api/index.js";
+import * as Config from "./config.js";
 
 // startServer(Config.config);
 
-// tslint:disable-next-line:no-var-requires no-require-imports
-require("source-map-support").install();
+// Loaded with require: source-map-support has no types, and prometheus-api-metrics
+// reads module.parent, which is not set when imported from ESM
+const requireCjs = createRequire(import.meta.url);
+requireCjs("source-map-support").install();
+const { koaMiddleware: createMetricsMiddleware } = requireCjs("prometheus-api-metrics") as typeof PrometheusApiMetrics;
 
 export async function startServer(config: Config.Config): Promise<void> {
   console.info("Starting api-server with config:");

@@ -1,7 +1,7 @@
 import * as Koa from "koa";
 import * as uuid from "uuid";
-import { validateToken, DecodedToken } from "./token-validation";
-import { getHeaderIgnoreCase } from "../context-parsing";
+import { validateToken, DecodedToken } from "./token-validation.js";
+import { getHeaderIgnoreCase } from "../context-parsing/index.js";
 
 export const createVerifyPublishApiMiddleware =
   (jwksUri: string, validClients: ReadonlyArray<string>) =>

@@ -25,11 +25,11 @@ import {
   buildRootFileName,
   TreeFile,
   ProductTableFileColumnType,
-} from "../file-types";
-import { ApiProduct, ApiTables, Mutable, ApiMarker, ApiTableRow, ClientRestOptions } from "./types";
+} from "../file-types/index.js";
+import { ApiProduct, ApiTables, Mutable, ApiMarker, ApiTableRow, ClientRestOptions } from "./types.js";
 import compose from "koa-compose";
-import { getDatabaseId } from "../context-parsing";
-import { withSpan } from "../tracing";
+import { getDatabaseId } from "../context-parsing/index.js";
+import { withSpan } from "../tracing/index.js";
 
 const existsAsync = promisify(fs.exists);
 const readFileAsync = promisify(fs.readFile);

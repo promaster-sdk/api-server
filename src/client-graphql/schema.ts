@@ -10,17 +10,17 @@ import {
   GraphQLFieldConfigMap,
   GraphQLResolveInfo,
 } from "graphql";
-import { queryResolvers, productResolvers } from "./resolvers";
-import { ProductFile, ProductTableFile, ProductTableFileColumn, ReleaseFile, TransactionFile } from "../file-types";
-import { ReadJsonFile } from "./context";
-import { getUniqueTypeName, toSafeName } from "./shared-functions";
-import { ModulePlugin, TableByName } from "./module-plugin";
-import * as DefaultModule from "./modules/default";
-import * as PropertiesModule from "./modules/properties";
-import * as SoundModule from "./modules/sound";
-import * as ModelsModule from "./modules/models";
-import * as TextsModule from "./modules/texts";
-import { columnTypeToGraphQLType } from "./modules/shared-functions";
+import { queryResolvers, productResolvers } from "./resolvers.js";
+import { ProductFile, ProductTableFile, ProductTableFileColumn, ReleaseFile, TransactionFile } from "../file-types/index.js";
+import { ReadJsonFile } from "./context.js";
+import { getUniqueTypeName, toSafeName } from "./shared-functions.js";
+import { ModulePlugin, TableByName } from "./module-plugin.js";
+import * as DefaultModule from "./modules/default.js";
+import * as PropertiesModule from "./modules/properties.js";
+import * as SoundModule from "./modules/sound.js";
+import * as ModelsModule from "./modules/models.js";
+import * as TextsModule from "./modules/texts.js";
+import { columnTypeToGraphQLType } from "./modules/shared-functions.js";
 
 const defaultModulePlugin: ModulePlugin = DefaultModule;
 

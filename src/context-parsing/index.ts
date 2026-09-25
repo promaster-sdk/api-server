@@ -1,2 +1,2 @@
-export * from "./context-parsing";
-export * from "./headers";
+export * from "./context-parsing.js";
+export * from "./headers.js";

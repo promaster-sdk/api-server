@@ -1,2 +1,2 @@
-export { createClientRestMiddleware } from "./middleware";
-export type { ClientRestOptions, ApiBlob } from "./types";
+export { createClientRestMiddleware } from "./middleware.js";
+export type { ClientRestOptions, ApiBlob } from "./types.js";

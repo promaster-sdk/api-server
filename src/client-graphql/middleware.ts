@@ -6,12 +6,12 @@ import Router from "@koa/router";
 import compose from "koa-compose";
 import graphqlHTTP from "koa-graphql";
 import { GraphQLError, GraphQLSchema } from "graphql";
-import { createSchema } from "./schema";
-import { GetBaseUrl, createContext, Context } from "./context";
-import { RootValue } from "./resolvers";
-import { buildRootFileName, RootFile, ReleaseFile, TransactionFile } from "../file-types";
-import { getDatabaseId } from "../context-parsing";
-import { withSpan } from "../tracing";
+import { createSchema } from "./schema.js";
+import { GetBaseUrl, createContext, Context } from "./context.js";
+import { RootValue } from "./resolvers.js";
+import { buildRootFileName, RootFile, ReleaseFile, TransactionFile } from "../file-types/index.js";
+import { getDatabaseId } from "../context-parsing/index.js";
+import { withSpan } from "../tracing/index.js";
 
 const readFileAsync = promisify(fs.readFile);
 

@@ -1,11 +1,12 @@
-import * as Config from "./config";
-import { initOtel } from "./otel";
+import * as Config from "./config.js";
+import { initOtel } from "./otel.js";
 
 async function main(): Promise<void> {
   if (Config.config.otelEnable === "true") {
     await initOtel();
   }
-  require("./start-server").startServer(Config.config); // tslint:disable-line
+  // Imported after initOtel() so instrumentations can patch modules before they load
+  (await import("./start-server.js")).startServer(Config.config);
 }
 
 main();

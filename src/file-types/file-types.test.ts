@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { getBlobCell, getBlobHash } from "./file-types";
+import { getBlobCell, getBlobHash } from "./file-types.js";
 
 describe("getBlobHash", () => {
   it("tolerates both the raw hash and the { hash, mimeType } object", () => {

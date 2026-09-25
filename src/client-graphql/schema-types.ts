@@ -1,4 +1,4 @@
-import { ProductTableFileCell } from "../file-types";
+import { ProductTableFileCell } from "../file-types/index.js";
 
 export interface Query {
   readonly trees: ReadonlyArray<Tree>;

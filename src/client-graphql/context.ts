@@ -1,6 +1,6 @@
 import Koa from "koa";
 import DataLoader from "dataloader";
-import { ProductFile, ReleaseFile, TransactionFile, RootFile, ProductTableFile } from "../file-types";
+import { ProductFile, ReleaseFile, TransactionFile, RootFile, ProductTableFile } from "../file-types/index.js";
 
 export type GetBaseUrl = (ctx: Koa.Context, databaseId: string) => string;
 

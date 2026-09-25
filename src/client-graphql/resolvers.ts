@@ -1,6 +1,6 @@
-import { TreeFile, ReleaseFile, TransactionFile } from "../file-types";
-import { Context } from "./context";
-import { Query, Marker, Product } from "./schema-types";
+import { TreeFile, ReleaseFile, TransactionFile } from "../file-types/index.js";
+import { Context } from "./context.js";
+import { Query, Marker, Product } from "./schema-types.js";
 
 export type RootValue = {};
 

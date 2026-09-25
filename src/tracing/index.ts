@@ -1,1 +1,1 @@
-export * from "./with-span";
+export * from "./with-span.js";

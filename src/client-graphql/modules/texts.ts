@@ -1,8 +1,8 @@
 import { GraphQLObjectType, GraphQLNonNull, GraphQLFieldConfigMap, GraphQLList, GraphQLString } from "graphql";
-import { getUniqueTypeName } from "../shared-functions";
-import { ModuleFieldResolverParent, TableByName } from "../module-plugin";
-import { buildTableRowTypeFields, parentRowResolver } from "./shared-functions";
-import { Context } from "../context";
+import { getUniqueTypeName } from "../shared-functions.js";
+import { ModuleFieldResolverParent, TableByName } from "../module-plugin.js";
+import { buildTableRowTypeFields, parentRowResolver } from "./shared-functions.js";
+import { Context } from "../context.js";
 
 /** This file has specific schema and resolvers for the texts module */
 

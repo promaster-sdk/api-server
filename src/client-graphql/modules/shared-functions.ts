@@ -11,12 +11,12 @@ import {
   builtinParentIdColumnName,
   getBlobHash,
   getBlobCell,
-} from "../../file-types";
-import { TableRow, TableRowWithProductFileName } from "../schema-types";
-import { toSafeName } from "../shared-functions";
-import { Context } from "../context";
-import { ModuleFieldResolverParent } from "../module-plugin";
-import { withSpan } from "../../tracing";
+} from "../../file-types/index.js";
+import { TableRow, TableRowWithProductFileName } from "../schema-types.js";
+import { toSafeName } from "../shared-functions.js";
+import { Context } from "../context.js";
+import { ModuleFieldResolverParent } from "../module-plugin.js";
+import { withSpan } from "../../tracing/index.js";
 
 export const builtinParentIdColumnSafeName = toSafeName(builtinParentIdColumnName);
 export const builtinIdColumnSafeName = toSafeName(builtinIdColumnName);

@@ -5,6 +5,7 @@
   "license": "MIT",
   "author": "Divid Promaster AB <info@divid.se>",
   "repository": "https://github.com/promaster-sdk/api-server",
+  "type": "module",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "publishConfig": {

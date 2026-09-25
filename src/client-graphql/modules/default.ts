@@ -1,8 +1,8 @@
 import { GraphQLObjectType, GraphQLFieldConfigMap, GraphQLNonNull, GraphQLList, GraphQLResolveInfo } from "graphql";
-import { TableByName, ModuleFieldResolverParent } from "../module-plugin";
-import { getUniqueTypeName, toSafeName } from "../shared-functions";
-import { Context } from "../context";
-import { resolveTableRows, buildTableRowTypeFields } from "./shared-functions";
+import { TableByName, ModuleFieldResolverParent } from "../module-plugin.js";
+import { getUniqueTypeName, toSafeName } from "../shared-functions.js";
+import { Context } from "../context.js";
+import { resolveTableRows, buildTableRowTypeFields } from "./shared-functions.js";
 
 /** This is the default generic handling for modules */
 

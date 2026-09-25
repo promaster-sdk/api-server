@@ -2,8 +2,8 @@ import * as fs from "fs/promises";
 import * as os from "os";
 import path from "path";
 import { describe, it, expect, beforeAll } from "vitest";
-import { getApiProductTables } from "./middleware";
-import { ProductFile, ProductTableFile } from "../file-types";
+import { getApiProductTables } from "./middleware.js";
+import { ProductFile, ProductTableFile } from "../file-types/index.js";
 
 const productFile: ProductFile = {
   data: { id: "p1", key: "P1", name: "P1", retired: false, tables: { "custom_tables@images": 0 } },

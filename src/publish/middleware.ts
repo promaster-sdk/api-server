@@ -8,8 +8,8 @@ import fs from "fs";
 import mkdirp from "mkdirp";
 import { promisify } from "util";
 import * as Uuid from "uuid";
-import { getMissingFilesForRootFiles } from "./get-missing-files";
-import { getDatabaseId } from "../context-parsing";
+import { getMissingFilesForRootFiles } from "./get-missing-files.js";
+import { getDatabaseId } from "../context-parsing/index.js";
 
 const existsAsync = promisify(fs.exists);
 const mkdirpAsync = promisify(mkdirp);

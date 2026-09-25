@@ -1,7 +1,7 @@
 import { GraphQLObjectType, GraphQLNonNull, GraphQLFieldConfigMap, GraphQLList, GraphQLString } from "graphql";
-import { getUniqueTypeName } from "../shared-functions";
-import { TableByName } from "../module-plugin";
-import { buildTableRowTypeFields, childRowResolver, parentRowResolver } from "./shared-functions";
+import { getUniqueTypeName } from "../shared-functions.js";
+import { TableByName } from "../module-plugin.js";
+import { buildTableRowTypeFields, childRowResolver, parentRowResolver } from "./shared-functions.js";
 
 /** This file has specific schema and resolvers for the properties module */
 

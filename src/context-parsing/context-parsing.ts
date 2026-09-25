@@ -1,6 +1,6 @@
 import * as Uuid from "uuid";
 import Koa from "koa";
-import { getHeaderIgnoreCase } from "./headers";
+import { getHeaderIgnoreCase } from "./headers.js";
 
 export function getDatabaseId(ctx: Koa.Context, fallbackTenantId: boolean): string {
   const tenantId = getHeaderIgnoreCase(ctx.headers, "X-Promaster-SelectedTenantId");

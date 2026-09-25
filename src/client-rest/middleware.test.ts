@@ -1,9 +1,9 @@
 import path from "path";
-import { getApiProductTables, readJsonFile } from "./middleware";
+import { getApiProductTables, readJsonFile } from "./middleware.js";
 import { describe, it, expect } from "vitest";
-import { ProductFile, ReleaseFile, RootFile, TransactionFile } from "../file-types";
+import { ProductFile, ReleaseFile, RootFile, TransactionFile } from "../file-types/index.js";
 import * as fs from "fs/promises";
-import { ApiTables } from "./types";
+import { ApiTables } from "./types.js";
 
 describe("getApiProductTables", async () => {
   const testsFolder = path.join(__dirname, "middleware-test-files");

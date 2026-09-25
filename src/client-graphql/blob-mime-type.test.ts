@@ -1,7 +1,7 @@
 import { GraphQLObjectType, GraphQLString } from "graphql";
 import { describe, it, expect } from "vitest";
-import { buildTableRowTypeFields } from "./modules/shared-functions";
-import { ProductTableFileColumn, ProductTableFileColumnType } from "../file-types";
+import { buildTableRowTypeFields } from "./modules/shared-functions.js";
+import { ProductTableFileColumn, ProductTableFileColumnType } from "../file-types/index.js";
 
 const columns: ReadonlyArray<ProductTableFileColumn> = [{ type: ProductTableFileColumnType.Blob, name: "image" }];
 const rows = [{ image: { hash: "aaa", mimeType: "image/png" } }, { image: "bbb" }, { image: null }];

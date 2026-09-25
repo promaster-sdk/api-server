@@ -1,11 +1,11 @@
 import path from "path";
 import { describe, it, expect } from "vitest";
-import { ReleaseFile, RootFile, TransactionFile } from "../file-types";
+import { ReleaseFile, RootFile, TransactionFile } from "../file-types/index.js";
 import * as fs from "fs/promises";
-import { readJsonFile } from "./middleware";
-import { createSchema } from "./schema";
+import { readJsonFile } from "./middleware.js";
+import { createSchema } from "./schema.js";
 import { graphql } from "graphql";
-import { createContext } from "./context";
+import { createContext } from "./context.js";
 
 describe("createSchema", async () => {
   const testsFolder = path.join(__dirname, "middleware-test-files");

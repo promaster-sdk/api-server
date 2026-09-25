@@ -2,7 +2,7 @@ import path from "path";
 // import fs from "fs";
 import fsp from "fs/promises";
 // import { promisify } from "util";
-import { withSpan } from "../tracing";
+import { withSpan } from "../tracing/index.js";
 
 // const readFileAsync = promisify(fs.readFile);
 // const renameAsync = promisify(fs.rename);

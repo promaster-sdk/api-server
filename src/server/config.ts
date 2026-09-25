@@ -29,7 +29,7 @@ export const schema = convict<Config>({
   filesPath: {
     doc: "Where to store the published files.",
     format: "String",
-    default: path.join(__dirname, "../../uploads/"),
+    default: path.join(import.meta.dirname, "../../uploads/"),
     env: "FILES_PATH",
   },
   jwksUri: {
