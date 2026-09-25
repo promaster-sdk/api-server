@@ -21,11 +21,9 @@
     "noEmitOnError": false,
     "newLine": "LF",
 
-    // Type Checking
-    "strict": false,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
+    // Type Checking — strict sub-options overridden to false
+    "strict": true,
+    "strictFunctionTypes": false,
 
     // Type Checking — additional strictness
     "allowUnreachableCode": false,

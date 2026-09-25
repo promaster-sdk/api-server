@@ -82,7 +82,7 @@ async function deleteFile(filePath: string): Promise<void> {
     await fsp.unlink(filePath);
     //console.log("==>> deleted file: ", filePath);
   } catch (err) {
-    if (err && err.code && err.code === "ENOENT") {
+    if ((err as NodeJS.ErrnoException | undefined)?.code === "ENOENT") {
       console.log("file doesn't exist: ", filePath);
     } else {
       //console.log("==>> ERR deleting file: ", filePath, " (err = ", err, ")");
