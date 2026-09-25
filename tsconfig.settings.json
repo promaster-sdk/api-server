@@ -5,7 +5,8 @@
     "lib": ["esnext"],
 
     // Module
-    "module": "commonjs",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "moduleDetection": "force",
     "resolveJsonModule": true,
     "esModuleInterop": true,
