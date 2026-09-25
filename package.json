@@ -1,6 +1,6 @@
 {
   "name": "@promaster-sdk/api-server",
-  "version": "3.9.1",
+  "version": "4.0.0",
   "description": "Promaster API server reference implementation",
   "license": "MIT",
   "author": "Divid Promaster AB <info@divid.se>",
