@@ -15,7 +15,7 @@ type QueryParents = {
 };
 
 export const queryResolvers: {
-  [P in keyof Query]?: (parent: RootValue, args: {}, ctx: Context) => Promise<QueryParents[P]>
+  [P in keyof Query]?: (parent: RootValue, args: {}, ctx: Context) => Promise<QueryParents[P]>;
 } = {
   trees: async (_parent: RootValue, _args: {}, ctx: Context) => {
     const { rootFile, readJsonFile } = ctx;
@@ -71,7 +71,7 @@ type ProductParents = {
 };
 
 export const productResolvers: {
-  [P in keyof Product]?: (parent: ProductFileName, args: {}, ctx: Context) => Promise<ProductParents[P]>
+  [P in keyof Product]?: (parent: ProductFileName, args: {}, ctx: Context) => Promise<ProductParents[P]>;
 } = {
   id: async (parent, _args, ctx) => (await ctx.loaders.productFiles.load(parent)).data.id,
   key: async (parent, _args, ctx) => (await ctx.loaders.productFiles.load(parent)).data.key,

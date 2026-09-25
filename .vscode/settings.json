@@ -1,5 +1,7 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "editor.formatOnSave": true,
   "oxc.typeAware": true,
   "oxc.configPath": "./oxlint.config.mjs"
 }

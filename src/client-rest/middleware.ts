@@ -178,7 +178,9 @@ function productsForTransactionHandler(
 ): Koa.Middleware {
   return async function (ctx: Router.RouterContext, next: Next): Promise<unknown> {
     const tx: string = ctx.params.tx;
-    const legacyTableList: ReadonlyArray<string> | undefined = ctx.query["tables"] ? (ctx.query["tables"] as string).split(",") : undefined;
+    const legacyTableList: ReadonlyArray<string> | undefined = ctx.query["tables"]
+      ? (ctx.query["tables"] as string).split(",")
+      : undefined;
     // Read the release file
     const transactionFile = await readJsonFile<TransactionFile>(
       getFilesDir(getDatabaseId(ctx, false)),
@@ -199,10 +201,16 @@ function productsForTransactionHandler(
   };
 }
 
-function productsForReleaseHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl, blobMimeType: boolean): Koa.Middleware {
+function productsForReleaseHandler(
+  getFilesDir: GetFilesDir,
+  getBaseUrl: GetBaseUrl,
+  blobMimeType: boolean
+): Koa.Middleware {
   return async function (ctx: Router.RouterContext, next: Next): Promise<unknown> {
     const releaseId: string = ctx.params.id;
-    const legacyTableList: ReadonlyArray<string> | undefined = ctx.query["tables"] ? (ctx.query["tables"] as string).split(",") : undefined;
+    const legacyTableList: ReadonlyArray<string> | undefined = ctx.query["tables"]
+      ? (ctx.query["tables"] as string).split(",")
+      : undefined;
     // Read the release file
     const releaseFile = await readJsonFile<ReleaseFile>(
       getFilesDir(getDatabaseId(ctx, false)),
@@ -314,7 +322,9 @@ function allTableDataForProductHandler(
   return async function (ctx: Router.RouterContext, next: Next): Promise<unknown> {
     const productId: string = ctx.params.product_id;
     const tx: string = ctx.params.tx;
-    const legacyTableList: ReadonlyArray<string> | undefined = ctx.query["tables"] ? (ctx.query["tables"] as string).split(",") : undefined;
+    const legacyTableList: ReadonlyArray<string> | undefined = ctx.query["tables"]
+      ? (ctx.query["tables"] as string).split(",")
+      : undefined;
     // const variant =
     //   ctx.query["variant"] !== null ? PropertyValueSet.parse(ctx.query["variant"], () => undefined) : undefined;
     // var numbers = request.requestedUri.queryParameters['numbers'] == "true";
@@ -323,13 +333,7 @@ function allTableDataForProductHandler(
     const filesDir = getFilesDir(getDatabaseId(ctx, false));
     const baseUrl = getBaseUrl(ctx, getDatabaseId(ctx, false));
     const productFile = await readJsonFile<ProductFile>(filesDir, buildProductFileName(productId, tx));
-    const apiTables = await getApiProductTables(
-      filesDir,
-      baseUrl,
-      productFile,
-      legacyTableList || ["*"],
-      blobMimeType
-    );
+    const apiTables = await getApiProductTables(filesDir, baseUrl, productFile, legacyTableList || ["*"], blobMimeType);
     ctx.body = apiTables;
     return next();
   };
@@ -574,16 +578,20 @@ async function mapFileRowsToApiRows(
             const translationKey = "p_standard_" + apiRow["name"];
 
             const propertyTranslations = textTablePropertyTranslation.data.rows
-              .filter((row) => row[nameColumnIndex]?.toString()  === translationKey)
-              .map((row): {
-                name: string | null;
-                laguage: string | null;
-                text: string | null;
-              } => ({
-                name: row[nameColumnIndex]?.toString() ?? null,
-                laguage: row[laguageColumnIndex]?.toString() ?? null,
-                text: row[textColumnIndex]?.toString() ?? null,
-              }));
+              .filter((row) => row[nameColumnIndex]?.toString() === translationKey)
+              .map(
+                (
+                  row
+                ): {
+                  name: string | null;
+                  laguage: string | null;
+                  text: string | null;
+                } => ({
+                  name: row[nameColumnIndex]?.toString() ?? null,
+                  laguage: row[laguageColumnIndex]?.toString() ?? null,
+                  text: row[textColumnIndex]?.toString() ?? null,
+                })
+              );
             // .filter((translation) => translation.name?.startsWith(translationPrefix));
 
             apiRow[ct.parentField] = propertyTranslations.map((propertyTranslation, index) => ({
@@ -612,15 +620,19 @@ async function mapFileRowsToApiRows(
 
             const propertyTranslations = textTablePropertyValueTranslation.data.rows
               .filter((row) => row[nameColumnIndex]?.toString() === translationKey)
-              .map((row): {
-                name: string | null;
-                laguage: string | null;
-                text: string | null;
-              } => ({
-                name: row[nameColumnIndex]?.toString() ?? null,
-                laguage: row[laguageColumnIndex]?.toString() ?? null,
-                text: row[textColumnIndex]?.toString() ?? null,
-              }));
+              .map(
+                (
+                  row
+                ): {
+                  name: string | null;
+                  laguage: string | null;
+                  text: string | null;
+                } => ({
+                  name: row[nameColumnIndex]?.toString() ?? null,
+                  laguage: row[laguageColumnIndex]?.toString() ?? null,
+                  text: row[textColumnIndex]?.toString() ?? null,
+                })
+              );
             // .filter((translation) => translation.name?.startsWith(translationPrefix));
 
             apiRow[ct.parentField] = propertyTranslations.map((propertyTranslation, index) => ({

@@ -5,28 +5,24 @@ export interface DecodedToken {
   readonly [key: string]: string;
 }
 
-const validateTokenWithCallback = (jwksUri: string, jwksKid: string) => (
-  encodedToken: string,
-  cb: (err: jwt.VerifyErrors | Error | undefined, decodedToken: DecodedToken | undefined) => void
-): void => {
-
-  const jwksClient = JwksRsa({ jwksUri: jwksUri, cache: true });
-  jwksClient.getSigningKey(jwksKid, (getKeyErr, key) => {
-    if (getKeyErr) {
-      console.warn(`Could not get signing key '${jwksKid}' from '${jwksUri}'. The error was: ${getKeyErr}.`);
-      cb(getKeyErr, undefined);
-    } else {
-      jwt.verify(
-        encodedToken,
-        key.getPublicKey(),
-        { clockTolerance: 900 },
-        (verifyErr, decoded) => {
+const validateTokenWithCallback =
+  (jwksUri: string, jwksKid: string) =>
+  (
+    encodedToken: string,
+    cb: (err: jwt.VerifyErrors | Error | undefined, decodedToken: DecodedToken | undefined) => void
+  ): void => {
+    const jwksClient = JwksRsa({ jwksUri: jwksUri, cache: true });
+    jwksClient.getSigningKey(jwksKid, (getKeyErr, key) => {
+      if (getKeyErr) {
+        console.warn(`Could not get signing key '${jwksKid}' from '${jwksUri}'. The error was: ${getKeyErr}.`);
+        cb(getKeyErr, undefined);
+      } else {
+        jwt.verify(encodedToken, key.getPublicKey(), { clockTolerance: 900 }, (verifyErr, decoded) => {
           cb(verifyErr || undefined, decoded as DecodedToken);
-        }
-      );
-    }
-  });
-};
+        });
+      }
+    });
+  };
 
 export async function validateToken(jwksUri: string, encodedToken: string): Promise<DecodedToken> {
   return new Promise<DecodedToken>((resolve, reject) => {

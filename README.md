@@ -2,7 +2,6 @@
 
 [![npm version][version-image]][version-url]
 [![build][build-image]][build-url]
-[![code style: prettier][prettier-image]][prettier-url]
 [![MIT license][license-image]][license-url]
 
 > NOTE: The code is provided as-is without support. Support is available by separate agreement with Divid Promaster.
@@ -168,7 +167,7 @@ pnpm install
 pnpm start
 ```
 
-Lint with `pnpm lint` (type-aware [oxlint](https://oxc.rs), config in `oxlint.config.mjs`).
+Lint with `pnpm lint` (type-aware [oxlint](https://oxc.rs), config in `oxlint.config.mjs`), format with `pnpm fmt` (oxfmt).
 
 In promaster-edit, register a new server on port 4500 with an authorization header value of `mytoken`. Publish once to the this server, then you can try the Client API at `http://localhost:4500/rest/v3/markers`.
 
@@ -213,5 +212,3 @@ docker push dividab/promaster-public-api:v<version>
 [build-url]: https://github.com/promaster-sdk/api-server/actions?query=workflow%3ABuild+branch%3Amaster
 [license-image]: https://img.shields.io/github/license/promaster-sdk/api-server.svg?style=flat
 [license-url]: https://opensource.org/licenses/MIT
-[prettier-image]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat
-[prettier-url]: https://github.com/prettier/prettier

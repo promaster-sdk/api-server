@@ -1,0 +1,6 @@
+{
+  "printWidth": 120,
+  "trailingComma": "es5",
+  "arrowParens": "always",
+  "ignorePatterns": ["pnpm-lock.yaml", "CHANGELOG.md", "src/**/middleware-test-files/**"]
+}

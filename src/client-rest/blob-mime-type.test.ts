@@ -5,12 +5,12 @@ import { describe, it, expect, beforeAll } from "vitest";
 import { getApiProductTables } from "./middleware";
 import { ProductFile, ProductTableFile } from "../file-types";
 
-const productFile: ProductFile = ({
+const productFile: ProductFile = {
   data: { id: "p1", key: "P1", name: "P1", retired: false, tables: { "custom_tables@images": 0 } },
   refs: { 0: "table_t1@1.json" },
-} as unknown) as ProductFile;
+} as unknown as ProductFile;
 
-const tableFile = ({
+const tableFile = {
   data: {
     id: "t1",
     module: "custom_tables",
@@ -28,7 +28,7 @@ const tableFile = ({
     ],
   },
   refs: {},
-} as unknown) as ProductTableFile;
+} as unknown as ProductTableFile;
 
 describe("REST blob columns", () => {
   const filesDir = path.join(os.tmpdir(), "api-server-blob-mime-type-test");

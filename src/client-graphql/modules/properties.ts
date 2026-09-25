@@ -112,34 +112,32 @@ export async function createModuleType(
   return new GraphQLObjectType({ name: getUniqueTypeName(`Module_${moduleName}`, usedTypeNames), fields });
 }
 
-const childRowResolverWithLanguageArg = (
-  moduleName: string,
-  tableName: string,
-  includeProductFileName: boolean = false
-) => async (parent: TableRowWithProductFileName, args: { readonly language: string }, ctx: Context) => {
-  const parentId = parent[builtinIdColumnSafeName];
-  const parentName = parent["name"];
-  const parentValue = parent["value"];
-  const grandParentName = parent["__$parentName$"];
+const childRowResolverWithLanguageArg =
+  (moduleName: string, tableName: string, includeProductFileName: boolean = false) =>
+  async (parent: TableRowWithProductFileName, args: { readonly language: string }, ctx: Context) => {
+    const parentId = parent[builtinIdColumnSafeName];
+    const parentName = parent["name"];
+    const parentValue = parent["value"];
+    const grandParentName = parent["__$parentName$"];
 
-  return resolveTableRows(
-    moduleName,
-    tableName,
-    parent.__$productFileName$,
-    ctx.loaders,
-    includeProductFileName,
-    typeof parentId !== "string"
-      ? undefined
-      : {
-          id: parentId.toString(),
-          name: parentName?.toString(),
-          value: parentValue?.toString(),
-        },
-    typeof grandParentName !== "string"
-      ? undefined
-      : {
-          name: grandParentName,
-        },
-    args.language
-  );
-};
+    return resolveTableRows(
+      moduleName,
+      tableName,
+      parent.__$productFileName$,
+      ctx.loaders,
+      includeProductFileName,
+      typeof parentId !== "string"
+        ? undefined
+        : {
+            id: parentId.toString(),
+            name: parentName?.toString(),
+            value: parentValue?.toString(),
+          },
+      typeof grandParentName !== "string"
+        ? undefined
+        : {
+            name: grandParentName,
+          },
+      args.language
+    );
+  };

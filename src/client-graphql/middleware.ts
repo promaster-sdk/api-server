@@ -15,19 +15,21 @@ import { withSpan } from "../tracing";
 
 const readFileAsync = promisify(fs.readFile);
 
-export const readJsonFile = <T>(filesDir: string) => async (fileName: string): Promise<T> => {
-  return await withSpan("readJsonFile", async (span) => {
-    span.setAttribute("fileName", fileName);
-    const fullPath = path.join(filesDir, fileName);
-    const text = await withSpan("readFileAsync", async () => {
-      return await readFileAsync(fullPath, "utf8");
+export const readJsonFile =
+  <T>(filesDir: string) =>
+  async (fileName: string): Promise<T> => {
+    return await withSpan("readJsonFile", async (span) => {
+      span.setAttribute("fileName", fileName);
+      const fullPath = path.join(filesDir, fileName);
+      const text = await withSpan("readFileAsync", async () => {
+        return await readFileAsync(fullPath, "utf8");
+      });
+      const content = await withSpan("JSON.parse", async () => {
+        return JSON.parse(text);
+      });
+      return content;
     });
-    const content = await withSpan("JSON.parse", async () => {
-      return JSON.parse(text);
-    });
-    return content;
-  });
-};
+  };
 
 export interface GetFilesDir {
   (databaseId: string): string;

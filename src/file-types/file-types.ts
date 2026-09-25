@@ -189,9 +189,10 @@ export function parseProductFileName(fileName: string): { readonly productId: st
   return parseProductFileIdentifier(idPart);
 }
 
-export function parseProductFileIdentifier(
-  fileIdentifier: string
-): { readonly productId: string; readonly tx: string } {
+export function parseProductFileIdentifier(fileIdentifier: string): {
+  readonly productId: string;
+  readonly tx: string;
+} {
   // ffe915b0-4800-11e8-e030-93bd83df2e66@533250
   const parts = fileIdentifier.split("@");
   return {
@@ -206,9 +207,10 @@ export function parseProductTableFileName(fileName: string): { readonly tableId:
   return parseProductTableFileIdentifier(idPart);
 }
 
-export function parseProductTableFileIdentifier(
-  fileIdentifier: string
-): { readonly tableId: string; readonly tx: string } {
+export function parseProductTableFileIdentifier(fileIdentifier: string): {
+  readonly tableId: string;
+  readonly tx: string;
+} {
   // ffe915b0-4800-11e8-e030-93bd83df2e66@533250
   const parts = fileIdentifier.split("@");
   return {
@@ -220,9 +222,10 @@ export function parseProductTableFileIdentifier(
 /**
  * For example "product_324234234@12312.json" => ["product", "324234234@12312"]
  */
-export function getTypeAndIdentifierFromFileName(
-  fileName: string
-): { readonly type: FileType; readonly identifier: string } {
+export function getTypeAndIdentifierFromFileName(fileName: string): {
+  readonly type: FileType;
+  readonly identifier: string;
+} {
   // Pick the first part of the file name becuase that will determine the type of file
   const fileNameWithoutSuffix = fileName.endsWith(".json")
     ? fileName.substr(0, fileName.length - ".json".length)
