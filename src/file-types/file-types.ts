@@ -221,9 +221,7 @@ export function getTypeAndIdentifierFromFileName(fileName: string): {
   readonly identifier: string;
 } {
   // Pick the first part of the file name becuase that will determine the type of file
-  const fileNameWithoutSuffix = fileName.endsWith(".json")
-    ? fileName.substr(0, fileName.length - ".json".length)
-    : fileName;
+  const fileNameWithoutSuffix = fileName.endsWith(".json") ? fileName.substr(0, fileName.length - ".json".length) : fileName;
   const fileNameParts = fileNameWithoutSuffix.split("_");
   return { type: fileNameParts[0] as FileType, identifier: fileNameParts[1] };
 }

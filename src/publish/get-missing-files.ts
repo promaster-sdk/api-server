@@ -33,14 +33,7 @@ export async function getMissingFilesForRootFiles(
 
     // console.time("getMissingFilesRecursive");
     const stats = { readFiles: 0 };
-    const missingFilesResult = await getMissingFilesRecursive(
-      filesPath,
-      existingFiles,
-      fileNames,
-      0,
-      stats,
-      readFilesInParallel
-    );
+    const missingFilesResult = await getMissingFilesRecursive(filesPath, existingFiles, fileNames, 0, stats, readFilesInParallel);
     // console.timeEnd("getMissingFilesRecursive");
     // console.log("getMissingFilesRecursive stats", stats);
 
@@ -179,14 +172,7 @@ async function getMissingFilesRecursive(
     let missingChildFiles: MissingFilesResult = { missingFiles: [], referencedFiles: [] };
     if (allReferencedFileNames.size > 0) {
       const allReferencedFileNamesArray = Array.from(allReferencedFileNames.keys());
-      missingChildFiles = await getMissingFilesRecursive(
-        filePath,
-        existingFiles,
-        allReferencedFileNamesArray,
-        level + 1,
-        stats,
-        readFilesInParallel
-      );
+      missingChildFiles = await getMissingFilesRecursive(filePath, existingFiles, allReferencedFileNamesArray, level + 1, stats, readFilesInParallel);
     }
 
     const missingFiles = [...missingChildFiles.missingFiles, ...Array.from(fileNamesThatAreMissing.keys())];

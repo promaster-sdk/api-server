@@ -19,12 +19,7 @@ export interface ModulePlugin {
     /** Type for blob columns when ClientGraphQLOptions.blobMimeType is set, otherwise blob columns are the hash string */
     blobType?: GraphQLObjectType
   ) => Promise<GraphQLObjectType>;
-  readonly resolveModuleType?: (
-    parent: unknown,
-    _args: { readonly [key: string]: unknown },
-    ctx: Context,
-    info: GraphQLResolveInfo
-  ) => unknown;
+  readonly resolveModuleType?: (parent: unknown, _args: { readonly [key: string]: unknown }, ctx: Context, info: GraphQLResolveInfo) => unknown;
 }
 
 export interface ModuleFieldResolverParent {

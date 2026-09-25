@@ -39,11 +39,7 @@ export async function createModuleType(
       name: { type: GraphQLString },
     },
     description: textTable.description,
-    resolve: async (
-      parent: ModuleFieldResolverParent,
-      args: { readonly language?: string; readonly name?: string },
-      ctx: Context
-    ) => {
+    resolve: async (parent: ModuleFieldResolverParent, args: { readonly language?: string; readonly name?: string }, ctx: Context) => {
       let rows = await parentRowResolver(myModuleName, "text")(parent, args, ctx);
       if (args.name !== undefined) {
         rows = rows.filter((r) => r["name"] === args.name);

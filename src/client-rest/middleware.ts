@@ -47,10 +47,7 @@ const cacheNeverHeader: Koa.Middleware = (ctx: Router.RouterContext, next: Next)
   return next();
 };
 
-const cacheForeverHeaderIfSuccessResponse: Koa.Middleware = (
-  ctx: Router.RouterContext,
-  next: Next
-): Promise<unknown> => {
+const cacheForeverHeaderIfSuccessResponse: Koa.Middleware = (ctx: Router.RouterContext, next: Next): Promise<unknown> => {
   if (ctx.status !== 404) {
     ctx.set("cache-control", "public, max-age=86400");
   } else {
@@ -156,9 +153,7 @@ function blobHandler(getFilesDir: GetFilesDir): Koa.Middleware {
 function latestHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
   return async function _latestHandler(ctx: Router.RouterContext, _next: Next): Promise<unknown> {
     const rootFileContent = await readJsonFile<RootFile>(getFilesDir(getDatabaseId(ctx, false)), buildRootFileName());
-    const urlToProducts = `${getBaseUrl(ctx, getDatabaseId(ctx, false))}/transactions/${
-      rootFileContent.data.latest.tx
-    }`;
+    const urlToProducts = `${getBaseUrl(ctx, getDatabaseId(ctx, false))}/transactions/${rootFileContent.data.latest.tx}`;
     const apiMarker = {
       transaction_id: rootFileContent.data.latest.tx.toString(),
       date: rootFileContent.data.latest.date,
@@ -169,61 +164,29 @@ function latestHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Mi
   };
 }
 
-function productsForTransactionHandler(
-  getFilesDir: GetFilesDir,
-  getBaseUrl: GetBaseUrl,
-  blobMimeType: boolean
-): Koa.Middleware {
+function productsForTransactionHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl, blobMimeType: boolean): Koa.Middleware {
   return async function (ctx: Router.RouterContext, next: Next): Promise<unknown> {
     const tx: string = ctx.params.tx;
-    const legacyTableList: ReadonlyArray<string> | undefined = ctx.query["tables"]
-      ? (ctx.query["tables"] as string).split(",")
-      : undefined;
+    const legacyTableList: ReadonlyArray<string> | undefined = ctx.query["tables"] ? (ctx.query["tables"] as string).split(",") : undefined;
     // Read the release file
-    const transactionFile = await readJsonFile<TransactionFile>(
-      getFilesDir(getDatabaseId(ctx, false)),
-      buildTransactionFileName(tx)
-    );
+    const transactionFile = await readJsonFile<TransactionFile>(getFilesDir(getDatabaseId(ctx, false)), buildTransactionFileName(tx));
     // Fetch all product file names for the release
     const productFileNames = Object.values(transactionFile.data.products).map((ref) => transactionFile.refs[ref]);
-    const apiProducts = await getApiProductsForFileNames(
-      ctx,
-      getFilesDir,
-      getBaseUrl,
-      productFileNames,
-      legacyTableList,
-      blobMimeType
-    );
+    const apiProducts = await getApiProductsForFileNames(ctx, getFilesDir, getBaseUrl, productFileNames, legacyTableList, blobMimeType);
     ctx.body = apiProducts;
     return next();
   };
 }
 
-function productsForReleaseHandler(
-  getFilesDir: GetFilesDir,
-  getBaseUrl: GetBaseUrl,
-  blobMimeType: boolean
-): Koa.Middleware {
+function productsForReleaseHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl, blobMimeType: boolean): Koa.Middleware {
   return async function (ctx: Router.RouterContext, next: Next): Promise<unknown> {
     const releaseId: string = ctx.params.id;
-    const legacyTableList: ReadonlyArray<string> | undefined = ctx.query["tables"]
-      ? (ctx.query["tables"] as string).split(",")
-      : undefined;
+    const legacyTableList: ReadonlyArray<string> | undefined = ctx.query["tables"] ? (ctx.query["tables"] as string).split(",") : undefined;
     // Read the release file
-    const releaseFile = await readJsonFile<ReleaseFile>(
-      getFilesDir(getDatabaseId(ctx, false)),
-      buildReleaseFileName(releaseId)
-    );
+    const releaseFile = await readJsonFile<ReleaseFile>(getFilesDir(getDatabaseId(ctx, false)), buildReleaseFileName(releaseId));
     // Fetch all product file names for the release
     const productFileNames = Object.values(releaseFile.data.products).map((ref) => releaseFile.refs[ref]);
-    const apiProducts = await getApiProductsForFileNames(
-      ctx,
-      getFilesDir,
-      getBaseUrl,
-      productFileNames,
-      legacyTableList,
-      blobMimeType
-    );
+    const apiProducts = await getApiProductsForFileNames(ctx, getFilesDir, getBaseUrl, productFileNames, legacyTableList, blobMimeType);
     ctx.body = apiProducts;
     return next();
   };
@@ -233,9 +196,7 @@ function markerHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Mi
   return async function _markersHandler(ctx: Router.RouterContext, next: Next): Promise<unknown> {
     const markerName = ctx.params.name;
     const rootFileContent = await readJsonFile<RootFile>(getFilesDir(getDatabaseId(ctx, false)), buildRootFileName());
-    const markerKey = Object.keys(rootFileContent.data.markers).find(
-      (m) => m.toLowerCase() === markerName.toLowerCase()
-    );
+    const markerKey = Object.keys(rootFileContent.data.markers).find((m) => m.toLowerCase() === markerName.toLowerCase());
     if (markerKey === undefined) {
       ctx.status = 404;
       ctx.body = "Not found";
@@ -266,10 +227,7 @@ function tablesForProductHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUr
   return async function (ctx: Router.RouterContext, next: Next): Promise<unknown> {
     const productId: string = ctx.params.product_id;
     const tx = ctx.params.tx;
-    const content = await readJsonFile<ProductFile>(
-      getFilesDir(getDatabaseId(ctx, false)),
-      buildProductFileName(productId, tx)
-    );
+    const content = await readJsonFile<ProductFile>(getFilesDir(getDatabaseId(ctx, false)), buildProductFileName(productId, tx));
 
     const tableNames = Object.keys(content.data.tables);
     const rootTableNames = filterRootTables(tableNames);
@@ -277,10 +235,7 @@ function tablesForProductHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUr
       const compatibleTableName = fullToLegacyTableName(fullTableName);
       return {
         name: compatibleTableName,
-        uri: `${getBaseUrl(
-          ctx,
-          getDatabaseId(ctx, false)
-        )}/transactions/${tx}/products/${productId}/tables/${compatibleTableName}`,
+        uri: `${getBaseUrl(ctx, getDatabaseId(ctx, false))}/transactions/${tx}/products/${productId}/tables/${compatibleTableName}`,
       };
     });
     ctx.body = apiTables;
@@ -312,17 +267,11 @@ function dataForTableHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl, b
   };
 }
 
-function allTableDataForProductHandler(
-  getFilesDir: GetFilesDir,
-  getBaseUrl: GetBaseUrl,
-  blobMimeType: boolean
-): Koa.Middleware {
+function allTableDataForProductHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl, blobMimeType: boolean): Koa.Middleware {
   return async function (ctx: Router.RouterContext, next: Next): Promise<unknown> {
     const productId: string = ctx.params.product_id;
     const tx: string = ctx.params.tx;
-    const legacyTableList: ReadonlyArray<string> | undefined = ctx.query["tables"]
-      ? (ctx.query["tables"] as string).split(",")
-      : undefined;
+    const legacyTableList: ReadonlyArray<string> | undefined = ctx.query["tables"] ? (ctx.query["tables"] as string).split(",") : undefined;
     // const variant =
     //   ctx.query["variant"] !== null ? PropertyValueSet.parse(ctx.query["variant"], () => undefined) : undefined;
     // var numbers = request.requestedUri.queryParameters['numbers'] == "true";
@@ -398,10 +347,7 @@ async function getApiProductWithOptionalTables(
   blobMimeType: boolean
 ): Promise<ApiProduct> {
   // Read the product file
-  const productFile: ProductFile = await readJsonFile<ProductFile>(
-    getFilesDir(getDatabaseId(ctx, false)),
-    productFileName
-  );
+  const productFile: ProductFile = await readJsonFile<ProductFile>(getFilesDir(getDatabaseId(ctx, false)), productFileName);
 
   // Build the ApiProduct object
   const parsed = parseProductFileName(productFileName);
@@ -452,15 +398,7 @@ export async function getApiProductTables(
   const childFiles: Record<string, ProductTableFile> = {};
   for (const tableFile of tableFilesContent) {
     const fullTableName = buildFullTableName(tableFile);
-    const rows = await mapFileRowsToApiRows(
-      productFile,
-      filesDir,
-      baseUrl,
-      tableFile,
-      childFiles,
-      undefined,
-      blobMimeType
-    );
+    const rows = await mapFileRowsToApiRows(productFile, filesDir, baseUrl, tableFile, childFiles, undefined, blobMimeType);
     apiTables[fullToLegacyTableName(fullTableName)] = rows;
   }
   return apiTables;
@@ -499,8 +437,7 @@ async function mapFileRowsToApiRows(
   // const idColumnIndex = fileColumns.findIndex((c) => c.name === builtinIdColumnName);
   // const parentRowId = fileRow[idColumnIndex];
   const childParentIdColumnIndex = fileColumns.findIndex((c) => c.name === builtinParentIdColumnName);
-  const filteredFileRows =
-    childParentIdColumnIndex === -1 ? fileRows : fileRows.filter((r) => r[childParentIdColumnIndex] === parent?.rowId);
+  const filteredFileRows = childParentIdColumnIndex === -1 ? fileRows : fileRows.filter((r) => r[childParentIdColumnIndex] === parent?.rowId);
 
   let textTablePropertyValueTranslation: ProductTableFile | undefined = undefined;
   let textTablePropertyTranslation: ProductTableFile | undefined = undefined;
@@ -560,13 +497,10 @@ async function mapFileRowsToApiRows(
           const textTableRef = productFile.refs[productFile.data.tables["texts@text"]];
 
           if (ct.child === "properties@property.translation" && textTableRef) {
-            textTablePropertyTranslation =
-              textTablePropertyTranslation ?? (await readJsonFile<ProductTableFile>(filesDir, textTableRef));
+            textTablePropertyTranslation = textTablePropertyTranslation ?? (await readJsonFile<ProductTableFile>(filesDir, textTableRef));
 
             const nameColumnIndex = textTablePropertyTranslation.data.columns.findIndex((col) => col.name === "name");
-            const laguageColumnIndex = textTablePropertyTranslation.data.columns.findIndex(
-              (col) => col.name === "language"
-            );
+            const laguageColumnIndex = textTablePropertyTranslation.data.columns.findIndex((col) => col.name === "language");
             const textColumnIndex = textTablePropertyTranslation.data.columns.findIndex((col) => col.name === "text");
 
             const translationKey = "p_standard_" + apiRow["name"];
@@ -597,18 +531,11 @@ async function mapFileRowsToApiRows(
           }
 
           if (ct.child === "properties@property.value.translation" && textTableRef) {
-            textTablePropertyValueTranslation =
-              textTablePropertyValueTranslation ?? (await readJsonFile<ProductTableFile>(filesDir, textTableRef));
+            textTablePropertyValueTranslation = textTablePropertyValueTranslation ?? (await readJsonFile<ProductTableFile>(filesDir, textTableRef));
 
-            const nameColumnIndex = textTablePropertyValueTranslation.data.columns.findIndex(
-              (col) => col.name === "name"
-            );
-            const laguageColumnIndex = textTablePropertyValueTranslation.data.columns.findIndex(
-              (col) => col.name === "language"
-            );
-            const textColumnIndex = textTablePropertyValueTranslation.data.columns.findIndex(
-              (col) => col.name === "text"
-            );
+            const nameColumnIndex = textTablePropertyValueTranslation.data.columns.findIndex((col) => col.name === "name");
+            const laguageColumnIndex = textTablePropertyValueTranslation.data.columns.findIndex((col) => col.name === "language");
+            const textColumnIndex = textTablePropertyValueTranslation.data.columns.findIndex((col) => col.name === "text");
 
             const translationKey = "pv_" + parent?.value + "_" + apiRow["value"];
 

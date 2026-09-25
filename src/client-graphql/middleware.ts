@@ -49,11 +49,7 @@ export function createClientGraphQLMiddleware(
 ): Koa.Middleware {
   const router = new Router({ prefix });
   router.all("/:database_id", createGetMarkersMiddleware(getFilesDir, getBaseUrl));
-  router.all(
-    "/:database_id/:marker",
-    createSchemaMiddleware(getFilesDir, options.blobMimeType ?? false),
-    createGraphQLMiddleware(enableGraphIQL)
-  );
+  router.all("/:database_id/:marker", createSchemaMiddleware(getFilesDir, options.blobMimeType ?? false), createGraphQLMiddleware(enableGraphIQL));
   return compose([router.routes(), router.allowedMethods()]);
 }
 
@@ -77,8 +73,8 @@ interface ContextState {
 }
 
 /**
- * This middleware expects ctx.params.marker, and adds a schema and context for that marker to ctx.state. It will cache
- * the created schema until the marker is pointing to a new file.
+ * This middleware expects ctx.params.marker, and adds a schema and context for that marker to ctx.state. It will cache the created schema until the
+ * marker is pointing to a new file.
  */
 function createSchemaMiddleware(getFilesDir: GetFilesDir, blobMimeType: boolean): Koa.Middleware<ContextState> {
   const schemaPerMarker: {
@@ -111,9 +107,7 @@ function createSchemaMiddleware(getFilesDir: GetFilesDir, blobMimeType: boolean)
       }
     }
     if (!markerSchema) {
-      const markerFile = await readJsonFile<ReleaseFile | TransactionFile>(getFilesDir(getDatabaseId(ctx, false)))(
-        markerFileName
-      );
+      const markerFile = await readJsonFile<ReleaseFile | TransactionFile>(getFilesDir(getDatabaseId(ctx, false)))(markerFileName);
       markerSchema = {
         markerFileName,
         markerFile,
@@ -133,8 +127,8 @@ function createSchemaMiddleware(getFilesDir: GetFilesDir, blobMimeType: boolean)
 }
 
 /**
- * This middleware expects ctx.params.marker, ctx.params.markerFileName, ctx.params.graphqlSchema to be set by a
- * previous middleware and presents an GraphQL endpoint that can be used according to the schema.
+ * This middleware expects ctx.params.marker, ctx.params.markerFileName, ctx.params.graphqlSchema to be set by a previous middleware and presents an
+ * GraphQL endpoint that can be used according to the schema.
  */
 function createGraphQLMiddleware(enableGraphIQL: boolean): Koa.Middleware<ContextState> {
   return graphqlHTTP(async (_request, _repsonse, ctx: Koa.ParameterizedContext<ContextState>) => ({

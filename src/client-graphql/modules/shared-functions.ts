@@ -1,12 +1,5 @@
 import * as DataLoader from "dataloader";
-import {
-  GraphQLFieldConfigMap,
-  GraphQLObjectType,
-  GraphQLOutputType,
-  GraphQLFloat,
-  GraphQLString,
-  GraphQLInt,
-} from "graphql";
+import { GraphQLFieldConfigMap, GraphQLObjectType, GraphQLOutputType, GraphQLFloat, GraphQLString, GraphQLInt } from "graphql";
 import {
   ProductFile,
   ProductTableFile,
@@ -53,16 +46,7 @@ export async function resolveTableRows(
     const tableRef = productFile.data.tables[fullTableName];
 
     if (!tableRef && fullTableName === "properties@property.translation") {
-      const textRows = await resolveTableRows(
-        "texts",
-        "text",
-        productFileName,
-        loaders,
-        includeProductFileName,
-        undefined,
-        undefined,
-        language
-      );
+      const textRows = await resolveTableRows("texts", "text", productFileName, loaders, includeProductFileName, undefined, undefined, language);
 
       const fakeTranslationRows = textRows
         .filter((textRow) => textRow.name?.toString() === "p_standard_" + parent?.name)
@@ -78,16 +62,7 @@ export async function resolveTableRows(
     }
 
     if (!tableRef && fullTableName === "properties@property.value.translation") {
-      const textRows = await resolveTableRows(
-        "texts",
-        "text",
-        productFileName,
-        loaders,
-        includeProductFileName,
-        undefined,
-        undefined,
-        language
-      );
+      const textRows = await resolveTableRows("texts", "text", productFileName, loaders, includeProductFileName, undefined, undefined, language);
 
       const fakeTranslationRows = textRows
         .filter((textRow) => textRow.name?.toString() === "pv_" + grandParent?.name + "_" + parent?.value)
@@ -137,17 +112,10 @@ interface RowsFilter {
   readonly language: string | undefined;
 }
 
-function filterRows(
-  rows: ReadonlyArray<TableRow> | ReadonlyArray<TableRowWithProductFileName>,
-  filter: RowsFilter | undefined
-): readonly TableRow[] {
+function filterRows(rows: ReadonlyArray<TableRow> | ReadonlyArray<TableRowWithProductFileName>, filter: RowsFilter | undefined): readonly TableRow[] {
   return !filter
     ? rows
-    : rows.filter(
-        (row) =>
-          row[builtinParentIdColumnSafeName] === filter.parentRowId &&
-          (!filter.language || row.language === filter.language)
-      );
+    : rows.filter((row) => row[builtinParentIdColumnSafeName] === filter.parentRowId && (!filter.language || row.language === filter.language));
 }
 
 const rowValuesToObject = (columns: ReadonlyArray<ProductTableFileColumn>, values: ProductTableFileRow) =>
@@ -206,19 +174,9 @@ export function columnTypeToGraphQLType(c: ProductTableFileColumn, blobType?: Gr
   }
 }
 
-export const parentRowResolver =
-  (moduleName: string, tableName: string) => (parent: ModuleFieldResolverParent, _args: {}, ctx: Context) => {
-    return resolveTableRows(
-      moduleName,
-      tableName,
-      parent.productFileName,
-      ctx.loaders,
-      true,
-      undefined,
-      undefined,
-      undefined
-    );
-  };
+export const parentRowResolver = (moduleName: string, tableName: string) => (parent: ModuleFieldResolverParent, _args: {}, ctx: Context) => {
+  return resolveTableRows(moduleName, tableName, parent.productFileName, ctx.loaders, true, undefined, undefined, undefined);
+};
 
 export const childRowResolver =
   (moduleName: string, tableName: string, includeProductFileName: boolean) =>

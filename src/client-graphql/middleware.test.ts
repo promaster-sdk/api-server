@@ -21,9 +21,7 @@ describe("createSchema", async () => {
       const releasePrefix = "release_";
       const transactionPrefix = "transaction_";
       const markerRefs = [...Object.values(rootFile.refs)].filter(
-        (ref) =>
-          ref.substring(0, releasePrefix.length) === releasePrefix ||
-          ref.substring(0, transactionPrefix.length) === transactionPrefix
+        (ref) => ref.substring(0, releasePrefix.length) === releasePrefix || ref.substring(0, transactionPrefix.length) === transactionPrefix
       );
 
       const responses = await Promise.all(
@@ -43,9 +41,7 @@ describe("createSchema", async () => {
       const result = await readJsonFile(currentTestFilesFolder)("result.json");
 
       // GraphQL errors doesn't map to json, so we have to fix it manually
-      const errorMessages = responses
-        .filter((r) => r.errors)
-        .flatMap((r) => r.errors!.map((err) => ({ message: err.message })));
+      const errorMessages = responses.filter((r) => r.errors).flatMap((r) => r.errors!.map((err) => ({ message: err.message })));
       const errors = errorMessages.length > 0 ? [{ errors: errorMessages }] : undefined;
 
       if (errors) {

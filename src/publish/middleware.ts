@@ -76,47 +76,40 @@ export function createPublishApiMiddleware(
 
   // Download
   // router.get("/(:database_id/)?:filename", async (ctx: Router.IRouterContext) => {
-  router.get(
-    /^\/([0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}\/)?(.+)/,
-    async (ctx: Router.RouterContext) => {
-      const fileName = ctx.params[1];
-      const dest = getFilesDir(getDatabaseId(ctx, true));
-      const fullPath = path.join(dest, fileName);
-      if (await existsAsync(fullPath)) {
-        await send(ctx, fileName, { root: dest });
-      } else {
-        ctx.status = 404;
-        ctx.body = "Not found";
-      }
+  router.get(/^\/([0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}\/)?(.+)/, async (ctx: Router.RouterContext) => {
+    const fileName = ctx.params[1];
+    const dest = getFilesDir(getDatabaseId(ctx, true));
+    const fullPath = path.join(dest, fileName);
+    if (await existsAsync(fullPath)) {
+      await send(ctx, fileName, { root: dest });
+    } else {
+      ctx.status = 404;
+      ctx.body = "Not found";
     }
-  );
+  });
 
   // Upload
   // router.post("/(:database_id)?", upload.array("file"), async (ctx) => {
-  router.post(
-    /^\/([0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12})?/,
-    upload.array("file"),
-    async (ctx) => {
-      // tslint:disable-next-line:no-any
-      const files = (ctx.req as any).files as Array<Express.Multer.File>;
-      const databaseId = getDatabaseId(ctx, true);
-      const filesPaths = getFilesDir(databaseId);
-      // tslint:disable-next-line:no-any
-      const tempFileSuffix = (ctx as any).tempFileSuffix;
-      const fileNames = files.map((f) => f.filename);
-      const allMissingFiles = await getMissingFilesForRootFiles(
-        filesPaths,
-        fileNames,
-        ctx.query.save as string,
-        tempFileSuffix,
-        readFilesInParallel,
-        pruneFiles,
-        () => onPublishComplete(databaseId)
-      );
+  router.post(/^\/([0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12})?/, upload.array("file"), async (ctx) => {
+    // tslint:disable-next-line:no-any
+    const files = (ctx.req as any).files as Array<Express.Multer.File>;
+    const databaseId = getDatabaseId(ctx, true);
+    const filesPaths = getFilesDir(databaseId);
+    // tslint:disable-next-line:no-any
+    const tempFileSuffix = (ctx as any).tempFileSuffix;
+    const fileNames = files.map((f) => f.filename);
+    const allMissingFiles = await getMissingFilesForRootFiles(
+      filesPaths,
+      fileNames,
+      ctx.query.save as string,
+      tempFileSuffix,
+      readFilesInParallel,
+      pruneFiles,
+      () => onPublishComplete(databaseId)
+    );
 
-      ctx.body = { missingFiles: allMissingFiles };
-    }
-  );
+    ctx.body = { missingFiles: allMissingFiles };
+  });
 
   // Compose full middleware
   const all = compose([tempFileSuffixMiddleware, putCtxOnReqMiddleware, router.routes(), router.allowedMethods()]);

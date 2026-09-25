@@ -7,8 +7,7 @@ export const createVerifyPublishApiMiddleware =
   (jwksUri: string, validClients: ReadonlyArray<string>) =>
   async (ctx: Koa.Context, next: () => Promise<void>): Promise<void> => {
     // Get the Authorization header
-    const authorization =
-      getKeyValueIgnoreCase(ctx.headers, "Authorization") || getKeyValueIgnoreCase(ctx.query, "access_token");
+    const authorization = getKeyValueIgnoreCase(ctx.headers, "Authorization") || getKeyValueIgnoreCase(ctx.query, "access_token");
     if (!authorization) {
       ctx.status = 403;
       console.warn("Unauthorized request");
@@ -25,9 +24,7 @@ export const createVerifyPublishApiMiddleware =
     }
 
     // Fallback. If no database id is in url fallback to validate tenant
-    const maybeDatabaseId = ctx.request.path.match(
-      /^\/([0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12})/
-    );
+    const maybeDatabaseId = ctx.request.path.match(/^\/([0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12})/);
     if (!uuid.validate(maybeDatabaseId?.[1] || "")) {
       const selectedTenant = getHeaderIgnoreCase(ctx.headers, "X-Promaster-SelectedTenantId");
       console.warn("Old auth request, Veryfing tenant_id: ", selectedTenant);
@@ -54,10 +51,7 @@ export const createVerifyPublishApiMiddleware =
     await next();
   };
 
-function getKeyValueIgnoreCase(
-  keyValues: { readonly [key: string]: string | ReadonlyArray<string> | undefined },
-  key: string
-): string | undefined {
+function getKeyValueIgnoreCase(keyValues: { readonly [key: string]: string | ReadonlyArray<string> | undefined }, key: string): string | undefined {
   const keyLower = key.toLowerCase();
   const found = Object.keys(keyValues).find((header) => header.toLowerCase() === keyLower);
   if (found !== undefined) {

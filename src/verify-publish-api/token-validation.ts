@@ -7,10 +7,7 @@ export interface DecodedToken {
 
 const validateTokenWithCallback =
   (jwksUri: string, jwksKid: string) =>
-  (
-    encodedToken: string,
-    cb: (err: jwt.VerifyErrors | Error | undefined, decodedToken: DecodedToken | undefined) => void
-  ): void => {
+  (encodedToken: string, cb: (err: jwt.VerifyErrors | Error | undefined, decodedToken: DecodedToken | undefined) => void): void => {
     const jwksClient = JwksRsa({ jwksUri: jwksUri, cache: true });
     jwksClient.getSigningKey(jwksKid, (getKeyErr, key) => {
       if (getKeyErr) {

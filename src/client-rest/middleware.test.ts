@@ -20,18 +20,13 @@ describe("getApiProductTables", async () => {
       const releasePrefix = "release_";
       const transactionPrefix = "transaction_";
       const releaseAndTransactionFileNames = [...Object.values(rootFile.refs)].filter(
-        (ref) =>
-          ref.substring(0, releasePrefix.length) === releasePrefix ||
-          ref.substring(0, releasePrefix.length) === transactionPrefix
+        (ref) => ref.substring(0, releasePrefix.length) === releasePrefix || ref.substring(0, releasePrefix.length) === transactionPrefix
       );
       for (const releaseFileName of releaseAndTransactionFileNames) {
         const releaseFile = await readJsonFile<ReleaseFile | TransactionFile>(filesDir, releaseFileName);
         for (const productFileName of Object.values(releaseFile.refs)) {
           const productFile = await readJsonFile<ProductFile>(filesDir, productFileName);
-          const legacyTableList = await readJsonFile<readonly string[]>(
-            currentTestFilesFolder,
-            "legacy-table-list.json"
-          );
+          const legacyTableList = await readJsonFile<readonly string[]>(currentTestFilesFolder, "legacy-table-list.json");
           const apiTables = await getApiProductTables(filesDir, "", productFile, legacyTableList);
 
           productsData.push(apiTables);

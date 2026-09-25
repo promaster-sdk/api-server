@@ -53,9 +53,7 @@ export async function createSchema(
     : undefined;
 
   // Read the file that the marker points to, it is either a Release or Transaction file
-  const productFileNames = Object.values(releaseOrTransaction.data.products).map(
-    (ref) => releaseOrTransaction.refs[ref]
-  );
+  const productFileNames = Object.values(releaseOrTransaction.data.products).map((ref) => releaseOrTransaction.refs[ref]);
 
   const treeRelationType = new GraphQLObjectType({
     name: getUniqueTypeName("TreeRelation", usedTypeNames),
@@ -154,9 +152,7 @@ async function buildModulesType(
     const modulePlugin = modulePlugins[moduleName] || defaultModulePlugin;
     const resolveModuleType = modulePlugin.resolveModuleType || defaultResolveModuleType;
     fields[moduleFieldName] = {
-      type: new GraphQLNonNull(
-        await modulePlugin.createModuleType(moduleFieldName, usedTypeNames, tableByName, blobType)
-      ),
+      type: new GraphQLNonNull(await modulePlugin.createModuleType(moduleFieldName, usedTypeNames, tableByName, blobType)),
       resolve: resolveModuleType,
     };
   }
@@ -172,10 +168,7 @@ interface TablesPerModule {
 }
 
 // All tables that have the same structure can be merged...
-async function getUniqueTableDefinitionsPerModule(
-  productFileNames: ReadonlyArray<string>,
-  readJsonFile: ReadJsonFile
-): Promise<TablesPerModule> {
+async function getUniqueTableDefinitionsPerModule(productFileNames: ReadonlyArray<string>, readJsonFile: ReadJsonFile): Promise<TablesPerModule> {
   const productFilePromises = productFileNames.map((f) => readJsonFile<ProductFile>(f));
   const productFiles = await Promise.all(productFilePromises);
   const tableFilePromises = productFiles.map((f) => getProductTables(readJsonFile, f));
@@ -189,10 +182,7 @@ async function getUniqueTableDefinitionsPerModule(
   const checkedTables: { [name: string]: ProductTableFile } = {};
   const tablesWithDifferingColumnDefs: { [name: string]: true } = {};
   for (const [, t] of allTableFiles) {
-    if (
-      checkedTables[t.data.name] !== undefined &&
-      !sameColumns(checkedTables[t.data.name].data.columns, t.data.columns)
-    ) {
+    if (checkedTables[t.data.name] !== undefined && !sameColumns(checkedTables[t.data.name].data.columns, t.data.columns)) {
       tablesWithDifferingColumnDefs[t.data.name] = true;
     }
     checkedTables[t.data.name] = t;
@@ -221,10 +211,7 @@ async function getUniqueTableDefinitionsPerModule(
   return tablesPerModule;
 }
 
-function sameColumns(
-  columns1: ReadonlyArray<ProductTableFileColumn>,
-  columns2: ReadonlyArray<ProductTableFileColumn>
-): boolean {
+function sameColumns(columns1: ReadonlyArray<ProductTableFileColumn>, columns2: ReadonlyArray<ProductTableFileColumn>): boolean {
   // ForeignKey may not always be present but that is OK
   const cmp1 = columns1.filter((c) => c.type !== "ForeignKey");
   const cmp2 = columns2.filter((c) => c.type !== "ForeignKey");
@@ -232,9 +219,7 @@ function sameColumns(
     return false;
   }
   for (const c1 of cmp1) {
-    const foundIndex = cmp2.findIndex(
-      (c2) => c2.name === c1.name && columnTypeToGraphQLType(c2) === columnTypeToGraphQLType(c1)
-    );
+    const foundIndex = cmp2.findIndex((c2) => c2.name === c1.name && columnTypeToGraphQLType(c2) === columnTypeToGraphQLType(c1));
     if (foundIndex < 0) {
       return false;
     }
@@ -242,10 +227,7 @@ function sameColumns(
   return true;
 }
 
-async function getProductTables(
-  readJsonFile: ReadJsonFile,
-  productFile: ProductFile
-): Promise<ReadonlyArray<[ProductFile, ProductTableFile]>> {
+async function getProductTables(readJsonFile: ReadJsonFile, productFile: ProductFile): Promise<ReadonlyArray<[ProductFile, ProductTableFile]>> {
   const tableKeys = Object.keys(productFile.data.tables);
   const tableFileNames = tableKeys.map((tableName) => productFile.refs[productFile.data.tables[tableName]]);
   const promises = tableFileNames.map((f) => readJsonFile<ProductTableFile>(f));

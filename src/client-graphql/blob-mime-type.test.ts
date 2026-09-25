@@ -22,10 +22,6 @@ describe("GraphQL blob columns", () => {
   it("resolves { hash, mimeType } objects with a blob type", () => {
     const fields = buildTableRowTypeFields(columns, blobType);
     expect(fields["image"].type).toBe(blobType);
-    expect(resolveImages(fields)).toEqual([
-      { hash: "aaa", mimeType: "image/png" },
-      { hash: "bbb", mimeType: null },
-      null,
-    ]);
+    expect(resolveImages(fields)).toEqual([{ hash: "aaa", mimeType: "image/png" }, { hash: "bbb", mimeType: null }, null]);
   });
 });

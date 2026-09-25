@@ -27,8 +27,7 @@ export async function createModuleType(
   ) {
     fields["sound_type_error"] = {
       type: GraphQLString,
-      description:
-        "sound type error: cannot find sound_variant/sound_variant.damper/sound_variant.sound_line/sound_variant.sound",
+      description: "sound type error: cannot find sound_variant/sound_variant.damper/sound_variant.sound_line/sound_variant.sound",
     };
     return new GraphQLObjectType({ name: getUniqueTypeName(`Module_${moduleName}`, usedTypeNames), fields });
   }
