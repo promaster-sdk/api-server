@@ -168,6 +168,8 @@ pnpm install
 pnpm start
 ```
 
+Lint with `pnpm lint` (type-aware [oxlint](https://oxc.rs), config in `oxlint.config.mjs`).
+
 In promaster-edit, register a new server on port 4500 with an authorization header value of `mytoken`. Publish once to the this server, then you can try the Client API at `http://localhost:4500/rest/v3/markers`.
 
 ## How to publish to local server

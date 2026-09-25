@@ -33,10 +33,11 @@
     "@types/uuid": "^8.3.0",
     "dotenv": "^7.0.0",
     "lint-staged": "^8.1.5",
+    "oxlint": "^1.85.0",
+    "oxlint-config-divid": "^1.5.0",
+    "oxlint-tsgolint": "^7.0.2002",
     "prettier": "^2.1.1",
     "tsc-watch": "^4.4.0",
-    "tslint": "^5.16.0",
-    "tslint-immutable": "^5.5.2",
     "typescript": "^4.9.5"
   },
   "dependencies": {
@@ -76,14 +77,15 @@
     "build": "tsc",
     "clean": "rm -rf lib",
     "rebuild": "pnpm clean && pnpm build",
-    "lint": "tslint './src/**/*.ts{,x}'",
+    "lint": "oxlint --type-aware -c oxlint.config.mjs .",
+    "lint:fix": "oxlint --type-aware --fix -c oxlint.config.mjs .",
     "precommit": "lint-staged",
     "verify": "pnpm clean && pnpm build",
     "preversion": "pnpm verify",
     "postversion": "git push --tags && yarn publish --new-version $npm_package_version && git push && echo \"Successfully released version $npm_package_version!\""
   },
   "lint-staged": {
-    "*.{ts,tsx}": "tslint",
+    "*.{ts,tsx}": "oxlint --type-aware -c oxlint.config.mjs",
     "*.{ts,tsx,js,json,css,md}": [
       "prettier --write",
       "git add"
