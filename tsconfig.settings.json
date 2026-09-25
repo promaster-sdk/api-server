@@ -29,6 +29,7 @@
 
     // Type Checking — additional strictness
     "allowUnreachableCode": false,
+    "noUncheckedSideEffectImports": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
