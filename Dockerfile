@@ -1,6 +1,6 @@
 FROM node:24.9.0 AS builder
 WORKDIR /app
-RUN corepack enable
+RUN npm install -g corepack@0.36.0 && corepack enable
 COPY src src
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.json tsconfig.settings.json ./
 RUN pnpm install --frozen-lockfile
@@ -8,7 +8,7 @@ RUN pnpm run build
 
 FROM node:24.9.0 AS deps
 WORKDIR /app
-RUN corepack enable
+RUN npm install -g corepack@0.36.0 && corepack enable
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile --prod
 
