@@ -5,7 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v3.7.0...master)
+## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v4.0.0...master)
+
+## [4.0.0](https://github.com/promaster-sdk/api-server/compare/v3.9.1...v4.0.0)
+
+- BREAKING: The package is now ESM (`"type": "module"`). CommonJS consumers can still `require()` it on Node versions with `require(esm)` support.
+- BREAKING: Requires Node >= 24, output is compiled to `esnext`.
+- `vitest` is no longer installed as a runtime dependency.
+- Docker image runs on `node:24-slim` with production dependencies only.
 
 ## [3.7.0](https://github.com/promaster-sdk/api-server/compare/v3.6.5...v3.7.0)
 
