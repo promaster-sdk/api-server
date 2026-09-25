@@ -15,6 +15,8 @@ import {
   getTypeAndIdentifierFromFileName,
   buildTransactionFileName,
   buildBlobFileName,
+  getBlobHash,
+  getBlobCell,
   TransactionFile,
   parseTransactionFileName,
   builtinIdColumnName,
@@ -24,7 +26,7 @@ import {
   TreeFile,
   ProductTableFileColumnType,
 } from "../file-types";
-import { ApiProduct, ApiTables, Mutable, ApiMarker, ApiTableRow } from "./types";
+import { ApiProduct, ApiTables, Mutable, ApiMarker, ApiTableRow, ClientRestOptions } from "./types";
 import compose from "koa-compose";
 import { getDatabaseId } from "../context-parsing";
 import { withSpan } from "../tracing";
@@ -60,14 +62,16 @@ const cacheForeverHeaderIfSuccessResponse: Koa.Middleware = (
 export function createClientRestMiddleware(
   getFilesDir: GetFilesDir,
   getBaseUrl: GetBaseUrl,
-  prefix?: string
+  prefix?: string,
+  options: ClientRestOptions = {}
 ): Koa.Middleware {
   const router = new Router({ prefix });
+  const blobMimeType = options.blobMimeType ?? false;
 
   // Cacheable immutable data
   router.get(
     "/:database_id/(public/)?transactions/:tx/products/:product_id/tables/:table",
-    dataForTableHandler(getFilesDir, getBaseUrl),
+    dataForTableHandler(getFilesDir, getBaseUrl, blobMimeType),
     cacheForeverHeaderIfSuccessResponse
   );
   router.get(
@@ -77,17 +81,17 @@ export function createClientRestMiddleware(
   );
   router.get(
     "/:database_id/(public/)?transactions/:tx/products/:product_id",
-    allTableDataForProductHandler(getFilesDir, getBaseUrl),
+    allTableDataForProductHandler(getFilesDir, getBaseUrl, blobMimeType),
     cacheForeverHeaderIfSuccessResponse
   ); // ?tables=T1,T2...
   router.get(
     "/:database_id/(public/)?transactions/:tx",
-    productsForTransactionHandler(getFilesDir, getBaseUrl),
+    productsForTransactionHandler(getFilesDir, getBaseUrl, blobMimeType),
     cacheForeverHeaderIfSuccessResponse
   ); // ?tables=T1,T2...
   router.get(
     "/:database_id/(public/)?releases/:id",
-    productsForReleaseHandler(getFilesDir, getBaseUrl),
+    productsForReleaseHandler(getFilesDir, getBaseUrl, blobMimeType),
     cacheForeverHeaderIfSuccessResponse
   ); // ?tables=T1,T2...
   router.get("/:database_id/(public/)?blobs/:hash", blobHandler(getFilesDir), cacheForeverHeaderIfSuccessResponse);
@@ -167,7 +171,11 @@ function latestHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Mi
   };
 }
 
-function productsForTransactionHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
+function productsForTransactionHandler(
+  getFilesDir: GetFilesDir,
+  getBaseUrl: GetBaseUrl,
+  blobMimeType: boolean
+): Koa.Middleware {
   return async function (ctx: Router.RouterContext, next: Next): Promise<unknown> {
     const tx: string = ctx.params.tx;
     const legacyTableList: ReadonlyArray<string> = ctx.query["tables"] ? ctx.query["tables"].split(",") : undefined;
@@ -183,14 +191,15 @@ function productsForTransactionHandler(getFilesDir: GetFilesDir, getBaseUrl: Get
       getFilesDir,
       getBaseUrl,
       productFileNames,
-      legacyTableList
+      legacyTableList,
+      blobMimeType
     );
     ctx.body = apiProducts;
     return next();
   };
 }
 
-function productsForReleaseHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
+function productsForReleaseHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl, blobMimeType: boolean): Koa.Middleware {
   return async function (ctx: Router.RouterContext, next: Next): Promise<unknown> {
     const releaseId: string = ctx.params.id;
     const legacyTableList: ReadonlyArray<string> = ctx.query["tables"] ? ctx.query["tables"].split(",") : undefined;
@@ -206,7 +215,8 @@ function productsForReleaseHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBase
       getFilesDir,
       getBaseUrl,
       productFileNames,
-      legacyTableList
+      legacyTableList,
+      blobMimeType
     );
     ctx.body = apiProducts;
     return next();
@@ -272,7 +282,7 @@ function tablesForProductHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUr
   };
 }
 
-function dataForTableHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
+function dataForTableHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl, blobMimeType: boolean): Koa.Middleware {
   return async function _dataForProductTableHandler(ctx: Router.RouterContext, next: Next): Promise<unknown> {
     const legacyTableName: string = ctx.params.table;
     const productId: string = ctx.params.product_id;
@@ -284,7 +294,7 @@ function dataForTableHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): 
     const filesDir = getFilesDir(getDatabaseId(ctx, false));
     const baseUrl = getBaseUrl(ctx, getDatabaseId(ctx, false));
     const productFile = await readJsonFile<ProductFile>(filesDir, buildProductFileName(productId, tx));
-    const apiTables = await getApiProductTables(filesDir, baseUrl, productFile, [legacyTableName]);
+    const apiTables = await getApiProductTables(filesDir, baseUrl, productFile, [legacyTableName], blobMimeType);
     const foundTable = apiTables[legacyTableName];
     if (!foundTable) {
       ctx.status = 404;
@@ -296,7 +306,11 @@ function dataForTableHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): 
   };
 }
 
-function allTableDataForProductHandler(getFilesDir: GetFilesDir, getBaseUrl: GetBaseUrl): Koa.Middleware {
+function allTableDataForProductHandler(
+  getFilesDir: GetFilesDir,
+  getBaseUrl: GetBaseUrl,
+  blobMimeType: boolean
+): Koa.Middleware {
   return async function (ctx: Router.RouterContext, next: Next): Promise<unknown> {
     const productId: string = ctx.params.product_id;
     const tx: string = ctx.params.tx;
@@ -309,7 +323,13 @@ function allTableDataForProductHandler(getFilesDir: GetFilesDir, getBaseUrl: Get
     const filesDir = getFilesDir(getDatabaseId(ctx, false));
     const baseUrl = getBaseUrl(ctx, getDatabaseId(ctx, false));
     const productFile = await readJsonFile<ProductFile>(filesDir, buildProductFileName(productId, tx));
-    const apiTables = await getApiProductTables(filesDir, baseUrl, productFile, legacyTableList || ["*"]);
+    const apiTables = await getApiProductTables(
+      filesDir,
+      baseUrl,
+      productFile,
+      legacyTableList || ["*"],
+      blobMimeType
+    );
     ctx.body = apiTables;
     return next();
   };
@@ -374,7 +394,8 @@ async function getApiProductWithOptionalTables(
   getFilesDir: GetFilesDir,
   getBaseUrl: GetBaseUrl,
   productFileName: string,
-  legacyTableList: ReadonlyArray<string> | undefined
+  legacyTableList: ReadonlyArray<string> | undefined,
+  blobMimeType: boolean
 ): Promise<ApiProduct> {
   // Read the product file
   const productFile: ProductFile = await readJsonFile<ProductFile>(
@@ -398,7 +419,7 @@ async function getApiProductWithOptionalTables(
   // If query-string parameter "tables" is specified, then we should return an extra
   // key called "data" for every product that contains the table data.
   if (legacyTableList) {
-    const apiTables = await getApiProductTables(filesDir, baseUrl, productFile, legacyTableList);
+    const apiTables = await getApiProductTables(filesDir, baseUrl, productFile, legacyTableList, blobMimeType);
     p.data = apiTables;
   }
   return p;
@@ -408,7 +429,8 @@ export async function getApiProductTables(
   filesDir: string,
   baseUrl: string,
   productFile: ProductFile,
-  legacyTableList: ReadonlyArray<string>
+  legacyTableList: ReadonlyArray<string>,
+  blobMimeType: boolean = false
 ): Promise<ApiTables> {
   // Build the tables
   const apiTables: Mutable<ApiTables> = {};
@@ -430,7 +452,15 @@ export async function getApiProductTables(
   const childFiles: Record<string, ProductTableFile> = {};
   for (const tableFile of tableFilesContent) {
     const fullTableName = buildFullTableName(tableFile);
-    const rows = await mapFileRowsToApiRows(productFile, filesDir, baseUrl, tableFile, childFiles, undefined);
+    const rows = await mapFileRowsToApiRows(
+      productFile,
+      filesDir,
+      baseUrl,
+      tableFile,
+      childFiles,
+      undefined,
+      blobMimeType
+    );
     apiTables[fullToLegacyTableName(fullTableName)] = rows;
   }
   return apiTables;
@@ -456,7 +486,8 @@ async function mapFileRowsToApiRows(
   baseUrl: string,
   tableFile: ProductTableFile,
   childFiles: Record<string, ProductTableFile>,
-  parent: { readonly value: string; readonly rowId: string } | undefined
+  parent: { readonly value: string; readonly rowId: string } | undefined,
+  blobMimeType: boolean
 ): Promise<ReadonlyArray<ApiTableRow>> {
   const tableName = buildFullTableName(tableFile);
   const fileColumns = tableFile.data.columns;
@@ -484,8 +515,12 @@ async function mapFileRowsToApiRows(
       const column = fileColumns[c];
       // Don't add internal columns id and parent_id
       if (column.name !== builtinIdColumnName && column.name !== builtinParentIdColumnName) {
-        if (column.type === "Blob") {
-          apiRow[column.name] = fileRow[c] && baseUrl + "/blobs/" + fileRow[c];
+        if (column.type === "Blob" && blobMimeType) {
+          const blob = getBlobCell(fileRow[c]);
+          apiRow[column.name] = blob && { url: baseUrl + "/blobs/" + blob.hash, mimeType: blob.mimeType };
+        } else if (column.type === "Blob") {
+          const blobHash = getBlobHash(fileRow[c]);
+          apiRow[column.name] = blobHash && baseUrl + "/blobs/" + blobHash;
         } else if (column.type === ProductTableFileColumnType.Product) {
           apiRow[column.name] = fileRow[c]?.toString().toUpperCase() ?? null;
         } else {
@@ -516,7 +551,8 @@ async function mapFileRowsToApiRows(
               : {
                   value: apiRow["name"]?.toString() ?? "",
                   rowId,
-                }
+                },
+            blobMimeType
           );
           apiRow[ct.parentField] = filteredApiRows;
         } else {
@@ -638,11 +674,12 @@ async function getApiProductsForFileNames(
   getFilesDir: GetFilesDir,
   getBaseUrl: GetBaseUrl,
   productFileNames: ReadonlyArray<string>,
-  legacyTableList: ReadonlyArray<string>
+  legacyTableList: ReadonlyArray<string>,
+  blobMimeType: boolean
 ): Promise<ReadonlyArray<ApiProduct>> {
   // Create all products in parallell
   const apiProductPromises = productFileNames.map((f) =>
-    getApiProductWithOptionalTables(ctx, getFilesDir, getBaseUrl, f, legacyTableList)
+    getApiProductWithOptionalTables(ctx, getFilesDir, getBaseUrl, f, legacyTableList, blobMimeType)
   );
   const apiProducts = await Promise.all(apiProductPromises);
   return apiProducts;

@@ -11,7 +11,8 @@ import { resolveTableRows, buildTableRowTypeFields } from "./shared-functions";
 export async function createModuleType(
   moduleFieldName: string,
   usedTypeNames: Set<string>,
-  tableByName: TableByName
+  tableByName: TableByName,
+  blobType?: GraphQLObjectType
 ): Promise<GraphQLObjectType> {
   const fields: GraphQLFieldConfigMap<unknown, unknown> = {};
   for (const [n, v] of Object.entries(tableByName)) {
@@ -19,7 +20,7 @@ export async function createModuleType(
       const tableFieldName = toSafeName(n);
       const tableRowType = new GraphQLObjectType({
         name: getUniqueTypeName(tableFieldName, usedTypeNames),
-        fields: buildTableRowTypeFields(v.columns),
+        fields: buildTableRowTypeFields(v.columns, blobType),
       });
       fields[tableFieldName] = {
         type: new GraphQLNonNull(GraphQLList(new GraphQLNonNull(tableRowType))),

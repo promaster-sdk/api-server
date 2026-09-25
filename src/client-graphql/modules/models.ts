@@ -12,7 +12,8 @@ const myModuleName = "models";
 export async function createModuleType(
   moduleName: string,
   usedTypeNames: Set<string>,
-  tableByName: TableByName
+  tableByName: TableByName,
+  blobType?: GraphQLObjectType
 ): Promise<GraphQLObjectType> {
   const fields: GraphQLFieldConfigMap<unknown, unknown> = {};
   const modelTable = tableByName["model"];
@@ -28,13 +29,13 @@ export async function createModuleType(
 
   const modelParamsRowType = new GraphQLObjectType({
     name: getUniqueTypeName("Model_Params", usedTypeNames),
-    fields: buildTableRowTypeFields(modelParamsTable.columns),
+    fields: buildTableRowTypeFields(modelParamsTable.columns, blobType),
   });
 
   const modelRowType = new GraphQLObjectType({
     name: getUniqueTypeName("Model_Model", usedTypeNames),
     fields: {
-      ...buildTableRowTypeFields(modelTable.columns),
+      ...buildTableRowTypeFields(modelTable.columns, blobType),
       params: {
         type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(modelParamsRowType))),
         resolve: childRowResolver(myModuleName, "model.params", true),

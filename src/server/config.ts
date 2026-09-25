@@ -10,6 +10,7 @@ export interface Config {
   readonly filenamesInParallel: number;
   readonly otelEnable: string;
   readonly graphiqlEnable: boolean;
+  readonly blobMimeType: boolean;
 }
 
 export const schema = convict<Config>({
@@ -60,6 +61,12 @@ export const schema = convict<Config>({
     format: Boolean,
     default: true,
     env: "GRAPHIQL_ENABLE",
+  },
+  blobMimeType: {
+    doc: "Return blob columns as objects with mime type ({ url, mimeType } in REST, { hash, mimeType } in GraphQL)",
+    format: Boolean,
+    default: false,
+    env: "BLOB_MIME_TYPE",
   },
 });
 

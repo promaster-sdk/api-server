@@ -100,6 +100,7 @@ export enum ProductTableFileColumnType {
   FixedMultiDiscrete = "FixedMultiDiscrete",
   DynamicMultiDiscrete = "DynamicMultiDiscrete",
   Json = "Json",
+  JsonPointer = "JsonPointer",
   Integer = "Integer",
   // Columns of type "Table" are deprecated and not used in the file formats
   // Table = "Table",
@@ -118,6 +119,22 @@ export enum ProductTableFileColumnType {
 
 export type ProductTableFileRow = ReadonlyArray<ProductTableFileCell>;
 export type ProductTableFileCell = string | number | null;
+
+/** Blob cell published with its mime type, instead of the raw hash */
+export interface ProductTableFileBlobCell {
+  readonly hash: string;
+  readonly mimeType: string | null;
+}
+
+/** Hash of a blob cell, tolerates both the raw hash and the { hash, mimeType } object */
+export function getBlobHash(cell: ProductTableFileCell | ProductTableFileBlobCell): ProductTableFileCell {
+  return cell !== null && typeof cell === "object" ? cell.hash : cell;
+}
+
+/** Blob cell as a { hash, mimeType } object, tolerates both the raw hash (mimeType null) and the object */
+export function getBlobCell(cell: ProductTableFileCell | ProductTableFileBlobCell): ProductTableFileBlobCell | null {
+  return cell !== null && typeof cell === "object" ? cell : cell ? { hash: cell.toString(), mimeType: null } : null;
+}
 
 export interface FileRefMap {
   readonly [key: string]: number;

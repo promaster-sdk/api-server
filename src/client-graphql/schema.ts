@@ -37,9 +37,20 @@ export const defaultResolveModuleType = (parent: string, _args: {}, _ctx: {}, in
 
 export async function createSchema(
   readJsonFile: ReadJsonFile,
-  releaseOrTransaction: ReleaseFile | TransactionFile
+  releaseOrTransaction: ReleaseFile | TransactionFile,
+  blobMimeType: boolean = false
 ): Promise<GraphQLSchema> {
   const usedTypeNames = new Set<string>();
+
+  const blobType = blobMimeType
+    ? new GraphQLObjectType({
+        name: getUniqueTypeName("Blob", usedTypeNames),
+        fields: {
+          hash: { type: new GraphQLNonNull(GraphQLString) },
+          mimeType: { type: GraphQLString },
+        },
+      })
+    : undefined;
 
   // Read the file that the marker points to, it is either a Release or Transaction file
   const productFileNames = Object.values(releaseOrTransaction.data.products).map(
@@ -75,7 +86,7 @@ export async function createSchema(
     },
   });
 
-  const productType = await buildProductType(readJsonFile, productFileNames, usedTypeNames);
+  const productType = await buildProductType(readJsonFile, productFileNames, usedTypeNames, blobType);
 
   const queryType = new GraphQLObjectType({
     name: getUniqueTypeName("Query", usedTypeNames),
@@ -110,9 +121,10 @@ export async function createSchema(
 async function buildProductType(
   readJsonFile: ReadJsonFile,
   productFileNames: ReadonlyArray<string>,
-  usedTypeNames: Set<string>
+  usedTypeNames: Set<string>,
+  blobType: GraphQLObjectType | undefined
 ): Promise<GraphQLObjectType> {
-  const modulesType = await buildModulesType(productFileNames, readJsonFile, usedTypeNames);
+  const modulesType = await buildModulesType(productFileNames, readJsonFile, usedTypeNames, blobType);
   const productType = new GraphQLObjectType({
     name: getUniqueTypeName("Product", usedTypeNames),
     fields: {
@@ -131,7 +143,8 @@ async function buildProductType(
 async function buildModulesType(
   productFileNames: ReadonlyArray<string>,
   readJsonFile: ReadJsonFile,
-  usedTypeNames: Set<string>
+  usedTypeNames: Set<string>,
+  blobType: GraphQLObjectType | undefined
 ): Promise<GraphQLObjectType | undefined> {
   const tablesPerModule = await getUniqueTableDefinitionsPerModule(productFileNames, readJsonFile);
   const fields: GraphQLFieldConfigMap<unknown, unknown> = {};
@@ -141,7 +154,9 @@ async function buildModulesType(
     const modulePlugin = modulePlugins[moduleName] || defaultModulePlugin;
     const resolveModuleType = modulePlugin.resolveModuleType || defaultResolveModuleType;
     fields[moduleFieldName] = {
-      type: new GraphQLNonNull(await modulePlugin.createModuleType(moduleFieldName, usedTypeNames, tableByName)),
+      type: new GraphQLNonNull(
+        await modulePlugin.createModuleType(moduleFieldName, usedTypeNames, tableByName, blobType)
+      ),
       resolve: resolveModuleType,
     };
   }

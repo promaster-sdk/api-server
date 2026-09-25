@@ -36,5 +36,16 @@ export interface ApiTables {
 // export type ApiTableRows = ReadonlyArray<ApiTableRow>;
 
 export interface ApiTableRow {
-  readonly [key: string]: string | number | boolean | null | ReadonlyArray<ApiTableRow>;
+  readonly [key: string]: string | number | boolean | null | ApiBlob | ReadonlyArray<ApiTableRow>;
+}
+
+/** Blob column value when ClientRestOptions.blobMimeType is set, otherwise blob columns are the url string */
+export interface ApiBlob {
+  readonly url: string;
+  readonly mimeType: string | null;
+}
+
+export interface ClientRestOptions {
+  /** Return blob columns as { url, mimeType } objects instead of the url string */
+  readonly blobMimeType?: boolean;
 }

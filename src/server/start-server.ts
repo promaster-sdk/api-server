@@ -57,7 +57,9 @@ export async function startServer(config: Config.Config): Promise<void> {
   // Client REST API v3
   const clientApiRestApp = createClientRestMiddleware(
     (databaseId) => path.join(config.filesPath, databaseId),
-    (ctx, databaseId) => `${ctx.request.protocol}://${ctx.request.host}/rest/v3/${databaseId}/public`
+    (ctx, databaseId) => `${ctx.request.protocol}://${ctx.request.host}/rest/v3/${databaseId}/public`,
+    undefined,
+    { blobMimeType: config.blobMimeType }
   );
   app.use(mount("/rest/v3", clientApiRestApp));
 
@@ -65,7 +67,9 @@ export async function startServer(config: Config.Config): Promise<void> {
   const clientApiGraphQLApp = createClientGraphQLMiddleware(
     (databaseId) => path.join(config.filesPath, databaseId),
     (ctx, databaseId) => `${ctx.request.protocol}://${ctx.request.host}/graphql/${databaseId}`,
-    config.graphiqlEnable
+    config.graphiqlEnable,
+    undefined,
+    { blobMimeType: config.blobMimeType }
   );
   app.use(mount("/graphql", clientApiGraphQLApp));
 

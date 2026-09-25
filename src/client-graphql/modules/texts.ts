@@ -13,7 +13,8 @@ const myModuleName = "texts";
 export async function createModuleType(
   moduleName: string,
   usedTypeNames: Set<string>,
-  tableByName: TableByName
+  tableByName: TableByName,
+  blobType?: GraphQLObjectType
 ): Promise<GraphQLObjectType> {
   const fields: GraphQLFieldConfigMap<unknown, unknown> = {};
   const textTable = tableByName["text"];
@@ -29,7 +30,7 @@ export async function createModuleType(
   const textRowType = new GraphQLObjectType({
     name: getUniqueTypeName("Texts_Text", usedTypeNames),
     fields: {
-      ...buildTableRowTypeFields(textTable.columns),
+      ...buildTableRowTypeFields(textTable.columns, blobType),
     },
   });
 

@@ -20,7 +20,8 @@ const myModuleName = "properties";
 export async function createModuleType(
   moduleName: string,
   usedTypeNames: Set<string>,
-  tableByName: TableByName
+  tableByName: TableByName,
+  blobType?: GraphQLObjectType
 ): Promise<GraphQLObjectType> {
   const fields: GraphQLFieldConfigMap<unknown, unknown> = {};
   const propertyTable = tableByName["property"];
@@ -45,7 +46,8 @@ export async function createModuleType(
         { type: "ForeignKey", name: "builtin@parent_id", params: "property.value" },
         { type: "DynamicDiscrete", name: "language", params: "language.name", key: true },
         { type: "Text", name: "translation" },
-      ]
+      ],
+      blobType
     ),
   });
 
@@ -60,19 +62,20 @@ export async function createModuleType(
         { type: "DynamicDiscrete", name: "language", params: "language.name", key: true },
         { type: "FixedDiscrete", name: "type", params: "standard,long" },
         { type: "Text", name: "translation" },
-      ]
+      ],
+      blobType
     ),
   });
 
   const propertyDefaultValueRowType = new GraphQLObjectType({
     name: getUniqueTypeName("Property_DefaultValue", usedTypeNames),
-    fields: buildTableRowTypeFields(propertyDefValueTable.columns),
+    fields: buildTableRowTypeFields(propertyDefValueTable.columns, blobType),
   });
 
   const propertyValueRowType = new GraphQLObjectType({
     name: getUniqueTypeName("Property_Value", usedTypeNames),
     fields: {
-      ...buildTableRowTypeFields(propertyValueTable.columns),
+      ...buildTableRowTypeFields(propertyValueTable.columns, blobType),
       translations: {
         type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(propertyValueTranslationRowType))),
         args: { language: { type: GraphQLString, description: "The language to get translations for" } },
@@ -84,7 +87,7 @@ export async function createModuleType(
   const propertyRowType = new GraphQLObjectType({
     name: getUniqueTypeName("Property", usedTypeNames),
     fields: {
-      ...buildTableRowTypeFields(propertyTable.columns),
+      ...buildTableRowTypeFields(propertyTable.columns, blobType),
       values: {
         type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(propertyValueRowType))),
         resolve: childRowResolver(myModuleName, "property.value", true),

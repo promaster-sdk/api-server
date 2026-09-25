@@ -1,5 +1,12 @@
 import * as DataLoader from "dataloader";
-import { GraphQLFieldConfigMap, GraphQLScalarType, GraphQLFloat, GraphQLString, GraphQLInt } from "graphql";
+import {
+  GraphQLFieldConfigMap,
+  GraphQLObjectType,
+  GraphQLOutputType,
+  GraphQLFloat,
+  GraphQLString,
+  GraphQLInt,
+} from "graphql";
 import {
   ProductFile,
   ProductTableFile,
@@ -9,6 +16,8 @@ import {
   ProductTableFileRow,
   builtinIdColumnName,
   builtinParentIdColumnName,
+  getBlobHash,
+  getBlobCell,
 } from "../../file-types";
 import { TableRow, TableRowWithProductFileName } from "../schema-types";
 import { toSafeName } from "../shared-functions";
@@ -151,22 +160,34 @@ const rowValuesToObject = (columns: ReadonlyArray<ProductTableFileColumn>, value
   Object.fromEntries(columns.map((c, i) => [toSafeName(c.name), values[i]]));
 
 export function buildTableRowTypeFields(
-  columns: ReadonlyArray<ProductTableFileColumn>
+  columns: ReadonlyArray<ProductTableFileColumn>,
+  blobType?: GraphQLObjectType
 ): GraphQLFieldConfigMap<unknown, unknown> {
   return Object.fromEntries(
     columns
       .filter((c) => c.name !== "")
-      .map((c) => [toSafeName(c.name), { type: columnTypeToGraphQLType(c), description: c.description }])
+      .map((c) => {
+        const name = toSafeName(c.name);
+        // Blob cells are published either as the raw hash or as a { hash, mimeType } object
+        const resolve =
+          c.type !== ProductTableFileColumnType.Blob
+            ? undefined
+            : blobType
+            ? (row: TableRow) => getBlobCell(row[name])
+            : (row: TableRow) => getBlobHash(row[name]);
+        return [name, { type: columnTypeToGraphQLType(c, blobType), description: c.description, resolve }];
+      })
   );
 }
 
-export function columnTypeToGraphQLType(c: ProductTableFileColumn): GraphQLScalarType {
+export function columnTypeToGraphQLType(c: ProductTableFileColumn, blobType?: GraphQLObjectType): GraphQLOutputType {
   switch (c.type) {
     case ProductTableFileColumnType.Integer:
       return GraphQLInt;
     case ProductTableFileColumnType.Number:
       return GraphQLFloat;
     case ProductTableFileColumnType.Blob:
+      return blobType ?? GraphQLString;
     case ProductTableFileColumnType.DynamicDiscrete:
     case ProductTableFileColumnType.FixedDiscrete:
     case ProductTableFileColumnType.ForeignKey:
@@ -182,6 +203,7 @@ export function columnTypeToGraphQLType(c: ProductTableFileColumn): GraphQLScala
     case ProductTableFileColumnType.Unit:
     case ProductTableFileColumnType.DatabaseKey:
     case ProductTableFileColumnType.Json:
+    case ProductTableFileColumnType.JsonPointer:
     case ProductTableFileColumnType.FixedMultiDiscrete:
     case ProductTableFileColumnType.DynamicMultiDiscrete:
       return GraphQLString;

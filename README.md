@@ -103,6 +103,33 @@ const clientGraphQLApi = createClientGraphQLMiddleware(
 app.use(mount("/graphql", clientGraphQLApi));
 ```
 
+### Blob mime type
+
+By default blob columns are returned as a string: the blob url in the REST API and the blob hash in the GraphQL API. Pass `{ blobMimeType: true }` as the last argument to get objects with the blob's mime type instead:
+
+```js
+const clientRestApi = createClientRestMiddleware(
+  () => "/files",
+  () => "http://myserver/",
+  undefined,
+  { blobMimeType: true }
+);
+// { "url": "http://myserver/blobs/<hash>", "mimeType": "image/png" }
+
+const clientGraphQLApi = createClientGraphQLMiddleware(
+  () => "/files",
+  () => "http://myserver/",
+  true,
+  undefined,
+  { blobMimeType: true }
+);
+// { hash: "<hash>", mimeType: "image/png" }
+```
+
+For the stand-alone server, set the `BLOB_MIME_TYPE=true` environment variable.
+
+`mimeType` is `null` when the mime type is not published.
+
 ## Open Telemetry
 
 The server has support for OpenTelemetry which can be enabled with the `OTEL_ENABLE` environment variable.

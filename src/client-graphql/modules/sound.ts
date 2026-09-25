@@ -12,7 +12,8 @@ const myModuleName = "sound";
 export async function createModuleType(
   moduleName: string,
   usedTypeNames: Set<string>,
-  tableByName: TableByName
+  tableByName: TableByName,
+  blobType?: GraphQLObjectType
 ): Promise<GraphQLObjectType> {
   const fields: GraphQLFieldConfigMap<unknown, unknown> = {};
   const soundVariantTable = tableByName["sound_variant"];
@@ -36,23 +37,23 @@ export async function createModuleType(
 
   const damperRowType = new GraphQLObjectType({
     name: getUniqueTypeName("Sound_Damper", usedTypeNames),
-    fields: buildTableRowTypeFields(soundVariantDamperTable.columns),
+    fields: buildTableRowTypeFields(soundVariantDamperTable.columns, blobType),
   });
 
   const soundLineRowType = new GraphQLObjectType({
     name: getUniqueTypeName("Sound_SoundLine", usedTypeNames),
-    fields: buildTableRowTypeFields(soundVariantSoundlineTable.columns),
+    fields: buildTableRowTypeFields(soundVariantSoundlineTable.columns, blobType),
   });
 
   const soundRowType = new GraphQLObjectType({
     name: getUniqueTypeName("Sound_Sound", usedTypeNames),
-    fields: buildTableRowTypeFields(soundVariantSoundTable.columns),
+    fields: buildTableRowTypeFields(soundVariantSoundTable.columns, blobType),
   });
 
   const soundVariantRowType = new GraphQLObjectType({
     name: getUniqueTypeName("Sound_SoundVariant", usedTypeNames),
     fields: {
-      ...buildTableRowTypeFields(soundVariantTable.columns),
+      ...buildTableRowTypeFields(soundVariantTable.columns, blobType),
       sound: {
         type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(soundRowType))),
         resolve: childRowResolver(myModuleName, "sound_variant.sound", true),

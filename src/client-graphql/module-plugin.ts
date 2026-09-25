@@ -15,7 +15,9 @@ export interface ModulePlugin {
   readonly createModuleType: (
     moduleFieldName: string,
     usedTypeNames: Set<string>,
-    tableByName: TableByName
+    tableByName: TableByName,
+    /** Type for blob columns when ClientGraphQLOptions.blobMimeType is set, otherwise blob columns are the hash string */
+    blobType?: GraphQLObjectType
   ) => Promise<GraphQLObjectType>;
   readonly resolveModuleType?: (
     parent: unknown,

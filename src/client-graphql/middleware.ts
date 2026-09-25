@@ -33,15 +33,25 @@ export interface GetFilesDir {
   (databaseId: string): string;
 }
 
+export interface ClientGraphQLOptions {
+  /** Return blob columns as { hash, mimeType } objects instead of the hash string */
+  readonly blobMimeType?: boolean;
+}
+
 export function createClientGraphQLMiddleware(
   getFilesDir: GetFilesDir,
   getBaseUrl: GetBaseUrl,
   enableGraphIQL: boolean,
-  prefix?: string
+  prefix?: string,
+  options: ClientGraphQLOptions = {}
 ): Koa.Middleware {
   const router = new Router({ prefix });
   router.all("/:database_id", createGetMarkersMiddleware(getFilesDir, getBaseUrl));
-  router.all("/:database_id/:marker", createSchemaMiddleware(getFilesDir), createGraphQLMiddleware(enableGraphIQL));
+  router.all(
+    "/:database_id/:marker",
+    createSchemaMiddleware(getFilesDir, options.blobMimeType ?? false),
+    createGraphQLMiddleware(enableGraphIQL)
+  );
   return compose([router.routes(), router.allowedMethods()]);
 }
 
@@ -70,7 +80,7 @@ interface ContextState {
  * This middleware expects ctx.params.marker, and adds a schema and context for that marker to ctx.state.
  * It will cache the created schema until the marker is pointing to a new file.
  */
-function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware<ContextState> {
+function createSchemaMiddleware(getFilesDir: GetFilesDir, blobMimeType: boolean): Koa.Middleware<ContextState> {
   const schemaPerMarker: {
     [marker: string]:
       | {
@@ -107,7 +117,7 @@ function createSchemaMiddleware(getFilesDir: GetFilesDir): Koa.Middleware<Contex
       markerSchema = {
         markerFileName,
         markerFile,
-        schema: await createSchema(readJsonFile(getFilesDir(getDatabaseId(ctx, false))), markerFile),
+        schema: await createSchema(readJsonFile(getFilesDir(getDatabaseId(ctx, false))), markerFile, blobMimeType),
       };
       schemaPerMarker[marker] = markerSchema;
     }
