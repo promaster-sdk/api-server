@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v4.0.0...master)
 
+- Updated all dependencies with known vulnerabilities (`pnpm audit --prod` is now clean), including the OpenTelemetry stack, `koa`, `@koa/cors`, `multer`, `convict`, `jsonwebtoken`, `jwks-rsa` and `uuid`.
+- `koa-multer` replaced by `@koa/multer`, `@opentelemetry/exporter-otlp-grpc` by `@opentelemetry/exporter-trace-otlp-grpc`.
+- `initOtel()` no longer waits for the SDK start promise, as `sdk.start()` is now synchronous.
+
 ## [4.0.0](https://github.com/promaster-sdk/api-server/compare/v3.9.1...v4.0.0)
 
 - BREAKING: The package is now ESM (`"type": "module"`). CommonJS consumers can still `require()` it on Node versions with `require(esm)` support.
