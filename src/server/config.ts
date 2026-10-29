@@ -1,3 +1,4 @@
+import net from "net";
 import path from "path";
 import convict from "convict";
 
@@ -16,7 +17,11 @@ export interface Config {
 export const schema = convict<Config>({
   ip: {
     doc: "The IP address to bind.",
-    format: "ipaddress",
+    format: (value: unknown) => {
+      if (typeof value !== "string" || !net.isIP(value)) {
+        throw new Error("must be a valid IP address");
+      }
+    },
     default: "0.0.0.0",
     env: "IP_ADDRESS",
   },
@@ -34,7 +39,11 @@ export const schema = convict<Config>({
   },
   jwksUri: {
     doc: "Where to find keys used to verify JWT.",
-    format: "url",
+    format: (value: unknown) => {
+      if (typeof value !== "string" || !URL.canParse(value)) {
+        throw new Error("must be a valid URL");
+      }
+    },
     default: "https://keycloak.promaster.se/auth/realms/promaster/protocol/openid-connect/certs",
     env: "JWKS_URI",
   },
