@@ -4,6 +4,7 @@ import { TableByName } from "../module-plugin.js";
 import { buildTableRowTypeFields, childRowResolver, parentRowResolver, resolveTableRows, builtinIdColumnSafeName } from "./shared-functions.js";
 import { TableRowWithProductFileName } from "../schema-types.js";
 import { Context } from "../context.js";
+import { ProductTableFileColumnType } from "../../file-types/index.js";
 
 /** This file has specific schema and resolvers for the properties module */
 
@@ -33,11 +34,11 @@ export async function createModuleType(
     fields: buildTableRowTypeFields(
       // Fall back on hardcoded schema to fake translations from the text table.
       tableByName["property.value.translation"]?.columns ?? [
-        { type: "PrimaryKey", name: "builtin@id" },
-        { type: "Number", name: "sort_no" },
-        { type: "ForeignKey", name: "builtin@parent_id", params: "property.value" },
-        { type: "DynamicDiscrete", name: "language", params: "language.name", key: true },
-        { type: "Text", name: "translation" },
+        { type: ProductTableFileColumnType.PrimaryKey, name: "builtin@id" },
+        { type: ProductTableFileColumnType.Number, name: "sort_no" },
+        { type: ProductTableFileColumnType.ForeignKey, name: "builtin@parent_id", params: "property.value" },
+        { type: ProductTableFileColumnType.DynamicDiscrete, name: "language", params: "language.name", key: true },
+        { type: ProductTableFileColumnType.Text, name: "translation" },
       ],
       blobType
     ),
@@ -48,12 +49,12 @@ export async function createModuleType(
     fields: buildTableRowTypeFields(
       // Fall back on hardcoded schema to fake translations from the text table.
       tableByName["property.translation"]?.columns ?? [
-        { type: "PrimaryKey", name: "builtin@id" },
-        { type: "Number", name: "sort_no" },
-        { type: "ForeignKey", name: "builtin@parent_id", params: "property" },
-        { type: "DynamicDiscrete", name: "language", params: "language.name", key: true },
-        { type: "FixedDiscrete", name: "type", params: "standard,long" },
-        { type: "Text", name: "translation" },
+        { type: ProductTableFileColumnType.PrimaryKey, name: "builtin@id" },
+        { type: ProductTableFileColumnType.Number, name: "sort_no" },
+        { type: ProductTableFileColumnType.ForeignKey, name: "builtin@parent_id", params: "property" },
+        { type: ProductTableFileColumnType.DynamicDiscrete, name: "language", params: "language.name", key: true },
+        { type: ProductTableFileColumnType.FixedDiscrete, name: "type", params: "standard,long" },
+        { type: ProductTableFileColumnType.Text, name: "translation" },
       ],
       blobType
     ),
