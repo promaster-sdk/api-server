@@ -4,6 +4,8 @@ allowBuilds:
   protobufjs: true
 overrides:
   graphql: "15.5.0"
+  # pnpm 12 fails to resolve this transitive npm: alias on re-resolve (404 on @types/ioredis4)
+  "@opentelemetry/instrumentation-ioredis>@types/ioredis4": "npm:@types/ioredis@4.28.10"
 peerDependencyRules:
   allowedVersions:
     # vitest only uses the otel api for opt-in tracing; the server's otel 1.9.x/0.35.x packages need api <1.5
