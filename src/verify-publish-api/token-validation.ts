@@ -10,9 +10,9 @@ const validateTokenWithCallback =
   (encodedToken: string, cb: (err: jwt.VerifyErrors | Error | undefined, decodedToken: DecodedToken | undefined) => void): void => {
     const jwksClient = JwksRsa({ jwksUri: jwksUri, cache: true });
     jwksClient.getSigningKey(jwksKid, (getKeyErr, key) => {
-      if (getKeyErr) {
+      if (getKeyErr || !key) {
         console.warn(`Could not get signing key '${jwksKid}' from '${jwksUri}'. The error was: ${getKeyErr}.`);
-        cb(getKeyErr, undefined);
+        cb(getKeyErr ?? new Error(`No signing key '${jwksKid}' found at '${jwksUri}'.`), undefined);
       } else {
         jwt.verify(encodedToken, key.getPublicKey(), { clockTolerance: 900 }, (verifyErr, decoded) => {
           cb(verifyErr || undefined, decoded as DecodedToken);

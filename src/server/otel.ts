@@ -3,20 +3,20 @@ import api, { DiagConsoleLogger } from "@opentelemetry/api";
 // SDK
 import * as opentelemetry from "@opentelemetry/sdk-node";
 // Exporter
-import { OTLPTraceExporter } from "@opentelemetry/exporter-otlp-grpc";
+import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-grpc";
 // Resources
-import { Resource } from "@opentelemetry/resources";
+import { resourceFromAttributes } from "@opentelemetry/resources";
 import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
 // Instrumentations
 import { getNodeAutoInstrumentations } from "@opentelemetry/auto-instrumentations-node";
 
-import { getEnv } from "@opentelemetry/core";
+import { diagLogLevelFromString, getStringFromEnv } from "@opentelemetry/core";
 
 export async function initOtel(): Promise<void> {
   // https://github.com/open-telemetry/opentelemetry-js/discussions/2633
   // https://github.com/open-telemetry/opentelemetry-js-api/issues/102
   // Logger for otel diagnose (if the issue above is solved this is not needed)
-  api.diag.setLogger(new DiagConsoleLogger(), getEnv().OTEL_LOG_LEVEL);
+  api.diag.setLogger(new DiagConsoleLogger(), diagLogLevelFromString(getStringFromEnv("OTEL_LOG_LEVEL")));
 
   // Create otel collector exporter
   const collectorOptions = {
@@ -28,7 +28,7 @@ export async function initOtel(): Promise<void> {
   // configure the SDK to export telemetry data to otel collector
   // enable only select intrumentations
   const sdk = new opentelemetry.NodeSDK({
-    resource: new Resource({
+    resource: resourceFromAttributes({
       [SemanticResourceAttributes.SERVICE_NAME]: "promaster-api",
     }),
     traceExporter: exporter,
@@ -37,8 +37,8 @@ export async function initOtel(): Promise<void> {
 
   // initialize the SDK and register with the OpenTelemetry API
   // this enables the API to record telemetry
-  const startPromise = sdk
-    .start()
+  const startPromise = Promise.resolve()
+    .then(() => sdk.start())
     .then(() => console.info("otel", "Tracing initialized"))
     .catch((error: unknown) => console.error("otel", `Error initializing tracing: ${error}`));
 

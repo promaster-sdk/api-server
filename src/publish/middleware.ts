@@ -2,7 +2,7 @@ import Koa from "koa";
 import compose from "koa-compose";
 import send from "koa-send";
 import Router from "@koa/router";
-import multer from "koa-multer";
+import multer from "@koa/multer";
 import path from "path";
 import fs from "fs";
 import mkdirp from "mkdirp";
@@ -92,7 +92,7 @@ export function createPublishApiMiddleware(
   // router.post("/(:database_id)?", upload.array("file"), async (ctx) => {
   router.post(/^\/([0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12})?/, upload.array("file"), async (ctx) => {
     // tslint:disable-next-line:no-any
-    const files = (ctx.req as any).files as Array<Express.Multer.File>;
+    const files = ctx.request.files as Array<Express.Multer.File>;
     const databaseId = getDatabaseId(ctx, true);
     const filesPaths = getFilesDir(databaseId);
     // tslint:disable-next-line:no-any

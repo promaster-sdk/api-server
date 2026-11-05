@@ -1,5 +1,8 @@
 import path from "path";
 import convict from "convict";
+import convictFormatWithValidator from "convict-format-with-validator";
+
+convict.addFormats(convictFormatWithValidator);
 
 export interface Config {
   readonly ip: string;
