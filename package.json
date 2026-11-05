@@ -55,7 +55,7 @@
     "prom-client": "11.x",
     "prometheus-api-metrics": "^3.1.0",
     "source-map-support": "^0.5.3",
-    "uuid": "^11.1.1"
+    "uuid": "^14.0.3"
   },
   "devDependencies": {
     "@types/amqplib": "^0.10.1",
@@ -75,20 +75,19 @@
     "@types/multer": "^2.3.0",
     "@types/node": "^26.6.6",
     "dotenv": "^7.0.0",
-    "lint-staged": "^8.1.5",
-    "oxfmt": "^0.70.0",
-    "oxlint": "^1.85.0",
-    "oxlint-config-divid": "^1.5.0",
-    "oxlint-tsgolint": "^7.0.2002",
+    "lint-staged": "^17.6.0",
+    "oxfmt": "^0.76.0",
+    "oxlint": "^1.91.0",
+    "oxlint-config-divid": "^1.5.7",
+    "oxlint-tsgolint": "^7.0.2005",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
-    "vitest": "^5.0.1"
+    "vitest": "^5.1.0"
   },
   "lint-staged": {
     "*.{ts,tsx}": "oxlint --type-aware -c oxlint.config.mjs",
     "*.{ts,tsx,js,mjs,json,css,md}": [
-      "oxfmt --ignore-path=.gitignore --write",
-      "git add"
+      "oxfmt --ignore-path=.gitignore --write"
     ]
   },
   "engines": {

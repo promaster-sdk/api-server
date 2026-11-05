@@ -2,8 +2,12 @@ allowBuilds:
   core-js: false
   esbuild: true
   protobufjs: true
+minimumReleaseAgeExclude:
+  - oxlint-config-divid@1.5.7
 overrides:
   graphql: "15.5.0"
+  # gaxios <7.2 depends on rimraf 5 -> vulnerable glob/minimatch (GHSA-3g3m-2fjr-6pw4, GHSA-g3hv-75wg-m249)
+  "gcp-metadata>gaxios": "^7.3.1"
   # pnpm 12 fails to resolve this transitive npm: alias on re-resolve (404 on @types/ioredis4)
   "@opentelemetry/instrumentation-ioredis>@types/ioredis4": "npm:@types/ioredis@4.28.10"
 peerDependencyRules:
