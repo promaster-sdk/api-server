@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased](https://github.com/promaster-sdk/api-server/compare/v4.0.0...master)
 
+- Fix: the npm package published with `pnpm publish` (4.0.1, 4.0.2) only contained `lib/index.js`. The package now uses `"files": ["lib"]` instead of `.npmignore`.
+
 ## [4.0.0](https://github.com/promaster-sdk/api-server/compare/v3.9.1...v4.0.0)
 
 - BREAKING: The package is now ESM (`"type": "module"`). CommonJS consumers can still `require()` it on Node versions with `require(esm)` support.
